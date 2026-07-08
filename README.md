@@ -1,4 +1,4 @@
-# Sustainable Catalyst Workbench v0.7.0
+# Sustainable Catalyst Workbench v0.7.1
 
 A compact AI-enabled research and analytics workbench for modeling, calculating, visualizing, and interpreting complex systems across science, sustainability, engineering, architecture, psychology, economics, governance, and meaning.
 
@@ -46,11 +46,11 @@ For the public site, deploy the backend to a real HTTPS endpoint such as `https:
 All calculators are educational and analytical support tools. They are not substitutes for licensed engineering, architectural, legal, medical, psychological, financial, or safety-critical professional judgment.
 
 
-## v0.7.0 Pattern Cluster
+## v0.7.1 Pattern Cluster
 
 Adds Pattern, Geometry, Design, Music, and AI tools: music frequency and chord/scale analysis, color contrast and palette harmony, vector geometry, embedding similarity, PCA, Fourier analysis, classification metrics, and multimodal pattern comparison.
 
 
-## v0.7.0 Expansion
+## v0.7.1 Expansion
 
 Adds serious global-impact and public-systems tools: environmental monitoring QA/QC, global impact assessment, climate scenarios, earth hazards, marine/ocean health, astronomy, materials science, public-health analytics, international law issue mapping, legal-traditions comparison, and metaphysics frameworks.

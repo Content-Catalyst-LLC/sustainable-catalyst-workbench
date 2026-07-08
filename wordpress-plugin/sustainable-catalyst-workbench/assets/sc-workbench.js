@@ -18,7 +18,7 @@
   }
   function initWorkbench(el){
     const topic = el.dataset.topic || 'research-library';
-    let tools = [];
+    let tools = Array.isArray(SCWorkbench.localTools) ? SCWorkbench.localTools : [];
     el.querySelectorAll('[data-scwb-tab]').forEach(btn=>btn.addEventListener('click',()=>{
       el.querySelectorAll('[data-scwb-tab]').forEach(b=>b.classList.remove('is-active')); btn.classList.add('is-active');
       el.querySelectorAll('[data-scwb-panel]').forEach(p=>p.classList.toggle('is-active', p.dataset.scwbPanel===btn.dataset.scwbTab));
@@ -26,9 +26,22 @@
     const askForm = el.querySelector('[data-scwb-ask-form]');
     askForm && askForm.addEventListener('submit', e=>{ e.preventDefault(); const out=el.querySelector('[data-scwb-ask-output]'); out.hidden=false; out.innerHTML='<p class="scwb-muted">Thinking…</p>'; const fd=new FormData(askForm); api('/ask',{method:'POST',body:JSON.stringify({question:fd.get('question'), topic, mode:fd.get('mode')||'guided'})}).then(d=>out.innerHTML=renderResult(d)).catch(err=>out.innerHTML='<div class="scwb-error">'+esc(err.message)+'</div>'); });
     const select = el.querySelector('[data-scwb-tool-select]');
-    api('/tools').then(data=>{ tools=(data.tools||[]); if(select){ select.innerHTML=tools.map(t=>`<option value="${esc(t.id)}">${esc(t.title)}</option>`).join(''); } renderModels(el, tools); }).catch(()=>{ if(select) select.innerHTML='<option value="">Backend offline</option>'; });
+    function populateTools(data){
+      const incoming = data && Array.isArray(data.tools) ? data.tools : [];
+      tools = incoming.length ? incoming : tools;
+      if(select){
+        select.innerHTML = tools.length ? tools.map(t=>`<option value="${esc(t.id)}">${esc(t.title)}</option>`).join('') : '<option value="">No calculators available</option>';
+      }
+      const shell = el.querySelector('[data-scwb-tool-shell]');
+      if(shell && data && data.backend_online === false){
+        shell.innerHTML = `<div class="scwb-notice"><strong>Backend offline.</strong> ${esc(data.notice || SCWorkbench.backendRequiredHelp || 'Start the backend to run calculations.')}</div>`;
+      }
+      renderModels(el, tools);
+    }
+    populateTools({tools: tools, backend_online: false, notice: SCWorkbench.backendRequiredHelp});
+    api('/tools').then(populateTools).catch(()=>populateTools({tools: tools, backend_online:false, notice:SCWorkbench.backendRequiredHelp}));
     const open = el.querySelector('[data-scwb-open-tool]');
-    open && open.addEventListener('click',()=>{ const id=select.value; const spec=tools.find(t=>t.id===id); const shell=el.querySelector('[data-scwb-tool-shell]'); if(!spec||!shell) return; shell.innerHTML=`<form class="scwb-tool-form"><h3>${esc(spec.title)}</h3><p>${esc(spec.description)}</p>${(spec.inputs||[]).map(fieldHtml).join('')}<button class="scwb-button" type="submit">Run Calculator</button><div class="scwb-output" data-tool-output></div></form>`; shell.querySelector('form').addEventListener('submit', ev=>{ ev.preventDefault(); const fd=new FormData(ev.currentTarget); const inputs={}; for(const [k,v] of fd.entries()) inputs[k]=v; const out=shell.querySelector('[data-tool-output]'); out.innerHTML='<p class="scwb-muted">Running backend analytics…</p>'; api('/run',{method:'POST',body:JSON.stringify({tool_id:id, inputs, mode:(el.querySelector('[data-scwb-tool-mode]')||{}).value||'guided', topic})}).then(d=>out.innerHTML=renderResult(d)).catch(err=>out.innerHTML='<div class="scwb-error">'+esc(err.message)+'</div>'); }); });
+    open && open.addEventListener('click',()=>{ const id=select && select.value; const spec=tools.find(t=>t.id===id); const shell=el.querySelector('[data-scwb-tool-shell]'); if(!shell) return; if(!spec){ shell.innerHTML='<div class="scwb-error">No calculator is selected. Reload the page or check that the Workbench plugin assets are active.</div>'; return; } shell.innerHTML=`<form class="scwb-tool-form"><h3>${esc(spec.title)}</h3><p>${esc(spec.description)}</p>${(spec.inputs||[]).map(fieldHtml).join('')}<button class="scwb-button" type="submit">Run Calculator</button><div class="scwb-output" data-tool-output></div></form>`; shell.querySelector('form').addEventListener('submit', ev=>{ ev.preventDefault(); const fd=new FormData(ev.currentTarget); const inputs={}; for(const [k,v] of fd.entries()) inputs[k]=v; const out=shell.querySelector('[data-tool-output]'); out.innerHTML='<p class="scwb-muted">Running backend analytics…</p>'; api('/run',{method:'POST',body:JSON.stringify({tool_id:id, inputs, mode:(el.querySelector('[data-scwb-tool-mode]')||{}).value||'guided', topic})}).then(d=>out.innerHTML=renderResult(d)).catch(err=>out.innerHTML='<div class="scwb-error">'+esc(err.message)+'</div>'); }); });
   }
   function renderModels(el, tools){ const box=el.querySelector('[data-scwb-models]'); if(!box) return; const groups={}; tools.forEach(t=>{ (groups[t.domain]||(groups[t.domain]=[])).push(t); }); box.innerHTML=Object.entries(groups).map(([domain,items])=>`<section><h3>${esc(domain)}</h3><ul>${items.map(t=>`<li><strong>${esc(t.title)}</strong><span>${esc(t.family)} · ${esc(t.engine)}</span></li>`).join('')}</ul></section>`).join(''); }
   document.addEventListener('DOMContentLoaded',()=>document.querySelectorAll('[data-scwb]').forEach(initWorkbench));

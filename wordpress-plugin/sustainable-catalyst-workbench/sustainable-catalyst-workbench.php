@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Sustainable Catalyst Workbench
  * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, and SVG visual analytics.
- * Version: 0.7.0
+ * Version: 0.7.1
  * Author: Content Catalyst LLC
  * License: MIT
  * Text Domain: sustainable-catalyst-workbench
@@ -11,7 +11,7 @@
 if (!defined('ABSPATH')) { exit; }
 
 final class SC_Workbench_Plugin {
-    const VERSION = '0.7.0';
+    const VERSION = '0.7.1';
     const OPTION_BACKEND_URL = 'sc_workbench_backend_url';
     const OPTION_BACKEND_KEY = 'sc_workbench_backend_key';
     const OPTION_PROVIDER_KEY = 'sc_workbench_provider_key_encrypted';
@@ -49,6 +49,8 @@ final class SC_Workbench_Plugin {
             'restUrl' => esc_url_raw(rest_url('sc-workbench/v1')),
             'nonce' => wp_create_nonce('wp_rest'),
             'theme' => get_option(self::OPTION_THEME, 'institutional'),
+            'localTools' => $this->local_tools(),
+            'backendRequiredHelp' => 'Calculators are listed locally. Advanced computation and graph generation require the FastAPI backend to be running and reachable.',
         ]);
     }
 
@@ -167,21 +169,51 @@ final class SC_Workbench_Plugin {
         $query = [];
         foreach (['domain','topic','limit'] as $key) { if ($request->get_param($key)) { $query[$key] = sanitize_text_field($request->get_param($key)); } }
         $res = $this->backend_get('/tools' . ($query ? '?' . http_build_query($query) : ''));
-        if (is_wp_error($res)) { return new WP_REST_Response(['ok'=>false, 'error'=>$res->get_error_message(), 'tools'=>[]], 200); }
+        if (is_wp_error($res) || !is_array($res) || empty($res['tools'])) {
+            return new WP_REST_Response([
+                'ok' => true,
+                'source' => 'wordpress-local-registry',
+                'backend_online' => false,
+                'backend_error' => is_wp_error($res) ? $res->get_error_message() : 'Backend returned no tools.',
+                'tools' => $this->filter_local_tools($this->local_tools(), $query),
+                'notice' => 'Showing built-in calculator registry. Start the FastAPI backend to run Python/R/Julia/Haskell analytics and graphs.'
+            ], 200);
+        }
+        $res['backend_online'] = true;
         return new WP_REST_Response($res, 200);
     }
 
     public function rest_tool(WP_REST_Request $request) {
         $tool_id = sanitize_key($request['tool_id']);
         $res = $this->backend_get('/tools/' . rawurlencode($tool_id));
-        if (is_wp_error($res)) { return new WP_REST_Response(['ok'=>false, 'error'=>$res->get_error_message()], 200); }
+        if (is_wp_error($res)) {
+            $tool = $this->local_tool($tool_id);
+            if ($tool) { return new WP_REST_Response(['ok'=>true, 'source'=>'wordpress-local-registry', 'backend_online'=>false, 'tool'=>$tool], 200); }
+            return new WP_REST_Response(['ok'=>false, 'error'=>$res->get_error_message()], 200);
+        }
         return new WP_REST_Response($res, 200);
     }
 
     public function rest_run(WP_REST_Request $request) {
         $payload = $request->get_json_params();
-        $res = $this->backend_post('/tools/run', is_array($payload) ? $payload : []);
-        if (is_wp_error($res)) { return new WP_REST_Response(['ok'=>false, 'error'=>$res->get_error_message()], 200); }
+        $payload = is_array($payload) ? $payload : [];
+        $res = $this->backend_post('/tools/run', $payload);
+        if (is_wp_error($res)) {
+            $tool_id = isset($payload['tool_id']) ? sanitize_key($payload['tool_id']) : '';
+            $tool = $this->local_tool($tool_id);
+            return new WP_REST_Response([
+                'ok'=>false,
+                'tool'=> $tool ? $tool['title'] : $tool_id,
+                'summary'=>'The calculator interface is loaded, but the advanced analytics backend is not reachable from WordPress.',
+                'error'=>$res->get_error_message(),
+                'values'=>[
+                    'backend_status'=>'offline_or_unreachable',
+                    'required_action'=>'Start/deploy the FastAPI backend and confirm the Backend URL in SC Workbench settings.'
+                ],
+                'warnings'=>['This tool requires the Python/FastAPI backend for computation and graph generation.'],
+                'disclaimer'=>'Educational support only. Advanced calculators run on the backend, not in browser JavaScript.'
+            ], 200);
+        }
         return new WP_REST_Response($res, 200);
     }
 
@@ -198,7 +230,9 @@ final class SC_Workbench_Plugin {
 
     public function rest_models(WP_REST_Request $request) {
         $res = $this->backend_get('/models/registry');
-        if (is_wp_error($res)) { return new WP_REST_Response(['ok'=>false, 'error'=>$res->get_error_message(), 'tools'=>[]], 200); }
+        if (is_wp_error($res)) {
+            return new WP_REST_Response(['ok'=>true, 'source'=>'wordpress-local-registry', 'backend_online'=>false, 'tools'=>$this->local_tools()], 200);
+        }
         return new WP_REST_Response($res, 200);
     }
 
@@ -248,6 +282,39 @@ final class SC_Workbench_Plugin {
         if ($json === null) { return new WP_Error('scwb_bad_json', 'Backend returned non-JSON response: ' . substr($body, 0, 200)); }
         if ($code >= 400) { return new WP_Error('scwb_backend_error', isset($json['detail']) ? wp_json_encode($json['detail']) : 'Backend error ' . $code); }
         return $json;
+    }
+
+    
+    private function local_tools() {
+        static $tools = null;
+        if ($tools !== null) { return $tools; }
+        $file = plugin_dir_path(__FILE__) . 'includes/local-tools.php';
+        $tools = file_exists($file) ? include $file : [];
+        return is_array($tools) ? $tools : [];
+    }
+
+    private function local_tool($tool_id) {
+        foreach ($this->local_tools() as $tool) {
+            if (isset($tool['id']) && $tool['id'] === $tool_id) { return $tool; }
+        }
+        return null;
+    }
+
+    private function filter_local_tools($tools, $query) {
+        if (!empty($query['domain'])) {
+            $domain = strtolower((string)$query['domain']);
+            $tools = array_values(array_filter($tools, function($tool) use ($domain) {
+                return strpos(strtolower(($tool['domain'] ?? '') . ' ' . ($tool['topic'] ?? '') . ' ' . ($tool['description'] ?? '')), $domain) !== false;
+            }));
+        }
+        if (!empty($query['topic'])) {
+            $topic = strtolower(str_replace('-', ' ', (string)$query['topic']));
+            $tools = array_values(array_filter($tools, function($tool) use ($topic) {
+                return strpos(strtolower(($tool['domain'] ?? '') . ' ' . ($tool['topic'] ?? '') . ' ' . ($tool['family'] ?? '') . ' ' . ($tool['description'] ?? '')), $topic) !== false;
+            }));
+        }
+        if (!empty($query['limit'])) { $tools = array_slice($tools, 0, max(1, intval($query['limit']))); }
+        return $tools;
     }
 
     public function register_admin_menu() {
