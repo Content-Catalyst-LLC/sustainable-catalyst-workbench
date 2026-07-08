@@ -1,45 +1,56 @@
-# Sustainable Catalyst Workbench v0.4.2
+# Sustainable Catalyst Workbench v0.7.0
 
-A compact, backend-first analytical Workbench for Sustainable Catalyst.
+A compact AI-enabled research and analytics workbench for modeling, calculating, visualizing, and interpreting complex systems across science, sustainability, engineering, architecture, psychology, economics, governance, and meaning.
 
-Version 0.4.2 corrects the Research Library integration approach:
+This release is backend-first: WordPress provides the compact interface, while FastAPI/Python performs the analytical work and returns structured results plus SVG graphs. R, Julia, Haskell, and C++ extension bridges are included for deeper statistical, simulation, formal logic, and performance workflows.
 
-- The Research Library remains compact, elegant, and pathway-centered.
-- The Workbench appears as one small question-and-tool interface, not a giant map.
-- Calculators run through a real Python/FastAPI analytics backend.
-- R, Julia, Haskell, and C++ are supported as optional specialist bridges.
-- Detailed SVG graphs are generated server-side and returned to WordPress.
-- AI is scope-gated to the Sustainable Catalyst knowledge map and can use either a backend `.env` key or an optional encrypted WordPress-managed provider key for testing.
+## Packages
 
-## Quick local backend start
+- `wordpress-plugin/sustainable-catalyst-workbench/` — WordPress plugin.
+- `backend/` — FastAPI analytics and AI backend.
+- `extensions/` — optional R, Julia, Haskell, and C++ companion examples.
+- `research-library/` — compact Research Library insertion block.
+- `scripts/` — setup, run, and GitHub publishing scripts.
+
+## Core shortcode
+
+```text
+[sc_workbench topic="research-library" title="Ask the Sustainable Catalyst Workbench"]
+```
+
+## Local backend
 
 ```bash
 cd backend
 python3.12 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env
 python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8088
 ```
 
-## WordPress shortcodes
+Then set WordPress:
 
 ```text
-[sc_workbench]
-[sc_workbench_compact]
-[sc_workbench topic="research-library"]
-[sc_workbench_pathways]
+SC Workbench → Settings
+Backend URL: http://127.0.0.1:8088
+Enable AI: enabled
+Scope gate: enabled
 ```
 
-## Recommended Research Library integration
+## Production note
 
-Use only the compact section in `research-library/research-library-compact-workbench-section.html`. Do not paste a full topic map into the Research Library page.
+For the public site, deploy the backend to a real HTTPS endpoint such as `https://api.sustainablecatalyst.com`. Localhost only works on the same machine/server.
 
-## Security note
+## Safety
 
-Best practice is to store provider keys on the backend in `.env`. Version 0.4.2 also supports a WordPress-managed provider key because the site owner requested it. The plugin encrypts the key before storage using WordPress salts when OpenSSL is available, but backend `.env` is still the preferred production approach.
+All calculators are educational and analytical support tools. They are not substitutes for licensed engineering, architectural, legal, medical, psychological, financial, or safety-critical professional judgment.
 
 
-### v0.4.2 Visual Analytics
+## v0.7.0 Pattern Cluster
 
-The compact Workbench now includes a dedicated **Visualize** tab alongside Ask, Calculators, and Pathways. Visualizations are rendered by the Python analytics backend as SVG output and returned to WordPress. The included Visual Analytics Studio supports bar, line, scatter, histogram, and box-plot views with summary diagnostics.
+Adds Pattern, Geometry, Design, Music, and AI tools: music frequency and chord/scale analysis, color contrast and palette harmony, vector geometry, embedding similarity, PCA, Fourier analysis, classification metrics, and multimodal pattern comparison.
+
+
+## v0.7.0 Expansion
+
+Adds serious global-impact and public-systems tools: environmental monitoring QA/QC, global impact assessment, climate scenarios, earth hazards, marine/ocean health, astronomy, materials science, public-health analytics, international law issue mapping, legal-traditions comparison, and metaphysics frameworks.

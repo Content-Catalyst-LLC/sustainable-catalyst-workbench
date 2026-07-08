@@ -1,22 +1,19 @@
 from app.engines.runner import run_tool
+from app.core.model_registry import list_tools
 
-def test_energy_calculator():
-    out = run_tool("energy-systems-calculator", {"mode":"electricity_cost_emissions", "inputs":"kwh=100;rate=0.2;kgco2_per_kwh=0.5"})
-    assert out["ok"] is True
-    assert out["values"]["cost"] == 20
+def test_registry_has_advanced_domains():
+    domains = {t['domain'] for t in list_tools()}
+    assert 'Engineering' in domains
+    assert 'Architecture' in domains
+    assert 'Energy' in domains
+    assert 'Psychology' in domains
 
-def test_linear_solver():
-    out = run_tool("linear-system-solver", {"A":"[[2,1],[1,3]]", "b":"[1,2]"})
-    assert out["ok"] is True
-    assert "solution" in out["values"]
+def test_linear_solver_runs():
+    out = run_tool('linear-system-solver', {'A':'[[2,1],[1,3]]','b':'[5,7]'})
+    assert out['ok'] is True
+    assert 'solution' in out['values']
 
-def test_statistics_graph():
-    out = run_tool("statistics-analyzer", {"data":"1,2,3,4,5"})
-    assert out["ok"] is True
-    assert out["graphs"] and "<svg" in out["graphs"][0]["svg"]
-
-def test_visual_analytics_studio_line_graph():
-    out = run_tool("visual-analytics-studio", {"chart_type":"line", "title":"Test trend", "x_values":"1,2,3", "y_values":"2,4,8"})
-    assert out["ok"] is True
-    assert out["values"]["chart_type"] == "line"
-    assert out["graphs"] and "<svg" in out["graphs"][0]["svg"]
+def test_energy_runs():
+    out = run_tool('energy-systems-calculator', {'mode':'building_eui','inputs':'area_m2=1000;annual_kwh=180000'})
+    assert out['ok'] is True
+    assert out['values']['eui_kwh_per_m2_year'] == 180

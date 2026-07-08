@@ -1,33 +1,52 @@
-# Tool Coverage v0.4.2
+# Tool Coverage
 
-Built-in backend calculators and analytics:
+v0.7.0 includes:
 
-- Ask the Workbench
 - Linear System Solver
 - Calculus Function Analyzer
 - Statistics Analyzer
 - Regression Analyzer
 - Probability Distribution Calculator
 - Differential Equation Simulator
+- Decision Analysis Tool
 - Economics Calculator
 - Energy Systems Calculator
 - Psychology Scale Analyzer
 - Scientific Calculator
+- Engineering Calculator
+- Architecture & Building Calculator
 - Sustainability & Resilience Scorecard
 - AI Governance Audit
 - Haskell Rule Checker
 - Qualitative Interpretation Matrix
 
-The goal is not to display hundreds of fake tools. The goal is to provide compact tools that actually run and can grow into deeper domain-specific engines.
+Each tool has guided, analyst, and expert modes in the registry. Future versions can deepen each individual calculator.
 
-## v0.4.2 Visual Analytics
 
-v0.4.2 adds a dedicated **Visualize** mode to the compact WordPress Workbench interface. The new Visual Analytics Studio renders backend-generated SVG charts through Python/matplotlib and supports:
+## Pattern, Geometry, Design, Music, and AI
 
-- bar charts
-- line charts
-- scatter plots with optional fitted line diagnostics
-- histograms with summary statistics
-- box plots
+- Music Frequency Calculator
+- Chord and Scale Identifier
+- Color Contrast and Luminance Calculator
+- Color Harmony Generator
+- Vector Geometry Calculator
+- Embedding Similarity Tool
+- PCA / Dimensionality Reduction Explorer
+- Fourier / Frequency Analysis Tool
+- AI Classification Metrics Calculator
+- Multimodal Pattern Comparison Tool
 
-The visualizations are not JavaScript-only charts. WordPress collects the inputs and displays the SVG. The Python analytics backend parses data, computes summary diagnostics, renders the chart, and returns the SVG output to the page.
+
+## v0.7.0 Public Systems and Global Impact Tools
+
+- Environmental Monitoring QA/QC Tool
+- Global Impact Assessment Matrix
+- Climate Change Scenario Tool
+- Earth Science Hazard Analyzer
+- Marine Biology and Ocean Health Tool
+- Astronomy Calculator
+- Materials Science Calculator
+- Health and Medical/Public Health Analytics Tool
+- International Law Issue Mapper
+- Legal Traditions Comparator
+- Metaphysics Framework Tool

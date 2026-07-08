@@ -1,17 +1,24 @@
-import os
-from dataclasses import dataclass
-from dotenv import load_dotenv
+from functools import lru_cache
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
-load_dotenv()
+class Settings(BaseSettings):
+    environment: str = "development"
+    backend_key: str = ""
+    ai_provider: str = "disabled"
+    openai_api_key: str = ""
+    openai_model: str = "gpt-4.1-mini"
+    max_output_tokens: int = 1000
+    temperature: float = 0.2
+    allow_wordpress_provider_key: bool = True
+    scope_gate: bool = True
+    cors_origins: str = "http://localhost:8888,http://127.0.0.1:8888,https://sustainablecatalyst.com"
 
-@dataclass(frozen=True)
-class Settings:
-    ai_provider: str = os.getenv("SC_WORKBENCH_AI_PROVIDER", "disabled").strip().lower()
-    openai_api_key: str = os.getenv("OPENAI_API_KEY", "").strip()
-    openai_model: str = os.getenv("SC_WORKBENCH_OPENAI_MODEL", "gpt-4.1-mini").strip()
-    max_output_tokens: int = int(os.getenv("SC_WORKBENCH_MAX_OUTPUT_TOKENS", "900"))
-    temperature: float = float(os.getenv("SC_WORKBENCH_TEMPERATURE", "0.2"))
-    backend_key: str = os.getenv("SC_WORKBENCH_BACKEND_KEY", "").strip()
-    allow_wordpress_provider_key: bool = os.getenv("SC_WORKBENCH_ALLOW_WORDPRESS_PROVIDER_KEY", "true").strip().lower() in {"1", "true", "yes"}
+    model_config = SettingsConfigDict(env_prefix="SC_WORKBENCH_", env_file=".env", extra="ignore")
 
-settings = Settings()
+    @property
+    def origins(self) -> list[str]:
+        return [x.strip() for x in self.cors_origins.split(",") if x.strip()]
+
+@lru_cache
+def get_settings() -> Settings:
+    return Settings()

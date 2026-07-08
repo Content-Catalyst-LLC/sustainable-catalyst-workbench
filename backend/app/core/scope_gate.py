@@ -1,38 +1,49 @@
 from __future__ import annotations
+import re
 
-TOPIC_TERMS = {
-    "governance", "law", "legal", "international", "institution", "policy", "geopolitics", "organization",
-    "sustainability", "sustainable", "climate", "planetary", "resilience", "risk", "energy", "emissions", "ecology",
-    "technology", "ai", "artificial intelligence", "data", "algorithm", "embedded", "infrastructure", "monitoring",
-    "science", "physics", "biology", "chemistry", "materials", "earth", "astronomy", "environmental",
-    "anthropology", "culture", "ritual", "symbolism", "kinship", "modernity", "place",
-    "literature", "poetry", "memory", "shakespeare", "dante", "myth", "folklore", "legend",
-    "religion", "religious", "sacred", "mysticism", "contemplative", "healing", "medicine", "herbalism",
-    "psychology", "cognitive", "social", "developmental", "personality", "behavior", "organizational", "moral",
-    "philosophy", "ethics", "metaphysics", "ontology", "causation", "freedom", "justice",
-    "thinking", "systems thinking", "mathematical", "computation", "futures", "knowledge architecture",
-    "meaning", "aesthetic", "beauty", "music", "design", "story", "narrative",
-    "problem", "decision", "strategy", "model", "calculus", "linear algebra", "probability", "statistics", "differential", "simulation", "arduino", "raspberry pi",
-    "calculator", "calculate", "graph", "analyze", "analysis", "modeling", "workbench", "research library"
+ALLOWED_TOPICS = {
+    "research", "library", "sustainable", "sustainability", "systems", "system", "governance", "law", "legal",
+    "technology", "artificial intelligence", "ai", "data", "analytics", "science", "physics", "biology", "chemistry",
+    "materials", "earth", "astronomy", "environmental", "psychology", "cognitive", "social", "developmental",
+    "personality", "positive", "grit", "behavior", "behaviour", "behavioral", "organization", "institutional",
+    "moral", "philosophy", "ethics", "meaning", "story", "myth", "religion", "anthropology", "literature",
+    "culture", "decision", "strategy", "model", "modeling", "modelling", "calculus", "linear algebra", "probability",
+    "statistics", "differential", "economics", "energy", "engineering", "architecture", "building", "bim", "resilience",
+    "risk", "climate", "carbon", "emissions", "optimization", "simulation", "network", "graph", "algorithm",
+    "pattern", "geometry", "vector", "music", "chord", "scale", "frequency", "color", "palette", "contrast", "design", "aesthetics", "embedding", "multimodal", "fourier", "pca",
 }
 
-OUT_OF_SCOPE_HINTS = {"celebrity", "sports scores", "dating", "shopping", "recipe", "movie gossip", "lottery"}
+OUT_OF_SCOPE_HINTS = {
+    "celebrity gossip", "sports betting", "dating advice", "recipe", "gaming cheats", "make money fast",
+}
 
+DOMAIN_TAGS = {
+    "science": ["physics", "biology", "chemistry", "materials", "earth", "astronomy", "environmental"],
+    "psychology": ["psychology", "cognitive", "social", "developmental", "personality", "positive", "grit", "behavioral"],
+    "engineering_architecture": ["engineering", "architecture", "building", "bim", "energy", "materials", "structural"],
+    "economics_energy": ["economics", "elasticity", "npv", "energy", "emissions", "cost", "demand", "supply"],
+    "governance_meaning": ["governance", "law", "ethics", "meaning", "myth", "religion", "culture", "philosophy"],
+    "math_decision": ["calculus", "linear algebra", "probability", "statistics", "decision", "optimization", "modeling"],
+    "pattern_design_ai": ["pattern", "geometry", "vector", "music", "color", "palette", "design", "embedding", "fourier", "pca", "multimodal"],
+}
 
-def is_in_scope(question: str, topic: str | None = None) -> tuple[bool, str]:
-    text = f"{question or ''} {topic or ''}".lower()
-    if not text.strip():
-        return True, "empty question allowed for tool discovery"
-    if any(h in text for h in OUT_OF_SCOPE_HINTS) and not any(t in text for t in TOPIC_TERMS):
-        return False, "outside Sustainable Catalyst topic map"
-    if any(term in text for term in TOPIC_TERMS):
-        return True, "matched Sustainable Catalyst topic map"
-    # permissive for compact tool: invite bridge framing rather than hard fail
-    return False, "no Sustainable Catalyst topic match"
+def normalize(text: str) -> str:
+    return re.sub(r"\s+", " ", (text or "").strip().lower())
 
+def classify_scope(text: str, topic: str | None = None) -> dict:
+    blob = normalize(" ".join([topic or "", text or ""]))
+    if not blob:
+        return {"in_scope": True, "score": 0.2, "matched": ["research-library"], "domains": ["research-library"]}
+    blocked = [h for h in OUT_OF_SCOPE_HINTS if h in blob]
+    matches = sorted({t for t in ALLOWED_TOPICS if t in blob})
+    domains = [d for d, keys in DOMAIN_TAGS.items() if any(k in blob for k in keys)]
+    score = min(1.0, 0.15 + 0.09 * len(matches) + 0.15 * len(domains))
+    in_scope = bool(matches or domains) and not blocked
+    # Research Library assistant should allow broad exploratory questions when a topic is provided.
+    if topic and normalize(topic) in {"research-library", "sustainable-catalyst", "workbench"} and not blocked:
+        in_scope = True
+        score = max(score, 0.55)
+    return {"in_scope": in_scope, "score": round(score, 3), "matched": matches[:15], "domains": domains or ["research-library"], "blocked": blocked}
 
-def redirect_message() -> str:
-    return (
-        "That question appears outside the Sustainable Catalyst knowledge map. "
-        "I can help if you connect it to sustainability, governance, systems thinking, science, technology, psychology, philosophy, meaning, problem solving, modeling, analytics, or the Research Library."
-    )
+def out_of_scope_message() -> str:
+    return "That question is outside the Sustainable Catalyst knowledge map. I can help if you connect it to sustainability, systems thinking, science, engineering, architecture, psychology, economics, governance, meaning, music, color, geometry, design, AI representation, modeling, or decision-making."

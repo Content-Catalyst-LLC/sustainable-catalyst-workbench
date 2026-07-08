@@ -1,33 +1,21 @@
 from __future__ import annotations
-from .tool_registry import TOOLS
+from .model_registry import search_tools, list_tools
 
 PATHWAYS = [
-    {"id":"systems-thinking","title":"Systems Reasoning","description":"Feedback, resilience, interdependence, thresholds, adaptation, and complexity.","url":"/systems-thinking/"},
-    {"id":"mathematical-thinking","title":"Scientific and Mathematical Reasoning","description":"Symbols, variables, models, uncertainty, computation, and interpretation.","url":"/mathematical-thinking/"},
-    {"id":"algorithms-computational-reasoning","title":"Computational and Algorithmic Reasoning","description":"Formal procedure, data structures, complexity, search, optimization, simulation, automation, and AI governance.","url":"/algorithms-computational-reasoning/"},
-    {"id":"sustainable-development","title":"Sustainable Human Futures","description":"Development, ecological limits, stewardship, resilience, energy systems, governance, and long-term wellbeing.","url":"/sustainable-development/"},
-    {"id":"artificial-intelligence-systems","title":"Technology and Systems Intelligence","description":"AI, data systems, monitoring, infrastructure, automation, and public accountability.","url":"/artificial-intelligence-systems/"},
-    {"id":"decision-science","title":"Decision and Strategy","description":"Decision quality, uncertainty, tradeoffs, risk, thresholds, and action.","url":"/decision-science/"},
-    {"id":"meaning","title":"Meaning and Interpretation","description":"Symbol, story, beauty, myth, ritual, philosophy, religion, cultural memory, and human meaning-making.","url":"/beauty-aesthetics-and-meaning/"},
-    {"id":"psychology","title":"Psychology and Behavior","description":"Cognition, social behavior, development, personality, organizations, behavior change, and moral psychology.","url":"/cognitive-psychology/"},
+    {"title":"Systems Reasoning", "url":"/systems-thinking/", "summary":"Feedback, resilience, thresholds, interdependence, and long-term change."},
+    {"title":"Scientific and Mathematical Reasoning", "url":"/mathematical-thinking/", "summary":"Symbols, models, probability, statistics, calculus, and interpretation."},
+    {"title":"Computational and Algorithmic Reasoning", "url":"/algorithms-computational-reasoning/", "summary":"Formal procedure, data structures, search, optimization, automation, and AI governance."},
+    {"title":"Sustainable Human Futures", "url":"/sustainable-development/", "summary":"Development, ecological limits, risk, resilience, energy systems, and governance."},
+    {"title":"Engineering and Built Environment", "url":"/energy-systems/", "summary":"Energy, infrastructure, buildings, materials, engineering models, and architecture."},
+    {"title":"Psychology and Decision-Making", "url":"/psychology/", "summary":"Cognition, behavior, grit, decision science, motivation, and group life."},
+    {"title":"Governance, Ethics, and Meaning", "url":"/global-governance/", "summary":"Institutions, law, ethics, philosophy, symbolic interpretation, and public responsibility."},
+    {"title":"Pattern, Geometry, Design, Music, and AI", "url":"/beauty-aesthetics-and-meaning/", "summary":"Music theory, color systems, vector geometry, mathematical pattern, embeddings, multimodal analysis, and design interpretation."},
 ]
 
-
-def retrieve(question: str, topic: str = ""):
-    q = f"{question or ''} {topic or ''}".lower()
-    scored_tools=[]
-    for t in TOOLS:
-        hay=(t["id"]+" "+t["title"]+" "+t["domain"]+" "+t.get("description","")).lower()
-        score=sum(1 for token in q.split() if len(token)>3 and token in hay)
-        if score or t.get("featured"):
-            scored_tools.append((score + (1 if t.get("featured") else 0), t))
-    scored_tools=sorted(scored_tools, key=lambda x:x[0], reverse=True)
-    matched_paths=[]
-    for p in PATHWAYS:
-        hay=(p["id"]+" "+p["title"]+" "+p["description"]).lower()
-        score=sum(1 for token in q.split() if len(token)>3 and token in hay)
-        if score:
-            matched_paths.append(p)
-    if not matched_paths:
-        matched_paths=PATHWAYS[:4]
-    return {"tools":[t for _,t in scored_tools[:6]], "pathways":matched_paths[:5]}
+def retrieve_context(question: str, topic: str = 'research-library') -> dict:
+    tools = search_tools(' '.join([question or '', topic or '']), limit=6)
+    q = (question or '').lower()
+    pathways = [p for p in PATHWAYS if any(token in (p['title'] + ' ' + p['summary']).lower() for token in q.split())]
+    if not pathways:
+        pathways = PATHWAYS[:4]
+    return {"tools": tools, "pathways": pathways, "notes": ["Retrieval is currently based on the Workbench model registry and curated pathway map.", "A vector index over published articles can be added as the next production step."]}

@@ -1,24 +1,18 @@
 # Backend Architecture
 
-WordPress is the compact interface. The backend is the analytics engine.
+WordPress is the interface. FastAPI is the analytics and AI backend.
+
+Flow:
 
 ```text
-WordPress shortcode/UI
-  -> WordPress REST proxy
-  -> FastAPI backend
-  -> Python analytics engines
-  -> optional R / Julia / Haskell / C++ bridges
-  -> SVG graphs + structured results
+WordPress shortcode
+→ WordPress REST proxy
+→ FastAPI backend
+→ model registry
+→ calculator engine
+→ Python/R/Julia/Haskell/C++ bridge as needed
+→ structured result + SVG graph
+→ WordPress display
 ```
 
-The first-class backend is Python because it provides the broadest ecosystem for scientific computing, statistics, graphs, AI routing, and data analysis.
-
-Specialist language roles:
-
-- Python: orchestration, analytics, graphing, AI routing.
-- R: psychometrics, statistics, social-science methods.
-- Julia: scientific simulation, differential equations, optimization.
-- Haskell: formal rule validation, typed logic, scope constraints.
-- C++: future high-performance kernels.
-
-Version 0.4.1 includes Python implementations and bridge folders for R, Julia, Haskell, and C++.
+Python is the primary execution layer. R, Julia, Haskell, and C++ are extension bridges.
