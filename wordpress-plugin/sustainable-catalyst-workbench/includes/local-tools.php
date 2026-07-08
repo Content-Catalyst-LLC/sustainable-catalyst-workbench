@@ -3659,5 +3659,1009 @@ return [
             'expert'
         ],
         'safety_level' => 'professional_review_required'
+    ],
+    // v0.9.8 equation-derived feature tools built from the Feature Builder CSV.
+    [
+        'id' => 'article-equation-tool-router',
+        'title' => 'Article Equation-to-Tool Router',
+        'domain' => 'Workbench infrastructure',
+        'topic' => 'calculator/backlog',
+        'family' => 'article_router',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Map each article’s equations to the most relevant calculator modules and hide irrelevant tools.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'post_slug=sample-article;equation=S_{t+1}=S_t+I_t-O_t;suggested_domain=Systems Modeling;context=stock flow recurrence and system dynamics', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'equation-registry-cleaner',
+        'title' => 'Equation Registry Cleaner and Feature Builder',
+        'domain' => 'Workbench infrastructure',
+        'topic' => 'calculator/backlog',
+        'family' => 'registry_cleaner',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Clean, deduplicate, classify, and export equations from WordPress for future tools.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'equations=S_{t+1}=S_t+I_t-O_t; x_{t+1}=x_t(1+r); \\)</td> <td>bad fragment</td>; A; R=P(H)\\times C(H)', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'economics-systems-policy-calculator',
+        'title' => 'Economics, Welfare, and Policy Systems Calculator',
+        'domain' => 'Economics',
+        'topic' => 'calculator/backlog',
+        'family' => 'economics_policy',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Model prosperity beyond GDP, welfare tradeoffs, inequality, institutional quality, and ecological cost.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'output=0.8;health=0.78;education=0.74;institutions=0.66;ecology=0.52;inequality=0.35;weights=0.25,0.2,0.18,0.17,0.2', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'weighted-composite-index-builder',
+        'title' => 'Weighted Composite Index Builder',
+        'domain' => 'Decision science / indicators',
+        'topic' => 'calculator/module',
+        'family' => 'weighted_index',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Build indices for prosperity, resilience, policy coherence, content completeness, governance capacity, and risk.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'health=0.82;education=0.76;institutions=0.68;ecology=0.55;resilience=0.72;weights=0.25,0.2,0.2,0.2,0.15', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'electrical-rf-power-design-tool',
+        'title' => 'Electrical, RF, and Power Design Tool',
+        'domain' => 'Electrical / RF / power',
+        'topic' => 'calculator/module',
+        'family' => 'rf_link',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Support circuits, impedance, filters, RF, antenna, link budgets, and power systems.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'frequency_hz=915e6;distance_km=1;tx_power_dbm=20;tx_gain_dbi=2;rx_gain_dbi=2;losses_db=2', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'weighted-index-builder',
+        'title' => 'Weighted Index and Composite Score Builder',
+        'domain' => 'Decision science / indicators',
+        'topic' => 'calculator/backlog',
+        'family' => 'weighted_index',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Build composite indicators from weighted components for prosperity, resilience, policy coherence, and governance.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'health=0.82;education=0.76;institutions=0.68;ecology=0.55;resilience=0.72;weights=0.25,0.2,0.2,0.2,0.15', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'predictive-forecasting-suite',
+        'title' => 'Predictive Analytics Forecasting Suite',
+        'domain' => 'Predictive analytics',
+        'topic' => 'calculator/backlog',
+        'family' => 'forecasting',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Forecast trends, compare scenarios, inspect model fit, and evaluate uncertainty.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'series=120,128,133,140,145,151,160,171,178,190,203,215;horizon=6;mode=linear_trend', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'environmental-monitoring-threshold-tool',
+        'title' => 'Environmental Monitoring Threshold and QA/QC Tool',
+        'domain' => 'Environmental monitoring',
+        'topic' => 'calculator/backlog',
+        'family' => 'environmental_qaqc',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Evaluate sensor series, thresholds, exceedances, outliers, missing data, and monitoring quality.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'series=7.1,7.4,8.0,12.5,7.9,7.6,7.5,,7.3,13.0;threshold=10;lower_limit=6;upper_limit=10', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'recurrence-dynamics-calculator',
+        'title' => 'Discrete-Time Recurrence and Feedback Calculator',
+        'domain' => 'Systems modeling',
+        'topic' => 'calculator/backlog',
+        'family' => 'recurrence',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Simulate discrete-time updates, feedback response, compounding growth, and constrained dynamics.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'x0=10;rate=0.08;inflow=1;outflow=0.2;steps=24;capacity=100', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'ode-phase-stability-tool',
+        'title' => 'ODE, Phase Plane, and Stability Analyzer',
+        'domain' => 'Differential equations',
+        'topic' => 'calculator/backlog',
+        'family' => 'ode',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Solve and visualize ordinary differential equations, equilibria, and stability behavior.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'model=logistic;x0=10;rate=0.25;carrying_capacity=100;time=30;dt=0.1', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'risk-impact-resilience-calculator',
+        'title' => 'Risk, Impact, and Resilience Matrix Calculator',
+        'domain' => 'Risk / resilience',
+        'topic' => 'calculator/backlog',
+        'family' => 'risk_matrix',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Compute risk from probability, consequence, exposure, vulnerability, resilience, and uncertainty.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'probability=0.25;consequence=80;exposure=0.7;vulnerability=0.6;adaptive_capacity=0.4', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'stock-flow-systems-simulator',
+        'title' => 'Stock-Flow and Accumulation Simulator',
+        'domain' => 'Systems modeling',
+        'topic' => 'calculator/backlog',
+        'family' => 'stock_flow',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Model stocks, inflows, outflows, depletion, replenishment, leakage, and carrying capacity.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'initial=100;inflows=12,14,13,15,16,15;outflows=8,9,10,11,10,12;steps=6', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'graphable-function-explorer',
+        'title' => 'Graphable Function and Symbolic Relationship Explorer',
+        'domain' => 'Mathematical modeling',
+        'topic' => 'calculator/backlog',
+        'family' => 'ode',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Plot and explain symbolic functions from article equations when variables are defined.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'model=logistic;x0=10;rate=0.25;carrying_capacity=100;time=30;dt=0.1', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'planetary-boundaries-pressure-index',
+        'title' => 'Planetary Boundaries and Anthropocene Pressure Index',
+        'domain' => 'Sustainability / Earth systems',
+        'topic' => 'calculator/backlog',
+        'family' => 'weighted_index',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Estimate cumulative Earth-system pressure across climate, biosphere, freshwater, land, nutrients, and pollution.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'health=0.82;education=0.76;institutions=0.68;ecology=0.55;resilience=0.72;weights=0.25,0.2,0.2,0.2,0.15', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'time-series-diagnostics-toolkit',
+        'title' => 'Time-Series Diagnostics and Change Detection Tool',
+        'domain' => 'Predictive analytics',
+        'topic' => 'calculator/backlog',
+        'family' => 'forecasting',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Check trend, autocorrelation, seasonality, structural breaks, lag effects, and forecast readiness.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'series=120,128,133,140,145,151,160,171,178,190,203,215;horizon=6;mode=linear_trend', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'limits-to-growth-system-dynamics',
+        'title' => 'Limits to Growth Scenario Simulator',
+        'domain' => 'Systems dynamics',
+        'topic' => 'calculator/backlog',
+        'family' => 'limits_growth',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Simulate population, resources, pollution, capital, food, and feedback delays under scenarios.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'population=1.0;capital=1.0;resources=1.0;pollution=0.05;birth_rate=0.025;death_rate=0.01;investment_rate=0.04;depletion_rate=0.015;pollution_rate=0.02;years=80', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'climate-energy-balance-tool',
+        'title' => 'Climate Forcing and Energy Balance Calculator',
+        'domain' => 'Climate / energy',
+        'topic' => 'calculator/backlog',
+        'family' => 'climate_balance',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Analyze simplified radiative forcing, warming response, emissions trajectories, and energy-balance assumptions.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'co2_ppm=425;baseline_co2_ppm=280;climate_sensitivity_c=3.0;forcing_other=0.4', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'population-ecology-growth-tool',
+        'title' => 'Population, Ecology, and Logistic Growth Tool',
+        'domain' => 'Biology / ecology',
+        'topic' => 'calculator/backlog',
+        'family' => 'population_ecology',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Model exponential/logistic growth, carrying capacity, population pressure, and ecological limits.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'initial=100;rate=0.22;carrying_capacity=1000;time=40;harvest_rate=0.02', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'predictive-model-diagnostics-suite',
+        'title' => 'Predictive Model Diagnostics Suite',
+        'domain' => 'Predictive analytics',
+        'topic' => 'calculator/module',
+        'family' => 'forecasting',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Support forecasting, regression, residuals, uncertainty, validation, and model interpretation.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'series=120,128,133,140,145,151,160,171,178,190,203,215;horizon=6;mode=linear_trend', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'content-framework-coverage-scorer',
+        'title' => 'Content Framework Coverage and Evidence Scorer',
+        'domain' => 'Content frameworks',
+        'topic' => 'calculator/module',
+        'family' => 'weighted_index',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Turn content-framework equations into article quality, completeness, support, and balance tools.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'health=0.82;education=0.76;institutions=0.68;ecology=0.55;resilience=0.72;weights=0.25,0.2,0.2,0.2,0.15', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'chemistry-lab-equilibrium-calculator',
+        'title' => 'Chemistry Lab, Equilibrium, and Solution Calculator',
+        'domain' => 'Chemistry / lab science',
+        'topic' => 'calculator/module',
+        'family' => 'chemistry_lab',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Support chemistry articles with solutions, equilibrium, thermodynamics, and lab prep calculations.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'mode=molarity;moles=0.5;volume_l=1.0;acid_m=0.01;ka=1.8e-5;initial_a=1.0;initial_b=1.0;k_eq=4.0', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'relativity-cosmology-calculator',
+        'title' => 'Relativity and Cosmology Calculator',
+        'domain' => 'Astrophysics / cosmology',
+        'topic' => 'calculator/module',
+        'family' => 'relativity_cosmology',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Support spacetime, curvature, cosmology, expansion, and large-scale structure articles.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'mass_kg=5.972e24;radius_m=6371000;redshift=0.1;h0_km_s_mpc=70;distance_mpc=100', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'recurrence-feedback-simulator',
+        'title' => 'Discrete Recurrence and Feedback Simulator',
+        'domain' => 'Systems dynamics',
+        'topic' => 'calculator/module',
+        'family' => 'recurrence',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Analyze feedback, lag, state-transition, and scenario behavior in discrete time.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'x0=10;rate=0.08;inflow=1;outflow=0.2;steps=24;capacity=100', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'chemistry-equilibrium-acid-base-tool',
+        'title' => 'Chemistry Equilibrium and Acid-Base Calculator',
+        'domain' => 'Chemistry',
+        'topic' => 'calculator/backlog',
+        'family' => 'chemistry_lab',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Solve weak acid/base equilibrium, pH, buffers, titration, and reaction balance examples.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'mode=molarity;moles=0.5;volume_l=1.0;acid_m=0.01;ka=1.8e-5;initial_a=1.0;initial_b=1.0;k_eq=4.0', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'physics-field-theory-workbench',
+        'title' => 'Physics Field Theory and Lagrangian Workbench',
+        'domain' => 'Advanced physics',
+        'topic' => 'calculator/module',
+        'family' => 'advanced_physics',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Support advanced physics articles with Lagrangian, Hamiltonian, field, and variational reasoning.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'mass_mev_c2=0.511;momentum_mev_c=1.0;half_life_s=3600;time_s=7200;lagrangian_terms=kinetic_minus_potential', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'optimization-constraint-solver',
+        'title' => 'Optimization and Constraint Solver',
+        'domain' => 'Optimization',
+        'topic' => 'calculator/module',
+        'family' => 'optimization',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Evaluate constrained tradeoffs, feasible sets, and objective-function choices.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'objective=3,2;constraints=1,1,10;2,1,14;0,1,8;maximize=true', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'optimization-constraint-tool',
+        'title' => 'Optimization and Constraint Calculator',
+        'domain' => 'Optimization',
+        'topic' => 'calculator/backlog',
+        'family' => 'optimization',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Solve constrained decision problems, tradeoffs, feasible sets, and objective functions.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'objective=3,2;constraints=1,1,10;2,1,14;0,1,8;maximize=true', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'linear-algebra-model-diagnostics',
+        'title' => 'Linear Algebra Model Diagnostics',
+        'domain' => 'Linear algebra',
+        'topic' => 'calculator/backlog',
+        'family' => 'forecasting',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Solve systems and inspect rank, conditioning, eigenstructure, SVD, and model identifiability.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'series=120,128,133,140,145,151,160,171,178,190,203,215;horizon=6;mode=linear_trend', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'causal-inference-effect-tool',
+        'title' => 'Causal Effect and Counterfactual Calculator',
+        'domain' => 'Causal inference',
+        'topic' => 'calculator/backlog',
+        'family' => 'causal',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Estimate and explain treatment effects, counterfactuals, confounding, and matched comparisons.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'treated=12,14,16,18,19;control=10,11,13,13,14', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'algorithmic-complexity-calculator',
+        'title' => 'Algorithmic Complexity and Scaling Calculator',
+        'domain' => 'Algorithms',
+        'topic' => 'calculator/backlog',
+        'family' => 'complexity',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Compare computational growth rates, runtime scaling, throughput, latency budgets, and bottlenecks.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'n=10,100,1000,10000;model=nlogn;unit_cost=1', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'bayesian-evidence-updater',
+        'title' => 'Bayesian Evidence and Belief Update Calculator',
+        'domain' => 'Probability / inference',
+        'topic' => 'calculator/backlog',
+        'family' => 'bayesian',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Turn prior, likelihood, and evidence into posterior reasoning and uncertainty updates.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'prior=0.1;sensitivity=0.9;specificity=0.95;positive=true', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'network-cascade-graph-tool',
+        'title' => 'Network Dependency and Cascade Risk Tool',
+        'domain' => 'Graph systems',
+        'topic' => 'calculator/backlog',
+        'family' => 'risk_matrix',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Analyze dependency networks, cascades, centrality, bottlenecks, and failure propagation.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'probability=0.25;consequence=80;exposure=0.7;vulnerability=0.6;adaptive_capacity=0.4', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'policy-coherence-tradeoff-tool',
+        'title' => 'Policy Coherence, Synergy, and Tradeoff Calculator',
+        'domain' => 'Governance / policy',
+        'topic' => 'calculator/backlog',
+        'family' => 'policy_coherence',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Measure policy contradiction, synergy, spillover risk, monitoring quality, and coordination capacity.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'sector_progress=0.72;synergy=0.22;tradeoff=0.18;spillover=0.12;coordination=0.65;monitoring=0.58', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'eigen-stability-calculator',
+        'title' => 'Eigenvalue Stability and State Transition Calculator',
+        'domain' => 'Linear systems',
+        'topic' => 'calculator/backlog',
+        'family' => 'linear_algebra',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Analyze whether matrix-driven systems converge, oscillate, diverge, or decouple.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'matrix=[[0.8,0.1],[0.2,0.7]];vector=[1,0]', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'mechanics-energy-momentum-tool',
+        'title' => 'Physics Mechanics, Energy, and Momentum Calculator',
+        'domain' => 'Physics',
+        'topic' => 'calculator/backlog',
+        'family' => 'physics_mechanics',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Compute forces, work, energy, momentum, torque, rotation, and idealized mechanical systems.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'mass=2;velocity=12;height=5;force=10;distance=3;angle_deg=0', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'psychology-scale-reliability-tool',
+        'title' => 'Psychology Scale and Construct Reliability Tool',
+        'domain' => 'Psychology / behavioral science',
+        'topic' => 'calculator/backlog',
+        'family' => 'psychometrics',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Compute scale scores, Cronbach-style reliability, factor/construct checks, and group comparisons.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'items=4,5,4,3,5;4,4,5,3,4;5,5,4,4,5;3,4,3,3,4', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'quantum-nuclear-particle-physics-tool',
+        'title' => 'Quantum, Nuclear, and Particle Physics Education Calculator',
+        'domain' => 'Advanced physics',
+        'topic' => 'calculator/backlog',
+        'family' => 'advanced_physics',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Support safe educational calculations for wave functions, uncertainty, decay, event rates, and particle units.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'mass_mev_c2=0.511;momentum_mev_c=1.0;half_life_s=3600;time_s=7200;lagrangian_terms=kinetic_minus_potential', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'content-framework-completeness-tool',
+        'title' => 'Content Framework Completeness and Evidence Support Calculator',
+        'domain' => 'Content frameworks',
+        'topic' => 'calculator/backlog',
+        'family' => 'content_profile',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Score explanatory completeness, evidence support, balance, audience path, and governance needs.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'purpose=4;evidence=3;structure=4;audience=4;ethics=5;measurement=3', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'rf-antenna-link-budget-tool',
+        'title' => 'RF, Antenna, and Link Budget Calculator',
+        'domain' => 'RF / communications',
+        'topic' => 'calculator/backlog',
+        'family' => 'rf_link',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Compute wavelength, link budget, free-space path loss, antenna gain, impedance, and noise margin.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'frequency_hz=915e6;distance_km=1;tx_power_dbm=20;tx_gain_dbi=2;rx_gain_dbi=2;losses_db=2', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'risk-resilience-impact-matrix',
+        'title' => 'Risk, Resilience, and Impact Matrix',
+        'domain' => 'Risk / resilience',
+        'topic' => 'calculator/module',
+        'family' => 'risk_matrix',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Build risk, exposure, vulnerability, consequence, and resilience scorecards.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'probability=0.25;consequence=80;exposure=0.7;vulnerability=0.6;adaptive_capacity=0.4', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'materials-stress-strain-tool',
+        'title' => 'Materials, Stress-Strain, and Failure Screening Tool',
+        'domain' => 'Materials / mechanical engineering',
+        'topic' => 'calculator/backlog',
+        'family' => 'materials',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Estimate stress, strain, elastic response, safety factor, fatigue screening, and material comparison.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'load_n=10000;area_m2=0.01;length_m=2;delta_length_m=0.001;yield_strength_pa=250e6;youngs_modulus_pa=200e9', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'ode-phase-stability-workbench',
+        'title' => 'ODE, Phase Plane, and Stability Workbench',
+        'domain' => 'Differential equations',
+        'topic' => 'calculator/module',
+        'family' => 'ode',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Convert continuous dynamics equations into trajectories, equilibria, and stability interpretation.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'model=logistic;x0=10;rate=0.25;carrying_capacity=100;time=30;dt=0.1', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'quantum-particle-physics-calculator',
+        'title' => 'Quantum and Particle Physics Calculator',
+        'domain' => 'Advanced physics',
+        'topic' => 'calculator/module',
+        'family' => 'advanced_physics',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Support quantum mechanics, particle physics, scattering, decay, measurement, and uncertainty examples.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'mass_mev_c2=0.511;momentum_mev_c=1.0;half_life_s=3600;time_s=7200;lagrangian_terms=kinetic_minus_potential', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'network-cascade-dependency-tool',
+        'title' => 'Network Dependency and Cascade Tool',
+        'domain' => 'Graph systems',
+        'topic' => 'calculator/module',
+        'family' => 'network',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Map dependency graphs, cascade risks, centrality, and network resilience.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'edges=A,B;B,C;C,D;A,D;D,E;E,B;shock_node=A;attenuation=0.5', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'biology-ecology-growth-tool',
+        'title' => 'Biology, Ecology, and Growth Modeling Tool',
+        'domain' => 'Biology / ecology',
+        'topic' => 'calculator/module',
+        'family' => 'ode',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Support biological, ecological, evolutionary, and population-dynamics articles.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'model=logistic;x0=10;rate=0.25;carrying_capacity=100;time=30;dt=0.1', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'economics-policy-systems-suite',
+        'title' => 'Economics and Policy Systems Suite',
+        'domain' => 'Economics / policy',
+        'topic' => 'calculator/module',
+        'family' => 'economics_policy',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Support economics, welfare, policy coherence, development, beyond-GDP, and tradeoff modeling.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'output=0.8;health=0.78;education=0.74;institutions=0.66;ecology=0.52;inequality=0.35;weights=0.25,0.2,0.18,0.17,0.2', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'signal-fourier-spectral-analysis',
+        'title' => 'Signal, Fourier, and Spectral Analysis Tool',
+        'domain' => 'Scientific computing',
+        'topic' => 'calculator/module',
+        'family' => 'profile',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Analyze spectral, Fourier, oscillatory, and signal-processing equations across science and engineering.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'clarity=4;evidence=3;assumptions=4;uncertainty=3;interpretation=4', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'stock-flow-accumulation-simulator',
+        'title' => 'Stock-Flow and Accumulation Simulator',
+        'domain' => 'Systems modeling',
+        'topic' => 'calculator/module',
+        'family' => 'stock_flow',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Run stock, flow, depletion, exposure, and accumulation models from site equations.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'initial=100;inflows=12,14,13,15,16,15;outflows=8,9,10,11,10,12;steps=6', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'causal-counterfactual-estimator',
+        'title' => 'Causal Effect and Counterfactual Estimator',
+        'domain' => 'Causal inference',
+        'topic' => 'calculator/module',
+        'family' => 'causal',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Analyze potential outcomes, counterfactual logic, treatment/control comparisons, and causal claims.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'treated=12,14,16,18,19;control=10,11,13,13,14', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'climate-environmental-systems-index',
+        'title' => 'Climate and Environmental Systems Index',
+        'domain' => 'Climate / environment',
+        'topic' => 'calculator/module',
+        'family' => 'weighted_index',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Support environmental monitoring, climate, planetary boundaries, and global-impact index building.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'health=0.82;education=0.76;institutions=0.68;ecology=0.55;resilience=0.72;weights=0.25,0.2,0.2,0.2,0.15', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'story-narrative-meaning-matrix',
+        'title' => 'Story, Narrative, Symbolism, and Meaning Matrix',
+        'domain' => 'Storytelling / meaning',
+        'topic' => 'calculator/backlog',
+        'family' => 'meaning_matrix',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Turn narrative, symbolism, mythic structure, and meaning-centered interpretation into structured analysis.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'narrative_structure=4;symbolic_depth=5;ritual_resonance=3;memory=4;ethical_meaning=4;interpretive_openness=5', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'clinical-research-epidemiology-tool',
+        'title' => 'Clinical Research and Epidemiology Calculator',
+        'domain' => 'Health / medicine',
+        'topic' => 'calculator/backlog',
+        'family' => 'clinical_epi',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Compute diagnostic metrics, risk ratios, odds ratios, NNT/NNH, trial summaries, and public-health rates.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'a=40;b=60;c=20;d=80;true_positive=90;false_positive=10;false_negative=15;true_negative=85', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'power-grid-energy-systems-tool',
+        'title' => 'Power Systems and Grid Reliability Calculator',
+        'domain' => 'Power systems',
+        'topic' => 'calculator/backlog',
+        'family' => 'physics_mechanics',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Model load, capacity, storage, reliability margins, voltage drop, generation mix, and outage risk.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'mass=2;velocity=12;height=5;force=10;distance=3;angle_deg=0', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'electrical-circuit-tool',
+        'title' => 'Electrical Circuit and Power Calculator',
+        'domain' => 'Electrical engineering',
+        'topic' => 'calculator/backlog',
+        'family' => 'electrical_power',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Analyze DC/AC circuits, Ohm’s law, impedance, filters, RC/RL time constants, and power.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'voltage=12;current=2;resistance=6;capacitance_f=1e-6;frequency_hz=1000;load_mw=120;capacity_mw=160', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'social-behavior-network-tool',
+        'title' => 'Social Influence and Behavioral Systems Tool',
+        'domain' => 'Social psychology',
+        'topic' => 'calculator/backlog',
+        'family' => 'network',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Analyze social norms, influence pathways, group dynamics, adoption, and behavior-change leverage points.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'edges=A,B;B,C;C,D;A,D;D,E;E,B;shock_node=A;attenuation=0.5', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'lab-assay-dose-response-tool',
+        'title' => 'Lab Assay, Dose-Response, and Calibration Tool',
+        'domain' => 'Lab science',
+        'topic' => 'calculator/backlog',
+        'family' => 'lab_assay',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Analyze calibration curves, dilution, dose response, enzyme kinetics, assay quality, and lab reproducibility.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'standards=0,1,2,3,4,5;signals=0.02,0.9,2.1,3.0,4.2,5.1;unknown_signal=2.6', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'rocket-orbital-astrophysics-tool',
+        'title' => 'Rocket, Orbital, and Astrophysics Calculator',
+        'domain' => 'Aerospace / astrophysics',
+        'topic' => 'calculator/backlog',
+        'family' => 'relativity_cosmology',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Handle orbital mechanics, delta-v, escape velocity, Keplerian periods, redshift, and simple astrophysics quantities.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'mass_kg=5.972e24;radius_m=6371000;redshift=0.1;h0_km_s_mpc=70;distance_mpc=100', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'structural-beam-column-tool',
+        'title' => 'Structural Beam, Column, and Load Path Calculator',
+        'domain' => 'Structural engineering',
+        'topic' => 'calculator/backlog',
+        'family' => 'structural',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Analyze simplified beams, columns, loads, shear/moment, deflection, and buckling risk.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'span_m=6;load_n_per_m=5000;point_load_n=10000;section_modulus_m3=0.0005;allowable_stress_pa=160e6', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'csv-equation-feature-miner',
+        'title' => 'CSV Equation Feature Miner',
+        'domain' => 'Developer tooling',
+        'topic' => 'calculator/backlog',
+        'family' => 'csv_feature_miner',
+        'engine' => 'python/numpy + equation-registry feature engine',
+        'description' => 'Read the equation registry CSV and suggest new calculators automatically from equation patterns.',
+        'inputs' => [
+            ['name' => 'inputs', 'label' => 'Inputs / assumptions', 'type' => 'textarea', 'default' => 'min_priority=P0;include_p1=true;feature_limit=20', 'help' => 'Semicolon key=value format. Replace defaults with article-specific data.'],
+            ['name' => 'equation', 'label' => 'Equation or formula context', 'type' => 'textarea', 'default' => '', 'help' => 'Optional LaTeX or equation text from the registry.'],
+            ['name' => 'notes', 'label' => 'Interpretive notes', 'type' => 'textarea', 'default' => '', 'help' => 'Optional context, units, assumptions, article title, or scenario notes.']
+        ],
+        'graph_types' => ['feature_curve', 'bar', 'pdf_report'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'educational'
     ]
 ];

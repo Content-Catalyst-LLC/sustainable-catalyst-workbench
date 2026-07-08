@@ -1,0 +1,16 @@
+# Sustainable Catalyst Workbench v0.9.7
+
+cd ~/Downloads
+unzip sustainable-catalyst-workbench-v0.9.7-repo-safe.zip
+cd sustainable-catalyst-workbench
+
+# Optional local backend test
+chmod +x scripts/setup_backend_mac.sh scripts/run_backend.sh scripts/test_backend.sh
+./scripts/setup_backend_mac.sh
+./scripts/test_backend.sh
+
+# WordPress
+# Install sustainable-catalyst-workbench-plugin-v0.9.7.zip
+# Then open:
+# SC Workbench → Feature Builder → Import Bundled Feature Queue
+# SC Workbench → Feature Builder → Export Feature Queue CSV

@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Workbench
- * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports.
- * Version: 0.9.2
+ * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools.
+ * Version: 0.9.8
  * Author: Content Catalyst LLC
  * License: MIT
  * Text Domain: sustainable-catalyst-workbench
@@ -11,7 +11,7 @@
 if (!defined('ABSPATH')) { exit; }
 
 final class SC_Workbench_Plugin {
-    const VERSION = '0.9.2';
+    const VERSION = '0.9.8';
     const OPTION_BACKEND_URL = 'sc_workbench_backend_url';
     const OPTION_BACKEND_KEY = 'sc_workbench_backend_key';
     const OPTION_AI_PROVIDER = 'sc_workbench_ai_provider';
@@ -38,6 +38,8 @@ final class SC_Workbench_Plugin {
 
     public static function activate() {
         self::create_equation_table();
+        self::create_calculator_backlog_table();
+        self::create_feature_builder_table();
         update_option(self::OPTION_VERSION, self::VERSION);
         add_option(self::OPTION_BACKEND_URL, 'http://127.0.0.1:8088');
         add_option(self::OPTION_AI_PROVIDER, 'backend');
@@ -89,13 +91,14 @@ final class SC_Workbench_Plugin {
             'topic' => get_option(self::OPTION_DEFAULT_TOPIC, 'research-library'),
             'title' => 'Ask the Sustainable Catalyst Workbench',
             'mode' => 'guided',
-            'article' => ''
+            'article' => '',
+            'equations' => 'auto'
         ], $atts, 'sc_workbench');
         $uid = 'scwb-' . wp_generate_uuid4();
         $current_post_id = get_queried_object_id();
         $article_slug = $atts['article'] ? sanitize_title($atts['article']) : ($current_post_id ? get_post_field('post_name', $current_post_id) : '');
         ob_start(); ?>
-        <section id="<?php echo esc_attr($uid); ?>" class="scwb scwb-theme-<?php echo esc_attr(get_option(self::OPTION_THEME, 'institutional')); ?>" data-scwb data-topic="<?php echo esc_attr(sanitize_key($atts['topic'])); ?>" data-mode="<?php echo esc_attr(sanitize_key($atts['mode'])); ?>" data-post-id="<?php echo esc_attr($current_post_id); ?>" data-article-slug="<?php echo esc_attr($article_slug); ?>">
+        <section id="<?php echo esc_attr($uid); ?>" class="scwb scwb-theme-<?php echo esc_attr(get_option(self::OPTION_THEME, 'institutional')); ?>" data-scwb data-topic="<?php echo esc_attr(sanitize_key($atts['topic'])); ?>" data-mode="<?php echo esc_attr(sanitize_key($atts['mode'])); ?>" data-post-id="<?php echo esc_attr($current_post_id); ?>" data-article-slug="<?php echo esc_attr($article_slug); ?>" data-equation-display="<?php echo esc_attr(sanitize_key($atts['equations'])); ?>">
             <div class="scwb-head">
                 <p class="scwb-eyebrow">Sustainable Catalyst Workbench</p>
                 <h2><?php echo esc_html(sanitize_text_field($atts['title'])); ?></h2>
@@ -184,6 +187,8 @@ final class SC_Workbench_Plugin {
         register_rest_route('sc-workbench/v1', '/equations/current', ['methods'=>'GET', 'callback'=>[$this,'rest_current_equations'], 'permission_callback'=>'__return_true']);
         register_rest_route('sc-workbench/v1', '/equations/analyze', ['methods'=>'POST', 'callback'=>[$this,'rest_analyze_equation'], 'permission_callback'=>'__return_true']);
         register_rest_route('sc-workbench/v1', '/equations/scan', ['methods'=>'POST', 'callback'=>[$this,'rest_scan_equations'], 'permission_callback'=>[$this,'admin_permission']]);
+        register_rest_route('sc-workbench/v1', '/calculator-backlog', ['methods'=>'GET', 'callback'=>[$this,'rest_calculator_backlog'], 'permission_callback'=>[$this,'admin_permission']]);
+        register_rest_route('sc-workbench/v1', '/feature-builder', ['methods'=>'GET', 'callback'=>[$this,'rest_feature_builder'], 'permission_callback'=>[$this,'admin_permission']]);
     }
 
     public function admin_permission() { return current_user_can('manage_options'); }
@@ -352,9 +357,17 @@ final class SC_Workbench_Plugin {
         $old_version = get_option(self::OPTION_VERSION, '');
         if ($old_version !== self::VERSION) {
             self::create_equation_table();
-            // v0.9.2 fixes the first equation scanner, which was too permissive and could index HTML table fragments.
-            // The equation table is a generated cache, so it is safe to clear during this upgrade and rebuild from posts.
-            if ($old_version && version_compare($old_version, '0.9.2', '<')) {
+            self::create_calculator_backlog_table();
+            self::create_feature_builder_table();
+            if (!$this->calculator_backlog_count()) {
+                $this->import_calculator_backlog_from_file($this->bundled_calculator_suggestions_csv(), true);
+            }
+            if (!$this->feature_builder_count()) {
+                $this->import_feature_builder_from_file($this->bundled_feature_builder_queue_csv(), true);
+            }
+            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools.
+            // The equation table is a generated cache, so it is safe to clear during scanner upgrades and rebuild from posts.
+            if ($old_version && version_compare($old_version, '0.9.4', '<')) {
                 $this->clear_equation_registry();
             }
             update_option(self::OPTION_VERSION, self::VERSION);
@@ -403,6 +416,37 @@ final class SC_Workbench_Plugin {
         $wpdb->query('TRUNCATE TABLE ' . $table);
     }
 
+    private function prepare_content_for_equation_scan($content, $strip_html=false) {
+        $charset = get_bloginfo('charset') ?: 'UTF-8';
+        $content = (string)$content;
+
+        // IMPORTANT: post_content is already stored in the database as content, not request input.
+        // Do not call wp_unslash() here. wp_unslash()/stripslashes removes the literal LaTeX
+        // backslashes from MathJax delimiters such as \( ... \), turning them into plain
+        // parentheses/brackets and causing the scanner to find zero equations.
+        $content = html_entity_decode($content, ENT_QUOTES | ENT_HTML5, $charset);
+        $content = str_ireplace(['&bsol;', '&#92;', '&#x5c;'], '\\', $content);
+
+        // Some editors/plugins persist MathJax delimiters with doubled slashes. Collapse only delimiter slashes,
+        // not LaTeX line-breaks inside aligned equations.
+        $content = str_replace(['\\(', '\\)', '\\[', '\\]'], ['\(', '\)', '\[', '\]'], $content);
+        $content = str_replace(["\r\n", "\r"], "\n", $content);
+
+        // Remove regions where LaTeX-looking delimiters often appear as literal code or generated output.
+        $content = preg_replace('/<script\b[^>]*>.*?<\/script>/is', ' ', $content);
+        $content = preg_replace('/<style\b[^>]*>.*?<\/style>/is', ' ', $content);
+        $content = preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', ' ', $content);
+        $content = preg_replace('/<code\b[^>]*>.*?<\/code>/is', ' ', $content);
+
+        if ($strip_html) {
+            // Second-pass scanner: strip layout/table markup before delimiter detection so an equation inside
+            // a table cell is read as the equation itself, not as broken HTML fragments.
+            $content = wp_strip_all_tags($content);
+            $content = html_entity_decode($content, ENT_QUOTES | ENT_HTML5, $charset);
+        }
+        return $content;
+    }
+
     private function normalize_equation($raw) {
         $eq = trim((string)$raw);
         $pairs = [
@@ -415,26 +459,25 @@ final class SC_Workbench_Plugin {
             }
         }
         $eq = html_entity_decode($eq, ENT_QUOTES | ENT_HTML5, get_bloginfo('charset') ?: 'UTF-8');
-        return trim(preg_replace('/\s+/', ' ', $eq));
+        $eq = wp_strip_all_tags($eq);
+        $eq = str_replace(["\r\n", "\r", "\n", "\t"], ' ', $eq);
+        $eq = preg_replace('/\s+/', ' ', $eq);
+        return trim($eq);
     }
 
     private function equation_candidate_has_math_signal($eq) {
         $eq = trim((string)$eq);
         if ($eq === '') { return false; }
 
-        // Keep this deliberately as several simple PCRE patterns. v0.9.2 used one large
-        // expression that was too fragile on some PHP/PCRE builds and could fail closed,
-        // producing "0 equations indexed" even when MathJax content existed.
-        $patterns = [
-            '/[=+*\/^_:.-]/',
-            '/\\(?:frac|sum|prod|int|partial|nabla|times|cdot|sim|in|notin|geq|leq|approx|rightarrow|leftarrow|alpha|beta|gamma|delta|epsilon|lambda|mu|nu|theta|sigma|kappa|omega)\b/',
-            '/[A-Za-z]_\{?[A-Za-z0-9]/',
-            '/[A-Za-z]\([0-9A-Za-z]/',
-            '/\bO\([^)]+\)/',
-        ];
-        foreach ($patterns as $pattern) {
-            if (preg_match($pattern, $eq)) { return true; }
+        // v0.9.4 avoids a single fragile PCRE command pattern. These checks are intentionally simple.
+        foreach (['=', '+', '*', '/', '^', '_', '{', '}', '>', '<'] as $signal) {
+            if (strpos($eq, $signal) !== false) { return true; }
         }
+        foreach (['\\frac','\\sum','\\prod','\\int','\\partial','\\nabla','\\times','\\cdot','\\sim','\\in','\\notin','\\geq','\\leq','\\approx','\\rightarrow','\\leftarrow','\\alpha','\\beta','\\gamma','\\delta','\\epsilon','\\lambda','\\mu','\\nu','\\theta','\\sigma','\\kappa','\\omega'] as $cmd) {
+            if (strpos($eq, $cmd) !== false) { return true; }
+        }
+        if (preg_match('/[A-Za-z][A-Za-z0-9]*\s*\([^)]{1,60}\)/', $eq)) { return true; }
+        if (preg_match('/\bO\s*\([^)]{1,60}\)/', $eq)) { return true; }
         return false;
     }
 
@@ -442,14 +485,14 @@ final class SC_Workbench_Plugin {
         $raw = (string)$raw;
         $eq = trim((string)$normalized);
         $len = strlen($eq);
-        if ($len < 3 || $len > 520) { return false; }
+        if ($len < 3 || $len > 700) { return false; }
 
         // Reject broken delimiter captures and HTML/table fragments.
         if (preg_match('/(<\/?[a-z][^>]*>|&lt;\/?[a-z]|&gt;|<|>)/i', $eq)) { return false; }
-        if (preg_match('/(<\/?(td|tr|th|table|tbody|thead|div|p|span|code|strong|em|pre)\b|&lt;\/?(td|tr|th|table|tbody|thead|div|p|span|code|strong|em|pre)\b)/i', $raw)) { return false; }
-        if (preg_match('/^(?:\\\)|\\\])/', $eq)) { return false; }
-        if (preg_match('/(?:\\\(|\\\[)$/', $eq)) { return false; }
-        if (preg_match('/\\\)\s*.*\\\(|\\\]\s*.*\\\[/', $eq)) { return false; }
+        if (preg_match('/(<\/?(td|tr|th|table|tbody|thead|div|p|span|pre)\b|&lt;\/?(td|tr|th|table|tbody|thead|div|p|span|pre)\b)/i', $raw)) { return false; }
+        if (substr($eq, 0, 2) === '\\)' || substr($eq, 0, 2) === '\\]') { return false; }
+        if (substr($eq, -2) === '\\(' || substr($eq, -2) === '\\[') { return false; }
+        if ((strpos($eq, '\\)') !== false && strpos($eq, '\\(') !== false) || (strpos($eq, '\\]') !== false && strpos($eq, '\\[') !== false)) { return false; }
 
         // Reject prose, captions, code exports, and table/cell text accidentally captured between malformed delimiters.
         if (preg_match('/\b(interpretation|represents|exported|summary|article title|suggested domain|graphability|recommended tool|back to top|knowledge layer|computational expression|data logic|what changed|what is building|what procedure|policy coherence|long-horizon|capability expansion)\b/i', $eq)) { return false; }
@@ -457,7 +500,7 @@ final class SC_Workbench_Plugin {
 
         // Single-letter inline variables create noise in a site-wide registry; keep subscripted/superscripted variables and real expressions.
         if ($mode === 'inline' && preg_match('/^[A-Za-z]$/', $eq)) { return false; }
-        if ($mode === 'inline' && $len < 6 && !preg_match('/[_^=+\-*\/]|\\(alpha|beta|gamma|delta|lambda|mu|nu|theta|sigma)/', $eq)) { return false; }
+        if ($mode === 'inline' && $len < 6 && !$this->equation_candidate_has_math_signal($eq)) { return false; }
 
         if (!$this->equation_candidate_has_math_signal($eq)) { return false; }
 
@@ -465,54 +508,83 @@ final class SC_Workbench_Plugin {
         preg_match_all('/\b[A-Za-z]{4,}\b/', $eq, $word_matches);
         $word_count = count($word_matches[0]);
         if ($word_count > 5 && $mode === 'inline') { return false; }
-        if ($word_count > 10 && $mode !== 'inline') { return false; }
+        if ($word_count > 12 && $mode !== 'inline') { return false; }
 
         return true;
     }
 
-    private function extract_equations_from_content($content) {
-        $content = (string)$content;
-
-        // Remove regions where LaTeX-looking delimiters often appear as literal code or generated output.
-        $content = preg_replace('/<script\b[^>]*>.*?<\/script>/is', ' ', $content);
-        $content = preg_replace('/<style\b[^>]*>.*?<\/style>/is', ' ', $content);
-        $content = preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', ' ', $content);
-        $content = preg_replace('/<code\b[^>]*>.*?<\/code>/is', ' ', $content);
-
-        $patterns = [
-            ['pattern' => '/\[latex\]([\s\S]{1,1200}?)\[\/latex\]/i', 'mode' => 'shortcode'],
-            ['pattern' => '/\\\[((?:(?!\\\]).){1,1200})\\\]/s', 'mode' => 'display'],
-            ['pattern' => '/\$\$([\s\S]{1,1200}?)\$\$/s', 'mode' => 'display'],
-            ['pattern' => '/\\\(((?:(?!\\\)).){1,420})\\\)/s', 'mode' => 'inline'],
+    private function add_equation_candidate(&$found, $content, $raw, $mode, $offset) {
+        $normalized = $this->normalize_equation($raw);
+        if (!$this->is_valid_equation_candidate($raw, $normalized, $mode)) { return; }
+        $before_raw = substr($content, max(0, $offset - 650), min(650, $offset));
+        $after_raw = substr($content, $offset + strlen($raw), 650);
+        $found[] = [
+            'raw' => $raw,
+            'inner' => $normalized,
+            'normalized' => $normalized,
+            'display_mode' => $mode,
+            'offset' => $offset,
+            'context_before' => $this->clean_equation_context($before_raw, true),
+            'context_after' => $this->clean_equation_context($after_raw, false),
         ];
-        $found = [];
-        foreach ($patterns as $p) {
-            if (preg_match_all($p['pattern'], $content, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE)) {
-                foreach ($matches as $m) {
-                    $raw = $m[0][0];
-                    $inner = $m[1][0] ?? $raw;
-                    $offset = intval($m[0][1]);
-                    $normalized = $this->normalize_equation($raw);
-                    if (!$this->is_valid_equation_candidate($raw, $normalized, $p['mode'])) { continue; }
-                    $before_raw = substr($content, max(0, $offset - 650), min(650, $offset));
-                    $after_raw = substr($content, $offset + strlen($raw), 650);
-                    $found[] = [
-                        'raw' => $raw,
-                        'inner' => $inner,
-                        'normalized' => $normalized,
-                        'display_mode' => $p['mode'],
-                        'offset' => $offset,
-                        'context_before' => $this->clean_equation_context($before_raw, true),
-                        'context_after' => $this->clean_equation_context($after_raw, false),
-                    ];
-                }
+    }
+
+    private function scan_token_delimited_equations($content, $open, $close, $mode, $max_len, &$found) {
+        $pos = 0;
+        $open_len = strlen($open);
+        $close_len = strlen($close);
+        while (($start = strpos($content, $open, $pos)) !== false) {
+            $inner_start = $start + $open_len;
+            $end = strpos($content, $close, $inner_start);
+            if ($end === false) { break; }
+            $inner_len = $end - $inner_start;
+            $raw_len = $end + $close_len - $start;
+            // If the next close is unreasonably far away, treat the open delimiter as malformed and continue.
+            if ($inner_len > $max_len) {
+                $pos = $inner_start;
+                continue;
+            }
+            $raw = substr($content, $start, $raw_len);
+            $this->add_equation_candidate($found, $content, $raw, $mode, $start);
+            $pos = $end + $close_len;
+        }
+    }
+
+    private function scan_prepared_content_for_equations($content, &$found) {
+        // Token scanner is less brittle than regex on real WordPress HTML.
+        $this->scan_token_delimited_equations($content, '\[', '\]', 'display', 1600, $found);
+        $this->scan_token_delimited_equations($content, '\(', '\)', 'inline', 420, $found);
+        $this->scan_token_delimited_equations($content, '$$', '$$', 'display', 1600, $found);
+
+        // Shortcode form still benefits from regex because delimiters are longer and case-insensitive.
+        if (preg_match_all('/\[latex\]([\s\S]{1,1600}?)\[\/latex\]/i', $content, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE)) {
+            foreach ($matches as $m) {
+                $raw = $m[0][0];
+                $offset = intval($m[0][1]);
+                $this->add_equation_candidate($found, $content, $raw, 'shortcode', $offset);
             }
         }
+    }
+
+    private function extract_equations_from_content($content) {
+        $found = [];
+
+        // First pass: raw post_content after entity/delimiter normalization.
+        $raw_content = $this->prepare_content_for_equation_scan($content, false);
+        $this->scan_prepared_content_for_equations($raw_content, $found);
+
+        // Second pass: HTML-stripped content. This catches equations stored inside tables/cards
+        // while avoiding HTML tag fragments in the indexed equation body.
+        $text_content = $this->prepare_content_for_equation_scan($content, true);
+        if ($text_content !== $raw_content) {
+            $this->scan_prepared_content_for_equations($text_content, $found);
+        }
+
         usort($found, fn($a,$b) => $a['offset'] <=> $b['offset']);
         $seen = [];
         $unique = [];
         foreach ($found as $item) {
-            $key = hash('sha256', $item['display_mode'] . '|' . $item['normalized'] . '|' . $item['offset']);
+            $key = hash('sha256', $item['display_mode'] . '|' . $item['normalized']);
             if (isset($seen[$key])) { continue; }
             $seen[$key] = true;
             $unique[] = $item;
@@ -652,6 +724,8 @@ final class SC_Workbench_Plugin {
     public function register_admin_menu() {
         add_menu_page('Sustainable Catalyst Workbench', 'SC Workbench', 'manage_options', 'sustainable-catalyst-workbench', [$this,'render_settings_page'], 'dashicons-chart-area', 58);
         add_submenu_page('sustainable-catalyst-workbench', 'Equation Registry', 'Equation Registry', 'manage_options', 'sustainable-catalyst-workbench-equations', [$this,'render_equations_page']);
+        add_submenu_page('sustainable-catalyst-workbench', 'Calculator Backlog', 'Calculator Backlog', 'manage_options', 'sustainable-catalyst-workbench-calculator-backlog', [$this,'render_calculator_backlog_page']);
+        add_submenu_page('sustainable-catalyst-workbench', 'Feature Builder', 'Feature Builder', 'manage_options', 'sustainable-catalyst-workbench-feature-builder', [$this,'render_feature_builder_page']);
     }
 
     public function handle_settings_save() {
@@ -667,6 +741,66 @@ final class SC_Workbench_Plugin {
             $this->clear_equation_registry();
             add_settings_error('sc_workbench_messages', 'equations_cleared', 'Equation registry cleared.', 'updated');
             return;
+        }
+        if (isset($_POST['sc_workbench_export_equations_csv'])) {
+            check_admin_referer('sc_workbench_equations');
+            $this->export_equation_registry_csv();
+            exit;
+        }
+        if (isset($_POST['sc_workbench_import_calculator_backlog_seed'])) {
+            check_admin_referer('sc_workbench_calculator_backlog');
+            $result = $this->import_calculator_backlog_from_file($this->bundled_calculator_suggestions_csv(), true);
+            add_settings_error('sc_workbench_messages', 'calculator_backlog_imported', 'Calculator backlog imported: ' . intval($result['imported']) . ' suggestions loaded.', 'updated');
+            return;
+        }
+        if (isset($_POST['sc_workbench_upload_calculator_backlog_csv'])) {
+            check_admin_referer('sc_workbench_calculator_backlog');
+            if (!empty($_FILES['sc_workbench_calculator_backlog_csv']['tmp_name'])) {
+                $result = $this->import_calculator_backlog_from_file($_FILES['sc_workbench_calculator_backlog_csv']['tmp_name'], true);
+                add_settings_error('sc_workbench_messages', 'calculator_backlog_uploaded', 'Calculator backlog uploaded: ' . intval($result['imported']) . ' suggestions loaded.', 'updated');
+            } else {
+                add_settings_error('sc_workbench_messages', 'calculator_backlog_upload_missing', 'No CSV file was uploaded.', 'error');
+            }
+            return;
+        }
+        if (isset($_POST['sc_workbench_clear_calculator_backlog'])) {
+            check_admin_referer('sc_workbench_calculator_backlog');
+            $this->clear_calculator_backlog();
+            add_settings_error('sc_workbench_messages', 'calculator_backlog_cleared', 'Calculator backlog cleared.', 'updated');
+            return;
+        }
+        if (isset($_POST['sc_workbench_export_calculator_backlog_csv'])) {
+            check_admin_referer('sc_workbench_calculator_backlog');
+            $this->export_calculator_backlog_csv();
+            exit;
+        }
+
+        if (isset($_POST['sc_workbench_import_feature_builder_seed'])) {
+            check_admin_referer('sc_workbench_feature_builder');
+            $result = $this->import_feature_builder_from_file($this->bundled_feature_builder_queue_csv(), true);
+            add_settings_error('sc_workbench_messages', 'feature_builder_imported', 'Feature builder queue imported: ' . intval($result['imported']) . ' feature rows loaded.', 'updated');
+            return;
+        }
+        if (isset($_POST['sc_workbench_upload_feature_builder_csv'])) {
+            check_admin_referer('sc_workbench_feature_builder');
+            if (!empty($_FILES['sc_workbench_feature_builder_csv']['tmp_name'])) {
+                $result = $this->import_feature_builder_from_file($_FILES['sc_workbench_feature_builder_csv']['tmp_name'], true);
+                add_settings_error('sc_workbench_messages', 'feature_builder_uploaded', 'Feature builder CSV uploaded: ' . intval($result['imported']) . ' feature rows loaded.', 'updated');
+            } else {
+                add_settings_error('sc_workbench_messages', 'feature_builder_upload_missing', 'No CSV file was uploaded.', 'error');
+            }
+            return;
+        }
+        if (isset($_POST['sc_workbench_clear_feature_builder'])) {
+            check_admin_referer('sc_workbench_feature_builder');
+            $this->clear_feature_builder_queue();
+            add_settings_error('sc_workbench_messages', 'feature_builder_cleared', 'Feature builder queue cleared.', 'updated');
+            return;
+        }
+        if (isset($_POST['sc_workbench_export_feature_builder_csv'])) {
+            check_admin_referer('sc_workbench_feature_builder');
+            $this->export_feature_builder_csv();
+            exit;
         }
         if (!isset($_POST['sc_workbench_save_settings'])) { return; }
         check_admin_referer('sc_workbench_settings');
@@ -691,6 +825,48 @@ final class SC_Workbench_Plugin {
             update_option(self::OPTION_PROVIDER_KEY_SET, '0');
         }
         add_settings_error('sc_workbench_messages', 'saved', 'Workbench settings saved.', 'updated');
+    }
+
+    private function export_equation_registry_csv() {
+        if (!current_user_can('manage_options')) { wp_die('Unauthorized'); }
+        global $wpdb;
+        self::create_equation_table();
+        $table = self::equation_table_name();
+        $rows = $wpdb->get_results("SELECT * FROM {$table} ORDER BY post_title ASC, id ASC", ARRAY_A);
+        $filename = 'sustainable-catalyst-equation-registry-' . gmdate('Ymd-His') . '.csv';
+        nocache_headers();
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename=' . $filename);
+        $out = fopen('php://output', 'w');
+        fputcsv($out, [
+            'id', 'post_id', 'post_title', 'post_slug', 'post_type', 'permalink',
+            'display_mode', 'equation_normalized', 'equation_raw', 'suggested_domain',
+            'suggested_tools', 'context_before', 'context_after', 'equation_hash',
+            'created_at', 'updated_at'
+        ]);
+        foreach ($rows as $row) {
+            $tools = json_decode($row['suggested_tools'] ?: '[]', true);
+            if (!is_array($tools)) { $tools = []; }
+            fputcsv($out, [
+                $row['id'] ?? '',
+                $row['post_id'] ?? '',
+                $row['post_title'] ?? '',
+                $row['post_slug'] ?? '',
+                $row['post_type'] ?? '',
+                !empty($row['post_id']) ? get_permalink(intval($row['post_id'])) : '',
+                $row['display_mode'] ?? '',
+                $row['equation_normalized'] ?? '',
+                $row['equation_raw'] ?? '',
+                $row['suggested_domain'] ?? '',
+                implode('|', $tools),
+                $row['context_before'] ?? '',
+                $row['context_after'] ?? '',
+                $row['equation_hash'] ?? '',
+                $row['created_at'] ?? '',
+                $row['updated_at'] ?? '',
+            ]);
+        }
+        fclose($out);
     }
 
     public function render_settings_page() {
@@ -735,10 +911,476 @@ final class SC_Workbench_Plugin {
                 </div>
                 <?php submit_button('Save Workbench Settings'); ?>
             </form>
-            <section class="scwb-admin-card"><h2>Shortcodes</h2><code>[sc_workbench topic="research-library" title="Ask the Sustainable Catalyst Workbench"]</code><br><code>[sc_workbench mode="auto"]</code><br><code>[sc_workbench article="article-slug"]</code><br><code>[sc_workbench_pathways]</code><p><a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-equations')); ?>">Open Equation Registry →</a></p></section>
+            <section class="scwb-admin-card"><h2>Shortcodes</h2><code>[sc_workbench topic="research-library" title="Ask the Sustainable Catalyst Workbench"]</code><br><code>[sc_workbench mode="library" topic="research-library"]</code><br><code>[sc_workbench mode="auto"]</code><br><code>[sc_workbench article="article-slug"]</code><br><code>[sc_workbench_pathways]</code><p><a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-equations')); ?>">Open Equation Registry →</a> · <a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-feature-builder')); ?>">Open Feature Builder →</a></p></section>
         </div>
     <?php }
 
+
+    private static function calculator_backlog_table_name() {
+        global $wpdb;
+        return $wpdb->prefix . 'sc_workbench_calculator_backlog';
+    }
+
+    public static function create_calculator_backlog_table() {
+        global $wpdb;
+        $table = self::calculator_backlog_table_name();
+        $charset = $wpdb->get_charset_collate();
+        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+        $sql = "CREATE TABLE {$table} (
+            id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+            priority VARCHAR(16) NOT NULL,
+            calculator_id VARCHAR(160) NOT NULL,
+            calculator_name TEXT NOT NULL,
+            category VARCHAR(255) NULL,
+            estimated_matching_equations BIGINT UNSIGNED DEFAULT 0,
+            example_equations_from_registry LONGTEXT NULL,
+            why_build_it LONGTEXT NULL,
+            recommended_inputs LONGTEXT NULL,
+            recommended_outputs LONGTEXT NULL,
+            implementation_notes LONGTEXT NULL,
+            status VARCHAR(64) NOT NULL DEFAULT 'proposed',
+            created_at DATETIME NOT NULL,
+            updated_at DATETIME NOT NULL,
+            PRIMARY KEY  (id),
+            UNIQUE KEY calculator_id_unique (calculator_id),
+            KEY priority_idx (priority),
+            KEY category_idx (category),
+            KEY status_idx (status)
+        ) {$charset};";
+        dbDelta($sql);
+    }
+
+    private function bundled_calculator_suggestions_csv() {
+        return plugin_dir_path(__FILE__) . 'data/calculator_suggestions_from_equation_registry.csv';
+    }
+
+    private function calculator_backlog_count() {
+        global $wpdb;
+        self::create_calculator_backlog_table();
+        $table = self::calculator_backlog_table_name();
+        return intval($wpdb->get_var("SELECT COUNT(*) FROM {$table}"));
+    }
+
+    private function clear_calculator_backlog() {
+        global $wpdb;
+        self::create_calculator_backlog_table();
+        $table = self::calculator_backlog_table_name();
+        $wpdb->query('TRUNCATE TABLE ' . $table);
+    }
+
+    private function import_calculator_backlog_from_file($path, $replace=true) {
+        global $wpdb;
+        self::create_calculator_backlog_table();
+        if (!$path || !file_exists($path) || !is_readable($path)) {
+            return ['ok'=>false, 'imported'=>0, 'error'=>'CSV file not found or not readable.'];
+        }
+        if ($replace) { $this->clear_calculator_backlog(); }
+        $table = self::calculator_backlog_table_name();
+        $handle = fopen($path, 'r');
+        if (!$handle) { return ['ok'=>false, 'imported'=>0, 'error'=>'Could not open CSV file.']; }
+        $header = fgetcsv($handle);
+        if (!$header) { fclose($handle); return ['ok'=>false, 'imported'=>0, 'error'=>'CSV has no header row.']; }
+        $header = array_map(function($h){ return sanitize_key($h); }, $header);
+        $imported = 0;
+        $now = current_time('mysql');
+        while (($row = fgetcsv($handle)) !== false) {
+            $data = [];
+            foreach ($header as $i => $key) { $data[$key] = isset($row[$i]) ? $row[$i] : ''; }
+            $calculator_id = sanitize_title($data['calculator_id'] ?? '');
+            if (!$calculator_id) { continue; }
+            $payload = [
+                'priority' => sanitize_text_field($data['priority'] ?? 'P2'),
+                'calculator_id' => $calculator_id,
+                'calculator_name' => sanitize_text_field($data['calculator_name'] ?? $calculator_id),
+                'category' => sanitize_text_field($data['category'] ?? ''),
+                'estimated_matching_equations' => max(0, intval($data['estimated_matching_equations'] ?? 0)),
+                'example_equations_from_registry' => sanitize_textarea_field($data['example_equations_from_registry'] ?? ''),
+                'why_build_it' => sanitize_textarea_field($data['why_build_it'] ?? ''),
+                'recommended_inputs' => sanitize_textarea_field($data['recommended_inputs'] ?? ''),
+                'recommended_outputs' => sanitize_textarea_field($data['recommended_outputs'] ?? ''),
+                'implementation_notes' => sanitize_textarea_field($data['implementation_notes'] ?? ''),
+                'status' => sanitize_key($data['status'] ?? 'proposed') ?: 'proposed',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ];
+            $wpdb->replace($table, $payload, ['%s','%s','%s','%s','%d','%s','%s','%s','%s','%s','%s','%s','%s']);
+            $imported++;
+        }
+        fclose($handle);
+        return ['ok'=>true, 'imported'=>$imported];
+    }
+
+    private function calculator_backlog_rows($limit=500) {
+        global $wpdb;
+        self::create_calculator_backlog_table();
+        $table = self::calculator_backlog_table_name();
+        $limit = max(1, min(1000, intval($limit)));
+        return $wpdb->get_results($wpdb->prepare("SELECT * FROM {$table} ORDER BY FIELD(priority,'P0','P1','P2','P3'), estimated_matching_equations DESC, calculator_name ASC LIMIT %d", $limit), ARRAY_A);
+    }
+
+    private function calculator_backlog_summary() {
+        global $wpdb;
+        self::create_calculator_backlog_table();
+        $table = self::calculator_backlog_table_name();
+        $total = intval($wpdb->get_var("SELECT COUNT(*) FROM {$table}"));
+        $by_priority = $wpdb->get_results("SELECT priority, COUNT(*) AS count, SUM(estimated_matching_equations) AS equation_matches FROM {$table} GROUP BY priority ORDER BY FIELD(priority,'P0','P1','P2','P3')", ARRAY_A);
+        $by_category = $wpdb->get_results("SELECT category, COUNT(*) AS count, SUM(estimated_matching_equations) AS equation_matches FROM {$table} GROUP BY category ORDER BY equation_matches DESC, count DESC LIMIT 20", ARRAY_A);
+        return ['total'=>$total, 'by_priority'=>$by_priority, 'by_category'=>$by_category];
+    }
+
+    public function rest_calculator_backlog(WP_REST_Request $request) {
+        $limit = min(500, max(1, intval($request->get_param('limit') ?: 120)));
+        return new WP_REST_Response(['ok'=>true, 'summary'=>$this->calculator_backlog_summary(), 'suggestions'=>$this->calculator_backlog_rows($limit)], 200);
+    }
+
+    private function export_calculator_backlog_csv() {
+        if (!current_user_can('manage_options')) { wp_die('Unauthorized'); }
+        $rows = $this->calculator_backlog_rows(1000);
+        $filename = 'sustainable-catalyst-calculator-backlog-' . gmdate('Ymd-His') . '.csv';
+        nocache_headers();
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename=' . $filename);
+        $out = fopen('php://output', 'w');
+        fputcsv($out, ['priority','calculator_id','calculator_name','category','estimated_matching_equations','example_equations_from_registry','why_build_it','recommended_inputs','recommended_outputs','implementation_notes','status']);
+        foreach ($rows as $row) {
+            fputcsv($out, [
+                $row['priority'] ?? '', $row['calculator_id'] ?? '', $row['calculator_name'] ?? '', $row['category'] ?? '',
+                $row['estimated_matching_equations'] ?? 0, $row['example_equations_from_registry'] ?? '', $row['why_build_it'] ?? '',
+                $row['recommended_inputs'] ?? '', $row['recommended_outputs'] ?? '', $row['implementation_notes'] ?? '', $row['status'] ?? 'proposed'
+            ]);
+        }
+        fclose($out);
+    }
+
+
+    private static function feature_builder_table_name() {
+        global $wpdb;
+        return $wpdb->prefix . 'sc_workbench_feature_builder';
+    }
+
+    public static function create_feature_builder_table() {
+        global $wpdb;
+        $table = self::feature_builder_table_name();
+        $charset = $wpdb->get_charset_collate();
+        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+        $sql = "CREATE TABLE {$table} (
+            id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+            build_order BIGINT UNSIGNED DEFAULT 0,
+            priority VARCHAR(16) NOT NULL,
+            feature_id VARCHAR(180) NOT NULL,
+            feature_name TEXT NOT NULL,
+            feature_type VARCHAR(120) NULL,
+            category VARCHAR(255) NULL,
+            source_signal VARCHAR(255) NULL,
+            estimated_matching_equations BIGINT UNSIGNED DEFAULT 0,
+            article_count BIGINT UNSIGNED DEFAULT 0,
+            example_equations LONGTEXT NULL,
+            source_articles LONGTEXT NULL,
+            why_build_it LONGTEXT NULL,
+            recommended_inputs LONGTEXT NULL,
+            recommended_outputs LONGTEXT NULL,
+            recommended_backend LONGTEXT NULL,
+            recommended_ui LONGTEXT NULL,
+            first_mvp_scope LONGTEXT NULL,
+            depends_on LONGTEXT NULL,
+            status VARCHAR(64) NOT NULL DEFAULT 'proposed',
+            created_at DATETIME NOT NULL,
+            updated_at DATETIME NOT NULL,
+            PRIMARY KEY  (id),
+            UNIQUE KEY feature_id_unique (feature_id),
+            KEY priority_idx (priority),
+            KEY category_idx (category),
+            KEY status_idx (status)
+        ) {$charset};";
+        dbDelta($sql);
+    }
+
+    private function bundled_feature_builder_queue_csv() {
+        return plugin_dir_path(__FILE__) . 'data/workbench_feature_build_queue_v0.9.7.csv';
+    }
+    private function bundled_article_profiles_csv() {
+        return plugin_dir_path(__FILE__) . 'data/article_tool_profiles_v0.9.7.csv';
+    }
+    private function bundled_domain_summary_csv() {
+        return plugin_dir_path(__FILE__) . 'data/equation_domain_summary_v0.9.7.csv';
+    }
+    private function bundled_feature_clusters_csv() {
+        return plugin_dir_path(__FILE__) . 'data/equation_feature_clusters_v0.9.7.csv';
+    }
+
+    private function feature_builder_count() {
+        global $wpdb;
+        self::create_feature_builder_table();
+        $table = self::feature_builder_table_name();
+        return intval($wpdb->get_var("SELECT COUNT(*) FROM {$table}"));
+    }
+
+    private function clear_feature_builder_queue() {
+        global $wpdb;
+        self::create_feature_builder_table();
+        $table = self::feature_builder_table_name();
+        $wpdb->query('TRUNCATE TABLE ' . $table);
+    }
+
+    private function import_feature_builder_from_file($path, $replace=true) {
+        global $wpdb;
+        self::create_feature_builder_table();
+        if (!$path || !file_exists($path) || !is_readable($path)) {
+            return ['ok'=>false, 'imported'=>0, 'error'=>'CSV file not found or not readable.'];
+        }
+        if ($replace) { $this->clear_feature_builder_queue(); }
+        $table = self::feature_builder_table_name();
+        $handle = fopen($path, 'r');
+        if (!$handle) { return ['ok'=>false, 'imported'=>0, 'error'=>'Could not open CSV file.']; }
+        $header = fgetcsv($handle);
+        if (!$header) { fclose($handle); return ['ok'=>false, 'imported'=>0, 'error'=>'CSV has no header row.']; }
+        $header = array_map(function($h){ return sanitize_key($h); }, $header);
+        $imported = 0;
+        $now = current_time('mysql');
+        while (($row = fgetcsv($handle)) !== false) {
+            $data = [];
+            foreach ($header as $i => $key) { $data[$key] = isset($row[$i]) ? $row[$i] : ''; }
+            $feature_id = sanitize_title($data['feature_id'] ?? '');
+            if (!$feature_id) { continue; }
+            $payload = [
+                'build_order' => max(0, intval($data['build_order'] ?? 0)),
+                'priority' => sanitize_text_field($data['priority'] ?? 'P2'),
+                'feature_id' => $feature_id,
+                'feature_name' => sanitize_text_field($data['feature_name'] ?? $feature_id),
+                'feature_type' => sanitize_text_field($data['feature_type'] ?? ''),
+                'category' => sanitize_text_field($data['category'] ?? ''),
+                'source_signal' => sanitize_text_field($data['source_signal'] ?? ''),
+                'estimated_matching_equations' => max(0, intval($data['estimated_matching_equations'] ?? 0)),
+                'article_count' => max(0, intval($data['article_count'] ?? 0)),
+                'example_equations' => sanitize_textarea_field($data['example_equations'] ?? ''),
+                'source_articles' => sanitize_textarea_field($data['source_articles'] ?? ''),
+                'why_build_it' => sanitize_textarea_field($data['why_build_it'] ?? ''),
+                'recommended_inputs' => sanitize_textarea_field($data['recommended_inputs'] ?? ''),
+                'recommended_outputs' => sanitize_textarea_field($data['recommended_outputs'] ?? ''),
+                'recommended_backend' => sanitize_textarea_field($data['recommended_backend'] ?? ''),
+                'recommended_ui' => sanitize_textarea_field($data['recommended_ui'] ?? ''),
+                'first_mvp_scope' => sanitize_textarea_field($data['first_mvp_scope'] ?? ''),
+                'depends_on' => sanitize_textarea_field($data['depends_on'] ?? ''),
+                'status' => sanitize_key($data['status'] ?? 'proposed') ?: 'proposed',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ];
+            $wpdb->replace($table, $payload, ['%d','%s','%s','%s','%s','%s','%s','%d','%d','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s']);
+            $imported++;
+        }
+        fclose($handle);
+        return ['ok'=>true, 'imported'=>$imported];
+    }
+
+    private function feature_builder_rows($limit=500) {
+        global $wpdb;
+        self::create_feature_builder_table();
+        $table = self::feature_builder_table_name();
+        $limit = max(1, min(1000, intval($limit)));
+        return $wpdb->get_results($wpdb->prepare("SELECT * FROM {$table} ORDER BY FIELD(priority,'P0','P1','P2','P3'), estimated_matching_equations DESC, build_order ASC LIMIT %d", $limit), ARRAY_A);
+    }
+
+    private function feature_builder_summary() {
+        global $wpdb;
+        self::create_feature_builder_table();
+        $table = self::feature_builder_table_name();
+        $total = intval($wpdb->get_var("SELECT COUNT(*) FROM {$table}"));
+        $by_priority = $wpdb->get_results("SELECT priority, COUNT(*) AS count, SUM(estimated_matching_equations) AS equation_matches, SUM(article_count) AS article_matches FROM {$table} GROUP BY priority ORDER BY FIELD(priority,'P0','P1','P2','P3')", ARRAY_A);
+        $by_category = $wpdb->get_results("SELECT category, COUNT(*) AS count, SUM(estimated_matching_equations) AS equation_matches FROM {$table} GROUP BY category ORDER BY equation_matches DESC, count DESC LIMIT 25", ARRAY_A);
+        return ['total'=>$total, 'by_priority'=>$by_priority, 'by_category'=>$by_category];
+    }
+
+    public function rest_feature_builder(WP_REST_Request $request) {
+        $limit = min(500, max(1, intval($request->get_param('limit') ?: 120)));
+        return new WP_REST_Response(['ok'=>true, 'summary'=>$this->feature_builder_summary(), 'features'=>$this->feature_builder_rows($limit)], 200);
+    }
+
+    private function export_feature_builder_csv() {
+        if (!current_user_can('manage_options')) { wp_die('Unauthorized'); }
+        $rows = $this->feature_builder_rows(1000);
+        $filename = 'sustainable-catalyst-feature-builder-' . gmdate('Ymd-His') . '.csv';
+        nocache_headers();
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename=' . $filename);
+        $out = fopen('php://output', 'w');
+        fputcsv($out, ['build_order','priority','feature_id','feature_name','feature_type','category','source_signal','estimated_matching_equations','article_count','example_equations','source_articles','why_build_it','recommended_inputs','recommended_outputs','recommended_backend','recommended_ui','first_mvp_scope','depends_on','status']);
+        foreach ($rows as $row) {
+            fputcsv($out, [
+                $row['build_order'] ?? 0, $row['priority'] ?? '', $row['feature_id'] ?? '', $row['feature_name'] ?? '', $row['feature_type'] ?? '', $row['category'] ?? '', $row['source_signal'] ?? '',
+                $row['estimated_matching_equations'] ?? 0, $row['article_count'] ?? 0, $row['example_equations'] ?? '', $row['source_articles'] ?? '', $row['why_build_it'] ?? '',
+                $row['recommended_inputs'] ?? '', $row['recommended_outputs'] ?? '', $row['recommended_backend'] ?? '', $row['recommended_ui'] ?? '', $row['first_mvp_scope'] ?? '', $row['depends_on'] ?? '', $row['status'] ?? 'proposed'
+            ]);
+        }
+        fclose($out);
+    }
+
+    private function count_csv_rows($path) {
+        if (!$path || !file_exists($path) || !is_readable($path)) { return 0; }
+        $handle = fopen($path, 'r');
+        if (!$handle) { return 0; }
+        $count = 0; $first = true;
+        while (($row = fgetcsv($handle)) !== false) { if ($first) { $first = false; continue; } $count++; }
+        fclose($handle);
+        return $count;
+    }
+
+    public function render_feature_builder_page() {
+        settings_errors('sc_workbench_messages');
+        self::create_feature_builder_table();
+        if (!$this->feature_builder_count()) {
+            $this->import_feature_builder_from_file($this->bundled_feature_builder_queue_csv(), true);
+        }
+        $summary = $this->feature_builder_summary();
+        $rows = $this->feature_builder_rows(250);
+        $plugin_url = plugin_dir_url(__FILE__);
+        ?>
+        <div class="wrap scwb-admin-wrap">
+            <h1>Sustainable Catalyst Workbench Feature Builder</h1>
+            <p>Use the latest equation registry and calculator backlog to turn article equations into implementable Workbench features, article tool profiles, calculator modules, and future backend work.</p>
+            <div class="scwb-admin-grid">
+                <section class="scwb-admin-card">
+                    <h2>Feature Queue Controls</h2>
+                    <p><strong><?php echo esc_html($summary['total']); ?></strong> feature rows loaded from the equation-derived build queue.</p>
+                    <form method="post" style="display:inline-block;margin-right:12px;">
+                        <?php wp_nonce_field('sc_workbench_feature_builder'); ?>
+                        <input type="hidden" name="sc_workbench_import_feature_builder_seed" value="1" />
+                        <?php submit_button('Import Bundled Feature Queue', 'primary', 'submit', false); ?>
+                    </form>
+                    <form method="post" style="display:inline-block;margin-right:12px;" onsubmit="return confirm('Clear feature builder queue?');">
+                        <?php wp_nonce_field('sc_workbench_feature_builder'); ?>
+                        <input type="hidden" name="sc_workbench_clear_feature_builder" value="1" />
+                        <?php submit_button('Clear Queue', 'secondary', 'submit', false); ?>
+                    </form>
+                    <form method="post" style="display:inline-block;">
+                        <?php wp_nonce_field('sc_workbench_feature_builder'); ?>
+                        <input type="hidden" name="sc_workbench_export_feature_builder_csv" value="1" />
+                        <?php submit_button('Export Feature Queue CSV', 'secondary', 'submit', false); ?>
+                    </form>
+                </section>
+                <section class="scwb-admin-card">
+                    <h2>Upload Revised Feature CSV</h2>
+                    <form method="post" enctype="multipart/form-data">
+                        <?php wp_nonce_field('sc_workbench_feature_builder'); ?>
+                        <input type="hidden" name="sc_workbench_upload_feature_builder_csv" value="1" />
+                        <input type="file" name="sc_workbench_feature_builder_csv" accept=".csv,text/csv" />
+                        <?php submit_button('Upload and Replace Feature Queue', 'secondary', 'submit', false); ?>
+                    </form>
+                    <p class="description">This lets you edit the feature queue externally and re-import it as the Workbench roadmap evolves.</p>
+                </section>
+                <section class="scwb-admin-card">
+                    <h2>Bundled Analysis Files</h2>
+                    <ul>
+                        <li><a href="<?php echo esc_url($plugin_url . 'data/workbench_feature_build_queue_v0.9.7.csv'); ?>" target="_blank" rel="noopener">Feature build queue CSV</a> — <?php echo esc_html($this->count_csv_rows($this->bundled_feature_builder_queue_csv())); ?> rows</li>
+                        <li><a href="<?php echo esc_url($plugin_url . 'data/sustainable-catalyst-feature-builder-built-v0.9.8.csv'); ?>" target="_blank" rel="noopener">Built feature tools CSV v0.9.8</a> — 59 rows implemented as calculator tools</li>
+                        <li><a href="<?php echo esc_url($plugin_url . 'data/built_feature_tools_manifest_v0.9.8.json'); ?>" target="_blank" rel="noopener">Built feature tools manifest JSON</a></li>
+                        <li><a href="<?php echo esc_url($plugin_url . 'data/article_tool_profiles_v0.9.7.csv'); ?>" target="_blank" rel="noopener">Article tool profiles CSV</a> — <?php echo esc_html($this->count_csv_rows($this->bundled_article_profiles_csv())); ?> rows</li>
+                        <li><a href="<?php echo esc_url($plugin_url . 'data/equation_domain_summary_v0.9.7.csv'); ?>" target="_blank" rel="noopener">Equation domain summary CSV</a> — <?php echo esc_html($this->count_csv_rows($this->bundled_domain_summary_csv())); ?> rows</li>
+                        <li><a href="<?php echo esc_url($plugin_url . 'data/equation_feature_clusters_v0.9.7.csv'); ?>" target="_blank" rel="noopener">Equation feature clusters CSV</a> — <?php echo esc_html($this->count_csv_rows($this->bundled_feature_clusters_csv())); ?> rows</li>
+                    </ul>
+                </section>
+            </div>
+            <h2>Priority Summary</h2>
+            <table class="widefat striped">
+                <thead><tr><th>Priority</th><th>Feature Count</th><th>Estimated Equation Matches</th><th>Article Matches</th></tr></thead>
+                <tbody>
+                    <?php foreach ($summary['by_priority'] as $p): ?>
+                        <tr><td><strong><?php echo esc_html($p['priority']); ?></strong></td><td><?php echo esc_html($p['count']); ?></td><td><?php echo esc_html(number_format_i18n(intval($p['equation_matches']))); ?></td><td><?php echo esc_html(number_format_i18n(intval($p['article_matches']))); ?></td></tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <h2>Equation-Derived Feature Queue</h2>
+            <table class="widefat striped">
+                <thead><tr><th>Order</th><th>Priority</th><th>Feature</th><th>Category</th><th>Evidence</th><th>Build Notes</th></tr></thead>
+                <tbody>
+                <?php if (!$rows): ?>
+                    <tr><td colspan="6">No feature rows loaded.</td></tr>
+                <?php else: foreach ($rows as $row): ?>
+                    <tr>
+                        <td><?php echo esc_html($row['build_order']); ?></td>
+                        <td><strong><?php echo esc_html($row['priority']); ?></strong><br><small><?php echo esc_html($row['status']); ?></small></td>
+                        <td><strong><?php echo esc_html($row['feature_name']); ?></strong><br><code><?php echo esc_html($row['feature_id']); ?></code><br><small><?php echo esc_html($row['feature_type']); ?></small></td>
+                        <td><?php echo esc_html($row['category']); ?><br><small><?php echo esc_html($row['source_signal']); ?></small></td>
+                        <td><strong>Equations:</strong> <?php echo esc_html(number_format_i18n(intval($row['estimated_matching_equations']))); ?><br><strong>Articles:</strong> <?php echo esc_html(number_format_i18n(intval($row['article_count']))); ?><br><small><?php echo esc_html($row['example_equations']); ?></small></td>
+                        <td><strong>Why:</strong> <?php echo esc_html($row['why_build_it']); ?><br><strong>Inputs:</strong> <?php echo esc_html($row['recommended_inputs']); ?><br><strong>Outputs:</strong> <?php echo esc_html($row['recommended_outputs']); ?><br><em><?php echo esc_html($row['first_mvp_scope']); ?></em></td>
+                    </tr>
+                <?php endforeach; endif; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php }
+
+    public function render_calculator_backlog_page() {
+        settings_errors('sc_workbench_messages');
+        self::create_calculator_backlog_table();
+        if (!$this->calculator_backlog_count()) {
+            $this->import_calculator_backlog_from_file($this->bundled_calculator_suggestions_csv(), true);
+        }
+        $summary = $this->calculator_backlog_summary();
+        $rows = $this->calculator_backlog_rows(200);
+        ?>
+        <div class="wrap scwb-admin-wrap">
+            <h1>Sustainable Catalyst Workbench Calculator Backlog</h1>
+            <p>Turn the equation-registry CSV into an admin-visible feature map for building article-aware calculators, graphing tools, model routers, and Workbench modules.</p>
+            <div class="scwb-admin-grid">
+                <section class="scwb-admin-card">
+                    <h2>Backlog Controls</h2>
+                    <p><strong><?php echo esc_html($summary['total']); ?></strong> calculator suggestions loaded.</p>
+                    <form method="post" style="display:inline-block;margin-right:12px;">
+                        <?php wp_nonce_field('sc_workbench_calculator_backlog'); ?>
+                        <input type="hidden" name="sc_workbench_import_calculator_backlog_seed" value="1" />
+                        <?php submit_button('Import Bundled Suggestions', 'primary', 'submit', false); ?>
+                    </form>
+                    <form method="post" style="display:inline-block;margin-right:12px;" onsubmit="return confirm('Clear calculator backlog?');">
+                        <?php wp_nonce_field('sc_workbench_calculator_backlog'); ?>
+                        <input type="hidden" name="sc_workbench_clear_calculator_backlog" value="1" />
+                        <?php submit_button('Clear Backlog', 'secondary', 'submit', false); ?>
+                    </form>
+                    <form method="post" style="display:inline-block;">
+                        <?php wp_nonce_field('sc_workbench_calculator_backlog'); ?>
+                        <input type="hidden" name="sc_workbench_export_calculator_backlog_csv" value="1" />
+                        <?php submit_button('Export Backlog CSV', 'secondary', 'submit', false); ?>
+                    </form>
+                </section>
+                <section class="scwb-admin-card">
+                    <h2>Upload Updated CSV</h2>
+                    <form method="post" enctype="multipart/form-data">
+                        <?php wp_nonce_field('sc_workbench_calculator_backlog'); ?>
+                        <input type="hidden" name="sc_workbench_upload_calculator_backlog_csv" value="1" />
+                        <input type="file" name="sc_workbench_calculator_backlog_csv" accept=".csv,text/csv" />
+                        <?php submit_button('Upload and Replace Backlog', 'secondary', 'submit', false); ?>
+                    </form>
+                    <p class="description">Expected columns: <code>priority</code>, <code>calculator_id</code>, <code>calculator_name</code>, <code>category</code>, <code>estimated_matching_equations</code>, <code>example_equations_from_registry</code>, <code>why_build_it</code>, <code>recommended_inputs</code>, <code>recommended_outputs</code>, <code>implementation_notes</code>.</p>
+                </section>
+            </div>
+            <h2>Priority Summary</h2>
+            <table class="widefat striped">
+                <thead><tr><th>Priority</th><th>Suggestion Count</th><th>Estimated Equation Matches</th></tr></thead>
+                <tbody>
+                    <?php foreach ($summary['by_priority'] as $p): ?>
+                        <tr><td><strong><?php echo esc_html($p['priority']); ?></strong></td><td><?php echo esc_html($p['count']); ?></td><td><?php echo esc_html(number_format_i18n(intval($p['equation_matches']))); ?></td></tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <h2>Feature Map</h2>
+            <table class="widefat striped">
+                <thead><tr><th>Priority</th><th>Calculator</th><th>Category</th><th>Equation Matches</th><th>Why Build It</th><th>Inputs / Outputs</th></tr></thead>
+                <tbody>
+                <?php if (!$rows): ?>
+                    <tr><td colspan="6">No calculator suggestions loaded.</td></tr>
+                <?php else: foreach ($rows as $row): ?>
+                    <tr>
+                        <td><strong><?php echo esc_html($row['priority']); ?></strong><br><small><?php echo esc_html($row['status']); ?></small></td>
+                        <td><strong><?php echo esc_html($row['calculator_name']); ?></strong><br><code><?php echo esc_html($row['calculator_id']); ?></code><br><small><?php echo esc_html($row['example_equations_from_registry']); ?></small></td>
+                        <td><?php echo esc_html($row['category']); ?></td>
+                        <td><?php echo esc_html(number_format_i18n(intval($row['estimated_matching_equations']))); ?></td>
+                        <td><?php echo esc_html($row['why_build_it']); ?><br><em><?php echo esc_html($row['implementation_notes']); ?></em></td>
+                        <td><strong>Inputs:</strong> <?php echo esc_html($row['recommended_inputs']); ?><br><strong>Outputs:</strong> <?php echo esc_html($row['recommended_outputs']); ?></td>
+                    </tr>
+                <?php endforeach; endif; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php }
 
     public function render_equations_page() {
         settings_errors('sc_workbench_messages');
@@ -750,7 +1392,7 @@ final class SC_Workbench_Plugin {
         ?>
         <div class="wrap scwb-admin-wrap">
             <h1>Sustainable Catalyst Workbench Equation Registry</h1>
-            <p>Scan published WordPress content for clean LaTeX equations, index surrounding article context, and map equations to Workbench calculators and article-aware tools. v0.9.2 uses a repaired scanner that rejects broken delimiters, HTML table fragments, code exports, and one-letter inline variables while preserving valid MathJax equations.</p>
+            <p>Scan published WordPress content for clean LaTeX equations, index surrounding article context, and map equations to Workbench calculators and article-aware tools. v0.9.5 preserves literal LaTeX backslashes, indexes clean equations, keeps Research Library display compact, and exports the registry as CSV for feature-building.</p>
             <div class="scwb-admin-grid">
                 <section class="scwb-admin-card">
                     <h2>Scan WordPress Content</h2>
@@ -765,11 +1407,16 @@ final class SC_Workbench_Plugin {
                         <input type="hidden" name="sc_workbench_clear_equations" value="1" />
                         <?php submit_button('Clear Registry', 'secondary', 'submit', false); ?>
                     </form>
+                    <form method="post" style="display:inline-block;margin-left:12px;">
+                        <?php wp_nonce_field('sc_workbench_equations'); ?>
+                        <input type="hidden" name="sc_workbench_export_equations_csv" value="1" />
+                        <?php submit_button('Download CSV Report', 'secondary', 'submit', false); ?>
+                    </form>
                     <p class="description">Supported patterns: <code>\(...\)</code>, <code>\[...\]</code>, <code>$$...$$</code>, and <code>[latex]...[/latex]</code>. Single-dollar inline math is intentionally not scanned by default to avoid false positives.</p>
                 </section>
                 <section class="scwb-admin-card">
                     <h2>Article-Aware Shortcode</h2>
-                    <p>Use <code>[sc_workbench mode="auto"]</code> on articles or maps. The Workbench will detect the current post and surface article equations when available.</p>
+                    <p>Use <code>[sc_workbench mode="auto"]</code> on articles. Use <code>[sc_workbench mode="library" topic="research-library"]</code> on the Research Library to keep equation output compact.</p>
                     <p>For a specific article profile, use <code>[sc_workbench article="article-slug"]</code>.</p>
                 </section>
             </div>

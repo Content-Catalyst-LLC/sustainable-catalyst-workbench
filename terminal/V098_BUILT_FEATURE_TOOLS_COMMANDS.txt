@@ -1,0 +1,20 @@
+Sustainable Catalyst Workbench v0.9.8
+
+Install plugin:
+1. WordPress Dashboard → Plugins → Add Plugin → Upload Plugin
+2. Upload sustainable-catalyst-workbench-plugin-v0.9.8.zip
+3. Replace current plugin when prompted.
+
+Test backend locally:
+cd ~/Downloads
+unzip sustainable-catalyst-workbench-v0.9.8-repo-safe.zip
+cd sustainable-catalyst-workbench
+chmod +x scripts/setup_backend_mac.sh scripts/run_backend.sh scripts/test_backend.sh
+./scripts/setup_backend_mac.sh
+./scripts/test_backend.sh
+./scripts/run_backend.sh
+
+Push to GitHub:
+cd ~/Downloads
+chmod +x update_and_push_sustainable_catalyst_workbench_v0_9_8_to_github.sh
+./update_and_push_sustainable_catalyst_workbench_v0_9_8_to_github.sh

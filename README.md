@@ -1,4 +1,4 @@
-# Sustainable Catalyst Workbench v0.9.2
+# Sustainable Catalyst Workbench v0.9.7
 
 A compact AI-enabled research and analytics workbench for modeling, calculating, visualizing, and interpreting complex systems across science, sustainability, engineering, architecture, psychology, economics, governance, and meaning.
 
@@ -20,7 +20,7 @@ This release is backend-first: WordPress provides the compact interface, while F
 [sc_workbench article="article-slug"]
 ```
 
-## v0.9.2 Equation and Article-Aware Layer
+## v0.9.7 Equation and Article-Aware Layer
 
 Adds a WordPress database scanner for LaTeX equations in published posts/pages, a custom equation registry table, article-aware Workbench panels, current-article equation lookup, equation-to-tool recommendations, and a FastAPI `/equations/analyze` endpoint for richer equation interpretation. The scanner detects `\(...\)`, `\[...\]`, `$$...$$`, and `[latex]...[/latex]` patterns in `wp_posts.post_content`.
 
@@ -98,3 +98,20 @@ Adds predictive analytics and economics as major modules, plus FPGA/digital syst
 ## Psychology, Thinking, Meaning, and Limits to Growth
 
 Adds psychology, behavioral science, moral psychology, thinking tools, meaning/aesthetics tools, systems modeling, predictive modeling readiness, and a simplified Limits to Growth system-dynamics simulator.
+
+
+## v0.9.7 Calculator Backlog
+
+v0.9.7 adds an equation-derived calculator backlog admin page, bundled calculator suggestion CSV, CSV upload/export, and a custom WordPress table for turning equation-registry analysis into future Workbench feature planning.
+
+
+## v0.9.7 Feature Builder
+
+Adds a WordPress admin Feature Builder page using the latest Equation Registry CSV and Calculator Backlog CSV to generate a feature implementation queue, article tool profiles, equation-domain summaries, and feature clusters for future Workbench calculator development.
+
+
+## v0.9.8 — Built Feature Tools from Feature Builder CSV
+
+Version 0.9.8 promotes the Feature Builder CSV into executable Workbench tools. All 59 rows from `sustainable-catalyst-feature-builder-20260708-121706.csv` are represented as backend tool specs, WordPress local calculator specs, and deterministic MVP engines. The release includes equation-derived calculators for weighted indices, forecasting, stock-flow systems, recurrence dynamics, ODE stability, environmental QA/QC, risk matrices, economics/policy systems, planetary pressure, climate balance, population ecology, chemistry/lab science, optimization, linear algebra diagnostics, causal inference, Bayesian updating, networks, complexity, RF/electrical/power, materials, structural screening, clinical epidemiology, lab calibration, rocket/orbital calculations, content profiles, behavioral systems, and meaning matrices.
+
+These tools remain educational and analytical. Engineering, clinical, structural, RF/power, chemical, lab, aerospace, and safety-critical outputs require professional review.
