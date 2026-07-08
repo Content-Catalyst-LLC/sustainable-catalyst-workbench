@@ -40,15 +40,26 @@
     const askForm = el.querySelector('[data-scwb-ask-form]');
     askForm && askForm.addEventListener('submit', e=>{ e.preventDefault(); const out=el.querySelector('[data-scwb-ask-output]'); out.hidden=false; out.innerHTML='<p class="scwb-muted">Thinking…</p>'; const fd=new FormData(askForm); api('/ask',{method:'POST',body:JSON.stringify({question:fd.get('question'), topic, mode:fd.get('mode')||'guided'})}).then(d=>storeAndRender(out,d)).catch(err=>out.innerHTML='<div class="scwb-error">'+esc(err.message)+'</div>'); });
     const select = el.querySelector('[data-scwb-tool-select]');
+    function toolShellHasOpenForm(shell){ return !!(shell && shell.querySelector('.scwb-tool-form')); }
     function populateTools(data){
       const incoming = data && Array.isArray(data.tools) ? data.tools : [];
       tools = incoming.length ? incoming : tools;
       if(select){ select.innerHTML = tools.length ? tools.map(t=>`<option value="${esc(t.id)}">${esc(t.title)}</option>`).join('') : '<option value="">No calculators available</option>'; }
       const shell = el.querySelector('[data-scwb-tool-shell]');
-      if(shell && data && data.backend_online === false){ shell.innerHTML = `<div class="scwb-notice"><strong>Backend offline.</strong> ${esc(data.notice || SCWorkbench.backendRequiredHelp || 'Start the backend to run calculations.')}</div>`; }
+      if(shell && data && data.backend_online === false){
+        if(!toolShellHasOpenForm(shell)){
+          shell.innerHTML = `<div class="scwb-notice"><strong>Backend offline.</strong> ${esc(data.notice || SCWorkbench.backendRequiredHelp || 'Start the backend to run calculations.')}</div>`;
+        }
+      } else if(shell && data && data.backend_online === true){
+        if(!toolShellHasOpenForm(shell)){
+          shell.innerHTML = '<p class="scwb-muted">Backend connected. Choose a calculator and click Open Calculator.</p>';
+        }
+      } else if(shell && !shell.innerHTML.trim()){
+        shell.innerHTML = '<p class="scwb-muted">Choose a calculator and click Open Calculator.</p>';
+      }
       renderModels(el, tools);
     }
-    populateTools({tools: tools, backend_online: false, notice: SCWorkbench.backendRequiredHelp});
+    populateTools({tools: tools, backend_online: null});
     api('/tools').then(populateTools).catch(()=>populateTools({tools: tools, backend_online:false, notice:SCWorkbench.backendRequiredHelp}));
     const open = el.querySelector('[data-scwb-open-tool]');
     open && open.addEventListener('click',()=>{ const id=select && select.value; const spec=tools.find(t=>t.id===id); const shell=el.querySelector('[data-scwb-tool-shell]'); if(!shell) return; if(!spec){ shell.innerHTML='<div class="scwb-error">No calculator is selected. Reload the page or check that the Workbench plugin assets are active.</div>'; return; } shell.innerHTML=`<form class="scwb-tool-form"><h3>${esc(spec.title)}</h3><p>${esc(spec.description)}</p>${(spec.inputs||[]).map(fieldHtml).join('')}<button class="scwb-button" type="submit">Run Calculator</button><div class="scwb-output" data-tool-output></div></form>`; shell.querySelector('form').addEventListener('submit', ev=>{ ev.preventDefault(); const fd=new FormData(ev.currentTarget); const inputs={}; for(const [k,v] of fd.entries()) inputs[k]=v; const out=shell.querySelector('[data-tool-output]'); out.innerHTML='<p class="scwb-muted">Running backend analytics…</p>'; api('/run',{method:'POST',body:JSON.stringify({tool_id:id, inputs, mode:(el.querySelector('[data-scwb-tool-mode]')||{}).value||'guided', topic})}).then(d=>storeAndRender(out,d)).catch(err=>out.innerHTML='<div class="scwb-error">'+esc(err.message)+'</div>'); }); });

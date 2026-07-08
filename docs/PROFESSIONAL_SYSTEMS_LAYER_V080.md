@@ -1,4 +1,4 @@
-# Sustainable Catalyst Workbench v0.8.0 — Professional Systems Layer
+# Sustainable Catalyst Workbench v0.8.1 — Professional Systems Layer
 
 This release adds a professional systems layer for advanced public-interest analysis.
 

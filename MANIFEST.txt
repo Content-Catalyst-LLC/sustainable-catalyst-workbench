@@ -75,6 +75,6 @@ wordpress-plugin/sustainable-catalyst-workbench/assets/sc-workbench.css
 wordpress-plugin/sustainable-catalyst-workbench/assets/sc-workbench.js
 wordpress-plugin/sustainable-catalyst-workbench/includes/local-tools.php
 wordpress-plugin/sustainable-catalyst-workbench/sustainable-catalyst-workbench.php
-V0.8.0 additions: predictive analytics, economics forecasting, econometrics, FPGA/digital systems, power systems, mechanical, structural, civil infrastructure, urban planning, building science, astrophysics.
+V0.8.1 additions: predictive analytics, economics forecasting, econometrics, FPGA/digital systems, power systems, mechanical, structural, civil infrastructure, urban planning, building science, astrophysics.
 
-V0.8.0 expansion: psychology, behavioral science, thinking, meaning, systems modeling, predictive modeling, and Limits to Growth tools.
+V0.8.1 expansion: psychology, behavioral science, thinking, meaning, systems modeling, predictive modeling, and Limits to Growth tools.

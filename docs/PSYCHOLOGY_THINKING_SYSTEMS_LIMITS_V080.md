@@ -1,6 +1,6 @@
-# v0.8.0 Psychology, Thinking, Meaning, Systems, and Limits to Growth Tools
+# v0.8.1 Psychology, Thinking, Meaning, Systems, and Limits to Growth Tools
 
-This supplement expands v0.8.0 beyond the professional engineering layer into Sustainable Catalyst's psychology, behavioral science, thinking, meaning, problem-solving, mathematical modeling, systems thinking, predictive modeling, and limits-to-growth areas.
+This supplement expands v0.8.1 beyond the professional engineering layer into Sustainable Catalyst's psychology, behavioral science, thinking, meaning, problem-solving, mathematical modeling, systems thinking, predictive modeling, and limits-to-growth areas.
 
 ## Added areas
 

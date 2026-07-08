@@ -15,7 +15,7 @@ chmod +x create_and_push_sustainable_catalyst_workbench_v0_7_0_to_github.sh
 ./create_and_push_sustainable_catalyst_workbench_v0_7_0_to_github.sh
 
 
-# v0.8.0 quick API tests
+# v0.8.1 quick API tests
 curl -X POST https://YOUR-BACKEND-URL/tools/run \
   -H "Content-Type: application/json" \
   -d '{"tool_id":"predictive-analytics-forecasting-tool","inputs":{"series":"120,128,133,140,151,160","horizon":"4"}}'
