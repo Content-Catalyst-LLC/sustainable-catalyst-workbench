@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Sustainable Catalyst Workbench
  * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports.
- * Version: 0.9.1
+ * Version: 0.9.2
  * Author: Content Catalyst LLC
  * License: MIT
  * Text Domain: sustainable-catalyst-workbench
@@ -11,7 +11,7 @@
 if (!defined('ABSPATH')) { exit; }
 
 final class SC_Workbench_Plugin {
-    const VERSION = '0.9.1';
+    const VERSION = '0.9.2';
     const OPTION_BACKEND_URL = 'sc_workbench_backend_url';
     const OPTION_BACKEND_KEY = 'sc_workbench_backend_key';
     const OPTION_AI_PROVIDER = 'sc_workbench_ai_provider';
@@ -352,9 +352,9 @@ final class SC_Workbench_Plugin {
         $old_version = get_option(self::OPTION_VERSION, '');
         if ($old_version !== self::VERSION) {
             self::create_equation_table();
-            // v0.9.1 fixes the first equation scanner, which was too permissive and could index HTML table fragments.
+            // v0.9.2 fixes the first equation scanner, which was too permissive and could index HTML table fragments.
             // The equation table is a generated cache, so it is safe to clear during this upgrade and rebuild from posts.
-            if ($old_version && version_compare($old_version, '0.9.1', '<')) {
+            if ($old_version && version_compare($old_version, '0.9.2', '<')) {
                 $this->clear_equation_registry();
             }
             update_option(self::OPTION_VERSION, self::VERSION);
@@ -421,7 +421,21 @@ final class SC_Workbench_Plugin {
     private function equation_candidate_has_math_signal($eq) {
         $eq = trim((string)$eq);
         if ($eq === '') { return false; }
-        return (bool) preg_match('/(=|\+|\-|\*|\/|\^|_|:|\\(frac|sum|prod|int|partial|nabla|times|cdot|sim|in|notin|geq|leq|approx|rightarrow|leftarrow|alpha|beta|gamma|delta|epsilon|lambda|mu|nu|theta|sigma|kappa|omega)|[A-Za-z]_\{?[A-Za-z0-9]|[A-Za-z]\([0-9A-Za-z]+\))/', $eq);
+
+        // Keep this deliberately as several simple PCRE patterns. v0.9.2 used one large
+        // expression that was too fragile on some PHP/PCRE builds and could fail closed,
+        // producing "0 equations indexed" even when MathJax content existed.
+        $patterns = [
+            '/[=+*\/^_:.-]/',
+            '/\\(?:frac|sum|prod|int|partial|nabla|times|cdot|sim|in|notin|geq|leq|approx|rightarrow|leftarrow|alpha|beta|gamma|delta|epsilon|lambda|mu|nu|theta|sigma|kappa|omega)\b/',
+            '/[A-Za-z]_\{?[A-Za-z0-9]/',
+            '/[A-Za-z]\([0-9A-Za-z]/',
+            '/\bO\([^)]+\)/',
+        ];
+        foreach ($patterns as $pattern) {
+            if (preg_match($pattern, $eq)) { return true; }
+        }
+        return false;
     }
 
     private function is_valid_equation_candidate($raw, $normalized, $mode='inline') {
@@ -433,7 +447,8 @@ final class SC_Workbench_Plugin {
         // Reject broken delimiter captures and HTML/table fragments.
         if (preg_match('/(<\/?[a-z][^>]*>|&lt;\/?[a-z]|&gt;|<|>)/i', $eq)) { return false; }
         if (preg_match('/(<\/?(td|tr|th|table|tbody|thead|div|p|span|code|strong|em|pre)\b|&lt;\/?(td|tr|th|table|tbody|thead|div|p|span|code|strong|em|pre)\b)/i', $raw)) { return false; }
-        if (preg_match('/(^\\\)|^\\\]|\\\($|\\\[$|\\\)$|\\\]$)/', $eq)) { return false; }
+        if (preg_match('/^(?:\\\)|\\\])/', $eq)) { return false; }
+        if (preg_match('/(?:\\\(|\\\[)$/', $eq)) { return false; }
         if (preg_match('/\\\)\s*.*\\\(|\\\]\s*.*\\\[/', $eq)) { return false; }
 
         // Reject prose, captions, code exports, and table/cell text accidentally captured between malformed delimiters.
@@ -735,7 +750,7 @@ final class SC_Workbench_Plugin {
         ?>
         <div class="wrap scwb-admin-wrap">
             <h1>Sustainable Catalyst Workbench Equation Registry</h1>
-            <p>Scan published WordPress content for clean LaTeX equations, index surrounding article context, and map equations to Workbench calculators and article-aware tools. v0.9.1 uses a stricter scanner that rejects broken delimiters, HTML table fragments, code exports, and one-letter inline variables.</p>
+            <p>Scan published WordPress content for clean LaTeX equations, index surrounding article context, and map equations to Workbench calculators and article-aware tools. v0.9.2 uses a repaired scanner that rejects broken delimiters, HTML table fragments, code exports, and one-letter inline variables while preserving valid MathJax equations.</p>
             <div class="scwb-admin-grid">
                 <section class="scwb-admin-card">
                     <h2>Scan WordPress Content</h2>
