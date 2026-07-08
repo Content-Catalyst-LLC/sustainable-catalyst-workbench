@@ -120,3 +120,8 @@ These tools remain educational and analytical. Engineering, clinical, structural
 ## v0.9.9 Validation and Routing Upgrade
 
 Adds **SC Workbench → Embed Shortcodes**, which analyzes indexed equations by page/article and generates calculator-specific shortcodes such as `[sc_workbench mode="tool" tool="systems-modeling-tool" article="article-slug"]`. Use this to embed calculators next to articles that contain mathematical formulas.
+
+
+## v1.0.0 Stable Workbench Core
+
+v1.0.0 adds stable shortcode display modes, an Article Calculator Placement Assistant, a Validation Dashboard, and a Tool Catalog. Use `display="inline"`, `display="compact"`, `display="full"`, or `display="drawer"` to embed calculators near formulas without overwhelming long pages.

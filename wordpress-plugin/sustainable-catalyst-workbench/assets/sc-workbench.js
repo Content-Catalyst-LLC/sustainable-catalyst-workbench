@@ -69,6 +69,17 @@
 
   function initWorkbench(el){
     const topic = el.dataset.topic || 'research-library';
+    const displayMode = (el.dataset.display || 'compact').toLowerCase();
+    if(displayMode === 'drawer'){
+      el.classList.add('scwb-drawer-collapsed');
+      const toggle=document.createElement('button');
+      toggle.type='button';
+      toggle.className='scwb-drawer-toggle';
+      toggle.textContent='Open calculator';
+      const head=el.querySelector('.scwb-head');
+      if(head){ head.insertAdjacentElement('afterend', toggle); }
+      toggle.addEventListener('click',()=>{ const collapsed=el.classList.toggle('scwb-drawer-collapsed'); toggle.textContent=collapsed?'Open calculator':'Close calculator'; });
+    }
     const defaultTool = el.dataset.defaultTool || '';
     const startTab = el.dataset.startTab || (defaultTool ? 'calculate' : '');
     let tools = Array.isArray(SCWorkbench.localTools) ? SCWorkbench.localTools : [];

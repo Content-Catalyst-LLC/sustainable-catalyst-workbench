@@ -12,6 +12,7 @@ class ShortcodeRecommendRequest(BaseModel):
     article_slug: str = ''
     equations: list[str] = Field(default_factory=list)
     context: str = ''
+    preferred_display: str = 'compact'
 
 def _confidence(equation_count: int, top_hits: int) -> str:
     if equation_count >= 4 and top_hits >= 3:
@@ -37,7 +38,8 @@ def recommend_shortcode(req: ShortcodeRecommendRequest) -> dict[str, Any]:
     top_tool, top_hits = sorted(tool_counts.items(), key=lambda kv: (-kv[1], kv[0]))[0]
     domain = sorted(domain_counts.items(), key=lambda kv: (-kv[1], kv[0]))[0][0]
     spec = get_tool(top_tool) or {'id': top_tool, 'title': top_tool.replace('-', ' ').title()}
-    shortcode = f'[sc_workbench mode="tool" tool="{top_tool}" article="{req.article_slug}" title="{spec.get("title", top_tool)} for this article"]'
+    display = req.preferred_display if req.preferred_display in {'inline', 'compact', 'full', 'drawer'} else 'compact'
+    shortcode = f'[sc_workbench mode="tool" display="{display}" tool="{top_tool}" article="{req.article_slug}" title="{spec.get("title", top_tool)} for this article"]'
     return {
         'ok': True,
         'recommended_tool_id': top_tool,
@@ -45,7 +47,9 @@ def recommend_shortcode(req: ShortcodeRecommendRequest) -> dict[str, Any]:
         'primary_domain': domain,
         'confidence': _confidence(len(req.equations), top_hits),
         'embed_shortcode': shortcode,
-        'article_shortcode': f'[sc_workbench mode="auto" article="{req.article_slug}"]',
+        'article_shortcode': f'[sc_workbench mode="auto" display="drawer" article="{req.article_slug}"]',
+        'display_mode': display,
+        'suggested_placement': 'Place the compact embed after the first major formula block; use drawer mode for secondary calculators.',
         'equation_count': len(req.equations),
         'reason': 'Recommended from equation-to-tool routing across the supplied article equations.',
         'notes': list(dict.fromkeys(notes))[:5],

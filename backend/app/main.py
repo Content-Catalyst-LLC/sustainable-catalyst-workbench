@@ -5,7 +5,7 @@ from app.core.config import get_settings
 from app.routers import tools, ai, models, equations, routing
 
 settings = get_settings()
-app = FastAPI(title='Sustainable Catalyst Workbench API', version='0.9.9')
+app = FastAPI(title='Sustainable Catalyst Workbench API', version='1.0.0')
 app.add_middleware(CORSMiddleware, allow_origins=settings.origins or ['*'], allow_credentials=True, allow_methods=['*'], allow_headers=['*'])
 
 @app.middleware('http')
@@ -18,11 +18,11 @@ async def backend_key_check(request: Request, call_next):
 
 @app.get('/')
 def root():
-    return {"ok": True, "name": "Sustainable Catalyst Workbench API", "version": "0.9.9"}
+    return {"ok": True, "name": "Sustainable Catalyst Workbench API", "version": "1.0.0"}
 
 @app.get('/health')
 def health():
-    return {"ok": True, "status": "healthy", "version": "0.9.9"}
+    return {"ok": True, "status": "healthy", "version": "1.0.0"}
 
 app.include_router(tools.router)
 app.include_router(ai.router)

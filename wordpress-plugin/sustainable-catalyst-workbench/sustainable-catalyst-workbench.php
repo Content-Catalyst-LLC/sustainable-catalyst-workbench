@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Workbench
- * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations.
- * Version: 0.9.9
+ * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, and public tool catalog endpoints.
+ * Version: 1.0.0
  * Author: Content Catalyst LLC
  * License: MIT
  * Text Domain: sustainable-catalyst-workbench
@@ -11,7 +11,7 @@
 if (!defined('ABSPATH')) { exit; }
 
 final class SC_Workbench_Plugin {
-    const VERSION = '0.9.9';
+    const VERSION = '1.0.0';
     const OPTION_BACKEND_URL = 'sc_workbench_backend_url';
     const OPTION_BACKEND_KEY = 'sc_workbench_backend_key';
     const OPTION_AI_PROVIDER = 'sc_workbench_ai_provider';
@@ -95,13 +95,16 @@ final class SC_Workbench_Plugin {
             'article' => '',
             'equations' => 'auto',
             'tool' => '',
-            'start_tab' => ''
+            'start_tab' => '',
+            'display' => 'compact'
         ], $atts, 'sc_workbench');
         $uid = 'scwb-' . wp_generate_uuid4();
         $current_post_id = get_queried_object_id();
         $article_slug = $atts['article'] ? sanitize_title($atts['article']) : ($current_post_id ? get_post_field('post_name', $current_post_id) : '');
+        $display_mode = sanitize_key($atts['display']);
+        if (!in_array($display_mode, ['inline','compact','full','drawer'], true)) { $display_mode = 'compact'; }
         ob_start(); ?>
-        <section id="<?php echo esc_attr($uid); ?>" class="scwb scwb-theme-<?php echo esc_attr(get_option(self::OPTION_THEME, 'institutional')); ?>" data-scwb data-topic="<?php echo esc_attr(sanitize_key($atts['topic'])); ?>" data-mode="<?php echo esc_attr(sanitize_key($atts['mode'])); ?>" data-post-id="<?php echo esc_attr($current_post_id); ?>" data-article-slug="<?php echo esc_attr($article_slug); ?>" data-equation-display="<?php echo esc_attr(sanitize_key($atts['equations'])); ?>" data-default-tool="<?php echo esc_attr(sanitize_key($atts['tool'])); ?>" data-start-tab="<?php echo esc_attr(sanitize_key($atts['start_tab'])); ?>">
+        <section id="<?php echo esc_attr($uid); ?>" class="scwb scwb-theme-<?php echo esc_attr(get_option(self::OPTION_THEME, 'institutional')); ?> scwb-display-<?php echo esc_attr($display_mode); ?>" data-scwb data-topic="<?php echo esc_attr(sanitize_key($atts['topic'])); ?>" data-mode="<?php echo esc_attr(sanitize_key($atts['mode'])); ?>" data-display="<?php echo esc_attr($display_mode); ?>" data-post-id="<?php echo esc_attr($current_post_id); ?>" data-article-slug="<?php echo esc_attr($article_slug); ?>" data-equation-display="<?php echo esc_attr(sanitize_key($atts['equations'])); ?>" data-default-tool="<?php echo esc_attr(sanitize_key($atts['tool'])); ?>" data-start-tab="<?php echo esc_attr(sanitize_key($atts['start_tab'])); ?>">
             <div class="scwb-head">
                 <p class="scwb-eyebrow">Sustainable Catalyst Workbench</p>
                 <h2><?php echo esc_html(sanitize_text_field($atts['title'])); ?></h2>
@@ -194,6 +197,8 @@ final class SC_Workbench_Plugin {
         register_rest_route('sc-workbench/v1', '/feature-builder', ['methods'=>'GET', 'callback'=>[$this,'rest_feature_builder'], 'permission_callback'=>[$this,'admin_permission']]);
         register_rest_route('sc-workbench/v1', '/shortcode-recommendations', ['methods'=>'GET', 'callback'=>[$this,'rest_shortcode_recommendations'], 'permission_callback'=>[$this,'admin_permission']]);
         register_rest_route('sc-workbench/v1', '/validation-summary', ['methods'=>'GET', 'callback'=>[$this,'rest_validation_summary'], 'permission_callback'=>[$this,'admin_permission']]);
+        register_rest_route('sc-workbench/v1', '/tool-catalog', ['methods'=>'GET', 'callback'=>[$this,'rest_tool_catalog'], 'permission_callback'=>'__return_true']);
+        register_rest_route('sc-workbench/v1', '/placement-assistant', ['methods'=>'GET', 'callback'=>[$this,'rest_placement_assistant'], 'permission_callback'=>[$this,'admin_permission']]);
     }
 
     public function admin_permission() { return current_user_can('manage_options'); }
@@ -371,7 +376,7 @@ final class SC_Workbench_Plugin {
             if (!$this->feature_builder_count()) {
                 $this->import_feature_builder_from_file($this->bundled_feature_builder_queue_csv(), true);
             }
-            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations.
+            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, and public tool catalog endpoints.
             // The equation table is a generated cache, so it is safe to clear during scanner upgrades and rebuild from posts.
             if ($old_version && version_compare($old_version, '0.9.4', '<')) {
                 $this->clear_equation_registry();
@@ -733,6 +738,9 @@ final class SC_Workbench_Plugin {
         add_submenu_page('sustainable-catalyst-workbench', 'Calculator Backlog', 'Calculator Backlog', 'manage_options', 'sustainable-catalyst-workbench-calculator-backlog', [$this,'render_calculator_backlog_page']);
         add_submenu_page('sustainable-catalyst-workbench', 'Feature Builder', 'Feature Builder', 'manage_options', 'sustainable-catalyst-workbench-feature-builder', [$this,'render_feature_builder_page']);
         add_submenu_page('sustainable-catalyst-workbench', 'Embed Shortcodes', 'Embed Shortcodes', 'manage_options', 'sustainable-catalyst-workbench-embed-shortcodes', [$this,'render_embed_shortcodes_page']);
+        add_submenu_page('sustainable-catalyst-workbench', 'Placement Assistant', 'Placement Assistant', 'manage_options', 'sustainable-catalyst-workbench-placement-assistant', [$this,'render_placement_assistant_page']);
+        add_submenu_page('sustainable-catalyst-workbench', 'Validation Dashboard', 'Validation Dashboard', 'manage_options', 'sustainable-catalyst-workbench-validation-dashboard', [$this,'render_validation_dashboard_page']);
+        add_submenu_page('sustainable-catalyst-workbench', 'Tool Catalog', 'Tool Catalog', 'manage_options', 'sustainable-catalyst-workbench-tool-catalog', [$this,'render_tool_catalog_page']);
     }
 
     public function handle_settings_save() {
@@ -943,7 +951,7 @@ final class SC_Workbench_Plugin {
                 </div>
                 <?php submit_button('Save Workbench Settings'); ?>
             </form>
-            <section class="scwb-admin-card"><h2>Shortcodes</h2><code>[sc_workbench topic="research-library" title="Ask the Sustainable Catalyst Workbench"]</code><br><code>[sc_workbench mode="library" topic="research-library"]</code><br><code>[sc_workbench mode="auto"]</code><br><code>[sc_workbench article="article-slug"]</code><br><code>[sc_workbench_pathways]</code><br><code>[sc_workbench mode="tool" tool="systems-modeling-tool" article="article-slug"]</code><p><a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-equations')); ?>">Open Equation Registry →</a> · <a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-feature-builder')); ?>">Open Feature Builder →</a> · <a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-embed-shortcodes')); ?>">Open Embed Shortcodes →</a></p></section>
+            <section class="scwb-admin-card"><h2>Shortcodes</h2><code>[sc_workbench topic="research-library" title="Ask the Sustainable Catalyst Workbench"]</code><br><code>[sc_workbench mode="library" topic="research-library"]</code><br><code>[sc_workbench mode="auto"]</code><br><code>[sc_workbench article="article-slug"]</code><br><code>[sc_workbench_pathways]</code><br><code>[sc_workbench mode="tool" display="compact" tool="systems-modeling-tool" article="article-slug"]</code><p><a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-equations')); ?>">Open Equation Registry →</a> · <a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-feature-builder')); ?>">Open Feature Builder →</a> · <a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-embed-shortcodes')); ?>">Open Embed Shortcodes →</a> · <a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-placement-assistant')); ?>">Open Placement Assistant →</a> · <a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-validation-dashboard')); ?>">Open Validation Dashboard →</a></p></section>
         </div>
     <?php }
 
@@ -1517,6 +1525,10 @@ final class SC_Workbench_Plugin {
             embed_shortcode LONGTEXT NOT NULL,
             article_shortcode LONGTEXT NULL,
             validation_status VARCHAR(64) NOT NULL DEFAULT 'needs_review',
+            suggested_placement VARCHAR(255) NULL,
+            display_mode VARCHAR(32) NOT NULL DEFAULT 'compact',
+            placement_status VARCHAR(64) NOT NULL DEFAULT 'proposed',
+            placement_notes LONGTEXT NULL,
             created_at DATETIME NOT NULL,
             updated_at DATETIME NOT NULL,
             PRIMARY KEY  (id),
@@ -1551,6 +1563,26 @@ final class SC_Workbench_Plugin {
         if ($equation_count >= 2 && $tool_hits >= 2) { return 'medium'; }
         if ($domain_hits >= 3 && $tool_hits >= 1) { return 'medium'; }
         return 'low';
+    }
+
+    private function suggested_shortcode_display_mode($confidence, $rank, $equation_count) {
+        $confidence = sanitize_key($confidence);
+        $rank = max(1, intval($rank));
+        $equation_count = max(0, intval($equation_count));
+        if ($confidence === 'high' && $rank === 1 && $equation_count >= 4) { return 'compact'; }
+        if ($confidence === 'medium') { return 'drawer'; }
+        return 'inline';
+    }
+
+    private function suggested_calculator_placement($display_count, $inline_count, $rank) {
+        $display_count = max(0, intval($display_count));
+        $inline_count = max(0, intval($inline_count));
+        $rank = max(1, intval($rank));
+        if ($rank > 1) { return 'secondary embed after the main calculator or inside a collapsible drawer'; }
+        if ($display_count >= 2) { return 'after the first major display-equation block'; }
+        if ($display_count === 1) { return 'directly after the primary formula block'; }
+        if ($inline_count >= 3) { return 'after the paragraph that introduces the recurring formula pattern'; }
+        return 'near the first formula reference, preferably as an inline or drawer embed';
     }
 
     private function build_shortcode_recommendations() {
@@ -1591,7 +1623,7 @@ final class SC_Workbench_Plugin {
                 if ($tid) { $groups[$post_id]['tools'][$tid] = ($groups[$post_id]['tools'][$tid] ?? 0) + 1; }
             }
             $eq = trim((string)($row['equation_normalized'] ?: $row['equation_raw']));
-            if ($eq && count($groups[$post_id]['examples']) < 4) { $groups[$post_id]['examples'][] = $eq; }
+            if ($eq && count($groups[$post_id]['examples']) < 5) { $groups[$post_id]['examples'][] = $eq; }
         }
         $built = 0;
         $now = current_time('mysql');
@@ -1611,9 +1643,11 @@ final class SC_Workbench_Plugin {
                 if ($rank > 1 && $confidence === 'high') { $confidence = 'medium'; }
                 $slug = sanitize_title($g['post_slug']);
                 $safe_title = sanitize_text_field($title . ' for this article');
-                $embed_shortcode = '[sc_workbench mode="tool" tool="' . $tool_id . '" article="' . $slug . '" title="' . esc_attr($safe_title) . '"]';
-                $article_shortcode = '[sc_workbench mode="auto" article="' . $slug . '"]';
-                $reason = sprintf('%s was recommended because %d indexed equation(s) on this page mapped to this tool family. Primary detected domain: %s. Review before embedding on public pages.', $title, intval($hits), $primary_domain);
+                $display_mode = $this->suggested_shortcode_display_mode($confidence, $rank, $g['equation_count']);
+                $suggested_placement = $this->suggested_calculator_placement($g['display_equation_count'], $g['inline_equation_count'], $rank);
+                $embed_shortcode = '[sc_workbench mode="tool" display="' . $display_mode . '" tool="' . $tool_id . '" article="' . $slug . '" title="' . esc_attr($safe_title) . '"]';
+                $article_shortcode = '[sc_workbench mode="auto" display="drawer" article="' . $slug . '"]';
+                $reason = sprintf('%s was recommended because %d indexed equation(s) on this page mapped to this tool family. Primary detected domain: %s. Suggested placement: %s. Review before embedding on public pages.', $title, intval($hits), $primary_domain, $suggested_placement);
                 $validation = ($confidence === 'high') ? 'recommended' : (($confidence === 'medium') ? 'review' : 'weak_match');
                 $wpdb->replace($out_table, [
                     'post_id' => intval($g['post_id']),
@@ -1633,9 +1667,13 @@ final class SC_Workbench_Plugin {
                     'embed_shortcode' => $embed_shortcode,
                     'article_shortcode' => $article_shortcode,
                     'validation_status' => $validation,
+                    'suggested_placement' => $suggested_placement,
+                    'display_mode' => $display_mode,
+                    'placement_status' => 'proposed',
+                    'placement_notes' => 'v1.0.0 generated placement recommendation. Confirm location in article editor before publishing.',
                     'created_at' => $now,
                     'updated_at' => $now,
-                ], ['%d','%s','%s','%s','%s','%d','%d','%d','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s']);
+                ], ['%d','%s','%s','%s','%s','%d','%d','%d','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s']);
                 $built++;
             }
         }
@@ -1658,7 +1696,8 @@ final class SC_Workbench_Plugin {
         $by_confidence = $wpdb->get_results("SELECT confidence, COUNT(*) AS count FROM {$table} GROUP BY confidence ORDER BY FIELD(confidence,'high','medium','low')", ARRAY_A);
         $by_domain = $wpdb->get_results("SELECT primary_domain, COUNT(*) AS count, SUM(equation_count) AS equation_count FROM {$table} GROUP BY primary_domain ORDER BY count DESC, equation_count DESC LIMIT 20", ARRAY_A);
         $by_tool = $wpdb->get_results("SELECT recommended_tool_id, recommended_tool_title, COUNT(*) AS count, SUM(equation_count) AS equation_count FROM {$table} GROUP BY recommended_tool_id, recommended_tool_title ORDER BY count DESC, equation_count DESC LIMIT 20", ARRAY_A);
-        return ['total'=>$total, 'by_confidence'=>$by_confidence, 'by_domain'=>$by_domain, 'by_tool'=>$by_tool];
+        $by_placement_status = $wpdb->get_results("SELECT placement_status, COUNT(*) AS count FROM {$table} GROUP BY placement_status ORDER BY count DESC", ARRAY_A);
+        return ['total'=>$total, 'by_confidence'=>$by_confidence, 'by_domain'=>$by_domain, 'by_tool'=>$by_tool, 'by_placement_status'=>$by_placement_status];
     }
 
     public function rest_shortcode_recommendations(WP_REST_Request $request) {
@@ -1676,7 +1715,7 @@ final class SC_Workbench_Plugin {
         $articles = intval($wpdb->get_var("SELECT COUNT(DISTINCT post_id) FROM {$eq_table}"));
         $recommendations = intval($wpdb->get_var("SELECT COUNT(*) FROM {$sc_table}"));
         $weak = intval($wpdb->get_var("SELECT COUNT(*) FROM {$sc_table} WHERE confidence='low' OR validation_status='weak_match'"));
-        return new WP_REST_Response(['ok'=>true, 'equations_indexed'=>$equations, 'articles_with_equations'=>$articles, 'shortcode_recommendations'=>$recommendations, 'weak_matches'=>$weak, 'validation_notes'=>['High confidence still requires editorial review before embedding.', 'Use the tool-specific shortcode on articles where readers need a calculator directly under a formula.']], 200);
+        return new WP_REST_Response(['ok'=>true, 'version'=>self::VERSION, 'equations_indexed'=>$equations, 'articles_with_equations'=>$articles, 'shortcode_recommendations'=>$recommendations, 'weak_matches'=>$weak, 'tool_validation'=>$this->tool_validation_counts(), 'validation_notes'=>['High confidence still requires editorial review before embedding.', 'Use the tool-specific shortcode on articles where readers need a calculator directly under a formula.', 'v1.0.0 separates built, recommended, review, and weak-match states for editorial placement.']], 200);
     }
 
     private function export_shortcode_recommendations_csv() {
@@ -1687,20 +1726,130 @@ final class SC_Workbench_Plugin {
         header('Content-Type: text/csv; charset=utf-8');
         header('Content-Disposition: attachment; filename=' . $filename);
         $out = fopen('php://output', 'w');
-        fputcsv($out, ['post_id','post_title','post_slug','post_type','permalink','equation_count','display_equation_count','inline_equation_count','primary_domain','recommended_tool_id','recommended_tool_title','confidence','validation_status','reason','example_equations','embed_shortcode','article_shortcode']);
+        fputcsv($out, ['post_id','post_title','post_slug','post_type','permalink','equation_count','display_equation_count','inline_equation_count','primary_domain','recommended_tool_id','recommended_tool_title','confidence','validation_status','suggested_placement','display_mode','placement_status','placement_notes','reason','example_equations','embed_shortcode','article_shortcode']);
         foreach ($rows as $row) {
             fputcsv($out, [
                 $row['post_id'], $row['post_title'], $row['post_slug'], $row['post_type'], $row['permalink'],
                 $row['equation_count'], $row['display_equation_count'], $row['inline_equation_count'],
                 $row['primary_domain'], $row['recommended_tool_id'], $row['recommended_tool_title'],
-                $row['confidence'], $row['validation_status'], $row['reason'], $row['example_equations'],
+                $row['confidence'], $row['validation_status'], $row['suggested_placement'] ?? '', $row['display_mode'] ?? 'compact', $row['placement_status'] ?? 'proposed', $row['placement_notes'] ?? '', $row['reason'], $row['example_equations'],
                 $row['embed_shortcode'], $row['article_shortcode']
             ]);
         }
         fclose($out);
     }
 
-    public function render_embed_shortcodes_page() {
+    
+    private function validation_status_for_tool($tool_id) {
+        $tool_id = sanitize_key($tool_id);
+        $tool = $this->local_tool($tool_id);
+        if (!$tool) { return 'missing_local_registry'; }
+        $engine = sanitize_key($tool['engine'] ?? '');
+        if (strpos($engine, 'deterministic') !== false || strpos($engine, 'python') !== false || strpos($engine, 'backend') !== false) { return 'built'; }
+        if (strpos($engine, 'fallback') !== false || strpos($engine, 'mvp') !== false) { return 'experimental'; }
+        return 'needs_review';
+    }
+
+    private function tool_validation_counts() {
+        $counts = ['built'=>0, 'experimental'=>0, 'needs_review'=>0, 'missing_local_registry'=>0];
+        foreach ($this->local_tools() as $tool) {
+            $status = $this->validation_status_for_tool($tool['id'] ?? '');
+            if (!isset($counts[$status])) { $counts[$status] = 0; }
+            $counts[$status]++;
+        }
+        return $counts;
+    }
+
+    public function rest_tool_catalog(WP_REST_Request $request) {
+        $tools = [];
+        foreach ($this->local_tools() as $tool) {
+            $id = sanitize_key($tool['id'] ?? '');
+            if (!$id) { continue; }
+            $tools[] = [
+                'id' => $id,
+                'title' => $tool['title'] ?? $this->tool_title_from_id($id),
+                'domain' => $tool['domain'] ?? '',
+                'family' => $tool['family'] ?? '',
+                'engine' => $tool['engine'] ?? '',
+                'description' => $tool['description'] ?? '',
+                'validation_status' => $this->validation_status_for_tool($id),
+                'shortcode_compact' => '[sc_workbench mode="tool" display="compact" tool="' . $id . '"]',
+                'shortcode_drawer' => '[sc_workbench mode="tool" display="drawer" tool="' . $id . '"]',
+                'shortcode_inline' => '[sc_workbench mode="tool" display="inline" tool="' . $id . '"]',
+            ];
+        }
+        return new WP_REST_Response(['ok'=>true, 'version'=>self::VERSION, 'tool_count'=>count($tools), 'validation_counts'=>$this->tool_validation_counts(), 'tools'=>$tools], 200);
+    }
+
+    public function rest_placement_assistant(WP_REST_Request $request) {
+        $limit = min(1000, max(1, intval($request->get_param('limit') ?: 250)));
+        return new WP_REST_Response(['ok'=>true, 'version'=>self::VERSION, 'summary'=>$this->shortcode_recommendation_summary(), 'placements'=>$this->shortcode_recommendation_rows($limit)], 200);
+    }
+
+    public function render_validation_dashboard_page() {
+        if (!current_user_can('manage_options')) { return; }
+        settings_errors('sc_workbench_messages');
+        $counts = $this->tool_validation_counts();
+        $summary = $this->shortcode_recommendation_summary();
+        global $wpdb;
+        self::create_equation_table();
+        self::create_shortcode_recommendations_table();
+        $eq_count = intval($wpdb->get_var('SELECT COUNT(*) FROM ' . self::equation_table_name()));
+        $article_count = intval($wpdb->get_var('SELECT COUNT(DISTINCT post_id) FROM ' . self::equation_table_name()));
+        $weak = intval($wpdb->get_var("SELECT COUNT(*) FROM " . self::shortcode_recommendations_table_name() . " WHERE confidence='low' OR validation_status='weak_match'"));
+        ?>
+        <div class="wrap scwb-admin-wrap">
+            <h1>Workbench Validation Dashboard</h1>
+            <p>v1.0.0 stabilization view for calculator coverage, equation indexing, shortcode routing quality, and editorial placement readiness.</p>
+            <div class="scwb-admin-grid">
+                <section class="scwb-admin-card"><h2>Equation Registry</h2><p><strong><?php echo esc_html(number_format_i18n($eq_count)); ?></strong> equations indexed.</p><p><strong><?php echo esc_html(number_format_i18n($article_count)); ?></strong> articles/pages represented.</p></section>
+                <section class="scwb-admin-card"><h2>Calculator Tool Validation</h2><ul><?php foreach ($counts as $status=>$count): ?><li><strong><?php echo esc_html(ucwords(str_replace('_',' ', $status))); ?>:</strong> <?php echo esc_html(number_format_i18n(intval($count))); ?></li><?php endforeach; ?></ul></section>
+                <section class="scwb-admin-card"><h2>Shortcode Routing</h2><p><strong><?php echo esc_html(number_format_i18n(intval($summary['total'] ?? 0))); ?></strong> placement recommendations.</p><p><strong><?php echo esc_html(number_format_i18n($weak)); ?></strong> weak matches needing review.</p></section>
+            </div>
+            <section class="scwb-admin-card scwb-admin-wide"><h2>v1.0 Quality Rules</h2><ul><li>Use high-confidence recommendations first.</li><li>Use <code>display="compact"</code> for primary article calculators and <code>display="drawer"</code> for secondary calculators.</li><li>Review low-confidence placements manually before inserting public shortcodes.</li><li>Backend-powered tools should be tested on Render before being treated as production-ready.</li></ul></section>
+        </div>
+        <?php
+    }
+
+    public function render_tool_catalog_page() {
+        if (!current_user_can('manage_options')) { return; }
+        $tools = $this->local_tools();
+        ?>
+        <div class="wrap scwb-admin-wrap">
+            <h1>Workbench Tool Catalog</h1>
+            <p>Stable v1.0 catalog of calculator IDs, domains, validation status, and shortcode forms.</p>
+            <section class="scwb-admin-card scwb-admin-wide">
+                <table class="widefat striped scwb-admin-table"><thead><tr><th>Tool</th><th>Domain</th><th>Status</th><th>Shortcode</th></tr></thead><tbody>
+                <?php foreach ($tools as $tool): $id = sanitize_key($tool['id'] ?? ''); if (!$id) { continue; } ?>
+                    <tr><td><strong><?php echo esc_html($tool['title'] ?? $id); ?></strong><br><code><?php echo esc_html($id); ?></code></td><td><?php echo esc_html($tool['domain'] ?? ''); ?></td><td><?php echo esc_html($this->validation_status_for_tool($id)); ?></td><td><textarea readonly class="scwb-shortcode-copy" rows="2">[sc_workbench mode="tool" display="compact" tool="<?php echo esc_attr($id); ?>"]</textarea><button type="button" class="button button-small" data-scwb-copy-shortcode>Copy</button></td></tr>
+                <?php endforeach; ?>
+                </tbody></table>
+            </section>
+        </div>
+        <?php
+    }
+
+    public function render_placement_assistant_page() {
+        if (!current_user_can('manage_options')) { return; }
+        settings_errors('sc_workbench_messages');
+        $rows = $this->shortcode_recommendation_rows(500);
+        ?>
+        <div class="wrap scwb-admin-wrap">
+            <h1>Article Calculator Placement Assistant</h1>
+            <p>Use this editorial view to decide where calculator embeds should be inserted near article formulas.</p>
+            <section class="scwb-admin-card scwb-admin-wide">
+                <table class="widefat striped scwb-admin-table"><thead><tr><th>Article</th><th>Recommended placement</th><th>Display</th><th>Calculator</th><th>Confidence</th><th>Shortcode</th></tr></thead><tbody>
+                <?php if (!$rows): ?><tr><td colspan="6">No placements yet. Open Embed Shortcodes and build recommendations.</td></tr><?php endif; ?>
+                <?php foreach ($rows as $row): ?>
+                    <tr><td><strong><?php echo esc_html($row['post_title']); ?></strong><br><a href="<?php echo esc_url($row['permalink']); ?>" target="_blank" rel="noopener">View article</a></td><td><?php echo esc_html($row['suggested_placement'] ?? 'Review article and place after the relevant equation.'); ?></td><td><code><?php echo esc_html($row['display_mode'] ?? 'compact'); ?></code></td><td><?php echo esc_html($row['recommended_tool_title']); ?><br><code><?php echo esc_html($row['recommended_tool_id']); ?></code></td><td><span class="scwb-confidence scwb-confidence-<?php echo esc_attr($row['confidence']); ?>"><?php echo esc_html($row['confidence']); ?></span></td><td><textarea readonly class="scwb-shortcode-copy" rows="3"><?php echo esc_textarea($row['embed_shortcode']); ?></textarea><button type="button" class="button button-small" data-scwb-copy-shortcode>Copy</button></td></tr>
+                <?php endforeach; ?>
+                </tbody></table>
+            </section>
+        </div>
+        <?php
+    }
+
+public function render_embed_shortcodes_page() {
         if (!current_user_can('manage_options')) { return; }
         settings_errors('sc_workbench_messages');
         $summary = $this->shortcode_recommendation_summary();
@@ -1740,10 +1889,10 @@ final class SC_Workbench_Plugin {
                 <h2>Recommended Calculator Embeds</h2>
                 <p>Copy the tool-specific shortcode into the article near the formula it supports. The shortcode opens the Workbench directly to the recommended calculator.</p>
                 <table class="widefat striped scwb-admin-table">
-                    <thead><tr><th>Article</th><th>Equations</th><th>Domain</th><th>Calculator</th><th>Confidence</th><th>Shortcode</th></tr></thead>
+                    <thead><tr><th>Article</th><th>Equations</th><th>Domain</th><th>Calculator</th><th>Placement</th><th>Confidence</th><th>Shortcode</th></tr></thead>
                     <tbody>
                     <?php if (!$rows): ?>
-                        <tr><td colspan="6">No recommendations yet. Build recommendations from the equation registry.</td></tr>
+                        <tr><td colspan="7">No recommendations yet. Build recommendations from the equation registry.</td></tr>
                     <?php endif; ?>
                     <?php foreach ($rows as $row): ?>
                         <tr>
@@ -1751,6 +1900,7 @@ final class SC_Workbench_Plugin {
                             <td><?php echo esc_html(intval($row['equation_count'])); ?></td>
                             <td><?php echo esc_html($row['primary_domain']); ?></td>
                             <td><code><?php echo esc_html($row['recommended_tool_id']); ?></code><br><?php echo esc_html($row['recommended_tool_title']); ?></td>
+                            <td><?php echo esc_html($row['suggested_placement'] ?? 'Review placement.'); ?><br><code><?php echo esc_html($row['display_mode'] ?? 'compact'); ?></code></td>
                             <td><span class="scwb-confidence scwb-confidence-<?php echo esc_attr($row['confidence']); ?>"><?php echo esc_html($row['confidence']); ?></span></td>
                             <td><textarea readonly class="scwb-shortcode-copy" rows="3"><?php echo esc_textarea($row['embed_shortcode']); ?></textarea><button type="button" class="button button-small" data-scwb-copy-shortcode>Copy</button></td>
                         </tr>
