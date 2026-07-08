@@ -1,11 +1,8 @@
-.DS_Store
 .env
 .venv/
 __pycache__/
 *.pyc
+.DS_Store
 node_modules/
 dist/
-build/
-*.zip
-.coverage
-.pytest_cache/
+*.log

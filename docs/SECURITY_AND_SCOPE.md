@@ -1,20 +1,9 @@
-# Security and Scope Notes
+# Security and Scope
 
-## Scope principle
+The assistant is restricted to Sustainable Catalyst topics. Out-of-scope questions are redirected.
 
-The assistant is not a general chatbot. It should be restricted to the Sustainable Catalyst knowledge map.
+The preferred production key location is backend `.env`.
 
-## Production requirements before live AI
+WordPress-managed provider keys are supported because the site owner requested it. The plugin encrypts the key using WordPress salts when OpenSSL is available and sends it to the backend through `X-SC-Provider-Key`. This is acceptable for controlled deployments but backend `.env` remains safer.
 
-- Add server-side rate limiting.
-- Add request logging without storing sensitive personal data unnecessarily.
-- Add out-of-scope refusal behavior.
-- Add prompt-injection handling for retrieved documents.
-- Add citations to retrieved site materials.
-- Add disclaimers for educational analysis.
-- Keep calculations deterministic and inspectable.
-- Keep OpenAI/API credentials server-side only.
-
-## Professional-advice limits
-
-For law, medicine, psychology, financial, compliance, or regulatory topics, use educational framing and recommend qualified professional review for real-world decisions.
+Do not paste provider keys into chat, GitHub, public HTML, JavaScript, CSS, or logs.

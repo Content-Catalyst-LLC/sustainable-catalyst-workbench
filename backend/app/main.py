@@ -1,28 +1,23 @@
-from fastapi import FastAPI
+from __future__ import annotations
+from fastapi import FastAPI, Header, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from app.routers import tools, ai
+from app.core.config import settings
 
-from app.routers import ai, research, tools
-from app.core.settings import settings
+app = FastAPI(title="Sustainable Catalyst Workbench API", version="0.4.2")
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
-app = FastAPI(
-    title="Sustainable Catalyst Workbench API",
-    version="0.1.0",
-    description="Site-scoped analytical backend for Sustainable Catalyst Workbench.",
-)
+@app.middleware("http")
+async def backend_key_guard(request: Request, call_next):
+    if settings.backend_key:
+        supplied = request.headers.get("x-sc-workbench-key", "")
+        if supplied != settings.backend_key:
+            raise HTTPException(status_code=401, detail="Invalid Workbench backend key")
+    return await call_next(request)
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=settings.allowed_origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+@app.get("/health")
+def health():
+    return {"ok": True, "status": "healthy", "version": "0.4.2"}
 
 app.include_router(tools.router)
 app.include_router(ai.router)
-app.include_router(research.router)
-
-
-@app.get("/health")
-def health() -> dict:
-    return {"ok": True, "service": "sustainable-catalyst-workbench-api", "version": "0.1.0"}

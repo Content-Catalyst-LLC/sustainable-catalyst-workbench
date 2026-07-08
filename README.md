@@ -1,87 +1,45 @@
-# Sustainable Catalyst Workbench
+# Sustainable Catalyst Workbench v0.4.2
 
-Version: 0.1.0
+A compact, backend-first analytical Workbench for Sustainable Catalyst.
 
-Sustainable Catalyst Workbench is a site-scoped analytical layer for the Sustainable Catalyst Research Library. It connects topic-scoped AI assistance, deterministic calculators, qualitative diagnostics, quantitative models, article-map routing, and reproducible backend engines.
+Version 0.4.2 corrects the Research Library integration approach:
 
-This starter package includes:
+- The Research Library remains compact, elegant, and pathway-centered.
+- The Workbench appears as one small question-and-tool interface, not a giant map.
+- Calculators run through a real Python/FastAPI analytics backend.
+- R, Julia, Haskell, and C++ are supported as optional specialist bridges.
+- Detailed SVG graphs are generated server-side and returned to WordPress.
+- AI is scope-gated to the Sustainable Catalyst knowledge map and can use either a backend `.env` key or an optional encrypted WordPress-managed provider key for testing.
 
-- A WordPress plugin with shortcodes and admin settings.
-- A FastAPI backend with scope gating, topic registry, tool registry, and starter engines.
-- Initial Workbench tools for quantitative, qualitative, governance, sustainability, and decision-support use cases.
-- Docker Compose scaffolding for local backend development.
-- A GitHub push helper script.
+## Quick local backend start
 
-## Architecture
-
-```text
-WordPress / Sustainable Catalyst Site
-  ↓
-Sustainable Catalyst Workbench Plugin
-  ↓
-FastAPI Backend
-  ↓
-Scope Gate + Topic Registry + Tool Registry
-  ↓
-Deterministic Engines + AI/Retrieval Orchestration Stubs
-  ↓
-PostgreSQL/pgvector + Redis/Celery-ready expansion
+```bash
+cd backend
+python3.12 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8088
 ```
-
-## Included starter tools
-
-- Linear Algebra Systems Solver
-- Decision Matrix
-- Risk & Resilience Scorecard
-- AI Governance Audit
-- Sustainability Tradeoff Matrix
-- Qualitative Interpretation Matrix
-- Research Library Assistant
-- Workbench Tool Finder
 
 ## WordPress shortcodes
 
 ```text
 [sc_workbench]
-[sc_workbench_tools]
-[sc_workbench tool="linear-system-solver"]
-[sc_workbench_ai mode="library-guide"]
-[sc_workbench_ai mode="article-copilot" topic="systems-modeling"]
+[sc_workbench_compact]
+[sc_workbench topic="research-library"]
+[sc_workbench_pathways]
 ```
 
-## Backend local run
+## Recommended Research Library integration
 
-```bash
-cd backend
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload --port 8088
-```
+Use only the compact section in `research-library/research-library-compact-workbench-section.html`. Do not paste a full topic map into the Research Library page.
 
-Then set the WordPress plugin backend URL to:
+## Security note
 
-```text
-http://127.0.0.1:8088
-```
+Best practice is to store provider keys on the backend in `.env`. Version 0.4.2 also supports a WordPress-managed provider key because the site owner requested it. The plugin encrypts the key before storage using WordPress salts when OpenSSL is available, but backend `.env` is still the preferred production approach.
 
-## Docker run
 
-```bash
-cd backend
-docker compose up --build
-```
+### v0.4.2 Visual Analytics
 
-## WordPress install
-
-Zip the folder:
-
-```text
-wordpress-plugin/sustainable-catalyst-workbench
-```
-
-Upload it in WordPress under Plugins → Add New → Upload Plugin.
-
-## Current limitation
-
-This v0.1.0 package intentionally includes deterministic engines and AI/retrieval stubs, but it does not include production OpenAI credentials, embeddings, or live Research Library indexing. Those should be added after the plugin shell is tested safely on staging.
+The compact Workbench now includes a dedicated **Visualize** tab alongside Ask, Calculators, and Pathways. Visualizations are rendered by the Python analytics backend as SVG output and returned to WordPress. The included Visual Analytics Studio supports bar, line, scatter, histogram, and box-plot views with summary diagnostics.
