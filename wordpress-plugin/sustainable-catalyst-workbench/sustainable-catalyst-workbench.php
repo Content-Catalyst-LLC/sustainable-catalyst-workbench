@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Sustainable Catalyst Workbench
  * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports.
- * Version: 0.8.1
+ * Version: 0.9.0
  * Author: Content Catalyst LLC
  * License: MIT
  * Text Domain: sustainable-catalyst-workbench
@@ -11,7 +11,7 @@
 if (!defined('ABSPATH')) { exit; }
 
 final class SC_Workbench_Plugin {
-    const VERSION = '0.8.1';
+    const VERSION = '0.9.0';
     const OPTION_BACKEND_URL = 'sc_workbench_backend_url';
     const OPTION_BACKEND_KEY = 'sc_workbench_backend_key';
     const OPTION_AI_PROVIDER = 'sc_workbench_ai_provider';
@@ -23,6 +23,8 @@ final class SC_Workbench_Plugin {
     const OPTION_TIMEOUT = 'sc_workbench_timeout';
     const OPTION_DEFAULT_TOPIC = 'sc_workbench_default_topic';
     const OPTION_THEME = 'sc_workbench_theme';
+    const OPTION_VERSION = 'sc_workbench_version';
+
 
     public function __construct() {
         add_action('init', [$this, 'register_shortcodes']);
@@ -31,9 +33,12 @@ final class SC_Workbench_Plugin {
         add_action('rest_api_init', [$this, 'register_rest_routes']);
         add_action('admin_menu', [$this, 'register_admin_menu']);
         add_action('admin_init', [$this, 'handle_settings_save']);
+        add_action('plugins_loaded', [$this, 'maybe_install']);
     }
 
     public static function activate() {
+        self::create_equation_table();
+        update_option(self::OPTION_VERSION, self::VERSION);
         add_option(self::OPTION_BACKEND_URL, 'http://127.0.0.1:8088');
         add_option(self::OPTION_AI_PROVIDER, 'backend');
         add_option(self::OPTION_ENABLE_AI, '1');
@@ -83,11 +88,14 @@ final class SC_Workbench_Plugin {
         $atts = shortcode_atts([
             'topic' => get_option(self::OPTION_DEFAULT_TOPIC, 'research-library'),
             'title' => 'Ask the Sustainable Catalyst Workbench',
-            'mode' => 'guided'
+            'mode' => 'guided',
+            'article' => ''
         ], $atts, 'sc_workbench');
         $uid = 'scwb-' . wp_generate_uuid4();
+        $current_post_id = get_queried_object_id();
+        $article_slug = $atts['article'] ? sanitize_title($atts['article']) : ($current_post_id ? get_post_field('post_name', $current_post_id) : '');
         ob_start(); ?>
-        <section id="<?php echo esc_attr($uid); ?>" class="scwb scwb-theme-<?php echo esc_attr(get_option(self::OPTION_THEME, 'institutional')); ?>" data-scwb data-topic="<?php echo esc_attr(sanitize_key($atts['topic'])); ?>" data-mode="<?php echo esc_attr(sanitize_key($atts['mode'])); ?>">
+        <section id="<?php echo esc_attr($uid); ?>" class="scwb scwb-theme-<?php echo esc_attr(get_option(self::OPTION_THEME, 'institutional')); ?>" data-scwb data-topic="<?php echo esc_attr(sanitize_key($atts['topic'])); ?>" data-mode="<?php echo esc_attr(sanitize_key($atts['mode'])); ?>" data-post-id="<?php echo esc_attr($current_post_id); ?>" data-article-slug="<?php echo esc_attr($article_slug); ?>">
             <div class="scwb-head">
                 <p class="scwb-eyebrow">Sustainable Catalyst Workbench</p>
                 <h2><?php echo esc_html(sanitize_text_field($atts['title'])); ?></h2>
@@ -97,6 +105,7 @@ final class SC_Workbench_Plugin {
                 <button type="button" class="is-active" data-scwb-tab="ask">Ask</button>
                 <button type="button" data-scwb-tab="calculate">Calculate</button>
                 <button type="button" data-scwb-tab="models">Models</button>
+                <button type="button" data-scwb-tab="equations">Equations</button>
                 <button type="button" data-scwb-tab="pathways">Pathways</button>
             </div>
 
@@ -125,6 +134,12 @@ final class SC_Workbench_Plugin {
             <div class="scwb-panel" data-scwb-panel="models">
                 <div class="scwb-models" data-scwb-models>
                     <p class="scwb-muted">Loading model registry…</p>
+                </div>
+            </div>
+
+            <div class="scwb-panel" data-scwb-panel="equations">
+                <div class="scwb-equations" data-scwb-equations>
+                    <p class="scwb-muted">Loading article equations…</p>
                 </div>
             </div>
 
@@ -165,6 +180,10 @@ final class SC_Workbench_Plugin {
         register_rest_route('sc-workbench/v1', '/models', ['methods'=>'GET', 'callback'=>[$this,'rest_models'], 'permission_callback'=>'__return_true']);
         register_rest_route('sc-workbench/v1', '/health', ['methods'=>'GET', 'callback'=>[$this,'rest_health'], 'permission_callback'=>[$this,'admin_permission']]);
         register_rest_route('sc-workbench/v1', '/ai-status', ['methods'=>'GET', 'callback'=>[$this,'rest_ai_status'], 'permission_callback'=>[$this,'admin_permission']]);
+        register_rest_route('sc-workbench/v1', '/equations', ['methods'=>'GET', 'callback'=>[$this,'rest_equations'], 'permission_callback'=>'__return_true']);
+        register_rest_route('sc-workbench/v1', '/equations/current', ['methods'=>'GET', 'callback'=>[$this,'rest_current_equations'], 'permission_callback'=>'__return_true']);
+        register_rest_route('sc-workbench/v1', '/equations/analyze', ['methods'=>'POST', 'callback'=>[$this,'rest_analyze_equation'], 'permission_callback'=>'__return_true']);
+        register_rest_route('sc-workbench/v1', '/equations/scan', ['methods'=>'POST', 'callback'=>[$this,'rest_scan_equations'], 'permission_callback'=>[$this,'admin_permission']]);
     }
 
     public function admin_permission() { return current_user_can('manage_options'); }
@@ -328,12 +347,253 @@ final class SC_Workbench_Plugin {
         return $tools;
     }
 
+
+    public function maybe_install() {
+        if (get_option(self::OPTION_VERSION, '') !== self::VERSION) {
+            self::create_equation_table();
+            update_option(self::OPTION_VERSION, self::VERSION);
+        }
+    }
+
+    private static function equation_table_name() {
+        global $wpdb;
+        return $wpdb->prefix . 'sc_workbench_equations';
+    }
+
+    public static function create_equation_table() {
+        global $wpdb;
+        $table = self::equation_table_name();
+        $charset = $wpdb->get_charset_collate();
+        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+        $sql = "CREATE TABLE {$table} (
+            id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+            post_id BIGINT UNSIGNED NOT NULL,
+            post_title TEXT NOT NULL,
+            post_slug VARCHAR(255) NOT NULL,
+            post_type VARCHAR(64) NOT NULL,
+            equation_raw LONGTEXT NOT NULL,
+            equation_normalized LONGTEXT NULL,
+            display_mode VARCHAR(32) NULL,
+            context_before LONGTEXT NULL,
+            context_after LONGTEXT NULL,
+            equation_hash CHAR(64) NOT NULL,
+            suggested_domain VARCHAR(255) NULL,
+            suggested_tools LONGTEXT NULL,
+            created_at DATETIME NOT NULL,
+            updated_at DATETIME NOT NULL,
+            PRIMARY KEY  (id),
+            UNIQUE KEY equation_hash_unique (equation_hash),
+            KEY post_id_idx (post_id),
+            KEY post_slug_idx (post_slug),
+            KEY display_mode_idx (display_mode)
+        ) {$charset};";
+        dbDelta($sql);
+    }
+
+    private function normalize_equation($raw) {
+        $eq = trim((string)$raw);
+        $pairs = [
+            ['\\[','\\]'], ['\\(','\\)'], ['$$','$$'], ['[latex]','[/latex]']
+        ];
+        foreach ($pairs as $pair) {
+            if (substr($eq, 0, strlen($pair[0])) === $pair[0] && substr($eq, -strlen($pair[1])) === $pair[1]) {
+                $eq = substr($eq, strlen($pair[0]), strlen($eq) - strlen($pair[0]) - strlen($pair[1]));
+                break;
+            }
+        }
+        $eq = html_entity_decode($eq, ENT_QUOTES | ENT_HTML5, get_bloginfo('charset') ?: 'UTF-8');
+        return trim(preg_replace('/\s+/', ' ', $eq));
+    }
+
+    private function extract_equations_from_content($content) {
+        $content = (string)$content;
+        $patterns = [
+            ['pattern' => '/\\\[(.*?)\\\]/s', 'mode' => 'display'],
+            ['pattern' => '/\\\((.*?)\\\)/s', 'mode' => 'inline'],
+            ['pattern' => '/\$\$(.*?)\$\$/s', 'mode' => 'display'],
+            ['pattern' => '/\[latex\](.*?)\[\/latex\]/is', 'mode' => 'shortcode'],
+        ];
+        $found = [];
+        foreach ($patterns as $p) {
+            if (preg_match_all($p['pattern'], $content, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE)) {
+                foreach ($matches as $m) {
+                    $raw = $m[0][0];
+                    $inner = $m[1][0] ?? $raw;
+                    $offset = intval($m[0][1]);
+                    $normalized = $this->normalize_equation($raw);
+                    if (strlen($normalized) < 2) { continue; }
+                    $before_raw = substr($content, max(0, $offset - 650), min(650, $offset));
+                    $after_raw = substr($content, $offset + strlen($raw), 650);
+                    $found[] = [
+                        'raw' => $raw,
+                        'inner' => $inner,
+                        'normalized' => $normalized,
+                        'display_mode' => $p['mode'],
+                        'offset' => $offset,
+                        'context_before' => $this->clean_equation_context($before_raw, true),
+                        'context_after' => $this->clean_equation_context($after_raw, false),
+                    ];
+                }
+            }
+        }
+        usort($found, fn($a,$b) => $a['offset'] <=> $b['offset']);
+        $seen = [];
+        $unique = [];
+        foreach ($found as $item) {
+            $key = hash('sha256', $item['display_mode'] . '|' . $item['normalized'] . '|' . $item['offset']);
+            if (isset($seen[$key])) { continue; }
+            $seen[$key] = true;
+            $unique[] = $item;
+        }
+        return $unique;
+    }
+
+    private function clean_equation_context($text, $from_before=false) {
+        $text = wp_strip_all_tags(strip_shortcodes((string)$text));
+        $text = html_entity_decode($text, ENT_QUOTES | ENT_HTML5, get_bloginfo('charset') ?: 'UTF-8');
+        $text = trim(preg_replace('/\s+/', ' ', $text));
+        if (strlen($text) > 360) {
+            $text = $from_before ? substr($text, -360) : substr($text, 0, 360);
+        }
+        return trim($text);
+    }
+
+    private function suggest_tools_for_equation($equation, $context='') {
+        $haystack = strtolower($equation . ' ' . $context);
+        $tools = [];
+        $domain = 'Mathematical Modeling';
+        $add = function($id) use (&$tools) { if (!in_array($id, $tools, true)) { $tools[] = $id; } };
+        if (preg_match('/matrix|\\begin\{bmatrix\}|\\begin\{pmatrix\}|eigen|rank|det|vector|\\vec|\\mathbf|a_\{?ij|\\lambda/', $haystack)) { $domain='Linear Algebra and Systems Modeling'; $add('linear-system-solver'); $add('vector-geometry-calculator'); }
+        if (preg_match('/derivative|integral|\\frac\{d|\\int|dx|dy|\\partial|lim_|\\nabla/', $haystack)) { $domain='Calculus and Scientific Computing'; $add('calculus-function-analyzer'); $add('differential-equation-simulator'); }
+        if (preg_match('/probability|variance|standard deviation|\\sigma|\\mu|e\(|var\(|p\(|bayes|confidence|distribution|\\sim/', $haystack)) { $domain='Probability and Statistics'; $add('statistics-analyzer'); $add('probability-distribution-calculator'); }
+        if (preg_match('/regression|\\hat\{?y|b_0|b_1|r\^2|correlation|forecast|time[- ]series|predict/', $haystack)) { $domain='Predictive Analytics'; $add('regression-analyzer'); $add('predictive-analytics-forecasting-tool'); $add('time-series-diagnostics-tool'); }
+        if (preg_match('/stock|flow|s_\{?t|x_\{?t\+1|feedback|threshold|carrying capacity|limits to growth|system dynamics/', $haystack)) { $domain='Systems Modeling'; $add('systems-modeling-tool'); $add('limits-to-growth-system-dynamics-tool'); }
+        if (preg_match('/elasticity|npv|discount|gdp|inflation|demand|supply|utility|cost|benefit|econom/', $haystack)) { $domain='Economics'; $add('economics-calculator'); $add('economics-forecasting-and-scenario-tool'); $add('econometrics-and-policy-model-tool'); }
+        if (preg_match('/risk|hazard|consequence|resilience|scenario|impact|exposure|vulnerab/', $haystack)) { $domain='Risk, Resilience, and Global Impact'; $add('decision-analysis-tool'); $add('global-impact-assessment-matrix'); }
+        if (preg_match('/energy|emission|carbon|co2|kwh|lcoe|grid|solar|battery/', $haystack)) { $domain='Energy and Climate'; $add('energy-systems-calculator'); $add('climate-change-scenario-tool'); }
+        if (preg_match('/beam|stress|strain|force|torque|velocity|acceleration|pressure|thermal|fluid|mechanical|structural/', $haystack)) { $domain='Engineering'; $add('mechanical-systems-engineering-tool'); $add('structural-engineering-tool'); }
+        if (preg_match('/voltage|current|impedance|frequency|antenna|rf|circuit|filter|resonance|power system/', $haystack)) { $domain='Electrical, RF, and Power Systems'; $add('electronics-engineering-calculator'); $add('rf-and-antenna-calculator'); $add('power-systems-engineering-tool'); }
+        if (preg_match('/climate|sensor|monitoring|pollution|water quality|air quality|biodiversity|environment/', $haystack)) { $domain='Environmental Monitoring'; $add('environmental-monitoring-qaqc-tool'); $add('environmental-science-calculator'); }
+        if (preg_match('/orbit|rocket|gravity|stellar|redshift|astronomy|astrophysics/', $haystack)) { $domain='Astrophysics and Aerospace'; $add('rocket-science-and-orbital-mechanics-calculator'); $add('astrophysics-research-calculator'); }
+        if (preg_match('/dose|sensitivity|specificity|prevalence|trial|clinical|medical|health|diagnostic/', $haystack)) { $domain='Health and Clinical Research'; $add('clinical-research-calculator'); $add('health-and-medical-public-health-analytics-tool'); }
+        if (!$tools) { $add('systems-modeling-tool'); $add('systems-thinking-tool'); }
+        return ['domain'=>$domain, 'tools'=>$tools];
+    }
+
+    private function scan_equations($limit=500) {
+        global $wpdb;
+        self::create_equation_table();
+        $public_types = get_post_types(['public'=>true], 'names');
+        $public_types = array_values(array_filter($public_types, fn($t) => !in_array($t, ['attachment'], true)));
+        if (!$public_types) { $public_types = ['post','page']; }
+        $placeholders = implode(',', array_fill(0, count($public_types), '%s'));
+        $like_clauses = "(post_content LIKE '%\\(%' OR post_content LIKE '%\\[%' OR post_content LIKE '%" . '$$' . "%' OR post_content LIKE '%[latex]%')";
+        $sql = $wpdb->prepare("SELECT ID, post_title, post_name, post_type, post_content FROM {$wpdb->posts} WHERE post_status='publish' AND post_type IN ({$placeholders}) AND {$like_clauses} ORDER BY post_modified_gmt DESC LIMIT %d", array_merge($public_types, [intval($limit)]));
+        $posts = $wpdb->get_results($sql);
+        $table = self::equation_table_name();
+        $count = 0;
+        $posts_scanned = 0;
+        foreach ($posts as $post) {
+            $posts_scanned++;
+            $equations = $this->extract_equations_from_content($post->post_content);
+            foreach ($equations as $eq) {
+                $suggest = $this->suggest_tools_for_equation($eq['normalized'], $eq['context_before'] . ' ' . $eq['context_after'] . ' ' . $post->post_title);
+                $hash = hash('sha256', $post->ID . '|' . $eq['display_mode'] . '|' . $eq['normalized']);
+                $data = [
+                    'post_id' => intval($post->ID),
+                    'post_title' => $post->post_title,
+                    'post_slug' => $post->post_name,
+                    'post_type' => $post->post_type,
+                    'equation_raw' => $eq['raw'],
+                    'equation_normalized' => $eq['normalized'],
+                    'display_mode' => $eq['display_mode'],
+                    'context_before' => $eq['context_before'],
+                    'context_after' => $eq['context_after'],
+                    'equation_hash' => $hash,
+                    'suggested_domain' => $suggest['domain'],
+                    'suggested_tools' => wp_json_encode($suggest['tools']),
+                    'updated_at' => current_time('mysql'),
+                ];
+                $existing = $wpdb->get_var($wpdb->prepare("SELECT id FROM {$table} WHERE equation_hash=%s", $hash));
+                if ($existing) {
+                    $wpdb->update($table, $data, ['id'=>intval($existing)]);
+                } else {
+                    $data['created_at'] = current_time('mysql');
+                    $wpdb->insert($table, $data);
+                }
+                $count++;
+            }
+        }
+        return ['ok'=>true, 'posts_scanned'=>$posts_scanned, 'equations_indexed'=>$count, 'table'=>$table];
+    }
+
+    public function rest_scan_equations(WP_REST_Request $request) {
+        $limit = min(2000, max(10, intval($request->get_param('limit') ?: 500)));
+        return new WP_REST_Response($this->scan_equations($limit), 200);
+    }
+
+    public function rest_equations(WP_REST_Request $request) {
+        global $wpdb;
+        self::create_equation_table();
+        $table = self::equation_table_name();
+        $limit = min(200, max(1, intval($request->get_param('limit') ?: 50)));
+        $where = ['1=1'];
+        $params = [];
+        if ($request->get_param('post_id')) { $where[] = 'post_id=%d'; $params[] = intval($request->get_param('post_id')); }
+        if ($request->get_param('slug')) { $where[] = 'post_slug=%s'; $params[] = sanitize_title($request->get_param('slug')); }
+        if ($request->get_param('search')) { $where[] = '(equation_normalized LIKE %s OR post_title LIKE %s OR suggested_domain LIKE %s)'; $term = '%' . $wpdb->esc_like(sanitize_text_field($request->get_param('search'))) . '%'; $params = array_merge($params, [$term,$term,$term]); }
+        $sql = "SELECT * FROM {$table} WHERE " . implode(' AND ', $where) . " ORDER BY post_title ASC, id ASC LIMIT %d";
+        $params[] = $limit;
+        $rows = $wpdb->get_results($wpdb->prepare($sql, $params), ARRAY_A);
+        foreach ($rows as &$row) { $row['suggested_tools'] = json_decode($row['suggested_tools'] ?: '[]', true) ?: []; }
+        return new WP_REST_Response(['ok'=>true, 'equations'=>$rows, 'count'=>count($rows)], 200);
+    }
+
+    public function rest_current_equations(WP_REST_Request $request) {
+        return $this->rest_equations($request);
+    }
+
+    public function rest_analyze_equation(WP_REST_Request $request) {
+        $payload = $request->get_json_params();
+        $payload = is_array($payload) ? $payload : [];
+        $res = $this->backend_post('/equations/analyze', $payload, true);
+        if (is_wp_error($res)) {
+            $equation = sanitize_textarea_field($payload['equation'] ?? '');
+            $context = sanitize_textarea_field($payload['context'] ?? '');
+            $suggest = $this->suggest_tools_for_equation($equation, $context);
+            return new WP_REST_Response([
+                'ok'=>true,
+                'source'=>'wordpress-local-equation-analyzer',
+                'equation'=>$equation,
+                'summary'=>'Equation indexed locally. Backend equation analysis is unavailable, so this fallback provides deterministic tool recommendations only.',
+                'suggested_domain'=>$suggest['domain'],
+                'suggested_tools'=>$suggest['tools'],
+                'graphability'=>'Unknown until backend analysis is reachable.',
+                'warnings'=>['Run the FastAPI backend for richer equation explanation, graphing, and code translation.']
+            ], 200);
+        }
+        return new WP_REST_Response($res, 200);
+    }
+
     public function register_admin_menu() {
         add_menu_page('Sustainable Catalyst Workbench', 'SC Workbench', 'manage_options', 'sustainable-catalyst-workbench', [$this,'render_settings_page'], 'dashicons-chart-area', 58);
+        add_submenu_page('sustainable-catalyst-workbench', 'Equation Registry', 'Equation Registry', 'manage_options', 'sustainable-catalyst-workbench-equations', [$this,'render_equations_page']);
     }
 
     public function handle_settings_save() {
         if (!is_admin() || !current_user_can('manage_options')) { return; }
+        if (isset($_POST['sc_workbench_scan_equations'])) {
+            check_admin_referer('sc_workbench_equations');
+            $result = $this->scan_equations(2000);
+            add_settings_error('sc_workbench_messages', 'equations_scanned', 'Equation scan complete: ' . intval($result['equations_indexed']) . ' equations indexed from ' . intval($result['posts_scanned']) . ' posts/pages.', 'updated');
+            return;
+        }
+        if (isset($_POST['sc_workbench_clear_equations'])) {
+            check_admin_referer('sc_workbench_equations');
+            global $wpdb; $wpdb->query('TRUNCATE TABLE ' . self::equation_table_name());
+            add_settings_error('sc_workbench_messages', 'equations_cleared', 'Equation registry cleared.', 'updated');
+            return;
+        }
         if (!isset($_POST['sc_workbench_save_settings'])) { return; }
         check_admin_referer('sc_workbench_settings');
         update_option(self::OPTION_BACKEND_URL, esc_url_raw($_POST[self::OPTION_BACKEND_URL] ?? ''));
@@ -401,7 +661,60 @@ final class SC_Workbench_Plugin {
                 </div>
                 <?php submit_button('Save Workbench Settings'); ?>
             </form>
-            <section class="scwb-admin-card"><h2>Shortcodes</h2><code>[sc_workbench topic="research-library" title="Ask the Sustainable Catalyst Workbench"]</code><br><code>[sc_workbench_pathways]</code></section>
+            <section class="scwb-admin-card"><h2>Shortcodes</h2><code>[sc_workbench topic="research-library" title="Ask the Sustainable Catalyst Workbench"]</code><br><code>[sc_workbench mode="auto"]</code><br><code>[sc_workbench article="article-slug"]</code><br><code>[sc_workbench_pathways]</code><p><a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-equations')); ?>">Open Equation Registry →</a></p></section>
+        </div>
+    <?php }
+
+
+    public function render_equations_page() {
+        settings_errors('sc_workbench_messages');
+        global $wpdb;
+        self::create_equation_table();
+        $table = self::equation_table_name();
+        $total = intval($wpdb->get_var("SELECT COUNT(*) FROM {$table}"));
+        $rows = $wpdb->get_results("SELECT * FROM {$table} ORDER BY updated_at DESC LIMIT 80", ARRAY_A);
+        ?>
+        <div class="wrap scwb-admin-wrap">
+            <h1>Sustainable Catalyst Workbench Equation Registry</h1>
+            <p>Scan published WordPress content for LaTeX equations, index surrounding article context, and map equations to Workbench calculators and article-aware tools.</p>
+            <div class="scwb-admin-grid">
+                <section class="scwb-admin-card">
+                    <h2>Scan WordPress Content</h2>
+                    <p><strong><?php echo esc_html($total); ?></strong> equations currently indexed.</p>
+                    <form method="post" style="display:inline-block;margin-right:12px;">
+                        <?php wp_nonce_field('sc_workbench_equations'); ?>
+                        <input type="hidden" name="sc_workbench_scan_equations" value="1" />
+                        <?php submit_button('Scan / Rebuild Equation Registry', 'primary', 'submit', false); ?>
+                    </form>
+                    <form method="post" style="display:inline-block;" onsubmit="return confirm('Clear the equation registry? Published posts will not be changed.');">
+                        <?php wp_nonce_field('sc_workbench_equations'); ?>
+                        <input type="hidden" name="sc_workbench_clear_equations" value="1" />
+                        <?php submit_button('Clear Registry', 'secondary', 'submit', false); ?>
+                    </form>
+                    <p class="description">Supported patterns: <code>\(...\)</code>, <code>\[...\]</code>, <code>$$...$$</code>, and <code>[latex]...[/latex]</code>. Single-dollar inline math is intentionally not scanned by default to avoid false positives.</p>
+                </section>
+                <section class="scwb-admin-card">
+                    <h2>Article-Aware Shortcode</h2>
+                    <p>Use <code>[sc_workbench mode="auto"]</code> on articles or maps. The Workbench will detect the current post and surface article equations when available.</p>
+                    <p>For a specific article profile, use <code>[sc_workbench article="article-slug"]</code>.</p>
+                </section>
+            </div>
+            <h2>Recent Equations</h2>
+            <table class="widefat striped">
+                <thead><tr><th>Article</th><th>Equation</th><th>Domain</th><th>Suggested Tools</th></tr></thead>
+                <tbody>
+                <?php if (!$rows): ?>
+                    <tr><td colspan="4">No equations indexed yet.</td></tr>
+                <?php else: foreach ($rows as $row): $tools = json_decode($row['suggested_tools'] ?: '[]', true) ?: []; ?>
+                    <tr>
+                        <td><strong><?php echo esc_html($row['post_title']); ?></strong><br><code><?php echo esc_html($row['post_slug']); ?></code></td>
+                        <td><code><?php $eq_preview = (strlen($row['equation_normalized']) > 160) ? substr($row['equation_normalized'], 0, 160) . '…' : $row['equation_normalized']; echo esc_html($eq_preview); ?></code><br><small><?php echo esc_html($row['display_mode']); ?></small></td>
+                        <td><?php echo esc_html($row['suggested_domain']); ?></td>
+                        <td><?php echo esc_html(implode(', ', $tools)); ?></td>
+                    </tr>
+                <?php endforeach; endif; ?>
+                </tbody>
+            </table>
         </div>
     <?php }
 

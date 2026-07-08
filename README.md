@@ -1,4 +1,4 @@
-# Sustainable Catalyst Workbench v0.8.1
+# Sustainable Catalyst Workbench v0.9.0
 
 A compact AI-enabled research and analytics workbench for modeling, calculating, visualizing, and interpreting complex systems across science, sustainability, engineering, architecture, psychology, economics, governance, and meaning.
 
@@ -12,11 +12,17 @@ This release is backend-first: WordPress provides the compact interface, while F
 - `research-library/` — compact Research Library insertion block.
 - `scripts/` — setup, run, and GitHub publishing scripts.
 
-## Core shortcode
+## Core shortcodes
 
 ```text
 [sc_workbench topic="research-library" title="Ask the Sustainable Catalyst Workbench"]
+[sc_workbench mode="auto"]
+[sc_workbench article="article-slug"]
 ```
+
+## v0.9.0 Equation and Article-Aware Layer
+
+Adds a WordPress database scanner for LaTeX equations in published posts/pages, a custom equation registry table, article-aware Workbench panels, current-article equation lookup, equation-to-tool recommendations, and a FastAPI `/equations/analyze` endpoint for richer equation interpretation. The scanner detects `\(...\)`, `\[...\]`, `$$...$$`, and `[latex]...[/latex]` patterns in `wp_posts.post_content`.
 
 ## Local backend
 
