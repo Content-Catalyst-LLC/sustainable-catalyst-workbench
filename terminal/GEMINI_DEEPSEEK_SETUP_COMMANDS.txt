@@ -1,0 +1,27 @@
+# Sustainable Catalyst Workbench v0.7.3 — Gemini/DeepSeek setup
+
+cd ~/Downloads
+unzip sustainable-catalyst-workbench-v0.7.3-repo.zip
+cd sustainable-catalyst-workbench/backend
+cp .env.example .env
+
+# Edit .env and choose one provider:
+# SC_WORKBENCH_AI_PROVIDER=gemini
+# GEMINI_API_KEY=your_key
+#
+# or:
+# SC_WORKBENCH_AI_PROVIDER=deepseek
+# DEEPSEEK_API_KEY=your_key
+#
+# or:
+# SC_WORKBENCH_AI_PROVIDER=disabled
+
+python3.12 -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+python -m uvicorn app.main:app --host 127.0.0.1 --port 8088 --reload
+
+# Test in another terminal:
+curl http://127.0.0.1:8088/health
+curl http://127.0.0.1:8088/ai/status

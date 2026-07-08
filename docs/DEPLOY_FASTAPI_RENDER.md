@@ -82,3 +82,29 @@ Then click **Test Backend + AI**.
 - `127.0.0.1:8088` is local-only and will not work from the live Sustainable Catalyst WordPress server.
 - Keep `OPENAI_API_KEY` only in Render environment variables or a server-side `.env`, not in GitHub.
 - The WordPress-managed OpenAI key option still works if `SC_WORKBENCH_ALLOW_WORDPRESS_PROVIDER_KEY=true`, but server-side environment variables are preferred for production.
+
+
+## v0.7.3 Gemini/DeepSeek route
+
+For the free-first path, set the Render service to:
+
+```text
+SC_WORKBENCH_AI_PROVIDER=gemini
+GEMINI_API_KEY=<your Gemini API key>
+SC_WORKBENCH_GEMINI_MODEL=gemini-3.5-flash
+```
+
+To switch to DeepSeek later:
+
+```text
+SC_WORKBENCH_AI_PROVIDER=deepseek
+DEEPSEEK_API_KEY=<your DeepSeek API key>
+SC_WORKBENCH_DEEPSEEK_MODEL=deepseek-v4-flash
+```
+
+Keep OpenAI optional:
+
+```text
+SC_WORKBENCH_AI_PROVIDER=openai
+OPENAI_API_KEY=<your OpenAI API key>
+```

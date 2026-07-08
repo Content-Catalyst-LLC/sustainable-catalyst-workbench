@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Workbench
- * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, and SVG visual analytics.
- * Version: 0.7.2
+ * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support.
+ * Version: 0.7.3
  * Author: Content Catalyst LLC
  * License: MIT
  * Text Domain: sustainable-catalyst-workbench
@@ -11,9 +11,10 @@
 if (!defined('ABSPATH')) { exit; }
 
 final class SC_Workbench_Plugin {
-    const VERSION = '0.7.2';
+    const VERSION = '0.7.3';
     const OPTION_BACKEND_URL = 'sc_workbench_backend_url';
     const OPTION_BACKEND_KEY = 'sc_workbench_backend_key';
+    const OPTION_AI_PROVIDER = 'sc_workbench_ai_provider';
     const OPTION_PROVIDER_KEY = 'sc_workbench_provider_key_encrypted';
     const OPTION_PROVIDER_KEY_SET = 'sc_workbench_provider_key_set';
     const OPTION_ENABLE_AI = 'sc_workbench_enable_ai';
@@ -34,6 +35,7 @@ final class SC_Workbench_Plugin {
 
     public static function activate() {
         add_option(self::OPTION_BACKEND_URL, 'http://127.0.0.1:8088');
+        add_option(self::OPTION_AI_PROVIDER, 'backend');
         add_option(self::OPTION_ENABLE_AI, '1');
         add_option(self::OPTION_ENABLE_SCOPE_GATE, '1');
         add_option(self::OPTION_DEBUG, '0');
@@ -243,7 +245,7 @@ final class SC_Workbench_Plugin {
     }
 
     public function rest_ai_status() {
-        $res = $this->backend_get('/ai/status');
+        $res = $this->backend_get('/ai/status', true);
         if (is_wp_error($res)) { return new WP_REST_Response(['ok'=>false, 'error'=>$res->get_error_message()], 200); }
         return new WP_REST_Response($res, 200);
     }
@@ -258,14 +260,21 @@ final class SC_Workbench_Plugin {
         $backend_key = get_option(self::OPTION_BACKEND_KEY, '');
         if ($backend_key) { $headers['X-SC-Workbench-Key'] = $backend_key; }
         if ($include_provider_key) {
+            $provider = sanitize_key(get_option(self::OPTION_AI_PROVIDER, 'backend'));
+            if ($provider && $provider !== 'backend') { $headers['X-SC-AI-Provider'] = $provider; }
             $provider_key = $this->decrypt(get_option(self::OPTION_PROVIDER_KEY, ''));
-            if ($provider_key) { $headers['X-SC-OpenAI-Key'] = $provider_key; }
+            if ($provider_key) {
+                $headers['X-SC-Provider-Key'] = $provider_key;
+                if ($provider === 'openai') { $headers['X-SC-OpenAI-Key'] = $provider_key; }
+                if ($provider === 'gemini') { $headers['X-SC-Gemini-Key'] = $provider_key; }
+                if ($provider === 'deepseek') { $headers['X-SC-DeepSeek-Key'] = $provider_key; }
+            }
         }
         return $headers;
     }
 
-    private function backend_get($path) {
-        $response = wp_remote_get($this->backend_url($path), ['timeout'=>intval(get_option(self::OPTION_TIMEOUT, 45)), 'headers'=>$this->request_headers(false)]);
+    private function backend_get($path, $include_provider_key=false) {
+        $response = wp_remote_get($this->backend_url($path), ['timeout'=>intval(get_option(self::OPTION_TIMEOUT, 45)), 'headers'=>$this->request_headers($include_provider_key)]);
         return $this->decode_response($response);
     }
 
@@ -327,13 +336,16 @@ final class SC_Workbench_Plugin {
         check_admin_referer('sc_workbench_settings');
         update_option(self::OPTION_BACKEND_URL, esc_url_raw($_POST[self::OPTION_BACKEND_URL] ?? ''));
         update_option(self::OPTION_BACKEND_KEY, sanitize_text_field($_POST[self::OPTION_BACKEND_KEY] ?? ''));
+        $provider = sanitize_key($_POST[self::OPTION_AI_PROVIDER] ?? 'backend');
+        if (!in_array($provider, ['backend','disabled','gemini','deepseek','openai'], true)) { $provider = 'backend'; }
+        update_option(self::OPTION_AI_PROVIDER, $provider);
         update_option(self::OPTION_ENABLE_AI, isset($_POST[self::OPTION_ENABLE_AI]) ? '1' : '0');
         update_option(self::OPTION_ENABLE_SCOPE_GATE, isset($_POST[self::OPTION_ENABLE_SCOPE_GATE]) ? '1' : '0');
         update_option(self::OPTION_DEBUG, isset($_POST[self::OPTION_DEBUG]) ? '1' : '0');
         update_option(self::OPTION_TIMEOUT, max(5, min(120, intval($_POST[self::OPTION_TIMEOUT] ?? 45))));
         update_option(self::OPTION_DEFAULT_TOPIC, sanitize_key($_POST[self::OPTION_DEFAULT_TOPIC] ?? 'research-library'));
         update_option(self::OPTION_THEME, sanitize_key($_POST[self::OPTION_THEME] ?? 'institutional'));
-        $new_key = trim((string)($_POST['sc_workbench_openai_key_plain'] ?? ''));
+        $new_key = trim((string)($_POST['sc_workbench_provider_key_plain'] ?? ($_POST['sc_workbench_openai_key_plain'] ?? '')));
         if ($new_key !== '') {
             update_option(self::OPTION_PROVIDER_KEY, $this->encrypt($new_key));
             update_option(self::OPTION_PROVIDER_KEY_SET, '1');
@@ -360,12 +372,21 @@ final class SC_Workbench_Plugin {
                         <label>Timeout seconds <input type="number" name="<?php echo esc_attr(self::OPTION_TIMEOUT); ?>" value="<?php echo esc_attr(get_option(self::OPTION_TIMEOUT, 45)); ?>" min="5" max="120" /></label>
                     </section>
                     <section class="scwb-admin-card"><h2>AI & Scope</h2>
+                        <label>AI provider
+                            <select name="<?php echo esc_attr(self::OPTION_AI_PROVIDER); ?>">
+                                <option value="backend" <?php selected(get_option(self::OPTION_AI_PROVIDER, 'backend'), 'backend'); ?>>Use backend .env setting</option>
+                                <option value="disabled" <?php selected(get_option(self::OPTION_AI_PROVIDER, 'backend'), 'disabled'); ?>>Disabled</option>
+                                <option value="gemini" <?php selected(get_option(self::OPTION_AI_PROVIDER, 'backend'), 'gemini'); ?>>Gemini</option>
+                                <option value="deepseek" <?php selected(get_option(self::OPTION_AI_PROVIDER, 'backend'), 'deepseek'); ?>>DeepSeek</option>
+                                <option value="openai" <?php selected(get_option(self::OPTION_AI_PROVIDER, 'backend'), 'openai'); ?>>OpenAI</option>
+                            </select>
+                        </label>
                         <label><input type="checkbox" name="<?php echo esc_attr(self::OPTION_ENABLE_AI); ?>" <?php checked(get_option(self::OPTION_ENABLE_AI, '1'), '1'); ?> /> Enable AI panels</label>
                         <label><input type="checkbox" name="<?php echo esc_attr(self::OPTION_ENABLE_SCOPE_GATE); ?>" <?php checked(get_option(self::OPTION_ENABLE_SCOPE_GATE, '1'), '1'); ?> /> Enable Sustainable Catalyst scope gate</label>
                         <label><input type="checkbox" name="<?php echo esc_attr(self::OPTION_DEBUG); ?>" <?php checked(get_option(self::OPTION_DEBUG, '0'), '1'); ?> /> Debug mode</label>
-                        <label>OpenAI API key <input type="password" name="sc_workbench_openai_key_plain" value="" placeholder="Paste key here only if using WordPress-managed key" autocomplete="off" /></label>
+                        <label>Provider API key <input type="password" name="sc_workbench_provider_key_plain" value="" placeholder="Paste Gemini, DeepSeek, or OpenAI key only if WordPress forwards it" autocomplete="off" /></label>
                         <p class="description">Key saved: <?php echo get_option(self::OPTION_PROVIDER_KEY_SET, '0') === '1' ? 'Yes' : 'No'; ?>. Prefer backend .env for production; use HTTPS if WordPress forwards a provider key.</p>
-                        <label><input type="checkbox" name="sc_workbench_clear_openai_key" /> Clear saved OpenAI key</label>
+                        <label><input type="checkbox" name="sc_workbench_clear_openai_key" /> Clear saved provider key</label>
                     </section>
                     <section class="scwb-admin-card"><h2>Frontend Defaults</h2>
                         <label>Default topic <input type="text" name="<?php echo esc_attr(self::OPTION_DEFAULT_TOPIC); ?>" value="<?php echo esc_attr(get_option(self::OPTION_DEFAULT_TOPIC, 'research-library')); ?>" /></label>

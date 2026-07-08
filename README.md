@@ -1,4 +1,4 @@
-# Sustainable Catalyst Workbench v0.7.1
+# Sustainable Catalyst Workbench v0.7.3
 
 A compact AI-enabled research and analytics workbench for modeling, calculating, visualizing, and interpreting complex systems across science, sustainability, engineering, architecture, psychology, economics, governance, and meaning.
 
@@ -46,14 +46,26 @@ For the public site, deploy the backend to a real HTTPS endpoint such as `https:
 All calculators are educational and analytical support tools. They are not substitutes for licensed engineering, architectural, legal, medical, psychological, financial, or safety-critical professional judgment.
 
 
-## v0.7.1 Pattern Cluster
+## v0.7.x Pattern Cluster
 
 Adds Pattern, Geometry, Design, Music, and AI tools: music frequency and chord/scale analysis, color contrast and palette harmony, vector geometry, embedding similarity, PCA, Fourier analysis, classification metrics, and multimodal pattern comparison.
 
 
-## v0.7.1 Expansion
+## v0.7.x Expansion
 
 Adds serious global-impact and public-systems tools: environmental monitoring QA/QC, global impact assessment, climate scenarios, earth hazards, marine/ocean health, astronomy, materials science, public-health analytics, international law issue mapping, legal-traditions comparison, and metaphysics frameworks.
+
+
+## v0.7.3 AI Provider Stack
+
+Keeps AI provider support intentionally simple and production-manageable:
+
+- `disabled` — registry-only answers and calculators.
+- `gemini` — recommended free/low-cost first provider.
+- `deepseek` — low-cost OpenAI-compatible alternate provider.
+- `openai` — optional premium provider.
+
+No Groq provider is included in this release to avoid provider sprawl, extra settings, and unnecessary debugging complexity.
 
 ## Production Deployment
 

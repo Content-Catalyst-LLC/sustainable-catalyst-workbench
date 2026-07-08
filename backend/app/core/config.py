@@ -5,16 +5,30 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     """Runtime settings for Sustainable Catalyst Workbench API.
 
-    The backend accepts both SC_WORKBENCH_OPENAI_API_KEY and OPENAI_API_KEY.
-    This keeps local .env usage simple while still allowing prefixed production
-    variables on hosts such as Render, Railway, Fly.io, or a VPS.
+    v0.7.3 keeps the provider stack intentionally small:
+    disabled, gemini, deepseek, or openai.
+
+    API key aliases are accepted so the same backend works locally, on Render,
+    or behind WordPress-managed provider forwarding.
     """
 
     environment: str = Field(default="development", validation_alias=AliasChoices("SC_WORKBENCH_ENVIRONMENT", "SC_WORKBENCH_ENV"))
     backend_key: str = ""
     ai_provider: str = "disabled"
+
     openai_api_key: str = Field(default="", validation_alias=AliasChoices("SC_WORKBENCH_OPENAI_API_KEY", "OPENAI_API_KEY"))
     openai_model: str = "gpt-4.1-mini"
+
+    gemini_api_key: str = Field(default="", validation_alias=AliasChoices("SC_WORKBENCH_GEMINI_API_KEY", "GEMINI_API_KEY", "GOOGLE_API_KEY"))
+    gemini_model: str = "gemini-3.5-flash"
+    gemini_base_url: str = "https://generativelanguage.googleapis.com/v1beta"
+
+    deepseek_api_key: str = Field(default="", validation_alias=AliasChoices("SC_WORKBENCH_DEEPSEEK_API_KEY", "DEEPSEEK_API_KEY"))
+    deepseek_model: str = "deepseek-v4-flash"
+    deepseek_base_url: str = "https://api.deepseek.com"
+    deepseek_thinking: str = "disabled"
+    deepseek_reasoning_effort: str = "high"
+
     max_output_tokens: int = 1000
     temperature: float = 0.2
     allow_wordpress_provider_key: bool = True
