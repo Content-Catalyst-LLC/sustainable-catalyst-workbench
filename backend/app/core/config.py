@@ -5,7 +5,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     """Runtime settings for Sustainable Catalyst Workbench API.
 
-    v0.7.3 keeps the provider stack intentionally small:
+    v0.8.0 keeps the provider stack intentionally small:
     disabled, gemini, deepseek, or openai.
 
     API key aliases are accepted so the same backend works locally, on Render,

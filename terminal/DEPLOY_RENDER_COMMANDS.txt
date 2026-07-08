@@ -15,7 +15,7 @@ chmod +x update_and_push_sustainable_catalyst_workbench_v0_7_3_to_github.sh
 
 # 3. Free-first Gemini AI path:
 # SC_WORKBENCH_AI_PROVIDER=gemini
-# GEMINI_API_KEY=your_gemini_key
+# GEMINI_API_KEY=<paste-your-gemini-key-in-render>
 # SC_WORKBENCH_GEMINI_MODEL=gemini-3.5-flash
 
 # 4. DeepSeek alternate:

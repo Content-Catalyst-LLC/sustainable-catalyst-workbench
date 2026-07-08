@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Workbench
- * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support.
- * Version: 0.7.3
+ * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports.
+ * Version: 0.8.0
  * Author: Content Catalyst LLC
  * License: MIT
  * Text Domain: sustainable-catalyst-workbench
@@ -11,7 +11,7 @@
 if (!defined('ABSPATH')) { exit; }
 
 final class SC_Workbench_Plugin {
-    const VERSION = '0.7.3';
+    const VERSION = '0.8.0';
     const OPTION_BACKEND_URL = 'sc_workbench_backend_url';
     const OPTION_BACKEND_KEY = 'sc_workbench_backend_key';
     const OPTION_AI_PROVIDER = 'sc_workbench_ai_provider';
@@ -152,6 +152,8 @@ final class SC_Workbench_Plugin {
             . '<article><strong>Pattern, Geometry, Design, Music, and AI</strong><span>Music theory, color systems, vector geometry, embeddings, Fourier analysis, PCA, visual identity, and multimodal patterns.</span></article>'
             . '<article><strong>Earth, Ocean, Climate, and Environmental Monitoring</strong><span>Sensor QA/QC, time series, thresholds, climate indicators, marine systems, earth hazards, and global impact.</span></article>'
             . '<article><strong>Law, Legal Traditions, Health, and Metaphysics</strong><span>International law, comparative legal traditions, public-health analytics, legal/ethical impact, ontology, causation, identity, and meaning.</span></article>'
+            . '<article><strong>Advanced Engineering Stack</strong><span>Mechanical, civil, electronics, RF/antenna, aerospace, reliability, safety margins, FMEA, materials, thermal, fluids, and systems engineering.</span></article>'
+            . '<article><strong>Lab Science and Advanced Physical Systems</strong><span>Biology, chemistry, physician-facing research metrics, lab QA/QC, nuclear physics, particle physics, neurophysics, and high-resolution graph/report exports.</span></article>'
             . '</div>';
     }
 

@@ -1,4 +1,4 @@
-# Sustainable Catalyst Workbench v0.7.3
+# Sustainable Catalyst Workbench v0.8.0
 
 A compact AI-enabled research and analytics workbench for modeling, calculating, visualizing, and interpreting complex systems across science, sustainability, engineering, architecture, psychology, economics, governance, and meaning.
 
@@ -56,7 +56,7 @@ Adds Pattern, Geometry, Design, Music, and AI tools: music frequency and chord/s
 Adds serious global-impact and public-systems tools: environmental monitoring QA/QC, global impact assessment, climate scenarios, earth hazards, marine/ocean health, astronomy, materials science, public-health analytics, international law issue mapping, legal-traditions comparison, and metaphysics frameworks.
 
 
-## v0.7.3 AI Provider Stack
+## v0.8.0 AI Provider Stack
 
 Keeps AI provider support intentionally simple and production-manageable:
 
@@ -77,3 +77,18 @@ Recommended Render deployment files are included:
 - `backend/start.sh`
 - `backend/Dockerfile`
 - `docs/DEPLOY_FASTAPI_RENDER.md`
+
+
+## v0.8.0 Final Expansion: Advanced Engineering, Lab Science, and Export Graphics
+
+Adds nuclear physics, particle physics, neurophysics, rocket/orbital mechanics, electronics engineering, RF/antenna systems, full-stack engineering risk/reliability, lab-science analytics, clinical-research metrics, and frontend export controls for SVG/PNG graph images plus PDF-ready reports.
+
+
+## v0.8.0 Professional Systems Layer
+
+Adds predictive analytics and economics as major modules, plus FPGA/digital systems, electrical power, mechanical, structural, civil infrastructure, urban planning, architecture/building science, and astrophysics tools. The layer is backend-first, export/report-ready, and safety-scoped for professional review.
+
+
+## Psychology, Thinking, Meaning, and Limits to Growth
+
+Adds psychology, behavioral science, moral psychology, thinking tools, meaning/aesthetics tools, systems modeling, predictive modeling readiness, and a simplified Limits to Growth system-dynamics simulator.

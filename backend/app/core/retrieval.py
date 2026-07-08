@@ -2,6 +2,12 @@ from __future__ import annotations
 from .model_registry import search_tools, list_tools
 
 PATHWAYS = [
+    {"title": "Psychology, Behavioral Science, and Moral Psychology", "url": "/research-library/", "summary": "Cognitive, social, developmental, personality, positive, organizational, institutional, analytical, behavioral, moral psychology, habit formation, nudging, public policy, and research-method tools."},
+    {"title": "Thinking, Meaning, Problem Solving, and Systems", "url": "/research-library/", "summary": "Knowledge architecture, design thinking, mathematical thinking, systems thinking, computational reasoning, resilience, futures, strategic ideation, aesthetics, symbolism, story, myth, systems modeling, predictive modeling, and Limits to Growth."},
+    {"title": "Professional Systems Layer", "url": "/research-library/", "summary": "Advanced calculators for FPGA and digital systems, electrical power, RF/antenna, mechanical, structural, civil infrastructure, urban planning, architecture/building science, astrophysics, lab science, clinical research, and safety-aware engineering review."},
+    {"title": "Predictive Analytics and Economics", "url": "/research-library/", "summary": "Forecasting, time-series diagnostics, economic scenarios, econometrics, policy evaluation, uncertainty framing, and decision support for Sustainable Catalyst research workflows."},
+
+    {"title":"Advanced Physical Systems and Engineering Stack", "url":"/research-library/", "summary":"Physics, nuclear and particle physics education, aerospace/orbital mechanics, electronics, RF/antenna systems, reliability, lab science, and professional-review engineering workflows."},
     {"title":"Systems Reasoning", "url":"/systems-thinking/", "summary":"Feedback, resilience, thresholds, interdependence, and long-term change."},
     {"title":"Scientific and Mathematical Reasoning", "url":"/mathematical-thinking/", "summary":"Symbols, models, probability, statistics, calculus, and interpretation."},
     {"title":"Computational and Algorithmic Reasoning", "url":"/algorithms-computational-reasoning/", "summary":"Formal procedure, data structures, search, optimization, automation, and AI governance."},

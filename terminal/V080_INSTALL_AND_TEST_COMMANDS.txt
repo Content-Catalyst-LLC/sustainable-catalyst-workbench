@@ -1,0 +1,22 @@
+# Sustainable Catalyst Workbench v0.8.0 local backend test
+cd ~/Downloads
+unzip sustainable-catalyst-workbench-v0.8.0-repo.zip
+cd sustainable-catalyst-workbench
+chmod +x scripts/setup_backend_mac.sh scripts/run_backend.sh scripts/test_backend.sh
+./scripts/setup_backend_mac.sh
+./scripts/test_backend.sh
+./scripts/run_backend.sh
+
+# Test backend in a second terminal
+curl http://127.0.0.1:8088/health
+curl http://127.0.0.1:8088/tools
+curl -X POST http://127.0.0.1:8088/tools/run \
+  -H "Content-Type: application/json" \
+  -d '{"tool_id":"predictive-analytics-forecasting-tool","inputs":{"series":"120,128,133,140,151,160","horizon":"4"}}'
+
+curl -X POST http://127.0.0.1:8088/tools/run \
+  -H "Content-Type: application/json" \
+  -d '{"tool_id":"limits-to-growth-system-dynamics-tool","inputs":{"inputs":"population=1.0;capital=1.0;resources=1.0;pollution=0.05;years=80"}}'
+
+# WordPress shortcode
+[sc_workbench topic="research-library" title="Ask the Sustainable Catalyst Workbench"]

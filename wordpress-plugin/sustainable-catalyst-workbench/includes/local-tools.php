@@ -255,8 +255,7 @@ return [
                 'name' => 'options',
                 'label' => 'Options',
                 'type' => 'textarea',
-                'default' => 'Option A,8,6,7
-Option B,6,9,8',
+                'default' => 'Option A,8,6,7\nOption B,6,9,8',
                 'help' => ''
             ],
             [
@@ -393,9 +392,7 @@ Option B,6,9,8',
                 'name' => 'responses',
                 'label' => 'Responses / values',
                 'type' => 'textarea',
-                'default' => '4,5,4,3
-3,4,4,2
-5,5,4,4',
+                'default' => '4,5,4,3\n3,4,4,2\n5,5,4,4',
                 'help' => ''
             ]
         ],
@@ -610,8 +607,7 @@ Option B,6,9,8',
                 'name' => 'rules',
                 'label' => 'Rules',
                 'type' => 'textarea',
-                'default' => 'IF high_impact THEN human_review
-IF human_review THEN audit_log',
+                'default' => 'IF high_impact THEN human_review\nIF human_review THEN audit_log',
                 'help' => ''
             ]
         ],
@@ -928,11 +924,7 @@ IF human_review THEN audit_log',
                 'name' => 'data',
                 'label' => 'Data matrix',
                 'type' => 'textarea',
-                'default' => '1,2,3
-2,3,4
-3,4,6
-4,5,8
-5,7,10',
+                'default' => '1,2,3\n2,3,4\n3,4,6\n4,5,8\n5,7,10',
                 'help' => ''
             ]
         ],
@@ -1460,5 +1452,2212 @@ IF human_review THEN audit_log',
             'expert'
         ],
         'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'physics-calculator',
+        'title' => 'Physics Calculator',
+        'domain' => 'Natural Science',
+        'topic' => 'Physics',
+        'family' => 'physics',
+        'engine' => 'python/numpy',
+        'description' => 'Mechanics, energy, waves, electricity, fluids, and thermodynamics calculations with unit-aware summaries and SVG graphs.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'mechanics',
+                'help' => '',
+                'options' => [
+                    'mechanics',
+                    'energy_work',
+                    'waves',
+                    'electricity',
+                    'fluids',
+                    'thermodynamics'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'mass=2;velocity=12;height=5;force=10;distance=3;angle_deg=0',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'curve',
+            'bar',
+            'units_summary'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'chemistry-calculator',
+        'title' => 'Chemistry Calculator',
+        'domain' => 'Natural Science',
+        'topic' => 'Chemistry',
+        'family' => 'chemistry',
+        'engine' => 'python',
+        'description' => 'Molarity, stoichiometry, pH, ideal gas, percent yield, and Beer-Lambert calculations for chemistry learning and analysis.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'molarity',
+                'help' => '',
+                'options' => [
+                    'molarity',
+                    'stoichiometry',
+                    'ph',
+                    'ideal_gas',
+                    'percent_yield',
+                    'beer_lambert'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'moles=0.5;volume_l=1.0;mass_g=10;molar_mass_g_mol=58.44',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'bar',
+            'units_summary'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'biology-calculator',
+        'title' => 'Biology Calculator',
+        'domain' => 'Natural Science',
+        'topic' => 'Biology',
+        'family' => 'biology',
+        'engine' => 'python/numpy',
+        'description' => 'Population growth, enzyme kinetics, Hardy-Weinberg proportions, biodiversity indexes, and photosynthesis proxy analysis.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'population_growth',
+                'help' => '',
+                'options' => [
+                    'population_growth',
+                    'enzyme_kinetics',
+                    'hardy_weinberg',
+                    'biodiversity',
+                    'photosynthesis_proxy'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'initial=100;rate=0.25;carrying_capacity=1000;time=30',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'curve',
+            'bar'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'environmental-science-calculator',
+        'title' => 'Environmental Science Calculator',
+        'domain' => 'Environmental Science',
+        'topic' => 'Environmental Systems',
+        'family' => 'environmental_science',
+        'engine' => 'python/numpy',
+        'description' => 'Water-quality, air-quality, carbon-footprint, habitat-fragmentation, and composite environmental-risk proxy calculations.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'water_quality_index',
+                'help' => '',
+                'options' => [
+                    'water_quality_index',
+                    'air_quality_proxy',
+                    'carbon_footprint',
+                    'habitat_fragmentation',
+                    'environmental_risk_profile'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'do=7;ph=7.4;turbidity=3;nitrate=2;phosphate=0.1;temperature=18',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'bar',
+            'risk_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'earth-science-calculator',
+        'title' => 'Earth Science Calculator',
+        'domain' => 'Earth Science',
+        'topic' => 'Earth Systems',
+        'family' => 'earth_science',
+        'engine' => 'python/numpy',
+        'description' => 'Watershed runoff, earthquake energy proxy, erosion risk, rock density, and water-balance calculations.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'watershed_runoff',
+                'help' => '',
+                'options' => [
+                    'watershed_runoff',
+                    'earthquake_energy',
+                    'erosion_risk',
+                    'rock_density',
+                    'water_balance'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'rainfall_mm=50;area_km2=10;runoff_coefficient=0.35;slope=8;soil_erodibility=0.3',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'bar',
+            'units_summary'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'content-frameworks-analyzer',
+        'title' => 'Content Frameworks Analyzer',
+        'domain' => 'Content Frameworks',
+        'topic' => 'Knowledge Architecture',
+        'family' => 'content_frameworks',
+        'engine' => 'python + AI',
+        'description' => 'Maps briefs to purpose, audience, problem, evidence, structure, voice, action, ethics, and measurement dimensions.',
+        'inputs' => [
+            [
+                'name' => 'brief',
+                'label' => 'Brief or content problem',
+                'type' => 'textarea',
+                'default' => 'Explain a complex public-interest tool to a mixed audience and connect it to research, ethics, and action.',
+                'help' => ''
+            ],
+            [
+                'name' => 'lens',
+                'label' => 'Lens',
+                'type' => 'select',
+                'default' => 'knowledge_architecture',
+                'help' => '',
+                'options' => [
+                    'knowledge_architecture',
+                    'educational',
+                    'persuasive',
+                    'institutional',
+                    'measurement'
+                ]
+            ]
+        ],
+        'graph_types' => [
+            'framework_bar',
+            'matrix'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'storytelling-structure-analyzer',
+        'title' => 'Storytelling Structure Analyzer',
+        'domain' => 'Content Frameworks',
+        'topic' => 'Storytelling',
+        'family' => 'storytelling',
+        'engine' => 'python + qualitative framework',
+        'description' => 'Analyzes narrative arc, stakes, conflict, character movement, resolution, and meaning without reducing story to formula.',
+        'inputs' => [
+            [
+                'name' => 'story',
+                'label' => 'Story, draft, or scenario',
+                'type' => 'textarea',
+                'default' => 'A researcher builds a public-interest tool, faces uncertainty, tests it with users, and turns it into shared infrastructure.',
+                'help' => ''
+            ],
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'narrative_arc',
+                'help' => '',
+                'options' => [
+                    'narrative_arc',
+                    'institutional_story',
+                    'ethical_story',
+                    'systems_story'
+                ]
+            ]
+        ],
+        'graph_types' => [
+            'story_bar',
+            'arc'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'social-psychology-analyzer',
+        'title' => 'Social Psychology Analyzer',
+        'domain' => 'Psychology',
+        'topic' => 'Social Psychology',
+        'family' => 'social_psychology',
+        'engine' => 'python + qualitative framework',
+        'description' => 'Maps scenarios to norms, identity, trust, authority, conformity, cooperation, persuasion, polarization, and adoption mechanisms.',
+        'inputs' => [
+            [
+                'name' => 'scenario',
+                'label' => 'Scenario',
+                'type' => 'textarea',
+                'default' => 'A group is deciding whether to adopt a new tool while norms, trust, authority, incentives, and uncertainty shape behavior.',
+                'help' => ''
+            ],
+            [
+                'name' => 'lens',
+                'label' => 'Lens',
+                'type' => 'select',
+                'default' => 'group_dynamics',
+                'help' => '',
+                'options' => [
+                    'group_dynamics',
+                    'norms',
+                    'trust',
+                    'persuasion',
+                    'cooperation',
+                    'diffusion'
+                ]
+            ]
+        ],
+        'graph_types' => [
+            'mechanism_bar',
+            'matrix'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'grit-resilience-analyzer',
+        'title' => 'Grit and Resilience Analyzer',
+        'domain' => 'Psychology',
+        'topic' => 'Grit, Motivation, and Persistence',
+        'family' => 'grit_resilience',
+        'engine' => 'python + optional R',
+        'description' => 'Reflective grit, persistence, recovery, deliberate-practice, and purpose-alignment profile with non-clinical caveats.',
+        'inputs' => [
+            [
+                'name' => 'responses',
+                'label' => 'Self-rating values',
+                'type' => 'textarea',
+                'default' => '4,5,4,3,5,4,4,5',
+                'help' => ''
+            ],
+            [
+                'name' => 'context',
+                'label' => 'Context',
+                'type' => 'textarea',
+                'default' => 'Long-term learning, career transition, creative work, and sustained project execution.',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'profile_bar',
+            'reflection'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'nuclear-physics-calculator',
+        'title' => 'Nuclear Physics Calculator',
+        'domain' => 'Advanced Physical Systems',
+        'topic' => 'Nuclear Physics',
+        'family' => 'nuclear_physics',
+        'engine' => 'python/numpy',
+        'description' => 'Radioactive decay, decay constants, binding energy, mean lifetime, and educational radiation-dose proxies with strict non-weapons safety boundaries.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'radioactive_decay',
+                'help' => '',
+                'options' => [
+                    'radioactive_decay',
+                    'binding_energy',
+                    'radiation_dose_proxy',
+                    'mean_lifetime'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'initial_activity_bq=1000;half_life_s=3600;time_s=7200;mass_defect_u=0.01',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'decay_curve',
+            'bar',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'restricted_educational'
+    ],
+    [
+        'id' => 'particle-physics-calculator',
+        'title' => 'Particle Physics Calculator',
+        'domain' => 'Advanced Physical Systems',
+        'topic' => 'Particle Physics',
+        'family' => 'particle_physics',
+        'engine' => 'python/numpy',
+        'description' => 'Relativistic energy/momentum, event-rate estimates, detector-resolution proxies, and lifetime-width relationships for educational high-energy physics.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'relativistic_energy_momentum',
+                'help' => '',
+                'options' => [
+                    'relativistic_energy_momentum',
+                    'event_rate',
+                    'uncertainty_resolution',
+                    'lifetime_width'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'mass_mev_c2=0.511;momentum_mev_c=1;luminosity_cm2_s=1e34;cross_section_pb=1;time_s=3600',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'energy_momentum_curve',
+            'resolution_curve',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'restricted_educational'
+    ],
+    [
+        'id' => 'neurophysics-calculator',
+        'title' => 'Neurophysics Calculator',
+        'domain' => 'Advanced Physical Systems',
+        'topic' => 'Neurophysics and Biophysics',
+        'family' => 'neurophysics',
+        'engine' => 'python/numpy',
+        'description' => 'Membrane RC time constants, Nernst potentials, integrate-and-fire proxies, and conduction delay for educational neurophysics.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'membrane_rc',
+                'help' => '',
+                'options' => [
+                    'membrane_rc',
+                    'nernst_potential',
+                    'integrate_and_fire',
+                    'conduction_delay'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'resistance_mohm=100;capacitance_pf=100;temperature_c=37;z=1;outside_mm=145;inside_mm=15',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'membrane_curve',
+            'bar',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'rocket-science-calculator',
+        'title' => 'Rocket Science and Orbital Mechanics Calculator',
+        'domain' => 'Engineering',
+        'topic' => 'Aerospace and Rocket Science',
+        'family' => 'aerospace',
+        'engine' => 'python/numpy',
+        'description' => 'Tsiolkovsky delta-v, thrust-to-weight, circular orbital velocity, period, and mass-ratio estimates for educational aerospace analysis.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'delta_v',
+                'help' => '',
+                'options' => [
+                    'delta_v',
+                    'thrust_to_weight',
+                    'orbital_velocity',
+                    'mass_ratio_required'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'isp_s=300;initial_mass_kg=1000;final_mass_kg=500;thrust_n=15000;altitude_m=400000',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'delta_v_curve',
+            'bar',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'restricted_educational'
+    ],
+    [
+        'id' => 'electronics-engineering-calculator',
+        'title' => 'Electronics Engineering Calculator',
+        'domain' => 'Engineering',
+        'topic' => 'Electronics Engineering',
+        'family' => 'electronics',
+        'engine' => 'python/numpy',
+        'description' => 'Ohm/power calculations, RC filters, RLC resonance, op-amp gain, ADC resolution, and circuit-summary graphs.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'ohms_law_power',
+                'help' => '',
+                'options' => [
+                    'ohms_law_power',
+                    'rc_filter',
+                    'rlc_resonance',
+                    'op_amp_gain',
+                    'adc_resolution'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'voltage=12;resistance=100;capacitance_f=1e-6;frequency_hz=1000;inductance_h=0.01',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'filter_response',
+            'bar',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'rf-antenna-calculator',
+        'title' => 'RF and Antenna Calculator',
+        'domain' => 'Engineering',
+        'topic' => 'RF, Antenna, and Wireless Systems',
+        'family' => 'rf_antenna',
+        'engine' => 'python/numpy',
+        'description' => 'Frequency/wavelength conversion, free-space path loss, Friis-style link budgets, antenna dimension estimates, and regulatory/safety caveats.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'wavelength_frequency',
+                'help' => '',
+                'options' => [
+                    'wavelength_frequency',
+                    'free_space_path_loss',
+                    'link_budget',
+                    'antenna_gain'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'frequency_hz=915e6;distance_km=1;tx_power_dbm=20;tx_gain_dbi=2;rx_gain_dbi=2;losses_db=2',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'path_loss_curve',
+            'link_budget',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'restricted_educational'
+    ],
+    [
+        'id' => 'full-stack-engineering-tool',
+        'title' => 'Full-Stack Engineering Tool',
+        'domain' => 'Engineering',
+        'topic' => 'Engineering Systems',
+        'family' => 'engineering_stack',
+        'engine' => 'python/numpy',
+        'description' => 'FMEA risk, factor of safety, reliability curves, systems-engineering maturity, and multidisciplinary engineering review support.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'fmea_risk',
+                'help' => '',
+                'options' => [
+                    'fmea_risk',
+                    'factor_of_safety',
+                    'reliability',
+                    'systems_maturity'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'severity=4;occurrence=3;detection=2;load=1000;capacity=2500;mtbf_hours=10000;time_hours=1000',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'risk_bar',
+            'reliability_curve',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'lab-science-calculator',
+        'title' => 'Lab Science Calculator',
+        'domain' => 'Lab Science',
+        'topic' => 'Biology, Chemistry, and Laboratory QA/QC',
+        'family' => 'lab_science',
+        'engine' => 'python/numpy',
+        'description' => 'Serial dilution, CFU counts, qPCR efficiency, dose-response research curves, replicate QA/QC, and lab-science calculations for biologists and chemists.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'serial_dilution',
+                'help' => '',
+                'options' => [
+                    'serial_dilution',
+                    'cfu_count',
+                    'qpcr_efficiency',
+                    'dose_response_research',
+                    'replicate_qaqc'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'c1=1.0;v1_ml=1.0;v2_ml=10;od=0.8;dilution_factor=100;colony_count=80;plated_ml=0.1',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'dose_response_curve',
+            'bar',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'clinical-research-calculator',
+        'title' => 'Clinical Research Calculator',
+        'domain' => 'Health and Medical',
+        'topic' => 'Physician and Public-Health Research',
+        'family' => 'clinical_research',
+        'engine' => 'python/numpy',
+        'description' => 'Diagnostic metrics, NNT, odds ratio, effect size, and clinical/public-health research calculations with non-diagnostic guardrails.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'diagnostic_metrics',
+                'help' => '',
+                'options' => [
+                    'diagnostic_metrics',
+                    'nnt',
+                    'odds_ratio',
+                    'effect_size'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'tp=80;fp=10;tn=900;fn=20;event_rate_control=0.2;event_rate_treatment=0.12',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'metrics_bar',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'predictive-analytics-forecasting-tool',
+        'title' => 'Predictive Analytics Forecasting Tool',
+        'domain' => 'Predictive Analytics',
+        'topic' => 'Forecasting and Decision Support',
+        'family' => 'forecasting',
+        'engine' => 'python/numpy + optional R/Julia',
+        'description' => 'Moving average, exponential smoothing, linear trend forecasts, confidence proxies, forecast diagnostics, and downloadable graph/report outputs.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'linear_trend',
+                'help' => '',
+                'options' => [
+                    'linear_trend',
+                    'moving_average',
+                    'exponential_smoothing'
+                ]
+            ],
+            [
+                'name' => 'series',
+                'label' => 'Historical series',
+                'type' => 'textarea',
+                'default' => '120,128,133,140,145,151,160,171,178,190,203,215',
+                'help' => ''
+            ],
+            [
+                'name' => 'horizon',
+                'label' => 'Forecast horizon',
+                'type' => 'number',
+                'default' => '6',
+                'help' => ''
+            ],
+            [
+                'name' => 'alpha',
+                'label' => 'Smoothing alpha',
+                'type' => 'number',
+                'default' => '0.35',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'forecast_curve',
+            'confidence_band',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'time-series-diagnostics-tool',
+        'title' => 'Time-Series Diagnostics Tool',
+        'domain' => 'Predictive Analytics',
+        'topic' => 'Time-Series Diagnostics',
+        'family' => 'time_series',
+        'engine' => 'python/numpy + optional statsmodels',
+        'description' => 'Trend, rolling mean, volatility, autocorrelation, anomaly flags, and stationarity-warning proxies for monitoring and forecasting workflows.',
+        'inputs' => [
+            [
+                'name' => 'series',
+                'label' => 'Time series',
+                'type' => 'textarea',
+                'default' => '10,11,13,12,15,18,17,21,24,23,26,30',
+                'help' => ''
+            ],
+            [
+                'name' => 'max_lag',
+                'label' => 'Max autocorrelation lag',
+                'type' => 'number',
+                'default' => '8',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'series_curve',
+            'rolling_mean',
+            'acf_bar',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'economics-forecasting-scenario-tool',
+        'title' => 'Economics Forecasting and Scenario Tool',
+        'domain' => 'Economics',
+        'topic' => 'Economic Forecasting and Scenarios',
+        'family' => 'economic_forecasting',
+        'engine' => 'python/numpy + optional R',
+        'description' => 'Macro scenario indices, demand forecasting, fiscal multiplier scenarios, cost-benefit streams, uncertainty framing, and policy-analysis outputs.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'macro_scenario',
+                'help' => '',
+                'options' => [
+                    'macro_scenario',
+                    'demand_forecast',
+                    'fiscal_multiplier',
+                    'cost_benefit'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'gdp_growth=0.02;inflation=0.03;unemployment=0.05;policy_rate=0.04;demand=1000;price=10;elasticity=-1.2;shock=-0.1;multiplier=1.5',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'scenario_curve',
+            'demand_curve',
+            'bar',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'econometrics-policy-model-tool',
+        'title' => 'Econometrics and Policy Model Tool',
+        'domain' => 'Economics',
+        'topic' => 'Econometrics and Policy Evaluation',
+        'family' => 'econometrics',
+        'engine' => 'python/numpy + optional R',
+        'description' => 'OLS, elasticity regression, difference-in-differences decomposition, fitted values, residuals, and identification warnings for policy/economic analysis.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'ols',
+                'help' => '',
+                'options' => [
+                    'ols',
+                    'elasticity_regression',
+                    'difference_in_differences'
+                ]
+            ],
+            [
+                'name' => 'data',
+                'label' => 'Rows: predictors then outcome',
+                'type' => 'textarea',
+                'default' => '1,2\n2,4\n3,5\n4,7\n5,8',
+                'help' => ''
+            ],
+            [
+                'name' => 'x',
+                'label' => 'X values',
+                'type' => 'text',
+                'default' => '10,11,12,13,14,15',
+                'help' => ''
+            ],
+            [
+                'name' => 'y',
+                'label' => 'Y values',
+                'type' => 'text',
+                'default' => '100,94,90,82,78,73',
+                'help' => ''
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Policy contrast inputs',
+                'type' => 'textarea',
+                'default' => 'pre_treated=10;post_treated=16;pre_control=9;post_control=11',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'fit_curve',
+            'residuals',
+            'did_bar',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'fpga-digital-systems-tool',
+        'title' => 'FPGA and Digital Systems Tool',
+        'domain' => 'Professional Systems Layer',
+        'topic' => 'FPGA and Digital Design',
+        'family' => 'fpga',
+        'engine' => 'python/numpy + HDL workflow adapters',
+        'description' => 'Timing slack, estimated Fmax, fixed-point range/quantization, pipeline throughput, resource pressure, and CDC-risk proxies for FPGA programmers.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'timing_slack',
+                'help' => '',
+                'options' => [
+                    'timing_slack',
+                    'fixed_point',
+                    'pipeline_throughput',
+                    'resource_pressure'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'clock_mhz=100;critical_path_ns=7.5;lut_count=20000;bram_kb=1024;dsp_blocks=80;word_bits=16;pipeline_stages=4',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'timing_bar',
+            'resource_bar',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'power-systems-engineering-tool',
+        'title' => 'Power Systems Engineering Tool',
+        'domain' => 'Professional Systems Layer',
+        'topic' => 'Electrical Power Engineering',
+        'family' => 'power_systems',
+        'engine' => 'python/numpy',
+        'description' => 'Three-phase power, voltage drop, power-factor correction, transformer/loading, and fault-current proxy calculations for electrical engineers.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'three_phase_power',
+                'help' => '',
+                'options' => [
+                    'three_phase_power',
+                    'voltage_drop',
+                    'power_factor_correction',
+                    'fault_current_proxy'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'voltage_v=480;current_a=100;power_factor=0.85;length_m=100;resistance_ohm_per_km=0.2;reactance_ohm_per_km=0.08',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'power_bar',
+            'load_curve',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'mechanical-systems-engineering-tool',
+        'title' => 'Mechanical Systems Engineering Tool',
+        'domain' => 'Professional Systems Layer',
+        'topic' => 'Mechanical Engineering',
+        'family' => 'mechanical_systems',
+        'engine' => 'python/numpy',
+        'description' => 'Shaft torsion, vibration frequency, fatigue proxies, conduction heat transfer, and mechanical-system interpretation with professional caveats.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'shaft_torsion',
+                'help' => '',
+                'options' => [
+                    'shaft_torsion',
+                    'vibration_frequency',
+                    'fatigue_proxy',
+                    'conduction_heat_transfer'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'torque_nm=500;radius_m=0.025;polar_j_m4=6.14e-7;length_m=1;shear_modulus_pa=79e9;mass_kg=10;stiffness_n_m=10000',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'vibration_curve',
+            'stress_bar',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'structural-engineering-tool',
+        'title' => 'Structural Engineering Tool',
+        'domain' => 'Professional Systems Layer',
+        'topic' => 'Structural Engineering',
+        'family' => 'structural_engineering',
+        'engine' => 'python/numpy',
+        'description' => 'Beam deflection, moment/shear proxies, Euler buckling, load combinations, and seismic base-shear proxy calculations with strict safety caveats.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'beam_deflection',
+                'help' => '',
+                'options' => [
+                    'beam_deflection',
+                    'column_buckling',
+                    'load_combination',
+                    'seismic_base_shear_proxy'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'span_m=6;uniform_load_kn_m=10;E_pa=200e9;I_m4=8e-6;dead_load=100;live_load=75;wind_load=40',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'moment_curve',
+            'load_bar',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'civil-infrastructure-planning-tool',
+        'title' => 'Civil Infrastructure Planning Tool',
+        'domain' => 'Professional Systems Layer',
+        'topic' => 'Civil Infrastructure',
+        'family' => 'civil_infrastructure',
+        'engine' => 'python/numpy',
+        'description' => 'Stormwater storage, water demand, capacity utilization, asset-risk priority, and infrastructure planning metrics.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'stormwater_storage',
+                'help' => '',
+                'options' => [
+                    'stormwater_storage',
+                    'water_demand',
+                    'capacity_utilization',
+                    'asset_condition_risk'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'area_ha=2;rainfall_mm=50;runoff_coefficient=0.7;population=10000;daily_l_per_capita=180;capacity=12000;demand=9000',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'risk_bar',
+            'capacity_bar',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'urban-planning-analytics-tool',
+        'title' => 'Urban Planning Analytics Tool',
+        'domain' => 'Professional Systems Layer',
+        'topic' => 'Urban Planning',
+        'family' => 'urban_planning',
+        'engine' => 'python/numpy + GIS-ready',
+        'description' => 'Density, jobs-housing balance, land-use mix entropy, housing affordability, accessibility proxies, and planning-equity caveats.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'land_use_mix',
+                'help' => '',
+                'options' => [
+                    'land_use_mix',
+                    'density_access',
+                    'housing_affordability'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'population=50000;area_km2=12;jobs=25000;housing_units=22000;income=65000;housing_cost_monthly=1600;residential=0.45;commercial=0.25;industrial=0.1;civic=0.1;open_space=0.1',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'land_use_bar',
+            'density_table',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'architecture-building-science-tool',
+        'title' => 'Architecture and Building Science Tool',
+        'domain' => 'Professional Systems Layer',
+        'topic' => 'Architecture and Building Science',
+        'family' => 'building_science',
+        'engine' => 'python/numpy + EnergyPlus/IFC-ready',
+        'description' => 'HVAC load proxies, daylight ratios, egress/occupancy metrics, envelope performance, embodied carbon, and building-science reports.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'hvac_load_proxy',
+                'help' => '',
+                'options' => [
+                    'hvac_load_proxy',
+                    'egress_occupancy',
+                    'daylight_proxy',
+                    'embodied_carbon'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'area_m2=1000;u_value=0.35;delta_t_k=20;window_area_m2=150;shgc=0.35;solar_w_m2=500;occupants=120;floor_area_m2=1000',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'building_load_bar',
+            'daylight_bar',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'astrophysics-research-calculator',
+        'title' => 'Astrophysics Research Calculator',
+        'domain' => 'Professional Systems Layer',
+        'topic' => 'Astrophysics and Space Science',
+        'family' => 'astrophysics',
+        'engine' => 'python/numpy',
+        'description' => 'Blackbody spectra, luminosity, low-redshift Hubble estimates, Kepler orbital periods, and astrophysical research calculators.',
+        'inputs' => [
+            [
+                'name' => 'mode',
+                'label' => 'Mode',
+                'type' => 'select',
+                'default' => 'blackbody',
+                'help' => '',
+                'options' => [
+                    'blackbody',
+                    'luminosity',
+                    'redshift_hubble',
+                    'kepler_orbit'
+                ]
+            ],
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'temperature_k=5778;radius_m=6.957e8;redshift=0.05;period_days=365.25;semi_major_axis_au=1',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'spectrum_curve',
+            'orbital_summary',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'cognitive-psychology-tool',
+        'title' => 'Cognitive Psychology Tool',
+        'domain' => 'Psychology',
+        'topic' => 'Cognitive Psychology',
+        'family' => 'cognitive_psychology',
+        'engine' => 'python/numpy',
+        'description' => 'Attention, working memory, mental models, cognitive load, and transfer analysis.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'attention=4;working_memory=3;mental_models=4;cognitive_load=2;transfer=3',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'profile_bar',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'developmental-psychology-tool',
+        'title' => 'Developmental Psychology Tool',
+        'domain' => 'Psychology',
+        'topic' => 'Developmental Psychology',
+        'family' => 'developmental_psychology',
+        'engine' => 'python/numpy',
+        'description' => 'Developmental dimensions across cognition, social development, language, emotion regulation, and context support.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'cognitive_development=3;social_development=4;language=3;emotion_regulation=3;context_support=4',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'profile_bar'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'personality-psychology-tool',
+        'title' => 'Personality Psychology Tool',
+        'domain' => 'Psychology',
+        'topic' => 'Personality Psychology',
+        'family' => 'personality_psychology',
+        'engine' => 'python/numpy',
+        'description' => 'Big-Five-style reflective personality profile for education and self-analysis.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Trait scores',
+                'type' => 'textarea',
+                'default' => 'openness=4;conscientiousness=4;extraversion=3;agreeableness=4;emotional_stability=3',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'trait_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'positive-psychology-tool',
+        'title' => 'Positive Psychology Tool',
+        'domain' => 'Psychology',
+        'topic' => 'Positive Psychology',
+        'family' => 'positive_psychology',
+        'engine' => 'python/numpy',
+        'description' => 'PERMA-style wellbeing, strengths, meaning, engagement, relationships, and accomplishment profile.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'meaning=4;engagement=3;relationships=4;accomplishment=3;positive_emotion=3;strengths_use=4',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'wellbeing_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'organizational-psychology-tool',
+        'title' => 'Organizational Psychology Tool',
+        'domain' => 'Psychology',
+        'topic' => 'Organizational Psychology',
+        'family' => 'organizational_psychology',
+        'engine' => 'python/numpy',
+        'description' => 'Role clarity, psychological safety, motivation, coordination, feedback, and burnout-risk review.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'role_clarity=3;psychological_safety=3;motivation=4;coordination=3;feedback=2;burnout_risk_inverse=3',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'organization_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'institutional-psychology-tool',
+        'title' => 'Institutional Psychology Tool',
+        'domain' => 'Psychology',
+        'topic' => 'Institutional Psychology',
+        'family' => 'institutional_psychology',
+        'engine' => 'python/numpy',
+        'description' => 'Trust, legitimacy, norms, accountability, institutional learning, and symbolic coherence.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'trust=3;legitimacy=3;norm_clarity=3;accountability=3;learning_capacity=3;symbolic_coherence=3',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'institution_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'analytical-psychology-symbolism-tool',
+        'title' => 'Analytical Psychology, Symbolism, and Depth Mind Tool',
+        'domain' => 'Psychology',
+        'topic' => 'Analytical Psychology, Symbolism & the Depth Mind',
+        'family' => 'analytical_psychology',
+        'engine' => 'python/numpy + AI-ready',
+        'description' => 'Symbolic, archetypal, shadow, integration, and narrative-depth analysis for stories, myths, images, and institutions.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'symbol_density=4;archetypal_pattern=4;shadow_tension=3;integration_potential=3;narrative_depth=4',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'symbol_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'behavioral-science-psychology-hub-tool',
+        'title' => 'Behavioral Science and Psychology Hub Tool',
+        'domain' => 'Behavioral Science & Psychology',
+        'topic' => 'Behavioral Science & Psychology Hub',
+        'family' => 'behavioral_science',
+        'engine' => 'python/numpy',
+        'description' => 'Behavior definition, context mapping, measurement, intervention fit, ethics, and evaluation.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'behavior_definition=4;context_mapping=3;measurement=3;intervention_fit=3;ethics=4;evaluation=3',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'behavior_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'behavioral-economics-tool',
+        'title' => 'Behavioral Economics Tool',
+        'domain' => 'Behavioral Science & Psychology',
+        'topic' => 'Behavioral Economics',
+        'family' => 'behavioral_economics',
+        'engine' => 'python/numpy',
+        'description' => 'Loss aversion, present bias, framing, status quo bias, social proof, and choice friction.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'loss_aversion=3;present_bias=4;status_quo_bias=3;framing_effect=4;social_proof=3;choice_friction=2',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'bias_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'behavior-change-habit-tool',
+        'title' => 'Behavior Change and Habit Formation Tool',
+        'domain' => 'Behavioral Science & Psychology',
+        'topic' => 'Behavior Change and Habit Formation',
+        'family' => 'behavior_change',
+        'engine' => 'python/numpy',
+        'description' => 'Cue, routine, reward, friction, identity, and feedback-loop habit analysis.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'cue_clarity=3;routine_feasibility=3;reward_strength=3;friction_reduction=3;identity_alignment=4;feedback_loop=3',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'habit_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'motivation-reinforcement-learning-tool',
+        'title' => 'Motivation, Reinforcement, and Learning Tool',
+        'domain' => 'Behavioral Science & Psychology',
+        'topic' => 'Motivation, Reinforcement, and Learning',
+        'family' => 'motivation_learning',
+        'engine' => 'python/numpy',
+        'description' => 'Intrinsic motivation, reinforcement schedule, competence feedback, autonomy, and mastery progress.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'intrinsic_motivation=4;extrinsic_support=3;reinforcement_schedule=3;competence_feedback=3;autonomy=4;mastery_progress=3',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'motivation_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'choice-architecture-nudging-tool',
+        'title' => 'Choice Architecture and Nudging Tool',
+        'domain' => 'Behavioral Science & Psychology',
+        'topic' => 'Choice Architecture and Nudging',
+        'family' => 'choice_architecture',
+        'engine' => 'python/numpy',
+        'description' => 'Default design, salience, friction, transparency, agency, and equity analysis for ethical nudging.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'default_design=3;salience=3;friction=2;transparency=4;user_agency=4;equity=3',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'choice_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'ethics_review_required'
+    ],
+    [
+        'id' => 'social-norms-influence-tool',
+        'title' => 'Social Norms and Behavioral Influence Tool',
+        'domain' => 'Behavioral Science & Psychology',
+        'topic' => 'Social Norms and Behavioral Influence',
+        'family' => 'social_norms',
+        'engine' => 'python/numpy',
+        'description' => 'Descriptive norms, injunctive norms, reference groups, visibility, trust, and backfire risk.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'descriptive_norms=3;injunctive_norms=3;reference_group_fit=3;visibility=3;trust=3;backfire_risk_inverse=3',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'norm_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'behavioral-public-policy-tool',
+        'title' => 'Behavioral Public Policy Tool',
+        'domain' => 'Behavioral Science & Psychology',
+        'topic' => 'Behavioral Public Policy',
+        'family' => 'behavioral_public_policy',
+        'engine' => 'python/numpy',
+        'description' => 'Behavioral public-policy evaluation across evidence, equity, transparency, feasibility, and evaluation.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'problem_definition=4;evidence_base=3;distributional_equity=4;consent_transparency=4;administrative_feasibility=3;evaluation_plan=3',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'policy_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
+        'id' => 'behavioral-research-methods-tool',
+        'title' => 'Behavioral Research Methods Tool',
+        'domain' => 'Behavioral Science & Psychology',
+        'topic' => 'Behavioral Research Methods',
+        'family' => 'behavioral_methods',
+        'engine' => 'python/numpy',
+        'description' => 'Construct validity, sampling, reliability, experimental design, confounding control, and replicability.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'construct_validity=3;sampling=3;measurement_reliability=3;experimental_design=3;confounding_control=3;replicability=3',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'methods_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'ethics-behavioral-intervention-tool',
+        'title' => 'Ethics of Behavioral Intervention Tool',
+        'domain' => 'Behavioral Science & Psychology',
+        'topic' => 'Ethics of Behavioral Intervention',
+        'family' => 'behavioral_ethics',
+        'engine' => 'python/numpy',
+        'description' => 'Autonomy, beneficence, nonmaleficence, justice, transparency, and contestability safeguards.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'autonomy=4;beneficence=4;nonmaleficence=4;justice=3;transparency=4;contestability=3',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'ethics_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'ethics_review_required'
+    ],
+    [
+        'id' => 'moral-psychology-tool',
+        'title' => 'Moral Psychology Tool',
+        'domain' => 'Psychology',
+        'topic' => 'Moral Psychology',
+        'family' => 'moral_psychology',
+        'engine' => 'python/numpy',
+        'description' => 'Moral foundations, empathy, fairness, authority, liberty, harm/care, and institutional judgment analysis.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'harm_care=4;fairness=4;loyalty=3;authority=2;sanctity=2;liberty=4;empathy=4',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'moral_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'knowledge-architecture-tool',
+        'title' => 'Knowledge Architecture Tool',
+        'domain' => 'Thinking',
+        'topic' => 'Knowledge Architecture',
+        'family' => 'knowledge_architecture',
+        'engine' => 'python/numpy',
+        'description' => 'Taxonomy, navigation, metadata, source traceability, learning pathways, and governance analysis.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'taxonomy=4;navigation=3;metadata=3;source_traceability=4;learning_pathways=3;governance=3',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'architecture_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'design-thinking-tool',
+        'title' => 'Design Thinking Tool',
+        'domain' => 'Thinking',
+        'topic' => 'Design Thinking',
+        'family' => 'design_thinking',
+        'engine' => 'python/numpy',
+        'description' => 'Empathy, problem framing, ideation, prototyping, testing, and iteration analysis.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'empathy=3;problem_framing=4;ideation=4;prototyping=3;testing=3;iteration=3',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'design_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'mathematical-thinking-tool',
+        'title' => 'Mathematical Thinking Tool',
+        'domain' => 'Thinking',
+        'topic' => 'Mathematical Thinking',
+        'family' => 'mathematical_thinking',
+        'engine' => 'python/numpy',
+        'description' => 'Abstraction, formalization, proof logic, model fit, edge cases, and interpretation.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'abstraction=4;formalization=3;proof_logic=3;model_fit=3;edge_cases=4;interpretation=4',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'math_thinking_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'systems-thinking-tool',
+        'title' => 'Systems Thinking Tool',
+        'domain' => 'Thinking',
+        'topic' => 'Systems Thinking',
+        'family' => 'systems_thinking',
+        'engine' => 'python/numpy',
+        'description' => 'Boundaries, stocks, flows, feedback loops, delays, leverage points, emergence, and unintended consequences.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'boundaries=4;stocks_flows=3;feedback_loops=4;delays=3;leverage_points=3;emergence=3;unintended_consequences=4',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'systems_profile',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'algorithms-computational-reasoning-tool',
+        'title' => 'Algorithms and Computational Reasoning Tool',
+        'domain' => 'Thinking',
+        'topic' => 'Algorithms & Computational Reasoning',
+        'family' => 'computational_reasoning',
+        'engine' => 'python/numpy',
+        'description' => 'Problem formalization, data structures, complexity, correctness, testing, and accountability.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'problem_formalization=4;data_structures=3;complexity=3;correctness=4;testing=3;accountability=4',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'computational_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'resilience-thinking-tool',
+        'title' => 'Resilience Thinking Tool',
+        'domain' => 'Thinking',
+        'topic' => 'Resilience Thinking',
+        'family' => 'resilience_thinking',
+        'engine' => 'python/numpy',
+        'description' => 'Exposure, sensitivity, adaptive capacity, redundancy, learning, recovery, and transformability.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'exposure=4;sensitivity_inverse=3;adaptive_capacity=3;redundancy=3;learning=4;recovery=3;transformability=3',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'resilience_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'futures-thinking-tool',
+        'title' => 'Futures Thinking Tool',
+        'domain' => 'Thinking',
+        'topic' => 'Futures Thinking',
+        'family' => 'futures_thinking',
+        'engine' => 'python/numpy',
+        'description' => 'Drivers, uncertainties, scenarios, early signals, robust options, and adaptation pathways.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'drivers=4;uncertainties=4;scenarios=3;early_signals=3;robust_options=3;adaptation_pathways=3',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'futures_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'strategic-ideation-tool',
+        'title' => 'Strategic Ideation Tool',
+        'domain' => 'Problem Solving',
+        'topic' => 'Strategic Ideation',
+        'family' => 'strategic_ideation',
+        'engine' => 'python/numpy',
+        'description' => 'Problem clarity, option diversity, constraints, differentiation, feasibility, and learning value.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'problem_clarity=4;option_diversity=4;constraint_awareness=3;differentiation=4;feasibility=3;learning_value=4',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'strategy_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'beauty-aesthetics-meaning-tool',
+        'title' => 'Beauty, Aesthetics, and Meaning Tool',
+        'domain' => 'Meaning',
+        'topic' => 'Beauty, Aesthetics, and Meaning',
+        'family' => 'aesthetics_meaning',
+        'engine' => 'python/numpy + AI-ready',
+        'description' => 'Form, pattern, harmony, symbolic depth, emotional resonance, and transcendence analysis.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'form=4;pattern=4;harmony=3;symbolic_depth=4;emotional_resonance=4;transcendence=3',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'meaning_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'aesthetics-philosophy-art-tool',
+        'title' => 'Aesthetics and Philosophy of Art Tool',
+        'domain' => 'Meaning',
+        'topic' => 'Aesthetics and the Philosophy of Art',
+        'family' => 'philosophy_art',
+        'engine' => 'python/numpy + AI-ready',
+        'description' => 'Representation, expression, formal structure, interpretive openness, historical context, and judgment.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'representation=3;expression=4;formalist_structure=4;interpretive_openness=4;historical_context=3;judgment=3',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'art_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'mathematics-art-music-pattern-tool',
+        'title' => 'Mathematics, Art, Music, and Pattern Tool',
+        'domain' => 'Meaning',
+        'topic' => 'Mathematics, Art, Music, and Pattern',
+        'family' => 'math_art_music_pattern',
+        'engine' => 'python/numpy',
+        'description' => 'Symmetry, ratio, recursion, rhythm, variation, and emergent pattern analysis.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'symmetry=4;ratio=4;recursion=3;rhythm=4;variation=3;emergent_pattern=4',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'pattern_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'symbolism-style-cultural-meaning-tool',
+        'title' => 'Symbolism, Style, and Cultural Meaning Tool',
+        'domain' => 'Meaning',
+        'topic' => 'Symbolism, Style, and Cultural Meaning',
+        'family' => 'symbolism_style',
+        'engine' => 'python/numpy + AI-ready',
+        'description' => 'Symbol density, style coherence, cultural context, ritual association, memory, and ambiguity.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'symbol_density=4;style_coherence=3;cultural_context=4;ritual_association=3;memory=4;ambiguity=3',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'symbolism_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'creative-form-composition-interpretation-tool',
+        'title' => 'Creative Form, Composition, and Interpretation Tool',
+        'domain' => 'Meaning',
+        'topic' => 'Creative Form, Composition, and Interpretation',
+        'family' => 'creative_form',
+        'engine' => 'python/numpy + AI-ready',
+        'description' => 'Structure, tension, contrast, unity, movement, and interpretive depth analysis.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'structure=4;tension=3;contrast=4;unity=3;movement=3;interpretive_depth=4',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'composition_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'story-myth-meaning-tool',
+        'title' => 'Story, Myth, and Meaning Tool',
+        'domain' => 'Meaning',
+        'topic' => 'Story, Myth, and Meaning',
+        'family' => 'story_myth_meaning',
+        'engine' => 'python/numpy + AI-ready',
+        'description' => 'Mythic structure, ritual depth, archetypal motif, memory, suffering/hope, and sacred order.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'mythic_structure=4;ritual_depth=3;archetypal_motif=4;memory=4;suffering_hope=3;sacred_order=3',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'myth_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'systems-modeling-tool',
+        'title' => 'Systems Modeling Tool',
+        'domain' => 'Systems Modeling',
+        'topic' => 'Systems Modeling',
+        'family' => 'systems_modeling',
+        'engine' => 'python/numpy',
+        'description' => 'Boundary definition, variable quality, causal structure, feedback representation, calibration, validation, and scenario design.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'boundary_definition=4;variable_quality=3;causal_structure=4;feedback_representation=3;data_calibration=3;validation=3;scenario_design=4',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'modeling_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'predictive-modeling-tool',
+        'title' => 'Predictive Analytics',
+        'domain' => 'Predictive Modeling',
+        'topic' => 'predictive_modeling',
+        'family' => 'predictive_modeling',
+        'engine' => 'python/numpy',
+        'description' => 'Target definition, feature quality, training data, validation design, calibration, uncertainty, and deployment monitoring.',
+        'inputs' => [
+            [
+                'name' => 'scores',
+                'label' => 'Dimension scores',
+                'type' => 'textarea',
+                'default' => 'target_definition=4;feature_quality=3;training_data=3;validation_design=4;calibration=3;uncertainty=3;deployment_monitoring=3',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'predictive_readiness_profile'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'educational'
+    ],
+    [
+        'id' => 'limits-to-growth-system-dynamics-tool',
+        'title' => 'Limits to Growth System Dynamics Tool',
+        'domain' => 'Systems Modeling',
+        'topic' => 'Limits to Growth',
+        'family' => 'limits_to_growth',
+        'engine' => 'python/numpy',
+        'description' => 'Simplified stocks, flows, feedback, resource depletion, pollution, overshoot, and collapse-risk scenario modeling.',
+        'inputs' => [
+            [
+                'name' => 'inputs',
+                'label' => 'Inputs',
+                'type' => 'textarea',
+                'default' => 'population=1.0;capital=1.0;resources=1.0;pollution=0.05;birth_rate=0.025;death_rate=0.01;investment_rate=0.04;depletion_rate=0.015;pollution_rate=0.02;years=80',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => [
+            'system_dynamics_curve',
+            'pdf_report'
+        ],
+        'audience_modes' => [
+            'guided',
+            'analyst',
+            'expert'
+        ],
+        'safety_level' => 'professional_review_required'
     ]
 ];

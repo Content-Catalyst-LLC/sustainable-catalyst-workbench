@@ -50,3 +50,17 @@ Each tool has guided, analyst, and expert modes in the registry. Future versions
 - International Law Issue Mapper
 - Legal Traditions Comparator
 - Metaphysics Framework Tool
+
+
+## v0.7.3 Advanced Systems Additions
+
+- Nuclear Physics Calculator
+- Particle Physics Calculator
+- Neurophysics Calculator
+- Rocket Science and Orbital Mechanics Calculator
+- Electronics Engineering Calculator
+- RF and Antenna Calculator
+- Full-Stack Engineering Tool
+- Lab Science Calculator
+- Clinical Research Calculator
+- Exportable SVG/PNG graph images and PDF-ready reports

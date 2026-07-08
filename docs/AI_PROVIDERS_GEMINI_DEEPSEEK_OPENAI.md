@@ -15,7 +15,7 @@ For the first free/low-cost deployment:
 
 ```env
 SC_WORKBENCH_AI_PROVIDER=gemini
-GEMINI_API_KEY=your_key
+GEMINI_API_KEY=<paste-your-gemini-key-in-render>
 SC_WORKBENCH_GEMINI_MODEL=gemini-3.5-flash
 ```
 
@@ -32,7 +32,7 @@ For OpenAI later:
 
 ```env
 SC_WORKBENCH_AI_PROVIDER=openai
-OPENAI_API_KEY=your_key
+OPENAI_API_KEY=<paste-your-openai-key-in-render>
 SC_WORKBENCH_OPENAI_MODEL=gpt-4.1-mini
 ```
 

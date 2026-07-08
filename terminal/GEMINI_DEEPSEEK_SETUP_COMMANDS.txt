@@ -7,7 +7,7 @@ cp .env.example .env
 
 # Edit .env and choose one provider:
 # SC_WORKBENCH_AI_PROVIDER=gemini
-# GEMINI_API_KEY=your_key
+# GEMINI_API_KEY=<paste-your-gemini-key-in-render>
 #
 # or:
 # SC_WORKBENCH_AI_PROVIDER=deepseek

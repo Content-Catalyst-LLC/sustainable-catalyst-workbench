@@ -1,0 +1,18 @@
+cd ~/Downloads
+unzip sustainable-catalyst-workbench-v0.7.3-repo.zip
+cd sustainable-catalyst-workbench
+
+# local backend
+chmod +x scripts/setup_backend_mac.sh scripts/run_backend.sh scripts/test_backend.sh
+./scripts/setup_backend_mac.sh
+./scripts/run_backend.sh
+
+# Render free environment variables
+SC_WORKBENCH_AI_PROVIDER=gemini
+SC_WORKBENCH_GEMINI_API_KEY=<paste-your-google-ai-studio-key-in-render>
+SC_WORKBENCH_GEMINI_MODEL=gemini-3.5-flash
+SC_WORKBENCH_SCOPE_GATE=true
+SC_WORKBENCH_CORS_ORIGINS=https://sustainablecatalyst.com
+
+# WordPress backend URL after Render deploy
+# https://YOUR-RENDER-SERVICE.onrender.com

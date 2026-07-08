@@ -4,6 +4,10 @@ MANIFEST.txt
 Procfile
 README.md
 backend/.env.example
+backend/.pytest_cache/.gitignore
+backend/.pytest_cache/CACHEDIR.TAG
+backend/.pytest_cache/README.md
+backend/.pytest_cache/v/cache/nodeids
 backend/Dockerfile
 backend/app/__init__.py
 backend/app/core/__init__.py
@@ -13,8 +17,10 @@ backend/app/core/model_registry.py
 backend/app/core/retrieval.py
 backend/app/core/scope_gate.py
 backend/app/engines/__init__.py
+backend/app/engines/advanced_systems_engines.py
 backend/app/engines/common.py
 backend/app/engines/domain_engines.py
+backend/app/engines/interdisciplinary_engines.py
 backend/app/engines/math_engine.py
 backend/app/engines/pattern_engines.py
 backend/app/engines/public_systems_engines.py
@@ -29,11 +35,13 @@ backend/app/schemas/requests.py
 backend/docker-compose.yml
 backend/requirements.txt
 backend/start.sh
+backend/tests/test_advanced_systems_tools.py
 backend/tests/test_ai_providers.py
 backend/tests/test_pattern_tools.py
 backend/tests/test_public_systems_tools.py
 backend/tests/test_scope.py
 backend/tests/test_tools.py
+docs/ADVANCED_ENGINEERING_LAB_GRAPHICS_REPORTS.md
 docs/AI_PROVIDERS_GEMINI_DEEPSEEK_OPENAI.md
 docs/API_EXAMPLES.md
 docs/BACKEND_ARCHITECTURE.md
@@ -59,6 +67,7 @@ scripts/setup_backend_mac.sh
 scripts/test_backend.sh
 terminal/DEPLOY_RENDER_COMMANDS.txt
 terminal/GEMINI_DEEPSEEK_SETUP_COMMANDS.txt
+terminal/GEMINI_FREE_BACKEND_AND_EXPORTS.txt
 terminal/INSTALL_AND_RUN_COMMANDS.txt
 wordpress-plugin/sustainable-catalyst-workbench/assets/sc-workbench-admin.css
 wordpress-plugin/sustainable-catalyst-workbench/assets/sc-workbench-admin.js
@@ -66,3 +75,6 @@ wordpress-plugin/sustainable-catalyst-workbench/assets/sc-workbench.css
 wordpress-plugin/sustainable-catalyst-workbench/assets/sc-workbench.js
 wordpress-plugin/sustainable-catalyst-workbench/includes/local-tools.php
 wordpress-plugin/sustainable-catalyst-workbench/sustainable-catalyst-workbench.php
+V0.8.0 additions: predictive analytics, economics forecasting, econometrics, FPGA/digital systems, power systems, mechanical, structural, civil infrastructure, urban planning, building science, astrophysics.
+
+V0.8.0 expansion: psychology, behavioral science, thinking, meaning, systems modeling, predictive modeling, and Limits to Growth tools.
