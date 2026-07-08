@@ -1,0 +1,22 @@
+# Sustainable Catalyst Workbench v0.7.2 deployment commands
+
+# 1) Push v0.7.2 repo to GitHub
+cd ~/Downloads
+chmod +x update_and_push_sustainable_catalyst_workbench_v0_7_2_to_github.sh
+./update_and_push_sustainable_catalyst_workbench_v0_7_2_to_github.sh
+
+# 2) In Render, create Web Service from:
+# Content-Catalyst-LLC/sustainable-catalyst-workbench
+# Root Directory: backend
+# Build Command: pip install --upgrade pip && pip install -r requirements.txt
+# Start Command: ./start.sh
+# Health Check Path: /health
+
+# 3) Test deployed backend
+curl https://YOUR-RENDER-URL.onrender.com/health
+curl https://YOUR-RENDER-URL.onrender.com/ai/status
+
+# 4) Configure WordPress
+# SC Workbench → Settings
+# Backend URL: https://YOUR-RENDER-URL.onrender.com
+# Debug mode: Disabled

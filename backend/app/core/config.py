@@ -1,11 +1,19 @@
 from functools import lru_cache
+from pydantic import Field, AliasChoices
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
-    environment: str = "development"
+    """Runtime settings for Sustainable Catalyst Workbench API.
+
+    The backend accepts both SC_WORKBENCH_OPENAI_API_KEY and OPENAI_API_KEY.
+    This keeps local .env usage simple while still allowing prefixed production
+    variables on hosts such as Render, Railway, Fly.io, or a VPS.
+    """
+
+    environment: str = Field(default="development", validation_alias=AliasChoices("SC_WORKBENCH_ENVIRONMENT", "SC_WORKBENCH_ENV"))
     backend_key: str = ""
     ai_provider: str = "disabled"
-    openai_api_key: str = ""
+    openai_api_key: str = Field(default="", validation_alias=AliasChoices("SC_WORKBENCH_OPENAI_API_KEY", "OPENAI_API_KEY"))
     openai_model: str = "gpt-4.1-mini"
     max_output_tokens: int = 1000
     temperature: float = 0.2

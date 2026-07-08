@@ -54,3 +54,14 @@ Adds Pattern, Geometry, Design, Music, and AI tools: music frequency and chord/s
 ## v0.7.1 Expansion
 
 Adds serious global-impact and public-systems tools: environmental monitoring QA/QC, global impact assessment, climate scenarios, earth hazards, marine/ocean health, astronomy, materials science, public-health analytics, international law issue mapping, legal-traditions comparison, and metaphysics frameworks.
+
+## Production Deployment
+
+For the live Sustainable Catalyst site, deploy the FastAPI backend to a public HTTPS URL and use that URL in the WordPress plugin settings. Localhost (`127.0.0.1:8088`) only works for local testing.
+
+Recommended Render deployment files are included:
+
+- `render.yaml`
+- `backend/start.sh`
+- `backend/Dockerfile`
+- `docs/DEPLOY_FASTAPI_RENDER.md`
