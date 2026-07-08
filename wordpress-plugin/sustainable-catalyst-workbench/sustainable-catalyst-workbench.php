@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Workbench
- * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools.
- * Version: 0.9.8
+ * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations.
+ * Version: 0.9.9
  * Author: Content Catalyst LLC
  * License: MIT
  * Text Domain: sustainable-catalyst-workbench
@@ -11,7 +11,7 @@
 if (!defined('ABSPATH')) { exit; }
 
 final class SC_Workbench_Plugin {
-    const VERSION = '0.9.8';
+    const VERSION = '0.9.9';
     const OPTION_BACKEND_URL = 'sc_workbench_backend_url';
     const OPTION_BACKEND_KEY = 'sc_workbench_backend_key';
     const OPTION_AI_PROVIDER = 'sc_workbench_ai_provider';
@@ -40,6 +40,7 @@ final class SC_Workbench_Plugin {
         self::create_equation_table();
         self::create_calculator_backlog_table();
         self::create_feature_builder_table();
+        self::create_shortcode_recommendations_table();
         update_option(self::OPTION_VERSION, self::VERSION);
         add_option(self::OPTION_BACKEND_URL, 'http://127.0.0.1:8088');
         add_option(self::OPTION_AI_PROVIDER, 'backend');
@@ -92,13 +93,15 @@ final class SC_Workbench_Plugin {
             'title' => 'Ask the Sustainable Catalyst Workbench',
             'mode' => 'guided',
             'article' => '',
-            'equations' => 'auto'
+            'equations' => 'auto',
+            'tool' => '',
+            'start_tab' => ''
         ], $atts, 'sc_workbench');
         $uid = 'scwb-' . wp_generate_uuid4();
         $current_post_id = get_queried_object_id();
         $article_slug = $atts['article'] ? sanitize_title($atts['article']) : ($current_post_id ? get_post_field('post_name', $current_post_id) : '');
         ob_start(); ?>
-        <section id="<?php echo esc_attr($uid); ?>" class="scwb scwb-theme-<?php echo esc_attr(get_option(self::OPTION_THEME, 'institutional')); ?>" data-scwb data-topic="<?php echo esc_attr(sanitize_key($atts['topic'])); ?>" data-mode="<?php echo esc_attr(sanitize_key($atts['mode'])); ?>" data-post-id="<?php echo esc_attr($current_post_id); ?>" data-article-slug="<?php echo esc_attr($article_slug); ?>" data-equation-display="<?php echo esc_attr(sanitize_key($atts['equations'])); ?>">
+        <section id="<?php echo esc_attr($uid); ?>" class="scwb scwb-theme-<?php echo esc_attr(get_option(self::OPTION_THEME, 'institutional')); ?>" data-scwb data-topic="<?php echo esc_attr(sanitize_key($atts['topic'])); ?>" data-mode="<?php echo esc_attr(sanitize_key($atts['mode'])); ?>" data-post-id="<?php echo esc_attr($current_post_id); ?>" data-article-slug="<?php echo esc_attr($article_slug); ?>" data-equation-display="<?php echo esc_attr(sanitize_key($atts['equations'])); ?>" data-default-tool="<?php echo esc_attr(sanitize_key($atts['tool'])); ?>" data-start-tab="<?php echo esc_attr(sanitize_key($atts['start_tab'])); ?>">
             <div class="scwb-head">
                 <p class="scwb-eyebrow">Sustainable Catalyst Workbench</p>
                 <h2><?php echo esc_html(sanitize_text_field($atts['title'])); ?></h2>
@@ -189,6 +192,8 @@ final class SC_Workbench_Plugin {
         register_rest_route('sc-workbench/v1', '/equations/scan', ['methods'=>'POST', 'callback'=>[$this,'rest_scan_equations'], 'permission_callback'=>[$this,'admin_permission']]);
         register_rest_route('sc-workbench/v1', '/calculator-backlog', ['methods'=>'GET', 'callback'=>[$this,'rest_calculator_backlog'], 'permission_callback'=>[$this,'admin_permission']]);
         register_rest_route('sc-workbench/v1', '/feature-builder', ['methods'=>'GET', 'callback'=>[$this,'rest_feature_builder'], 'permission_callback'=>[$this,'admin_permission']]);
+        register_rest_route('sc-workbench/v1', '/shortcode-recommendations', ['methods'=>'GET', 'callback'=>[$this,'rest_shortcode_recommendations'], 'permission_callback'=>[$this,'admin_permission']]);
+        register_rest_route('sc-workbench/v1', '/validation-summary', ['methods'=>'GET', 'callback'=>[$this,'rest_validation_summary'], 'permission_callback'=>[$this,'admin_permission']]);
     }
 
     public function admin_permission() { return current_user_can('manage_options'); }
@@ -359,13 +364,14 @@ final class SC_Workbench_Plugin {
             self::create_equation_table();
             self::create_calculator_backlog_table();
             self::create_feature_builder_table();
+            self::create_shortcode_recommendations_table();
             if (!$this->calculator_backlog_count()) {
                 $this->import_calculator_backlog_from_file($this->bundled_calculator_suggestions_csv(), true);
             }
             if (!$this->feature_builder_count()) {
                 $this->import_feature_builder_from_file($this->bundled_feature_builder_queue_csv(), true);
             }
-            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools.
+            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations.
             // The equation table is a generated cache, so it is safe to clear during scanner upgrades and rebuild from posts.
             if ($old_version && version_compare($old_version, '0.9.4', '<')) {
                 $this->clear_equation_registry();
@@ -726,6 +732,7 @@ final class SC_Workbench_Plugin {
         add_submenu_page('sustainable-catalyst-workbench', 'Equation Registry', 'Equation Registry', 'manage_options', 'sustainable-catalyst-workbench-equations', [$this,'render_equations_page']);
         add_submenu_page('sustainable-catalyst-workbench', 'Calculator Backlog', 'Calculator Backlog', 'manage_options', 'sustainable-catalyst-workbench-calculator-backlog', [$this,'render_calculator_backlog_page']);
         add_submenu_page('sustainable-catalyst-workbench', 'Feature Builder', 'Feature Builder', 'manage_options', 'sustainable-catalyst-workbench-feature-builder', [$this,'render_feature_builder_page']);
+        add_submenu_page('sustainable-catalyst-workbench', 'Embed Shortcodes', 'Embed Shortcodes', 'manage_options', 'sustainable-catalyst-workbench-embed-shortcodes', [$this,'render_embed_shortcodes_page']);
     }
 
     public function handle_settings_save() {
@@ -800,6 +807,31 @@ final class SC_Workbench_Plugin {
         if (isset($_POST['sc_workbench_export_feature_builder_csv'])) {
             check_admin_referer('sc_workbench_feature_builder');
             $this->export_feature_builder_csv();
+            exit;
+        }
+
+        if (isset($_POST['sc_workbench_build_shortcode_recommendations'])) {
+            check_admin_referer('sc_workbench_embed_shortcodes');
+            $result = $this->build_shortcode_recommendations();
+            add_settings_error('sc_workbench_messages', 'shortcode_recommendations_built', 'Shortcode recommendations built: ' . intval($result['recommendations_built']) . ' pages/articles analyzed from ' . intval($result['equation_rows']) . ' indexed equations.', 'updated');
+            return;
+        }
+        if (isset($_POST['sc_workbench_scan_and_build_shortcode_recommendations'])) {
+            check_admin_referer('sc_workbench_embed_shortcodes');
+            $scan = $this->scan_equations(3000);
+            $result = $this->build_shortcode_recommendations();
+            add_settings_error('sc_workbench_messages', 'shortcode_recommendations_scanned_built', 'Equation scan and shortcode build complete: ' . intval($scan['equations_indexed']) . ' equations indexed; ' . intval($result['recommendations_built']) . ' page-level calculator embeds recommended.', 'updated');
+            return;
+        }
+        if (isset($_POST['sc_workbench_clear_shortcode_recommendations'])) {
+            check_admin_referer('sc_workbench_embed_shortcodes');
+            $this->clear_shortcode_recommendations();
+            add_settings_error('sc_workbench_messages', 'shortcode_recommendations_cleared', 'Shortcode recommendations cleared.', 'updated');
+            return;
+        }
+        if (isset($_POST['sc_workbench_export_shortcode_recommendations_csv'])) {
+            check_admin_referer('sc_workbench_embed_shortcodes');
+            $this->export_shortcode_recommendations_csv();
             exit;
         }
         if (!isset($_POST['sc_workbench_save_settings'])) { return; }
@@ -911,7 +943,7 @@ final class SC_Workbench_Plugin {
                 </div>
                 <?php submit_button('Save Workbench Settings'); ?>
             </form>
-            <section class="scwb-admin-card"><h2>Shortcodes</h2><code>[sc_workbench topic="research-library" title="Ask the Sustainable Catalyst Workbench"]</code><br><code>[sc_workbench mode="library" topic="research-library"]</code><br><code>[sc_workbench mode="auto"]</code><br><code>[sc_workbench article="article-slug"]</code><br><code>[sc_workbench_pathways]</code><p><a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-equations')); ?>">Open Equation Registry →</a> · <a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-feature-builder')); ?>">Open Feature Builder →</a></p></section>
+            <section class="scwb-admin-card"><h2>Shortcodes</h2><code>[sc_workbench topic="research-library" title="Ask the Sustainable Catalyst Workbench"]</code><br><code>[sc_workbench mode="library" topic="research-library"]</code><br><code>[sc_workbench mode="auto"]</code><br><code>[sc_workbench article="article-slug"]</code><br><code>[sc_workbench_pathways]</code><br><code>[sc_workbench mode="tool" tool="systems-modeling-tool" article="article-slug"]</code><p><a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-equations')); ?>">Open Equation Registry →</a> · <a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-feature-builder')); ?>">Open Feature Builder →</a> · <a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-embed-shortcodes')); ?>">Open Embed Shortcodes →</a></p></section>
         </div>
     <?php }
 
@@ -1455,6 +1487,281 @@ final class SC_Workbench_Plugin {
         $plain = openssl_decrypt($cipher, 'aes-256-cbc', $this->crypto_key(), OPENSSL_RAW_DATA, $iv);
         return $plain ?: '';
     }
+
+    private static function shortcode_recommendations_table_name() {
+        global $wpdb;
+        return $wpdb->prefix . 'sc_workbench_shortcode_recommendations';
+    }
+
+    public static function create_shortcode_recommendations_table() {
+        global $wpdb;
+        $table = self::shortcode_recommendations_table_name();
+        $charset = $wpdb->get_charset_collate();
+        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+        $sql = "CREATE TABLE {$table} (
+            id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+            post_id BIGINT UNSIGNED NOT NULL,
+            post_title TEXT NOT NULL,
+            post_slug VARCHAR(255) NOT NULL,
+            post_type VARCHAR(64) NOT NULL,
+            permalink TEXT NULL,
+            equation_count BIGINT UNSIGNED DEFAULT 0,
+            display_equation_count BIGINT UNSIGNED DEFAULT 0,
+            inline_equation_count BIGINT UNSIGNED DEFAULT 0,
+            primary_domain VARCHAR(255) NULL,
+            recommended_tool_id VARCHAR(180) NOT NULL,
+            recommended_tool_title TEXT NOT NULL,
+            confidence VARCHAR(32) NOT NULL DEFAULT 'medium',
+            reason LONGTEXT NULL,
+            example_equations LONGTEXT NULL,
+            embed_shortcode LONGTEXT NOT NULL,
+            article_shortcode LONGTEXT NULL,
+            validation_status VARCHAR(64) NOT NULL DEFAULT 'needs_review',
+            created_at DATETIME NOT NULL,
+            updated_at DATETIME NOT NULL,
+            PRIMARY KEY  (id),
+            UNIQUE KEY post_tool_unique (post_id, recommended_tool_id),
+            KEY post_id_idx (post_id),
+            KEY tool_idx (recommended_tool_id),
+            KEY confidence_idx (confidence),
+            KEY validation_status_idx (validation_status)
+        ) {$charset};";
+        dbDelta($sql);
+    }
+
+    private function clear_shortcode_recommendations() {
+        global $wpdb;
+        self::create_shortcode_recommendations_table();
+        $wpdb->query('TRUNCATE TABLE ' . self::shortcode_recommendations_table_name());
+    }
+
+    private function tool_title_from_id($tool_id) {
+        $tool = $this->local_tool($tool_id);
+        if ($tool && !empty($tool['title'])) { return $tool['title']; }
+        return ucwords(str_replace('-', ' ', (string)$tool_id));
+    }
+
+    private function tool_confidence_label($equation_count, $tool_hits, $domain_hits, $tool_total) {
+        $equation_count = max(0, intval($equation_count));
+        $tool_hits = max(0, intval($tool_hits));
+        $domain_hits = max(0, intval($domain_hits));
+        $tool_total = max(1, intval($tool_total));
+        $share = $tool_hits / $tool_total;
+        if ($equation_count >= 4 && $tool_hits >= 3 && $share >= 0.33) { return 'high'; }
+        if ($equation_count >= 2 && $tool_hits >= 2) { return 'medium'; }
+        if ($domain_hits >= 3 && $tool_hits >= 1) { return 'medium'; }
+        return 'low';
+    }
+
+    private function build_shortcode_recommendations() {
+        global $wpdb;
+        self::create_equation_table();
+        self::create_shortcode_recommendations_table();
+        $eq_table = self::equation_table_name();
+        $out_table = self::shortcode_recommendations_table_name();
+        $this->clear_shortcode_recommendations();
+        $rows = $wpdb->get_results("SELECT * FROM {$eq_table} ORDER BY post_title ASC, id ASC", ARRAY_A);
+        $groups = [];
+        foreach ($rows as $row) {
+            $post_id = intval($row['post_id']);
+            if (!$post_id) { continue; }
+            if (!isset($groups[$post_id])) {
+                $groups[$post_id] = [
+                    'post_id' => $post_id,
+                    'post_title' => $row['post_title'],
+                    'post_slug' => $row['post_slug'],
+                    'post_type' => $row['post_type'],
+                    'equation_count' => 0,
+                    'display_equation_count' => 0,
+                    'inline_equation_count' => 0,
+                    'domains' => [],
+                    'tools' => [],
+                    'examples' => [],
+                ];
+            }
+            $groups[$post_id]['equation_count']++;
+            if (($row['display_mode'] ?? '') === 'display') { $groups[$post_id]['display_equation_count']++; }
+            if (($row['display_mode'] ?? '') === 'inline') { $groups[$post_id]['inline_equation_count']++; }
+            $domain = sanitize_text_field($row['suggested_domain'] ?? 'Mathematical Modeling');
+            if ($domain) { $groups[$post_id]['domains'][$domain] = ($groups[$post_id]['domains'][$domain] ?? 0) + 1; }
+            $tools = json_decode($row['suggested_tools'] ?: '[]', true);
+            if (!is_array($tools)) { $tools = []; }
+            foreach ($tools as $tid) {
+                $tid = sanitize_key($tid);
+                if ($tid) { $groups[$post_id]['tools'][$tid] = ($groups[$post_id]['tools'][$tid] ?? 0) + 1; }
+            }
+            $eq = trim((string)($row['equation_normalized'] ?: $row['equation_raw']));
+            if ($eq && count($groups[$post_id]['examples']) < 4) { $groups[$post_id]['examples'][] = $eq; }
+        }
+        $built = 0;
+        $now = current_time('mysql');
+        foreach ($groups as $g) {
+            if (!$g['tools']) { continue; }
+            arsort($g['tools']);
+            arsort($g['domains']);
+            $top_tools = array_slice($g['tools'], 0, 3, true);
+            $primary_domain = $g['domains'] ? array_key_first($g['domains']) : 'Mathematical Modeling';
+            $domain_hits = $g['domains'][$primary_domain] ?? 0;
+            $tool_total = array_sum($g['tools']);
+            $rank = 0;
+            foreach ($top_tools as $tool_id => $hits) {
+                $rank++;
+                $title = $this->tool_title_from_id($tool_id);
+                $confidence = $this->tool_confidence_label($g['equation_count'], $hits, $domain_hits, $tool_total);
+                if ($rank > 1 && $confidence === 'high') { $confidence = 'medium'; }
+                $slug = sanitize_title($g['post_slug']);
+                $safe_title = sanitize_text_field($title . ' for this article');
+                $embed_shortcode = '[sc_workbench mode="tool" tool="' . $tool_id . '" article="' . $slug . '" title="' . esc_attr($safe_title) . '"]';
+                $article_shortcode = '[sc_workbench mode="auto" article="' . $slug . '"]';
+                $reason = sprintf('%s was recommended because %d indexed equation(s) on this page mapped to this tool family. Primary detected domain: %s. Review before embedding on public pages.', $title, intval($hits), $primary_domain);
+                $validation = ($confidence === 'high') ? 'recommended' : (($confidence === 'medium') ? 'review' : 'weak_match');
+                $wpdb->replace($out_table, [
+                    'post_id' => intval($g['post_id']),
+                    'post_title' => $g['post_title'],
+                    'post_slug' => $slug,
+                    'post_type' => $g['post_type'],
+                    'permalink' => get_permalink(intval($g['post_id'])),
+                    'equation_count' => intval($g['equation_count']),
+                    'display_equation_count' => intval($g['display_equation_count']),
+                    'inline_equation_count' => intval($g['inline_equation_count']),
+                    'primary_domain' => $primary_domain,
+                    'recommended_tool_id' => $tool_id,
+                    'recommended_tool_title' => $title,
+                    'confidence' => $confidence,
+                    'reason' => $reason,
+                    'example_equations' => implode(' ; ', $g['examples']),
+                    'embed_shortcode' => $embed_shortcode,
+                    'article_shortcode' => $article_shortcode,
+                    'validation_status' => $validation,
+                    'created_at' => $now,
+                    'updated_at' => $now,
+                ], ['%d','%s','%s','%s','%s','%d','%d','%d','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s']);
+                $built++;
+            }
+        }
+        return ['ok'=>true, 'recommendations_built'=>$built, 'pages_analyzed'=>count($groups), 'equation_rows'=>count($rows)];
+    }
+
+    private function shortcode_recommendation_rows($limit=500) {
+        global $wpdb;
+        self::create_shortcode_recommendations_table();
+        $limit = max(1, min(2000, intval($limit)));
+        $table = self::shortcode_recommendations_table_name();
+        return $wpdb->get_results($wpdb->prepare("SELECT * FROM {$table} ORDER BY FIELD(confidence,'high','medium','low'), equation_count DESC, post_title ASC, id ASC LIMIT %d", $limit), ARRAY_A);
+    }
+
+    private function shortcode_recommendation_summary() {
+        global $wpdb;
+        self::create_shortcode_recommendations_table();
+        $table = self::shortcode_recommendations_table_name();
+        $total = intval($wpdb->get_var("SELECT COUNT(*) FROM {$table}"));
+        $by_confidence = $wpdb->get_results("SELECT confidence, COUNT(*) AS count FROM {$table} GROUP BY confidence ORDER BY FIELD(confidence,'high','medium','low')", ARRAY_A);
+        $by_domain = $wpdb->get_results("SELECT primary_domain, COUNT(*) AS count, SUM(equation_count) AS equation_count FROM {$table} GROUP BY primary_domain ORDER BY count DESC, equation_count DESC LIMIT 20", ARRAY_A);
+        $by_tool = $wpdb->get_results("SELECT recommended_tool_id, recommended_tool_title, COUNT(*) AS count, SUM(equation_count) AS equation_count FROM {$table} GROUP BY recommended_tool_id, recommended_tool_title ORDER BY count DESC, equation_count DESC LIMIT 20", ARRAY_A);
+        return ['total'=>$total, 'by_confidence'=>$by_confidence, 'by_domain'=>$by_domain, 'by_tool'=>$by_tool];
+    }
+
+    public function rest_shortcode_recommendations(WP_REST_Request $request) {
+        $limit = min(1000, max(1, intval($request->get_param('limit') ?: 250)));
+        return new WP_REST_Response(['ok'=>true, 'summary'=>$this->shortcode_recommendation_summary(), 'recommendations'=>$this->shortcode_recommendation_rows($limit)], 200);
+    }
+
+    public function rest_validation_summary(WP_REST_Request $request) {
+        global $wpdb;
+        self::create_equation_table();
+        self::create_shortcode_recommendations_table();
+        $eq_table = self::equation_table_name();
+        $sc_table = self::shortcode_recommendations_table_name();
+        $equations = intval($wpdb->get_var("SELECT COUNT(*) FROM {$eq_table}"));
+        $articles = intval($wpdb->get_var("SELECT COUNT(DISTINCT post_id) FROM {$eq_table}"));
+        $recommendations = intval($wpdb->get_var("SELECT COUNT(*) FROM {$sc_table}"));
+        $weak = intval($wpdb->get_var("SELECT COUNT(*) FROM {$sc_table} WHERE confidence='low' OR validation_status='weak_match'"));
+        return new WP_REST_Response(['ok'=>true, 'equations_indexed'=>$equations, 'articles_with_equations'=>$articles, 'shortcode_recommendations'=>$recommendations, 'weak_matches'=>$weak, 'validation_notes'=>['High confidence still requires editorial review before embedding.', 'Use the tool-specific shortcode on articles where readers need a calculator directly under a formula.']], 200);
+    }
+
+    private function export_shortcode_recommendations_csv() {
+        if (!current_user_can('manage_options')) { wp_die('Unauthorized'); }
+        $rows = $this->shortcode_recommendation_rows(2000);
+        $filename = 'sustainable-catalyst-shortcode-recommendations-' . gmdate('Ymd-His') . '.csv';
+        nocache_headers();
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename=' . $filename);
+        $out = fopen('php://output', 'w');
+        fputcsv($out, ['post_id','post_title','post_slug','post_type','permalink','equation_count','display_equation_count','inline_equation_count','primary_domain','recommended_tool_id','recommended_tool_title','confidence','validation_status','reason','example_equations','embed_shortcode','article_shortcode']);
+        foreach ($rows as $row) {
+            fputcsv($out, [
+                $row['post_id'], $row['post_title'], $row['post_slug'], $row['post_type'], $row['permalink'],
+                $row['equation_count'], $row['display_equation_count'], $row['inline_equation_count'],
+                $row['primary_domain'], $row['recommended_tool_id'], $row['recommended_tool_title'],
+                $row['confidence'], $row['validation_status'], $row['reason'], $row['example_equations'],
+                $row['embed_shortcode'], $row['article_shortcode']
+            ]);
+        }
+        fclose($out);
+    }
+
+    public function render_embed_shortcodes_page() {
+        if (!current_user_can('manage_options')) { return; }
+        settings_errors('sc_workbench_messages');
+        $summary = $this->shortcode_recommendation_summary();
+        $rows = $this->shortcode_recommendation_rows(300);
+        global $wpdb;
+        self::create_equation_table();
+        $eq_count = intval($wpdb->get_var('SELECT COUNT(*) FROM ' . self::equation_table_name()));
+        $article_count = intval($wpdb->get_var('SELECT COUNT(DISTINCT post_id) FROM ' . self::equation_table_name()));
+        ?>
+        <div class="wrap scwb-admin-wrap">
+            <h1>Embed Shortcodes</h1>
+            <p>Analyze indexed equations across articles and generate calculator-specific shortcodes that can be pasted directly into formula-heavy pages.</p>
+            <div class="scwb-admin-grid">
+                <section class="scwb-admin-card">
+                    <h2>Build Recommendations</h2>
+                    <p><strong><?php echo esc_html(number_format_i18n($eq_count)); ?></strong> indexed equations across <strong><?php echo esc_html(number_format_i18n($article_count)); ?></strong> pages/articles.</p>
+                    <form method="post">
+                        <?php wp_nonce_field('sc_workbench_embed_shortcodes'); ?>
+                        <p><button type="submit" class="button button-primary" name="sc_workbench_build_shortcode_recommendations" value="1">Build Shortcode Recommendations</button></p>
+                        <p><button type="submit" class="button" name="sc_workbench_scan_and_build_shortcode_recommendations" value="1">Scan Equations + Build Recommendations</button></p>
+                        <p><button type="submit" class="button" name="sc_workbench_export_shortcode_recommendations_csv" value="1">Export Shortcode CSV</button></p>
+                        <p><button type="submit" class="button button-link-delete" name="sc_workbench_clear_shortcode_recommendations" value="1">Clear Recommendations</button></p>
+                    </form>
+                </section>
+                <section class="scwb-admin-card">
+                    <h2>Validation Summary</h2>
+                    <p><strong><?php echo esc_html(number_format_i18n(intval($summary['total']))); ?></strong> shortcode recommendations built.</p>
+                    <ul>
+                        <?php foreach (($summary['by_confidence'] ?? []) as $row): ?>
+                            <li><strong><?php echo esc_html(ucfirst($row['confidence'])); ?>:</strong> <?php echo esc_html(number_format_i18n(intval($row['count']))); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <p class="description">Use high-confidence rows first. Medium and low rows should be reviewed because math notation can be ambiguous.</p>
+                </section>
+            </div>
+            <section class="scwb-admin-card scwb-admin-wide">
+                <h2>Recommended Calculator Embeds</h2>
+                <p>Copy the tool-specific shortcode into the article near the formula it supports. The shortcode opens the Workbench directly to the recommended calculator.</p>
+                <table class="widefat striped scwb-admin-table">
+                    <thead><tr><th>Article</th><th>Equations</th><th>Domain</th><th>Calculator</th><th>Confidence</th><th>Shortcode</th></tr></thead>
+                    <tbody>
+                    <?php if (!$rows): ?>
+                        <tr><td colspan="6">No recommendations yet. Build recommendations from the equation registry.</td></tr>
+                    <?php endif; ?>
+                    <?php foreach ($rows as $row): ?>
+                        <tr>
+                            <td><strong><?php echo esc_html($row['post_title']); ?></strong><br><a href="<?php echo esc_url($row['permalink']); ?>" target="_blank" rel="noopener">View article</a></td>
+                            <td><?php echo esc_html(intval($row['equation_count'])); ?></td>
+                            <td><?php echo esc_html($row['primary_domain']); ?></td>
+                            <td><code><?php echo esc_html($row['recommended_tool_id']); ?></code><br><?php echo esc_html($row['recommended_tool_title']); ?></td>
+                            <td><span class="scwb-confidence scwb-confidence-<?php echo esc_attr($row['confidence']); ?>"><?php echo esc_html($row['confidence']); ?></span></td>
+                            <td><textarea readonly class="scwb-shortcode-copy" rows="3"><?php echo esc_textarea($row['embed_shortcode']); ?></textarea><button type="button" class="button button-small" data-scwb-copy-shortcode>Copy</button></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+        <?php
+    }
+
 }
 
 register_activation_hook(__FILE__, ['SC_Workbench_Plugin', 'activate']);

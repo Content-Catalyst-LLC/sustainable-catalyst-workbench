@@ -110,8 +110,13 @@ v0.9.7 adds an equation-derived calculator backlog admin page, bundled calculato
 Adds a WordPress admin Feature Builder page using the latest Equation Registry CSV and Calculator Backlog CSV to generate a feature implementation queue, article tool profiles, equation-domain summaries, and feature clusters for future Workbench calculator development.
 
 
-## v0.9.8 — Built Feature Tools from Feature Builder CSV
+## v0.9.9 — Built Feature Tools from Feature Builder CSV
 
 Version 0.9.8 promotes the Feature Builder CSV into executable Workbench tools. All 59 rows from `sustainable-catalyst-feature-builder-20260708-121706.csv` are represented as backend tool specs, WordPress local calculator specs, and deterministic MVP engines. The release includes equation-derived calculators for weighted indices, forecasting, stock-flow systems, recurrence dynamics, ODE stability, environmental QA/QC, risk matrices, economics/policy systems, planetary pressure, climate balance, population ecology, chemistry/lab science, optimization, linear algebra diagnostics, causal inference, Bayesian updating, networks, complexity, RF/electrical/power, materials, structural screening, clinical epidemiology, lab calibration, rocket/orbital calculations, content profiles, behavioral systems, and meaning matrices.
 
 These tools remain educational and analytical. Engineering, clinical, structural, RF/power, chemical, lab, aerospace, and safety-critical outputs require professional review.
+
+
+## v0.9.9 Validation and Routing Upgrade
+
+Adds **SC Workbench → Embed Shortcodes**, which analyzes indexed equations by page/article and generates calculator-specific shortcodes such as `[sc_workbench mode="tool" tool="systems-modeling-tool" article="article-slug"]`. Use this to embed calculators next to articles that contain mathematical formulas.

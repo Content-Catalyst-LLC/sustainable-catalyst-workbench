@@ -2,10 +2,10 @@ from __future__ import annotations
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import get_settings
-from app.routers import tools, ai, models, equations
+from app.routers import tools, ai, models, equations, routing
 
 settings = get_settings()
-app = FastAPI(title='Sustainable Catalyst Workbench API', version='0.9.7')
+app = FastAPI(title='Sustainable Catalyst Workbench API', version='0.9.9')
 app.add_middleware(CORSMiddleware, allow_origins=settings.origins or ['*'], allow_credentials=True, allow_methods=['*'], allow_headers=['*'])
 
 @app.middleware('http')
@@ -18,13 +18,14 @@ async def backend_key_check(request: Request, call_next):
 
 @app.get('/')
 def root():
-    return {"ok": True, "name": "Sustainable Catalyst Workbench API", "version": "0.9.7"}
+    return {"ok": True, "name": "Sustainable Catalyst Workbench API", "version": "0.9.9"}
 
 @app.get('/health')
 def health():
-    return {"ok": True, "status": "healthy", "version": "0.9.7"}
+    return {"ok": True, "status": "healthy", "version": "0.9.9"}
 
 app.include_router(tools.router)
 app.include_router(ai.router)
 app.include_router(models.router)
 app.include_router(equations.router)
+app.include_router(routing.router)

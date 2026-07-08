@@ -69,6 +69,8 @@
 
   function initWorkbench(el){
     const topic = el.dataset.topic || 'research-library';
+    const defaultTool = el.dataset.defaultTool || '';
+    const startTab = el.dataset.startTab || (defaultTool ? 'calculate' : '');
     let tools = Array.isArray(SCWorkbench.localTools) ? SCWorkbench.localTools : [];
     renderEquationsBox(el);
     el.addEventListener('click', ev=>{
@@ -124,6 +126,18 @@
         shell.innerHTML = '<p class="scwb-muted">Choose a calculator and click Open Calculator.</p>';
       }
       renderModels(el, tools);
+      if(defaultTool && !el.__scwbDefaultToolOpened){
+        const hasDefault = tools.some(t=>t.id===defaultTool);
+        if(hasDefault && select){
+          select.value = defaultTool;
+          const tabName = startTab || 'calculate';
+          el.querySelectorAll('[data-scwb-tab]').forEach(b=>b.classList.toggle('is-active', b.dataset.scwbTab===tabName));
+          el.querySelectorAll('[data-scwb-panel]').forEach(p=>p.classList.toggle('is-active', p.dataset.scwbPanel===tabName));
+          el.__scwbDefaultToolOpened = true;
+          setTimeout(()=>{ const openBtn=el.querySelector('[data-scwb-open-tool]'); if(openBtn) openBtn.click(); }, 80);
+        }
+      }
+
     }
     populateTools({tools: tools, backend_online: null});
     api('/tools').then(populateTools).catch(()=>populateTools({tools: tools, backend_online:false, notice:SCWorkbench.backendRequiredHelp}));
