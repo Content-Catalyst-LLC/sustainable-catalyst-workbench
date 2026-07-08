@@ -1,13 +1,13 @@
-Sustainable Catalyst Workbench v0.9.0
+Sustainable Catalyst Workbench v0.9.1
 
 Major packages:
 - wordpress-plugin/sustainable-catalyst-workbench
 - backend FastAPI analytics service
-- docs/EQUATION_AND_ARTICLE_AWARE_WORKBENCH_V090.md
-- terminal/V090_EQUATION_REGISTRY_COMMANDS.txt
-- research-library/research-library-compact-workbench-section-v0.9.0.html
+- docs/EQUATION_AND_ARTICLE_AWARE_WORKBENCH_V091.md
+- terminal/V091_EQUATION_REGISTRY_COMMANDS.txt
+- research-library/research-library-compact-workbench-section-v0.9.1.html
 
-Key v0.9.0 features:
+Key v0.9.1 features:
 - WordPress LaTeX equation scanner
 - Equation registry custom database table
 - SC Workbench → Equation Registry admin page

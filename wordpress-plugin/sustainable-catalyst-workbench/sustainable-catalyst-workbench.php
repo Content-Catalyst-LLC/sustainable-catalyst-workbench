@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Sustainable Catalyst Workbench
  * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports.
- * Version: 0.9.0
+ * Version: 0.9.1
  * Author: Content Catalyst LLC
  * License: MIT
  * Text Domain: sustainable-catalyst-workbench
@@ -11,7 +11,7 @@
 if (!defined('ABSPATH')) { exit; }
 
 final class SC_Workbench_Plugin {
-    const VERSION = '0.9.0';
+    const VERSION = '0.9.1';
     const OPTION_BACKEND_URL = 'sc_workbench_backend_url';
     const OPTION_BACKEND_KEY = 'sc_workbench_backend_key';
     const OPTION_AI_PROVIDER = 'sc_workbench_ai_provider';
@@ -349,8 +349,14 @@ final class SC_Workbench_Plugin {
 
 
     public function maybe_install() {
-        if (get_option(self::OPTION_VERSION, '') !== self::VERSION) {
+        $old_version = get_option(self::OPTION_VERSION, '');
+        if ($old_version !== self::VERSION) {
             self::create_equation_table();
+            // v0.9.1 fixes the first equation scanner, which was too permissive and could index HTML table fragments.
+            // The equation table is a generated cache, so it is safe to clear during this upgrade and rebuild from posts.
+            if ($old_version && version_compare($old_version, '0.9.1', '<')) {
+                $this->clear_equation_registry();
+            }
             update_option(self::OPTION_VERSION, self::VERSION);
         }
     }
@@ -390,6 +396,13 @@ final class SC_Workbench_Plugin {
         dbDelta($sql);
     }
 
+    private function clear_equation_registry() {
+        global $wpdb;
+        $table = self::equation_table_name();
+        // This table only stores generated equation-index cache records. Published content is not changed.
+        $wpdb->query('TRUNCATE TABLE ' . $table);
+    }
+
     private function normalize_equation($raw) {
         $eq = trim((string)$raw);
         $pairs = [
@@ -405,13 +418,57 @@ final class SC_Workbench_Plugin {
         return trim(preg_replace('/\s+/', ' ', $eq));
     }
 
+    private function equation_candidate_has_math_signal($eq) {
+        $eq = trim((string)$eq);
+        if ($eq === '') { return false; }
+        return (bool) preg_match('/(=|\+|\-|\*|\/|\^|_|:|\\(frac|sum|prod|int|partial|nabla|times|cdot|sim|in|notin|geq|leq|approx|rightarrow|leftarrow|alpha|beta|gamma|delta|epsilon|lambda|mu|nu|theta|sigma|kappa|omega)|[A-Za-z]_\{?[A-Za-z0-9]|[A-Za-z]\([0-9A-Za-z]+\))/', $eq);
+    }
+
+    private function is_valid_equation_candidate($raw, $normalized, $mode='inline') {
+        $raw = (string)$raw;
+        $eq = trim((string)$normalized);
+        $len = strlen($eq);
+        if ($len < 3 || $len > 520) { return false; }
+
+        // Reject broken delimiter captures and HTML/table fragments.
+        if (preg_match('/(<\/?[a-z][^>]*>|&lt;\/?[a-z]|&gt;|<|>)/i', $eq)) { return false; }
+        if (preg_match('/(<\/?(td|tr|th|table|tbody|thead|div|p|span|code|strong|em|pre)\b|&lt;\/?(td|tr|th|table|tbody|thead|div|p|span|code|strong|em|pre)\b)/i', $raw)) { return false; }
+        if (preg_match('/(^\\\)|^\\\]|\\\($|\\\[$|\\\)$|\\\]$)/', $eq)) { return false; }
+        if (preg_match('/\\\)\s*.*\\\(|\\\]\s*.*\\\[/', $eq)) { return false; }
+
+        // Reject prose, captions, code exports, and table/cell text accidentally captured between malformed delimiters.
+        if (preg_match('/\b(interpretation|represents|exported|summary|article title|suggested domain|graphability|recommended tool|back to top|knowledge layer|computational expression|data logic|what changed|what is building|what procedure|policy coherence|long-horizon|capability expansion)\b/i', $eq)) { return false; }
+        if (preg_match('/\b(print|return|import|output_file|summary exported|cross-territory|console\.log)\b/i', $eq)) { return false; }
+
+        // Single-letter inline variables create noise in a site-wide registry; keep subscripted/superscripted variables and real expressions.
+        if ($mode === 'inline' && preg_match('/^[A-Za-z]$/', $eq)) { return false; }
+        if ($mode === 'inline' && $len < 6 && !preg_match('/[_^=+\-*\/]|\\(alpha|beta|gamma|delta|lambda|mu|nu|theta|sigma)/', $eq)) { return false; }
+
+        if (!$this->equation_candidate_has_math_signal($eq)) { return false; }
+
+        // A candidate with many ordinary words is almost certainly prose between broken delimiters.
+        preg_match_all('/\b[A-Za-z]{4,}\b/', $eq, $word_matches);
+        $word_count = count($word_matches[0]);
+        if ($word_count > 5 && $mode === 'inline') { return false; }
+        if ($word_count > 10 && $mode !== 'inline') { return false; }
+
+        return true;
+    }
+
     private function extract_equations_from_content($content) {
         $content = (string)$content;
+
+        // Remove regions where LaTeX-looking delimiters often appear as literal code or generated output.
+        $content = preg_replace('/<script\b[^>]*>.*?<\/script>/is', ' ', $content);
+        $content = preg_replace('/<style\b[^>]*>.*?<\/style>/is', ' ', $content);
+        $content = preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', ' ', $content);
+        $content = preg_replace('/<code\b[^>]*>.*?<\/code>/is', ' ', $content);
+
         $patterns = [
-            ['pattern' => '/\\\[(.*?)\\\]/s', 'mode' => 'display'],
-            ['pattern' => '/\\\((.*?)\\\)/s', 'mode' => 'inline'],
-            ['pattern' => '/\$\$(.*?)\$\$/s', 'mode' => 'display'],
-            ['pattern' => '/\[latex\](.*?)\[\/latex\]/is', 'mode' => 'shortcode'],
+            ['pattern' => '/\[latex\]([\s\S]{1,1200}?)\[\/latex\]/i', 'mode' => 'shortcode'],
+            ['pattern' => '/\\\[((?:(?!\\\]).){1,1200})\\\]/s', 'mode' => 'display'],
+            ['pattern' => '/\$\$([\s\S]{1,1200}?)\$\$/s', 'mode' => 'display'],
+            ['pattern' => '/\\\(((?:(?!\\\)).){1,420})\\\)/s', 'mode' => 'inline'],
         ];
         $found = [];
         foreach ($patterns as $p) {
@@ -421,7 +478,7 @@ final class SC_Workbench_Plugin {
                     $inner = $m[1][0] ?? $raw;
                     $offset = intval($m[0][1]);
                     $normalized = $this->normalize_equation($raw);
-                    if (strlen($normalized) < 2) { continue; }
+                    if (!$this->is_valid_equation_candidate($raw, $normalized, $p['mode'])) { continue; }
                     $before_raw = substr($content, max(0, $offset - 650), min(650, $offset));
                     $after_raw = substr($content, $offset + strlen($raw), 650);
                     $found[] = [
@@ -483,6 +540,8 @@ final class SC_Workbench_Plugin {
     private function scan_equations($limit=500) {
         global $wpdb;
         self::create_equation_table();
+        // Rebuild means rebuild: clear stale scanner output before indexing.
+        $this->clear_equation_registry();
         $public_types = get_post_types(['public'=>true], 'names');
         $public_types = array_values(array_filter($public_types, fn($t) => !in_array($t, ['attachment'], true)));
         if (!$public_types) { $public_types = ['post','page']; }
@@ -590,7 +649,7 @@ final class SC_Workbench_Plugin {
         }
         if (isset($_POST['sc_workbench_clear_equations'])) {
             check_admin_referer('sc_workbench_equations');
-            global $wpdb; $wpdb->query('TRUNCATE TABLE ' . self::equation_table_name());
+            $this->clear_equation_registry();
             add_settings_error('sc_workbench_messages', 'equations_cleared', 'Equation registry cleared.', 'updated');
             return;
         }
@@ -676,7 +735,7 @@ final class SC_Workbench_Plugin {
         ?>
         <div class="wrap scwb-admin-wrap">
             <h1>Sustainable Catalyst Workbench Equation Registry</h1>
-            <p>Scan published WordPress content for LaTeX equations, index surrounding article context, and map equations to Workbench calculators and article-aware tools.</p>
+            <p>Scan published WordPress content for clean LaTeX equations, index surrounding article context, and map equations to Workbench calculators and article-aware tools. v0.9.1 uses a stricter scanner that rejects broken delimiters, HTML table fragments, code exports, and one-letter inline variables.</p>
             <div class="scwb-admin-grid">
                 <section class="scwb-admin-card">
                     <h2>Scan WordPress Content</h2>

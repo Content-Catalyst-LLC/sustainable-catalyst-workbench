@@ -1,9 +1,9 @@
-# Sustainable Catalyst Workbench v0.9.0 — Equation and Article-Aware Layer
+# Sustainable Catalyst Workbench v0.9.1 — Equation and Article-Aware Layer
 
 # Push the repo package to GitHub
 cd ~/Downloads
-chmod +x update_and_push_sustainable_catalyst_workbench_v0_9_0_to_github.sh
-./update_and_push_sustainable_catalyst_workbench_v0_9_0_to_github.sh
+chmod +x update_and_push_sustainable_catalyst_workbench_v0_9_1_to_github.sh
+./update_and_push_sustainable_catalyst_workbench_v0_9_1_to_github.sh
 
 # Render backend settings remain the same as v0.8.x.
 # After deployment, test:

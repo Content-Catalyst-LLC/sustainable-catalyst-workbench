@@ -1,4 +1,4 @@
-# v0.9.0 Equation and Article-Aware Workbench Layer
+# v0.9.1 Equation and Article-Aware Workbench Layer
 
 This release connects Sustainable Catalyst articles to the Workbench through a WordPress-side equation registry.
 
@@ -25,7 +25,7 @@ Single-dollar inline math is intentionally not scanned by default because ordina
 
 ## Workflow
 
-1. Install/activate the v0.9.0 plugin.
+1. Install/activate the v0.9.1 plugin.
 2. Go to `SC Workbench → Equation Registry`.
 3. Click `Scan / Rebuild Equation Registry`.
 4. Add `[sc_workbench mode="auto"]` to article templates or article pages.
