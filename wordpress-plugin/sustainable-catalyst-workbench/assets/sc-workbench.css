@@ -61,3 +61,29 @@
 .scwb-graph-only .scwb-graph-studio{margin-top:18px}
 .scwb-result .scwb-values div:has(dt){min-width:0}
 @media(max-width:820px){.scwb-slider-grid{grid-template-columns:1fr}.scwb-graph-controls-row label{min-width:0}}
+
+/* v1.3.0 Engineering Mode output template */
+.scwb-engineering-mode{margin-top:16px}
+.scwb-engineering-form{background:#fdfaf5;border:1px solid #eee5d9;border-radius:14px;padding:16px;margin:0}
+.scwb-engineering-controls-row{margin-top:10px}
+.scwb-engineering-controls-row label{min-width:160px}
+.scwb-engineering-template-card{background:#fff;border:1px solid #eee;border-left:4px solid #ff0000;border-radius:14px;padding:14px 16px;margin:16px 0;box-shadow:0 2px 10px rgba(0,0,0,.025)}
+.scwb-engineering-template-card ol{margin:8px 0 0 20px;color:#555;line-height:1.65}
+.scwb-engineering-result .scwb-engineering-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.78fr);gap:14px;margin:14px 0}
+.scwb-engineering-hero>div,.scwb-engineering-result-box{background:#fff;border:1px solid #eee;border-radius:14px;padding:14px}
+.scwb-engineering-hero strong,.scwb-engineering-result-box strong{display:block;color:#111;font-size:1.05rem;margin:2px 0 6px}
+.scwb-engineering-hero span,.scwb-engineering-result-box span{display:block;color:#555;line-height:1.55;word-break:break-word}
+.scwb-engineering-result-box{border-left:4px solid #ff0000}
+.scwb-engineering-result-box small{margin-top:8px;color:#666}
+.scwb-engineering-section{background:#fff;border:1px solid #eee;border-radius:14px;padding:14px;margin:12px 0}
+.scwb-engineering-section h4{margin:0 0 10px;color:#111;font-size:1rem}
+.scwb-engineering-section ul{margin:0 0 0 20px;color:#555;line-height:1.65}
+.scwb-engineering-section li+li{margin-top:6px}
+.scwb-engineering-table{overflow:auto;border:1px solid #eee;border-radius:12px;background:#fff}
+.scwb-engineering-table table{width:100%;border-collapse:collapse;font-size:.9rem}
+.scwb-engineering-table th,.scwb-engineering-table td{text-align:left;vertical-align:top;border-bottom:1px solid #eee;padding:9px 10px;color:#444}
+.scwb-engineering-table th{background:#fbfaf7;color:#111;text-transform:uppercase;letter-spacing:.05em;font-size:.72rem;font-weight:800}
+.scwb-engineering-table tr:last-child td{border-bottom:0}
+.scwb-engineering-table code{background:#fbfaf7;border:1px solid #eee;border-radius:6px;padding:2px 5px;color:#111}
+.scwb-engineering-only .scwb-engineering-mode{margin-top:18px}
+@media(max-width:900px){.scwb-engineering-result .scwb-engineering-hero{grid-template-columns:1fr}.scwb-engineering-controls-row label{min-width:0}}

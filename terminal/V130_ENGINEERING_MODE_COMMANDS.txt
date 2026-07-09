@@ -1,0 +1,39 @@
+Workbench v1.3.0 — Engineering Mode Output Template
+
+1. Download these files into ~/Downloads:
+
+   sustainable-catalyst-workbench-v1.3.0-engineering-mode-output-template.zip
+   push_workbench_v1_3_0_engineering_mode_to_github.sh
+
+2. Push to GitHub:
+
+   cd ~/Downloads
+   chmod +x push_workbench_v1_3_0_engineering_mode_to_github.sh
+   ./push_workbench_v1_3_0_engineering_mode_to_github.sh
+
+3. Render settings for Workbench backend:
+
+   Root Directory: backend
+   Build Command: pip install --upgrade pip && pip install -r requirements.txt
+   Start Command: ./start.sh
+   PYTHON_VERSION=3.12.11
+
+4. WordPress:
+
+   Upload sustainable-catalyst-workbench-plugin-v1.3.0.zip
+
+5. Shortcodes:
+
+   Full Workbench:
+   [sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="compact"]
+
+   Standalone Engineering Mode:
+   [sc_workbench_engineering_mode title="Engineering Mode"]
+
+6. Backend endpoint:
+
+   POST /engineering/analyze
+
+7. WordPress REST proxy:
+
+   POST /wp-json/sc-workbench/v1/engineering

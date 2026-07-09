@@ -2,6 +2,36 @@
 if (!defined('ABSPATH')) { exit; }
 return [
     [
+        'id' => 'engineering-mode-output-template',
+        'title' => 'Engineering Mode Output Template',
+        'domain' => 'Engineering and Built Environment',
+        'topic' => 'Engineering Calculation Notes',
+        'family' => 'engineering_mode',
+        'engine' => 'python/sympy + pint + engineering-mode template',
+        'description' => 'Turn formulas, variables, and units into a reviewable engineering calculation note with assumptions, validation checks, warnings, sensitivity template, and professional-review boundaries.',
+        'inputs' => [
+            [
+                'name' => 'input',
+                'label' => 'Engineering formula, variables, and units',
+                'type' => 'textarea',
+                'default' => "F = m*a
+m = 12 kg
+a = 3.5 m/s^2",
+                'help' => 'Use one formula line plus optional unit assignments.'
+            ],
+            [
+                'name' => 'variable',
+                'label' => 'Solve variable',
+                'type' => 'text',
+                'default' => '',
+                'help' => 'Optional variable for symbolic solve.'
+            ]
+        ],
+        'graph_types' => ['calculation_note', 'unit_check', 'validation_template'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
         'id' => 'chalkboard-symbolic-math',
         'title' => 'Chalkboard Translator + Symbolic Math',
         'domain' => 'Mathematical Modeling',

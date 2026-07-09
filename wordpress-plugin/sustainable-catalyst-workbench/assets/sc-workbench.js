@@ -55,6 +55,44 @@
     const graphs=(data.graphs||[]).map((g,i)=>`<figure class="scwb-graph" data-graph-index="${i}"><figcaption>${esc(g.title||'Graph')}</figcaption>${g.svg||''}<div class="scwb-graph-actions"><button type="button" class="scwb-mini" data-scwb-export="svg">Download SVG</button><button type="button" class="scwb-mini" data-scwb-export="png">Download PNG</button></div></figure>`).join('');
     return `<div class="scwb-result scwb-symbolic-result"><h3>${esc(data.tool||'Chalkboard Translator')}</h3><p>${esc(data.summary||'')}</p>${exportRow((data.graphs||[]).length>0)}<div class="scwb-symbolic-layout"><div class="scwb-chalkboard-display scwb-chalkboard-display-large">${esc(v.chalkboard_preview||'')}</div><div class="scwb-code-stack">${renderCodeBlock('LaTeX', v.latex)}${renderCodeBlock('SymPy', v.sympy_code)}${renderCodeBlock('Operation', v.operation)}${renderCodeBlock('Symbolic result', v.symbolic_result)}${renderCodeBlock('LaTeX result', v.latex_result)}${renderCodeBlock('Variables', v.variables)}</div></div>${unit}${warnings}${steps}${graphs}<p class="scwb-disclaimer">${esc(data.disclaimer||'Educational support only. Engineering outputs require qualified professional review.')}</p></div>`;
   }
+  function renderList(title, items){
+    if(!items || !items.length) return '';
+    return `<div class="scwb-engineering-section"><h4>${esc(title)}</h4><ul>${items.map(item=>`<li>${esc(item)}</li>`).join('')}</ul></div>`;
+  }
+  function renderVariablesTable(vars){
+    if(!vars || !vars.length) return '';
+    return `<div class="scwb-engineering-section"><h4>Inputs and variables</h4><div class="scwb-engineering-table"><table><thead><tr><th>Symbol</th><th>Meaning</th><th>Assigned value</th><th>Review note</th></tr></thead><tbody>${vars.map(row=>`<tr><td><code>${esc(row.symbol)}</code></td><td>${esc(row.meaning)}</td><td>${esc(row.assigned_value)}</td><td>${esc(row.review_note)}</td></tr>`).join('')}</tbody></table></div></div>`;
+  }
+  function renderEngineeringResult(data){
+    if(!data) return '<p>No response.</p>';
+    if(data.ok===false) return renderResult(data);
+    const v=data.values||{};
+    const note=v.engineering_note || data.engineering_mode || {};
+    const formula=v.formula_summary || {};
+    const unit=v.unit_analysis || {};
+    const warnings=(data.warnings||[]).length ? '<div class="scwb-warnings"><strong>Warnings</strong><ul>'+data.warnings.map(w=>`<li>${esc(w)}</li>`).join('')+'</ul></div>' : '';
+    const method=(data.method||[]).length ? '<ol class="scwb-steps">'+data.method.map(step=>`<li>${esc(step)}</li>`).join('')+'</ol>' : '';
+    const interpretation=(data.interpretation||[]).length ? renderList('Interpretation and next use', data.interpretation) : '';
+    const resultBox = unit && unit.quantity ? `<div class="scwb-engineering-result-box"><p class="scwb-card-label">Computed result</p><strong>${esc(unit.target||formula.target||'Result')}</strong><span>${esc(unit.quantity)}</span><small>${esc(unit.units ? 'Units: '+unit.units : '')}</small></div>` : `<div class="scwb-engineering-result-box"><p class="scwb-card-label">Computed result</p><span>No numerical unit-aware result yet. Add unit assignments such as <code>F = 1000 N</code>.</span></div>`;
+    const solve = v.symbolic_solve ? `<div class="scwb-engineering-section"><h4>Symbolic solve</h4>${renderCodeBlock('Solve result', v.symbolic_solve)}</div>` : '';
+    return `<div class="scwb-result scwb-engineering-result"><h3>${esc(data.tool||'Engineering Mode')}</h3><p>${esc(data.summary||'')}</p>${exportRow(false)}<div class="scwb-engineering-hero"><div><p class="scwb-card-label">Recognized domain</p><strong>${esc(v.engineering_domain||'general engineering')}</strong><span>${esc(formula.primary_formula||'')}</span></div>${resultBox}</div><div class="scwb-symbolic-layout"><div class="scwb-chalkboard-display scwb-chalkboard-display-large">${esc(v.chalkboard_preview||'')}</div><div class="scwb-code-stack">${renderCodeBlock('LaTeX', v.latex)}${renderCodeBlock('SymPy', v.sympy_code)}${renderCodeBlock('Formula summary', formula)}</div></div>${renderVariablesTable(v.variables)}${renderList('Assumptions', note.assumptions||[])}${renderList('Validation checks', note.validation_checks||[])}${renderList('Sensitivity template', note.sensitivity_template||[])}${solve}${warnings}<div class="scwb-engineering-section"><h4>Method</h4>${method}</div>${interpretation}<p class="scwb-disclaimer">${esc(data.disclaimer||'Educational support only. Engineering outputs require qualified professional review.')}</p></div>`;
+  }
+  function initEngineeringForms(root=document){
+    root.querySelectorAll('[data-scwb-engineering-form]').forEach(form=>{
+      if(form.__scwbEngineeringReady) return;
+      form.__scwbEngineeringReady=true;
+      const wrap=form.closest('[data-scwb-engineering-mode]') || form.closest('.scwb') || root;
+      const out=wrap.querySelector('[data-scwb-engineering-output]');
+      form.addEventListener('submit', ev=>{
+        ev.preventDefault();
+        const fd=new FormData(form);
+        const payload={input:fd.get('input')||'', variable:fd.get('variable')||'', include_solve:!!fd.get('include_solve')};
+        if(out){ out.hidden=false; out.innerHTML='<p class="scwb-muted">Generating engineering calculation note…</p>'; }
+        api('/engineering',{method:'POST',body:JSON.stringify(payload)}).then(d=>{ if(out){ out.__scwbLastResult=d; out.innerHTML=renderEngineeringResult(d); } }).catch(err=>{ if(out){ out.innerHTML='<div class="scwb-error">'+esc(err.message)+'</div>'; } });
+      });
+    });
+  }
+
   function initSymbolicForms(root=document){
     root.querySelectorAll('[data-scwb-symbolic-form]').forEach(form=>{
       if(form.__scwbSymbolicReady) return;
@@ -186,6 +224,7 @@
   function initWorkbench(el){
     initSymbolicForms(el);
     initGraphStudioForms(el);
+    initEngineeringForms(el);
     const topic = el.dataset.topic || 'research-library';
     const displayMode = (el.dataset.display || 'compact').toLowerCase();
     if(displayMode === 'drawer'){
@@ -268,5 +307,5 @@
   }
   function renderModels(el, tools){ const box=el.querySelector('[data-scwb-models]'); if(!box) return; const groups={}; tools.forEach(t=>{ (groups[t.domain]||(groups[t.domain]=[])).push(t); }); box.innerHTML=Object.entries(groups).map(([domain,items])=>`<section><h3>${esc(domain)}</h3><ul>${items.map(t=>`<li><strong>${esc(t.title)}</strong><span>${esc(t.family)} · ${esc(t.engine)}</span></li>`).join('')}</ul></section>`).join(''); }
   document.addEventListener('click', ev=>{ if(!ev.defaultPrevented && ev.target && ev.target.dataset && ev.target.dataset.scwbExport){ handleWorkbenchExportClick(ev); } });
-  document.addEventListener('DOMContentLoaded',()=>{ document.querySelectorAll('[data-scwb]').forEach(initWorkbench); initSymbolicForms(document); initGraphStudioForms(document); });
+  document.addEventListener('DOMContentLoaded',()=>{ document.querySelectorAll('[data-scwb]').forEach(initWorkbench); initSymbolicForms(document); initGraphStudioForms(document); initEngineeringForms(document); });
 })();

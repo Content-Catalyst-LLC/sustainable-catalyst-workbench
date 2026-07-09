@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Workbench
- * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, and v1.2 Graph Studio with parameter sliders.
- * Version: 1.2.0
+ * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates.
+ * Version: 1.3.0
  * Author: Content Catalyst LLC
  * License: MIT
  * Text Domain: sustainable-catalyst-workbench
@@ -11,7 +11,7 @@
 if (!defined('ABSPATH')) { exit; }
 
 final class SC_Workbench_Plugin {
-    const VERSION = '1.2.0';
+    const VERSION = '1.3.0';
     const OPTION_BACKEND_URL = 'sc_workbench_backend_url';
     const OPTION_BACKEND_KEY = 'sc_workbench_backend_key';
     const OPTION_AI_PROVIDER = 'sc_workbench_ai_provider';
@@ -81,6 +81,7 @@ final class SC_Workbench_Plugin {
         add_shortcode('sc_workbench_pathways', [$this, 'render_pathways']);
         add_shortcode('sc_workbench_chalkboard', [$this, 'render_chalkboard']);
         add_shortcode('sc_workbench_graph_studio', [$this, 'render_graph_studio']);
+        add_shortcode('sc_workbench_engineering_mode', [$this, 'render_engineering_mode']);
     }
 
     private function ensure_assets() {
@@ -116,6 +117,7 @@ final class SC_Workbench_Plugin {
                 <button type="button" class="is-active" data-scwb-tab="ask">Ask</button>
                 <button type="button" data-scwb-tab="chalkboard">Chalkboard</button>
                 <button type="button" data-scwb-tab="graph">Graph Studio</button>
+                <button type="button" data-scwb-tab="engineering">Engineering Mode</button>
                 <button type="button" data-scwb-tab="calculate">Calculate</button>
                 <button type="button" data-scwb-tab="models">Models</button>
                 <button type="button" data-scwb-tab="equations">Equations</button>
@@ -141,6 +143,10 @@ final class SC_Workbench_Plugin {
 
             <div class="scwb-panel" data-scwb-panel="graph">
                 <?php echo $this->graph_studio_html(); ?>
+            </div>
+
+            <div class="scwb-panel" data-scwb-panel="engineering">
+                <?php echo $this->engineering_mode_html(); ?>
             </div>
 
             <div class="scwb-panel" data-scwb-panel="calculate">
@@ -208,6 +214,26 @@ final class SC_Workbench_Plugin {
             </div>
             <?php echo $this->graph_studio_html(); ?>
             <p class="scwb-fineprint">Educational and analytical support only. Not a substitute for licensed engineering, safety-critical, legal, medical, or financial judgment.</p>
+        </section>
+        <?php return ob_get_clean();
+    }
+
+    public function render_engineering_mode($atts) {
+        $this->ensure_assets();
+        $atts = shortcode_atts([
+            'title' => 'Engineering Mode',
+            'display' => 'full'
+        ], $atts, 'sc_workbench_engineering_mode');
+        $uid = 'scwb-engineering-mode-' . wp_generate_uuid4();
+        ob_start(); ?>
+        <section id="<?php echo esc_attr($uid); ?>" class="scwb scwb-engineering-only scwb-theme-<?php echo esc_attr(get_option(self::OPTION_THEME, 'institutional')); ?> scwb-display-<?php echo esc_attr(sanitize_key($atts['display'])); ?>" data-scwb-engineering-only>
+            <div class="scwb-head">
+                <p class="scwb-eyebrow">Sustainable Catalyst Workbench</p>
+                <h2><?php echo esc_html(sanitize_text_field($atts['title'])); ?></h2>
+                <p>Turn formulas, units, and symbolic relationships into an engineering-style calculation note with assumptions, validation checks, warnings, and export-ready review structure.</p>
+            </div>
+            <?php echo $this->engineering_mode_html(); ?>
+            <p class="scwb-fineprint">Educational engineering-aware analysis only. Not a substitute for licensed, code-compliant, safety-critical, or stamped professional engineering judgment.</p>
         </section>
         <?php return ob_get_clean();
     }
@@ -282,6 +308,46 @@ y = m*x + b">y = a*sin(b*x)</textarea>
         <?php return ob_get_clean();
     }
 
+    private function engineering_mode_html() {
+        ob_start(); ?>
+        <div class="scwb-engineering-mode" data-scwb-engineering-mode>
+            <form data-scwb-engineering-form class="scwb-form scwb-engineering-form">
+                <label>Engineering formula, variables, and units
+                    <textarea name="input" rows="7" data-scwb-engineering-input placeholder="Examples:
+F = m*a
+m = 12 kg
+a = 3.5 m/s^2
+
+sigma = F/A
+F = 1000 N
+A = 0.02 m^2">F = m*a
+m = 12 kg
+a = 3.5 m/s^2</textarea>
+                    <small>Use one formula line plus optional unit assignments. Engineering Mode turns the result into a reviewable calculation note.</small>
+                </label>
+                <div class="scwb-inline-controls scwb-engineering-controls-row">
+                    <label>Solve variable <input name="variable" type="text" value=""></label>
+                    <label class="scwb-check-label"><input name="include_solve" type="checkbox" value="1"> Try symbolic solve</label>
+                    <button type="submit" class="scwb-button">Generate Engineering Note</button>
+                </div>
+            </form>
+            <div class="scwb-engineering-template-card">
+                <p class="scwb-card-label">Output template</p>
+                <ol>
+                    <li>Problem / relationship</li>
+                    <li>Inputs and units</li>
+                    <li>Formula and symbolic form</li>
+                    <li>Computation result</li>
+                    <li>Assumptions</li>
+                    <li>Validation checks</li>
+                    <li>Limitations and next review</li>
+                </ol>
+            </div>
+            <div class="scwb-output" data-scwb-engineering-output hidden></div>
+        </div>
+        <?php return ob_get_clean();
+    }
+
     public function render_pathways($atts) {
         $this->ensure_assets();
         return '<div class="scwb scwb-pathways-only">' . $this->pathways_html() . '</div>';
@@ -323,6 +389,7 @@ y = m*x + b">y = a*sin(b*x)</textarea>
         register_rest_route('sc-workbench/v1', '/placement-assistant', ['methods'=>'GET', 'callback'=>[$this,'rest_placement_assistant'], 'permission_callback'=>[$this,'admin_permission']]);
         register_rest_route('sc-workbench/v1', '/symbolic', ['methods'=>'POST', 'callback'=>[$this,'rest_symbolic'], 'permission_callback'=>'__return_true']);
         register_rest_route('sc-workbench/v1', '/graph', ['methods'=>'POST', 'callback'=>[$this,'rest_graph'], 'permission_callback'=>'__return_true']);
+        register_rest_route('sc-workbench/v1', '/engineering', ['methods'=>'POST', 'callback'=>[$this,'rest_engineering'], 'permission_callback'=>'__return_true']);
     }
 
     public function admin_permission() { return current_user_can('manage_options'); }
@@ -437,6 +504,31 @@ y = m*x + b">y = a*sin(b*x)</textarea>
                     'required_action'=>'Deploy or start the FastAPI backend and confirm the Backend URL in SC Workbench settings.'
                 ],
                 'warnings'=>['Graph Studio requires the FastAPI backend for symbolic parsing, parameter sliders, and SVG graph generation.'],
+                'disclaimer'=>'Educational support only. Engineering outputs require qualified professional review.'
+            ], 200);
+        }
+        return new WP_REST_Response($res, 200);
+    }
+
+    public function rest_engineering(WP_REST_Request $request) {
+        $payload = $request->get_json_params();
+        $payload = is_array($payload) ? $payload : [];
+        $payload['input'] = sanitize_textarea_field($payload['input'] ?? '');
+        $payload['variable'] = sanitize_text_field($payload['variable'] ?? '');
+        $payload['include_solve'] = !empty($payload['include_solve']);
+        $res = $this->backend_post('/engineering/analyze', $payload);
+        if (is_wp_error($res)) {
+            return new WP_REST_Response([
+                'ok'=>false,
+                'tool'=>'Engineering Mode',
+                'summary'=>'The Engineering Mode interface is loaded, but the engineering analysis backend is not reachable from WordPress.',
+                'error'=>$res->get_error_message(),
+                'values'=>[
+                    'keyboard_input'=>$payload['input'],
+                    'backend_status'=>'offline_or_unreachable',
+                    'required_action'=>'Deploy or start the FastAPI backend and confirm the Backend URL in SC Workbench settings.'
+                ],
+                'warnings'=>['Engineering Mode requires the FastAPI backend for symbolic parsing, unit analysis, and calculation-note generation.'],
                 'disclaimer'=>'Educational support only. Engineering outputs require qualified professional review.'
             ], 200);
         }
@@ -564,7 +656,7 @@ y = m*x + b">y = a*sin(b*x)</textarea>
             if (!$this->feature_builder_count()) {
                 $this->import_feature_builder_from_file($this->bundled_feature_builder_queue_csv(), true);
             }
-            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, and v1.2 Graph Studio with parameter sliders.
+            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates.
             // The equation table is a generated cache, so it is safe to clear during scanner upgrades and rebuild from posts.
             if ($old_version && version_compare($old_version, '0.9.4', '<')) {
                 $this->clear_equation_registry();

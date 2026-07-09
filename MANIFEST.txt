@@ -21,3 +21,6 @@ backend/app/routers/graph.py
 backend/tests/test_v120_graph_studio.py
 docs/V120_GRAPH_STUDIO_PARAMETER_SLIDERS.md
 terminal/V120_GRAPH_STUDIO_COMMANDS.txt
+
+docs/V130_ENGINEERING_MODE_OUTPUT_TEMPLATE.md
+terminal/V130_ENGINEERING_MODE_COMMANDS.txt
