@@ -87,3 +87,26 @@
 .scwb-engineering-table code{background:#fbfaf7;border:1px solid #eee;border-radius:6px;padding:2px 5px;color:#111}
 .scwb-engineering-only .scwb-engineering-mode{margin-top:18px}
 @media(max-width:900px){.scwb-engineering-result .scwb-engineering-hero{grid-template-columns:1fr}.scwb-engineering-controls-row label{min-width:0}}
+
+
+/* v1.4.0 Core Engineering Calculators */
+.scwb-engineering-calculators{margin-top:16px}
+.scwb-engineering-calculator-intro{background:#fdfaf5;border:1px solid #eee5d9;border-left:4px solid #ff0000;border-radius:14px;padding:14px 16px;margin:0 0 16px 0}
+.scwb-engineering-calculator-intro h3{margin:2px 0 6px;color:#111}
+.scwb-engineering-calculator-intro p:last-child{margin:0;color:#555;line-height:1.6}
+.scwb-engineering-calculator-shell{display:grid;grid-template-columns:minmax(240px,.8fr) minmax(0,1.2fr);gap:16px;align-items:start}
+.scwb-engineering-calculator-picker,.scwb-engineering-calculator-form{background:#fdfaf5;border:1px solid #eee5d9;border-radius:14px;padding:16px;margin:0}
+.scwb-engineering-calculator-description strong{color:#111}
+.scwb-engineering-calculator-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:12px}
+.scwb-engineering-calculator-fields label{margin:0!important;background:#fff;border:1px solid #eee;border-radius:12px;padding:12px}
+.scwb-unit-chip{display:inline-block;background:#111;color:#fff;border-radius:999px;padding:2px 7px;font-size:.72rem;font-weight:800;margin-left:6px;vertical-align:middle}
+.scwb-engineering-calculator-result .scwb-engineering-calc-hero{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:14px;margin:14px 0}
+.scwb-engineering-calc-hero>div{background:#fff;border:1px solid #eee;border-radius:14px;padding:14px}
+.scwb-engineering-calc-hero strong{display:block;color:#111;font-size:1.05rem;margin:2px 0 6px;word-break:break-word}
+.scwb-engineering-calc-hero span{display:block;color:#555;line-height:1.55}
+.scwb-engineering-calc-hero article{border-top:1px solid #eee;padding:8px 0}
+.scwb-engineering-calc-hero article:first-of-type{border-top:0}
+.scwb-engineering-calc-hero article span{text-transform:uppercase;letter-spacing:.05em;font-size:.72rem;color:#777;font-weight:800}
+.scwb-engineering-calc-hero article strong{font-size:1rem;margin:2px 0 0}
+.scwb-engineering-calculators-only .scwb-engineering-calculators{margin-top:18px}
+@media(max-width:900px){.scwb-engineering-calculator-shell,.scwb-engineering-calculator-fields,.scwb-engineering-calculator-result .scwb-engineering-calc-hero{grid-template-columns:1fr}}

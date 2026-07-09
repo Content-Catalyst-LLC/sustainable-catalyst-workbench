@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Workbench
- * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates.
- * Version: 1.3.0
+ * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, and v1.4 Core Engineering Calculators.
+ * Version: 1.4.0
  * Author: Content Catalyst LLC
  * License: MIT
  * Text Domain: sustainable-catalyst-workbench
@@ -11,7 +11,7 @@
 if (!defined('ABSPATH')) { exit; }
 
 final class SC_Workbench_Plugin {
-    const VERSION = '1.3.0';
+    const VERSION = '1.4.0';
     const OPTION_BACKEND_URL = 'sc_workbench_backend_url';
     const OPTION_BACKEND_KEY = 'sc_workbench_backend_key';
     const OPTION_AI_PROVIDER = 'sc_workbench_ai_provider';
@@ -82,6 +82,7 @@ final class SC_Workbench_Plugin {
         add_shortcode('sc_workbench_chalkboard', [$this, 'render_chalkboard']);
         add_shortcode('sc_workbench_graph_studio', [$this, 'render_graph_studio']);
         add_shortcode('sc_workbench_engineering_mode', [$this, 'render_engineering_mode']);
+        add_shortcode('sc_workbench_engineering_calculators', [$this, 'render_engineering_calculators']);
     }
 
     private function ensure_assets() {
@@ -118,6 +119,7 @@ final class SC_Workbench_Plugin {
                 <button type="button" data-scwb-tab="chalkboard">Chalkboard</button>
                 <button type="button" data-scwb-tab="graph">Graph Studio</button>
                 <button type="button" data-scwb-tab="engineering">Engineering Mode</button>
+                <button type="button" data-scwb-tab="engineering-calculators">Engineering Calculators</button>
                 <button type="button" data-scwb-tab="calculate">Calculate</button>
                 <button type="button" data-scwb-tab="models">Models</button>
                 <button type="button" data-scwb-tab="equations">Equations</button>
@@ -147,6 +149,10 @@ final class SC_Workbench_Plugin {
 
             <div class="scwb-panel" data-scwb-panel="engineering">
                 <?php echo $this->engineering_mode_html(); ?>
+            </div>
+
+            <div class="scwb-panel" data-scwb-panel="engineering-calculators">
+                <?php echo $this->engineering_calculators_html(); ?>
             </div>
 
             <div class="scwb-panel" data-scwb-panel="calculate">
@@ -233,6 +239,27 @@ final class SC_Workbench_Plugin {
                 <p>Turn formulas, units, and symbolic relationships into an engineering-style calculation note with assumptions, validation checks, warnings, and export-ready review structure.</p>
             </div>
             <?php echo $this->engineering_mode_html(); ?>
+            <p class="scwb-fineprint">Educational engineering-aware analysis only. Not a substitute for licensed, code-compliant, safety-critical, or stamped professional engineering judgment.</p>
+        </section>
+        <?php return ob_get_clean();
+    }
+
+
+    public function render_engineering_calculators($atts) {
+        $this->ensure_assets();
+        $atts = shortcode_atts([
+            'title' => 'Core Engineering Calculators',
+            'display' => 'full'
+        ], $atts, 'sc_workbench_engineering_calculators');
+        $uid = 'scwb-engineering-calculators-' . wp_generate_uuid4();
+        ob_start(); ?>
+        <section id="<?php echo esc_attr($uid); ?>" class="scwb scwb-engineering-calculators-only scwb-theme-<?php echo esc_attr(get_option(self::OPTION_THEME, 'institutional')); ?> scwb-display-<?php echo esc_attr(sanitize_key($atts['display'])); ?>" data-scwb-engineering-calculators-only>
+            <div class="scwb-head">
+                <p class="scwb-eyebrow">Sustainable Catalyst Workbench</p>
+                <h2><?php echo esc_html(sanitize_text_field($atts['title'])); ?></h2>
+                <p>Run core engineering calculators for mechanics, structures, circuits, thermal systems, pump power, emissions, and FMEA-style risk screening with graphs, assumptions, validation checks, and export-ready calculation notes.</p>
+            </div>
+            <?php echo $this->engineering_calculators_html(); ?>
             <p class="scwb-fineprint">Educational engineering-aware analysis only. Not a substitute for licensed, code-compliant, safety-critical, or stamped professional engineering judgment.</p>
         </section>
         <?php return ob_get_clean();
@@ -348,6 +375,36 @@ a = 3.5 m/s^2</textarea>
         <?php return ob_get_clean();
     }
 
+
+    private function engineering_calculators_html() {
+        ob_start(); ?>
+        <div class="scwb-engineering-calculators" data-scwb-engineering-calculators>
+            <div class="scwb-engineering-calculator-intro">
+                <p class="scwb-card-label">Phase 4</p>
+                <h3>Core engineering calculator library</h3>
+                <p>Choose a calculator, enter values in the listed units, and generate a calculation note with formulas, results, assumptions, validation checks, and sensitivity graphs.</p>
+            </div>
+            <div class="scwb-engineering-calculator-shell">
+                <div class="scwb-engineering-calculator-picker">
+                    <label>Calculator
+                        <select data-scwb-engineering-calculator-select>
+                            <option value="">Loading engineering calculators…</option>
+                        </select>
+                    </label>
+                    <div data-scwb-engineering-calculator-description class="scwb-muted">Loading calculator catalog…</div>
+                </div>
+                <form data-scwb-engineering-calculator-form class="scwb-form scwb-engineering-calculator-form">
+                    <div data-scwb-engineering-calculator-fields class="scwb-engineering-calculator-fields">
+                        <p class="scwb-muted">Choose a calculator to load its inputs.</p>
+                    </div>
+                    <button type="submit" class="scwb-button">Run Engineering Calculator</button>
+                </form>
+            </div>
+            <div class="scwb-output" data-scwb-engineering-calculator-output hidden></div>
+        </div>
+        <?php return ob_get_clean();
+    }
+
     public function render_pathways($atts) {
         $this->ensure_assets();
         return '<div class="scwb scwb-pathways-only">' . $this->pathways_html() . '</div>';
@@ -390,6 +447,8 @@ a = 3.5 m/s^2</textarea>
         register_rest_route('sc-workbench/v1', '/symbolic', ['methods'=>'POST', 'callback'=>[$this,'rest_symbolic'], 'permission_callback'=>'__return_true']);
         register_rest_route('sc-workbench/v1', '/graph', ['methods'=>'POST', 'callback'=>[$this,'rest_graph'], 'permission_callback'=>'__return_true']);
         register_rest_route('sc-workbench/v1', '/engineering', ['methods'=>'POST', 'callback'=>[$this,'rest_engineering'], 'permission_callback'=>'__return_true']);
+        register_rest_route('sc-workbench/v1', '/engineering-calculators', ['methods'=>'GET', 'callback'=>[$this,'rest_engineering_calculators'], 'permission_callback'=>'__return_true']);
+        register_rest_route('sc-workbench/v1', '/engineering-calculate', ['methods'=>'POST', 'callback'=>[$this,'rest_engineering_calculate'], 'permission_callback'=>'__return_true']);
     }
 
     public function admin_permission() { return current_user_can('manage_options'); }
@@ -535,6 +594,54 @@ a = 3.5 m/s^2</textarea>
         return new WP_REST_Response($res, 200);
     }
 
+
+    public function rest_engineering_calculators(WP_REST_Request $request) {
+        $res = $this->backend_get('/engineering/calculators');
+        if (is_wp_error($res)) {
+            return new WP_REST_Response([
+                'ok'=>false,
+                'summary'=>'The Engineering Calculator catalog requires the FastAPI backend.',
+                'error'=>$res->get_error_message(),
+                'calculators'=>[],
+                'warnings'=>['Deploy or start the Workbench backend and confirm the Backend URL in SC Workbench settings.']
+            ], 200);
+        }
+        return new WP_REST_Response($res, 200);
+    }
+
+    public function rest_engineering_calculate(WP_REST_Request $request) {
+        $payload = $request->get_json_params();
+        $payload = is_array($payload) ? $payload : [];
+        $payload['calculator_id'] = sanitize_key($payload['calculator_id'] ?? '');
+        $safe_inputs = [];
+        if (isset($payload['inputs']) && is_array($payload['inputs'])) {
+            foreach ($payload['inputs'] as $key => $value) {
+                $safe_key = preg_replace('/[^A-Za-z0-9_]/', '', sanitize_text_field((string)$key));
+                if ($safe_key === '') { continue; }
+                if (is_array($value) || is_object($value)) { continue; }
+                $safe_inputs[$safe_key] = sanitize_text_field((string)$value);
+            }
+        }
+        $payload['inputs'] = $safe_inputs;
+        $res = $this->backend_post('/engineering/calculate', $payload);
+        if (is_wp_error($res)) {
+            return new WP_REST_Response([
+                'ok'=>false,
+                'tool'=>'Core Engineering Calculators',
+                'summary'=>'The Engineering Calculator interface is loaded, but the calculation backend is not reachable from WordPress.',
+                'error'=>$res->get_error_message(),
+                'values'=>[
+                    'calculator_id'=>$payload['calculator_id'],
+                    'backend_status'=>'offline_or_unreachable',
+                    'required_action'=>'Deploy or start the FastAPI backend and confirm the Backend URL in SC Workbench settings.'
+                ],
+                'warnings'=>['Core engineering calculators require the FastAPI backend for calculation notes and graphs.'],
+                'disclaimer'=>'Educational support only. Engineering outputs require qualified professional review.'
+            ], 200);
+        }
+        return new WP_REST_Response($res, 200);
+    }
+
     public function rest_ask(WP_REST_Request $request) {
         if (get_option(self::OPTION_ENABLE_AI, '1') !== '1') { return new WP_REST_Response(['ok'=>false, 'answer'=>'AI is disabled in Workbench settings.'], 200); }
         $payload = $request->get_json_params();
@@ -656,7 +763,7 @@ a = 3.5 m/s^2</textarea>
             if (!$this->feature_builder_count()) {
                 $this->import_feature_builder_from_file($this->bundled_feature_builder_queue_csv(), true);
             }
-            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates.
+            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, and v1.4 Core Engineering Calculators.
             // The equation table is a generated cache, so it is safe to clear during scanner upgrades and rebuild from posts.
             if ($old_version && version_compare($old_version, '0.9.4', '<')) {
                 $this->clear_equation_registry();

@@ -24,3 +24,8 @@ terminal/V120_GRAPH_STUDIO_COMMANDS.txt
 
 docs/V130_ENGINEERING_MODE_OUTPUT_TEMPLATE.md
 terminal/V130_ENGINEERING_MODE_COMMANDS.txt
+
+
+## v1.4.0 Core Engineering Calculators
+
+Adds a core engineering calculator library for mechanics, stress/strain, beam deflection, circuits, RC response, heat transfer, pump power, energy emissions, and FMEA-style risk screening. Outputs include calculation notes, assumptions, validation checks, warnings, and sensitivity graphs.

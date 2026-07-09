@@ -77,6 +77,64 @@
     const solve = v.symbolic_solve ? `<div class="scwb-engineering-section"><h4>Symbolic solve</h4>${renderCodeBlock('Solve result', v.symbolic_solve)}</div>` : '';
     return `<div class="scwb-result scwb-engineering-result"><h3>${esc(data.tool||'Engineering Mode')}</h3><p>${esc(data.summary||'')}</p>${exportRow(false)}<div class="scwb-engineering-hero"><div><p class="scwb-card-label">Recognized domain</p><strong>${esc(v.engineering_domain||'general engineering')}</strong><span>${esc(formula.primary_formula||'')}</span></div>${resultBox}</div><div class="scwb-symbolic-layout"><div class="scwb-chalkboard-display scwb-chalkboard-display-large">${esc(v.chalkboard_preview||'')}</div><div class="scwb-code-stack">${renderCodeBlock('LaTeX', v.latex)}${renderCodeBlock('SymPy', v.sympy_code)}${renderCodeBlock('Formula summary', formula)}</div></div>${renderVariablesTable(v.variables)}${renderList('Assumptions', note.assumptions||[])}${renderList('Validation checks', note.validation_checks||[])}${renderList('Sensitivity template', note.sensitivity_template||[])}${solve}${warnings}<div class="scwb-engineering-section"><h4>Method</h4>${method}</div>${interpretation}<p class="scwb-disclaimer">${esc(data.disclaimer||'Educational support only. Engineering outputs require qualified professional review.')}</p></div>`;
   }
+
+  function renderEngineeringCalculatorResult(data){
+    if(!data) return '<p>No response.</p>';
+    if(data.ok===false) return renderResult(data);
+    const v=data.values||{};
+    const note=v.engineering_note||{};
+    const results=v.results||{};
+    const inputs=v.inputs||{};
+    const warnings=(data.warnings||[]).length ? '<div class="scwb-warnings"><strong>Warnings</strong><ul>'+data.warnings.map(w=>`<li>${esc(w)}</li>`).join('')+'</ul></div>' : '';
+    const method=(data.method||[]).length ? '<ol class="scwb-steps">'+data.method.map(step=>`<li>${esc(step)}</li>`).join('')+'</ol>' : '';
+    const graphs=(data.graphs||[]).map((g,i)=>`<figure class="scwb-graph" data-graph-index="${i}"><figcaption>${esc(g.title||'Graph')}</figcaption>${g.svg||''}<div class="scwb-graph-actions"><button type="button" class="scwb-mini" data-scwb-export="svg">Download SVG</button><button type="button" class="scwb-mini" data-scwb-export="png">Download PNG</button></div></figure>`).join('');
+    const resultCards=Object.entries(results).map(([k,val])=>`<article><span>${esc(k.replaceAll('_',' '))}</span><strong>${esc(val)}</strong></article>`).join('');
+    return `<div class="scwb-result scwb-engineering-calculator-result"><h3>${esc(data.tool||'Engineering Calculator')}</h3><p>${esc(data.summary||'')}</p>${exportRow((data.graphs||[]).length>0)}<div class="scwb-engineering-calc-hero"><div><p class="scwb-card-label">Formula</p><strong>${esc(v.formula||note.formula||'')}</strong><span>${esc(note.calculation_title||'Core engineering calculator')}</span></div><div><p class="scwb-card-label">Primary result</p>${resultCards || '<span>No result fields returned.</span>'}</div></div><div class="scwb-engineering-section"><h4>Inputs</h4>${renderCodeBlock('Inputs', inputs)}</div><div class="scwb-engineering-section"><h4>Calculation note</h4>${renderCodeBlock('Formula', note.formula||v.formula)}${renderCodeBlock('Results', note.results||results)}</div>${renderList('Assumptions', note.assumptions||[])}${renderList('Validation checks', note.validation_checks||[])}${warnings}${graphs}<div class="scwb-engineering-section"><h4>Method</h4>${method}</div><p class="scwb-disclaimer">${esc(data.disclaimer||'Educational support only. Engineering outputs require qualified professional review.')}</p></div>`;
+  }
+
+  function calcFieldHtml(f){
+    const val=esc(f.default||'');
+    const unit=f.unit ? `<span class="scwb-unit-chip">${esc(f.unit)}</span>` : '';
+    if(f.type==='select') return `<label>${esc(f.label)} ${unit}<select name="${esc(f.name)}">${(f.options||[]).map(o=>`<option value="${esc(o)}" ${o==f.default?'selected':''}>${esc(o.replaceAll('_',' '))}</option>`).join('')}</select><small>${esc(f.help||'')}</small></label>`;
+    return `<label>${esc(f.label)} ${unit}<input name="${esc(f.name)}" type="${esc(f.type||'number')}" value="${val}" step="any"><small>${esc(f.help||'')}</small></label>`;
+  }
+
+  function initEngineeringCalculatorForms(root=document){
+    root.querySelectorAll('[data-scwb-engineering-calculators]').forEach(wrap=>{
+      if(wrap.__scwbEngineeringCalculatorsReady) return;
+      wrap.__scwbEngineeringCalculatorsReady=true;
+      const select=wrap.querySelector('[data-scwb-engineering-calculator-select]');
+      const desc=wrap.querySelector('[data-scwb-engineering-calculator-description]');
+      const fields=wrap.querySelector('[data-scwb-engineering-calculator-fields]');
+      const form=wrap.querySelector('[data-scwb-engineering-calculator-form]');
+      const out=wrap.querySelector('[data-scwb-engineering-calculator-output]');
+      let specs=[];
+      function showSpec(){
+        const spec=specs.find(s=>s.id===select.value) || specs[0];
+        if(!spec) return;
+        select.value=spec.id;
+        if(desc) desc.innerHTML=`<strong>${esc(spec.title)}</strong><br>${esc(spec.domain||'Engineering')} · ${esc(spec.family||'Core calculator')}<br>${esc(spec.description||'')}`;
+        if(fields) fields.innerHTML=(spec.inputs||[]).map(calcFieldHtml).join('');
+      }
+      api('/engineering-calculators').then(d=>{
+        specs=(d && d.calculators) || [];
+        if(!specs.length){ if(desc) desc.innerHTML='<div class="scwb-error">Engineering calculator catalog is unavailable. Confirm the backend is deployed.</div>'; return; }
+        if(select){ select.innerHTML=specs.map(s=>`<option value="${esc(s.id)}">${esc(s.title)}</option>`).join(''); }
+        showSpec();
+      }).catch(err=>{ if(desc) desc.innerHTML='<div class="scwb-error">'+esc(err.message)+'</div>'; });
+      select && select.addEventListener('change', showSpec);
+      form && form.addEventListener('submit', ev=>{
+        ev.preventDefault();
+        const fd=new FormData(form);
+        const inputs={};
+        for(const [k,v] of fd.entries()) inputs[k]=v;
+        const payload={calculator_id:select ? select.value : '', inputs};
+        if(out){ out.hidden=false; out.innerHTML='<p class="scwb-muted">Running engineering calculator…</p>'; }
+        api('/engineering-calculate',{method:'POST',body:JSON.stringify(payload)}).then(d=>{ if(out){ out.__scwbLastResult=d; out.innerHTML=renderEngineeringCalculatorResult(d); } }).catch(err=>{ if(out){ out.innerHTML='<div class="scwb-error">'+esc(err.message)+'</div>'; } });
+      });
+    });
+  }
+
   function initEngineeringForms(root=document){
     root.querySelectorAll('[data-scwb-engineering-form]').forEach(form=>{
       if(form.__scwbEngineeringReady) return;
@@ -225,6 +283,7 @@
     initSymbolicForms(el);
     initGraphStudioForms(el);
     initEngineeringForms(el);
+    initEngineeringCalculatorForms(el);
     const topic = el.dataset.topic || 'research-library';
     const displayMode = (el.dataset.display || 'compact').toLowerCase();
     if(displayMode === 'drawer'){
@@ -307,5 +366,5 @@
   }
   function renderModels(el, tools){ const box=el.querySelector('[data-scwb-models]'); if(!box) return; const groups={}; tools.forEach(t=>{ (groups[t.domain]||(groups[t.domain]=[])).push(t); }); box.innerHTML=Object.entries(groups).map(([domain,items])=>`<section><h3>${esc(domain)}</h3><ul>${items.map(t=>`<li><strong>${esc(t.title)}</strong><span>${esc(t.family)} · ${esc(t.engine)}</span></li>`).join('')}</ul></section>`).join(''); }
   document.addEventListener('click', ev=>{ if(!ev.defaultPrevented && ev.target && ev.target.dataset && ev.target.dataset.scwbExport){ handleWorkbenchExportClick(ev); } });
-  document.addEventListener('DOMContentLoaded',()=>{ document.querySelectorAll('[data-scwb]').forEach(initWorkbench); initSymbolicForms(document); initGraphStudioForms(document); initEngineeringForms(document); });
+  document.addEventListener('DOMContentLoaded',()=>{ document.querySelectorAll('[data-scwb]').forEach(initWorkbench); initSymbolicForms(document); initGraphStudioForms(document); initEngineeringForms(document); initEngineeringCalculatorForms(document); });
 })();

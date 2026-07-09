@@ -1,4 +1,4 @@
-# Sustainable Catalyst Workbench v1.3.0
+# Sustainable Catalyst Workbench v1.4.0
 
 A compact AI-enabled research and analytics workbench for modeling, calculating, visualizing, and interpreting complex systems across science, sustainability, engineering, architecture, psychology, economics, governance, and meaning.
 
@@ -139,8 +139,13 @@ Workbench v1.1.0 adds Phase 1 of the advanced symbolic calculator layer:
 See `docs/V110_CHALKBOARD_SYMBOLIC_MATH_UNITS.md`.
 
 
-## v1.3.0 Graph Studio
+## v1.4.0 Graph Studio
 
 This package adds Phase 2 of the Workbench symbolic interface: Graph Studio with parameter sliders. Use `[sc_workbench_graph_studio title="Graph Studio"]` for a standalone page or the main `[sc_workbench]` shortcode to expose the Graph Studio tab alongside Ask, Chalkboard, Calculate, Models, Equations, and Pathways.
 
 Backend endpoint: `POST /graph/studio`. WordPress REST proxy: `/wp-json/sc-workbench/v1/graph`.
+
+
+## v1.4.0 Core Engineering Calculators
+
+Adds a core engineering calculator library for mechanics, stress/strain, beam deflection, circuits, RC response, heat transfer, pump power, energy emissions, and FMEA-style risk screening. Outputs include calculation notes, assumptions, validation checks, warnings, and sensitivity graphs.
