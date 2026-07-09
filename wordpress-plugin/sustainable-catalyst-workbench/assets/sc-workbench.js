@@ -209,7 +209,7 @@
       }
       api('/engineering-calculators').then(d=>{
         specs=(d && d.calculators) || [];
-        if(!specs.length){ if(desc) desc.innerHTML='<div class="scwb-error">Engineering calculator catalog is unavailable. Confirm the backend is deployed.</div>'; return; }
+        if(!specs.length){ if(desc) desc.innerHTML='<div class="scwb-error">Advanced calculator catalog is unavailable. Confirm the backend is deployed.</div>'; return; }
         if(select){ select.innerHTML=specs.map(s=>`<option value="${esc(s.id)}">${esc(s.title)}</option>`).join(''); }
         showSpec();
       }).catch(err=>{ if(desc) desc.innerHTML='<div class="scwb-error">'+esc(err.message)+'</div>'; });
@@ -220,7 +220,7 @@
         const inputs={};
         for(const [k,v] of fd.entries()) inputs[k]=v;
         const payload={calculator_id:select ? select.value : '', inputs};
-        if(out){ out.hidden=false; out.innerHTML='<p class="scwb-muted">Running engineering calculator…</p>'; }
+        if(out){ out.hidden=false; out.innerHTML='<p class="scwb-muted">Running advanced calculator…</p>'; }
         api('/engineering-calculate',{method:'POST',body:JSON.stringify(payload)}).then(d=>{ if(out){ out.__scwbLastResult=d; out.innerHTML=renderEngineeringCalculatorResult(d); } }).catch(err=>{ if(out){ out.innerHTML='<div class="scwb-error">'+esc(err.message)+'</div>'; } });
       });
     });

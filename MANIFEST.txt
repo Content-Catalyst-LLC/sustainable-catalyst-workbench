@@ -47,3 +47,9 @@ Adds a core engineering calculator library for mechanics, stress/strain, beam de
 - Added near-formula shortcode generation to Embed Shortcodes and Placement Assistant admin pages.
 - Added frontend formula cards with Recommend, Symbolic, Graph, and Engineering Note actions.
 - Added tests and documentation for Phase 6.
+
+V1.7.0 Advanced Domain Calculators
+- backend/app/engines/core_engineering_calculators.py expanded with 18 advanced domain calculators
+- backend/tests/test_v170_advanced_domain_calculators.py
+- docs/V170_ADVANCED_DOMAIN_CALCULATORS.md
+- terminal/V170_ADVANCED_DOMAIN_CALCULATORS_COMMANDS.txt

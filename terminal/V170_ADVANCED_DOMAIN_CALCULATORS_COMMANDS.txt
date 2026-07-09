@@ -1,0 +1,18 @@
+# Workbench v1.7.0 Advanced Domain Calculators
+
+cd ~/Downloads
+chmod +x push_workbench_v1_7_0_advanced_domain_calculators_to_github.sh
+./push_workbench_v1_7_0_advanced_domain_calculators_to_github.sh
+
+# Then redeploy the Workbench service on Render.
+# Recommended Render settings:
+# Root Directory: backend
+# Build Command: pip install --upgrade pip && pip install -r requirements.txt
+# Start Command: ./start.sh
+# PYTHON_VERSION=3.12.11
+
+# WordPress plugin zip:
+# sustainable-catalyst-workbench-plugin-v1.7.0.zip
+
+# Shortcode:
+# [sc_workbench_advanced_calculators title="Advanced Calculator Library"]

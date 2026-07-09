@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Workbench
- * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, v1.4 Core Engineering Calculators, and v1.5 Exportable Calculation Reports, and v1.6 Article-Embedded Calculators near formulas.
- * Version: 1.6.0
+ * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, v1.4 Core Engineering Calculators, and v1.5 Exportable Calculation Reports, and v1.6 Article-Embedded Calculators near formulas, and v1.7 Advanced Scientific, Econometric, Psychometric, Architecture, Infrastructure, Pattern, and Astrophysics Calculators.
+ * Version: 1.7.0
  * Author: Content Catalyst LLC
  * License: MIT
  * Text Domain: sustainable-catalyst-workbench
@@ -11,7 +11,7 @@
 if (!defined('ABSPATH')) { exit; }
 
 final class SC_Workbench_Plugin {
-    const VERSION = '1.6.0';
+    const VERSION = '1.7.0';
     const OPTION_BACKEND_URL = 'sc_workbench_backend_url';
     const OPTION_BACKEND_KEY = 'sc_workbench_backend_key';
     const OPTION_AI_PROVIDER = 'sc_workbench_ai_provider';
@@ -83,6 +83,7 @@ final class SC_Workbench_Plugin {
         add_shortcode('sc_workbench_graph_studio', [$this, 'render_graph_studio']);
         add_shortcode('sc_workbench_engineering_mode', [$this, 'render_engineering_mode']);
         add_shortcode('sc_workbench_engineering_calculators', [$this, 'render_engineering_calculators']);
+        add_shortcode('sc_workbench_advanced_calculators', [$this, 'render_engineering_calculators']);
         add_shortcode('sc_workbench_formula_calculator', [$this, 'render_formula_calculator']);
         add_shortcode('sc_formula_calculator', [$this, 'render_formula_calculator']);
     }
@@ -121,7 +122,7 @@ final class SC_Workbench_Plugin {
                 <button type="button" data-scwb-tab="chalkboard">Chalkboard</button>
                 <button type="button" data-scwb-tab="graph">Graph Studio</button>
                 <button type="button" data-scwb-tab="engineering">Engineering Mode</button>
-                <button type="button" data-scwb-tab="engineering-calculators">Engineering Calculators</button>
+                <button type="button" data-scwb-tab="engineering-calculators">Advanced Calculators</button>
                 <button type="button" data-scwb-tab="article-embeds">Article Embeds</button>
                 <button type="button" data-scwb-tab="calculate">Calculate</button>
                 <button type="button" data-scwb-tab="models">Models</button>
@@ -255,7 +256,7 @@ final class SC_Workbench_Plugin {
     public function render_engineering_calculators($atts) {
         $this->ensure_assets();
         $atts = shortcode_atts([
-            'title' => 'Core Engineering Calculators',
+            'title' => 'Advanced Calculator Library',
             'display' => 'full'
         ], $atts, 'sc_workbench_engineering_calculators');
         $uid = 'scwb-engineering-calculators-' . wp_generate_uuid4();
@@ -264,7 +265,7 @@ final class SC_Workbench_Plugin {
             <div class="scwb-head">
                 <p class="scwb-eyebrow">Sustainable Catalyst Workbench</p>
                 <h2><?php echo esc_html(sanitize_text_field($atts['title'])); ?></h2>
-                <p>Run core engineering calculators for mechanics, structures, circuits, thermal systems, pump power, emissions, and FMEA-style risk screening with graphs, assumptions, validation checks, and export-ready calculation notes.</p>
+                <p>Run advanced calculators for engineering, econometrics, psychometrics, computational biology, computational chemistry, computational physics, architecture, infrastructure, pattern recognition, and astrophysics with graphs, assumptions, validation checks, and export-ready calculation notes.</p>
             </div>
             <?php echo $this->engineering_calculators_html(); ?>
             <p class="scwb-fineprint">Educational engineering-aware analysis only. Not a substitute for licensed, code-compliant, safety-critical, or stamped professional engineering judgment.</p>
@@ -387,15 +388,15 @@ a = 3.5 m/s^2</textarea>
         ob_start(); ?>
         <div class="scwb-engineering-calculators" data-scwb-engineering-calculators>
             <div class="scwb-engineering-calculator-intro">
-                <p class="scwb-card-label">Phase 4</p>
-                <h3>Core engineering calculator library</h3>
-                <p>Choose a calculator, enter values in the listed units, and generate a calculation note with formulas, results, assumptions, validation checks, and sensitivity graphs.</p>
+                <p class="scwb-card-label">Phase 7</p>
+                <h3>Advanced cross-domain calculator library</h3>
+                <p>Choose a calculator across engineering, econometrics, psychometrics, computational biology, computational chemistry, computational physics, architecture, infrastructure, pattern recognition, and astrophysics. Each result includes formulas, outputs, assumptions, validation checks, warnings, and graph-ready review structure.</p>
             </div>
             <div class="scwb-engineering-calculator-shell">
                 <div class="scwb-engineering-calculator-picker">
                     <label>Calculator
                         <select data-scwb-engineering-calculator-select>
-                            <option value="">Loading engineering calculators…</option>
+                            <option value="">Loading advanced calculators…</option>
                         </select>
                     </label>
                     <div data-scwb-engineering-calculator-description class="scwb-muted">Loading calculator catalog…</div>
@@ -404,7 +405,7 @@ a = 3.5 m/s^2</textarea>
                     <div data-scwb-engineering-calculator-fields class="scwb-engineering-calculator-fields">
                         <p class="scwb-muted">Choose a calculator to load its inputs.</p>
                     </div>
-                    <button type="submit" class="scwb-button">Run Engineering Calculator</button>
+                    <button type="submit" class="scwb-button">Run Advanced Calculator</button>
                 </form>
             </div>
             <div class="scwb-output" data-scwb-engineering-calculator-output hidden></div>
@@ -684,7 +685,7 @@ NPV = \sum_{t=0}^{n} CF_t/(1+r)^t">y = a*sin(b*x)</textarea>
         if (is_wp_error($res)) {
             return new WP_REST_Response([
                 'ok'=>false,
-                'summary'=>'The Engineering Calculator catalog requires the FastAPI backend.',
+                'summary'=>'The Advanced Calculator catalog requires the FastAPI backend.',
                 'error'=>$res->get_error_message(),
                 'calculators'=>[],
                 'warnings'=>['Deploy or start the Workbench backend and confirm the Backend URL in SC Workbench settings.']
@@ -711,15 +712,15 @@ NPV = \sum_{t=0}^{n} CF_t/(1+r)^t">y = a*sin(b*x)</textarea>
         if (is_wp_error($res)) {
             return new WP_REST_Response([
                 'ok'=>false,
-                'tool'=>'Core Engineering Calculators',
-                'summary'=>'The Engineering Calculator interface is loaded, but the calculation backend is not reachable from WordPress.',
+                'tool'=>'Advanced Calculator Library',
+                'summary'=>'The Advanced Calculator interface is loaded, but the calculation backend is not reachable from WordPress.',
                 'error'=>$res->get_error_message(),
                 'values'=>[
                     'calculator_id'=>$payload['calculator_id'],
                     'backend_status'=>'offline_or_unreachable',
                     'required_action'=>'Deploy or start the FastAPI backend and confirm the Backend URL in SC Workbench settings.'
                 ],
-                'warnings'=>['Core engineering calculators require the FastAPI backend for calculation notes and graphs.'],
+                'warnings'=>['Advanced calculators require the FastAPI backend for calculation notes and graphs.'],
                 'disclaimer'=>'Educational support only. Engineering outputs require qualified professional review.'
             ], 200);
         }
@@ -820,10 +821,10 @@ NPV = \sum_{t=0}^{n} CF_t/(1+r)^t">y = a*sin(b*x)</textarea>
                 'tool'=>'Exportable Calculation Reports',
                 'summary'=>'The report exporter is loaded, but the Workbench backend report endpoint is not reachable from WordPress.',
                 'error'=>$res->get_error_message(),
-                'warnings'=>['Deploy or start the Workbench backend v1.5.0 and confirm the Backend URL in SC Workbench settings.'],
+                'warnings'=>['Deploy or start the Workbench backend v1.7.0 and confirm the Backend URL in SC Workbench settings.'],
                 'formats'=>[
-                    'markdown'=>'# Workbench calculation report unavailable\n\nThe report backend was not reachable. Confirm that the Workbench backend is deployed and running v1.5.0.',
-                    'html'=>'<p>Workbench calculation report unavailable. Confirm that the backend is deployed and running v1.5.0.</p>',
+                    'markdown'=>'# Workbench calculation report unavailable\n\nThe report backend was not reachable. Confirm that the Workbench backend is deployed and running v1.7.0.',
+                    'html'=>'<p>Workbench calculation report unavailable. Confirm that the backend is deployed and running v1.7.0.</p>',
                     'text'=>'Workbench calculation report unavailable.'
                 ],
                 'filename_base'=>'workbench-report-unavailable'
@@ -953,7 +954,7 @@ NPV = \sum_{t=0}^{n} CF_t/(1+r)^t">y = a*sin(b*x)</textarea>
             if (!$this->feature_builder_count()) {
                 $this->import_feature_builder_from_file($this->bundled_feature_builder_queue_csv(), true);
             }
-            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, v1.4 Core Engineering Calculators, and v1.5 Exportable Calculation Reports, and v1.6 Article-Embedded Calculators near formulas.
+            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, v1.4 Core Engineering Calculators, and v1.5 Exportable Calculation Reports, and v1.6 Article-Embedded Calculators near formulas, and v1.7 Advanced Scientific, Econometric, Psychometric, Architecture, Infrastructure, Pattern, and Astrophysics Calculators.
             // The equation table is a generated cache, so it is safe to clear during scanner upgrades and rebuild from posts.
             if ($old_version && version_compare($old_version, '0.9.4', '<')) {
                 $this->clear_equation_registry();

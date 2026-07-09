@@ -12,7 +12,7 @@ class EngineeringCalculatorRequest(BaseModel):
 
 @router.get('/calculators')
 def calculators() -> dict[str, Any]:
-    return {"ok": True, "version": "1.5.0", "calculators": list_core_engineering_calculators()}
+    return {"ok": True, "version": "1.7.0", "calculators": list_core_engineering_calculators()}
 
 @router.get('/calculators/{calculator_id}')
 def calculator(calculator_id: str) -> dict[str, Any]:

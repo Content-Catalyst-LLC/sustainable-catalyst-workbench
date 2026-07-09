@@ -178,3 +178,8 @@ Report export buttons now appear in Workbench result panels: Print/PDF, Markdown
 - Added near-formula shortcode generation to Embed Shortcodes and Placement Assistant admin pages.
 - Added frontend formula cards with Recommend, Symbolic, Graph, and Engineering Note actions.
 - Added tests and documentation for Phase 6.
+
+
+## Version 1.7.0 — Advanced Domain Calculators
+
+Adds deterministic calculator families for econometrics, psychometrics, computational biology, computational chemistry, computational physics, architecture, infrastructure, pattern recognition, and astrophysics. The existing engineering calculator UI is upgraded into an Advanced Calculator Library while preserving the prior shortcode.
