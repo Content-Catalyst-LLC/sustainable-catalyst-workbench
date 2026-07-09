@@ -76,6 +76,76 @@
     });
   }
 
+  function graphPayloadFromForm(form, parameters){
+    const fd=new FormData(form);
+    return {
+      input: fd.get('input') || '',
+      variable: fd.get('variable') || 'x',
+      x_min: fd.get('x_min') || -10,
+      x_max: fd.get('x_max') || 10,
+      points: fd.get('points') || 700,
+      show_derivative: !!fd.get('show_derivative'),
+      parameters: parameters || form.__scwbGraphParameters || {}
+    };
+  }
+
+  function renderGraphSliders(wrap, form, controls){
+    const panel=wrap.querySelector('[data-scwb-graph-sliders]');
+    if(!panel) return;
+    const params=(controls && controls.parameters) || [];
+    if(!params.length){ panel.hidden=false; panel.innerHTML='<p class="scwb-muted">No adjustable parameters detected. Add symbols such as <code>a</code>, <code>b</code>, <code>k</code>, or <code>omega</code> to generate sliders.</p>'; return; }
+    panel.hidden=false;
+    panel.innerHTML='<p class="scwb-card-label">Parameter sliders</p><div class="scwb-slider-grid">'+params.map(p=>`<label class="scwb-slider-label"><span><strong>${esc(p.label||p.name)}</strong> <output data-scwb-param-output="${esc(p.name)}">${esc(p.value)}</output></span><input type="range" data-scwb-param="${esc(p.name)}" min="${esc(p.min)}" max="${esc(p.max)}" step="${esc(p.step||0.05)}" value="${esc(p.value)}"></label>`).join('')+'</div><p class="scwb-muted">Move a slider to regenerate the graph with the new parameter value.</p>';
+    form.__scwbGraphParameters={};
+    params.forEach(p=>{ form.__scwbGraphParameters[p.name]=Number(p.value); });
+    let timer=null;
+    panel.querySelectorAll('[data-scwb-param]').forEach(input=>{
+      input.addEventListener('input', ()=>{
+        const name=input.dataset.scwbParam;
+        const val=Number(input.value);
+        form.__scwbGraphParameters[name]=val;
+        const output=panel.querySelector(`[data-scwb-param-output="${CSS.escape(name)}"]`);
+        if(output) output.textContent=String(Number.isInteger(val)?val:Math.round(val*1000)/1000);
+        clearTimeout(timer);
+        timer=setTimeout(()=>runGraphStudio(form, true), 260);
+      });
+    });
+  }
+
+  function runGraphStudio(form, fromSlider=false){
+    const wrap=form.closest('[data-scwb-graph-studio]') || form.closest('.scwb') || document;
+    const out=wrap.querySelector('[data-scwb-graph-output]');
+    const payload=graphPayloadFromForm(form, form.__scwbGraphParameters || {});
+    if(out){ out.hidden=false; out.innerHTML='<p class="scwb-muted">'+(fromSlider?'Updating graph…':'Generating parameter-aware graph…')+'</p>'; }
+    return api('/graph',{method:'POST',body:JSON.stringify(payload)}).then(d=>{
+      if(out){ out.__scwbLastResult=d; out.innerHTML=renderResult(d); }
+      if(d && d.graph_controls) renderGraphSliders(wrap, form, d.graph_controls);
+      return d;
+    }).catch(err=>{ if(out){ out.innerHTML='<div class="scwb-error">'+esc(err.message)+'</div>'; } });
+  }
+
+  function initGraphStudioForms(root=document){
+    root.querySelectorAll('[data-scwb-graph-form]').forEach(form=>{
+      if(form.__scwbGraphReady) return;
+      form.__scwbGraphReady=true;
+      form.addEventListener('submit', ev=>{ ev.preventDefault(); runGraphStudio(form, false); });
+    });
+  }
+
+  function handleWorkbenchExportClick(ev){
+    const action=ev.target && ev.target.dataset && ev.target.dataset.scwbExport;
+    if(!action) return false;
+    ev.preventDefault();
+    ev.stopPropagation();
+    const out=ev.target.closest('.scwb-output') || document.querySelector('.scwb-output');
+    const data=out && out.__scwbLastResult ? out.__scwbLastResult : null;
+    if(action==='json' && data){ downloadBlob(safeName(data.tool||'workbench-result')+'.json', new Blob([JSON.stringify(data,null,2)], {type:'application/json'})); return true; }
+    if(action==='pdf'){ const res=ev.target.closest('.scwb-result'); openPdfReport(data||{}, res ? res.outerHTML : ''); return true; }
+    if(action==='svg'){ downloadSvg(ev.target.closest('.scwb-graph')); return true; }
+    if(action==='png'){ downloadPng(ev.target.closest('.scwb-graph')); return true; }
+    return false;
+  }
+
   function shouldUseLibraryEquationMode(el){
     const topic = (el.dataset.topic || '').toLowerCase();
     const slug = (el.dataset.articleSlug || '').toLowerCase();
@@ -115,6 +185,7 @@
 
   function initWorkbench(el){
     initSymbolicForms(el);
+    initGraphStudioForms(el);
     const topic = el.dataset.topic || 'research-library';
     const displayMode = (el.dataset.display || 'compact').toLowerCase();
     if(displayMode === 'drawer'){
@@ -150,14 +221,7 @@
         }
         return;
       }
-      const action=ev.target && ev.target.dataset && ev.target.dataset.scwbExport;
-      if(!action) return;
-      const out=ev.target.closest('.scwb-output') || el.querySelector('.scwb-output');
-      const data=out && out.__scwbLastResult ? out.__scwbLastResult : null;
-      if(action==='json' && data){ downloadBlob(safeName(data.tool||'workbench-result')+'.json', new Blob([JSON.stringify(data,null,2)], {type:'application/json'})); }
-      if(action==='pdf'){ const res=ev.target.closest('.scwb-result'); openPdfReport(data||{}, res ? res.outerHTML : ''); }
-      if(action==='svg'){ downloadSvg(ev.target.closest('.scwb-graph')); }
-      if(action==='png'){ downloadPng(ev.target.closest('.scwb-graph')); }
+      if(handleWorkbenchExportClick(ev)) return;
     });
     el.querySelectorAll('[data-scwb-tab]').forEach(btn=>btn.addEventListener('click',()=>{
       el.querySelectorAll('[data-scwb-tab]').forEach(b=>b.classList.remove('is-active')); btn.classList.add('is-active');
@@ -203,5 +267,6 @@
     open && open.addEventListener('click',()=>{ const id=select && select.value; const spec=tools.find(t=>t.id===id); const shell=el.querySelector('[data-scwb-tool-shell]'); if(!shell) return; if(!spec){ shell.innerHTML='<div class="scwb-error">No calculator is selected. Reload the page or check that the Workbench plugin assets are active.</div>'; return; } shell.innerHTML=`<form class="scwb-tool-form"><h3>${esc(spec.title)}</h3><p>${esc(spec.description)}</p>${(spec.inputs||[]).map(fieldHtml).join('')}<button class="scwb-button" type="submit">Run Calculator</button><div class="scwb-output" data-tool-output></div></form>`; shell.querySelector('form').addEventListener('submit', ev=>{ ev.preventDefault(); const fd=new FormData(ev.currentTarget); const inputs={}; for(const [k,v] of fd.entries()) inputs[k]=v; const out=shell.querySelector('[data-tool-output]'); out.innerHTML='<p class="scwb-muted">Running backend analytics…</p>'; api('/run',{method:'POST',body:JSON.stringify({tool_id:id, inputs, mode:(el.querySelector('[data-scwb-tool-mode]')||{}).value||'guided', topic})}).then(d=>storeAndRender(out,d)).catch(err=>out.innerHTML='<div class="scwb-error">'+esc(err.message)+'</div>'); }); });
   }
   function renderModels(el, tools){ const box=el.querySelector('[data-scwb-models]'); if(!box) return; const groups={}; tools.forEach(t=>{ (groups[t.domain]||(groups[t.domain]=[])).push(t); }); box.innerHTML=Object.entries(groups).map(([domain,items])=>`<section><h3>${esc(domain)}</h3><ul>${items.map(t=>`<li><strong>${esc(t.title)}</strong><span>${esc(t.family)} · ${esc(t.engine)}</span></li>`).join('')}</ul></section>`).join(''); }
-  document.addEventListener('DOMContentLoaded',()=>{ document.querySelectorAll('[data-scwb]').forEach(initWorkbench); initSymbolicForms(document); });
+  document.addEventListener('click', ev=>{ if(!ev.defaultPrevented && ev.target && ev.target.dataset && ev.target.dataset.scwbExport){ handleWorkbenchExportClick(ev); } });
+  document.addEventListener('DOMContentLoaded',()=>{ document.querySelectorAll('[data-scwb]').forEach(initWorkbench); initSymbolicForms(document); initGraphStudioForms(document); });
 })();

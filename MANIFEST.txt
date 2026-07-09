@@ -1,6 +1,6 @@
-Sustainable Catalyst Workbench v1.1.0
+Sustainable Catalyst Workbench v1.2.0
 
-Chalkboard Translator, Symbolic Math, Engineering Units, Stable Workbench Core, Placement Assistant, and Validation Dashboard.
+Chalkboard Translator, Symbolic Math, Engineering Units, Graph Studio, Stable Workbench Core, Placement Assistant, and Validation Dashboard.
 
 Includes:
 - WordPress plugin with stable shortcode display modes
@@ -14,3 +14,10 @@ Includes:
 - Validation dashboard
 - Tool catalog endpoint and admin page
 - v1.1.0 documentation and tests
+- v1.2.0 Graph Studio backend, WordPress shortcode, parameter sliders, docs, and tests
+
+backend/app/engines/graph_studio_engine.py
+backend/app/routers/graph.py
+backend/tests/test_v120_graph_studio.py
+docs/V120_GRAPH_STUDIO_PARAMETER_SLIDERS.md
+terminal/V120_GRAPH_STUDIO_COMMANDS.txt

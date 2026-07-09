@@ -1,0 +1,44 @@
+Workbench v1.2.0 — Graph Studio with Parameter Sliders
+
+1. Push to GitHub
+
+cd ~/Downloads
+chmod +x push_workbench_v1_2_0_graph_studio_to_github.sh
+./push_workbench_v1_2_0_graph_studio_to_github.sh
+
+2. Render settings for the Workbench backend
+
+Root Directory: backend
+Build Command: pip install --upgrade pip && pip install -r requirements.txt
+Start Command: ./start.sh
+Environment:
+  PYTHON_VERSION=3.12.11
+  SC_WORKBENCH_ENVIRONMENT=production
+  SC_WORKBENCH_AI_PROVIDER=gemini
+  SC_WORKBENCH_GEMINI_MODEL=gemini-2.5-flash
+  SC_WORKBENCH_SCOPE_GATE=true
+  SC_WORKBENCH_CORS_ORIGINS=https://sustainablecatalyst.com
+
+3. WordPress
+
+Upload and activate:
+  sustainable-catalyst-workbench-plugin-v1.2.0.zip
+
+Use the main Workbench shortcode:
+  [sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="compact"]
+
+Or use the standalone Graph Studio shortcode:
+  [sc_workbench_graph_studio title="Graph Studio"]
+
+4. Test examples
+
+Graph Studio:
+  y = a*sin(b*x)
+  f(x) = A*exp(-k*x)*sin(omega*x)
+  y = m*x + b
+
+Chalkboard Translator:
+  x^2 + 3x - 4
+  F = m*a
+  m = 12 kg
+  a = 3.5 m/s^2

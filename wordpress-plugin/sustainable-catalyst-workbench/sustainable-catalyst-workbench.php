@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Workbench
- * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, and v1.1 Chalkboard Translator symbolic math plus engineering units.
- * Version: 1.1.0
+ * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, and v1.2 Graph Studio with parameter sliders.
+ * Version: 1.2.0
  * Author: Content Catalyst LLC
  * License: MIT
  * Text Domain: sustainable-catalyst-workbench
@@ -11,7 +11,7 @@
 if (!defined('ABSPATH')) { exit; }
 
 final class SC_Workbench_Plugin {
-    const VERSION = '1.1.0';
+    const VERSION = '1.2.0';
     const OPTION_BACKEND_URL = 'sc_workbench_backend_url';
     const OPTION_BACKEND_KEY = 'sc_workbench_backend_key';
     const OPTION_AI_PROVIDER = 'sc_workbench_ai_provider';
@@ -80,6 +80,7 @@ final class SC_Workbench_Plugin {
         add_shortcode('sc_workbench_compact', [$this, 'render_workbench']);
         add_shortcode('sc_workbench_pathways', [$this, 'render_pathways']);
         add_shortcode('sc_workbench_chalkboard', [$this, 'render_chalkboard']);
+        add_shortcode('sc_workbench_graph_studio', [$this, 'render_graph_studio']);
     }
 
     private function ensure_assets() {
@@ -114,6 +115,7 @@ final class SC_Workbench_Plugin {
             <div class="scwb-mode-row" role="tablist" aria-label="Workbench modes">
                 <button type="button" class="is-active" data-scwb-tab="ask">Ask</button>
                 <button type="button" data-scwb-tab="chalkboard">Chalkboard</button>
+                <button type="button" data-scwb-tab="graph">Graph Studio</button>
                 <button type="button" data-scwb-tab="calculate">Calculate</button>
                 <button type="button" data-scwb-tab="models">Models</button>
                 <button type="button" data-scwb-tab="equations">Equations</button>
@@ -135,6 +137,10 @@ final class SC_Workbench_Plugin {
 
             <div class="scwb-panel" data-scwb-panel="chalkboard">
                 <?php echo $this->chalkboard_html(); ?>
+            </div>
+
+            <div class="scwb-panel" data-scwb-panel="graph">
+                <?php echo $this->graph_studio_html(); ?>
             </div>
 
             <div class="scwb-panel" data-scwb-panel="calculate">
@@ -186,6 +192,26 @@ final class SC_Workbench_Plugin {
         <?php return ob_get_clean();
     }
 
+    public function render_graph_studio($atts) {
+        $this->ensure_assets();
+        $atts = shortcode_atts([
+            'title' => 'Graph Studio',
+            'display' => 'full'
+        ], $atts, 'sc_workbench_graph_studio');
+        $uid = 'scwb-graph-studio-' . wp_generate_uuid4();
+        ob_start(); ?>
+        <section id="<?php echo esc_attr($uid); ?>" class="scwb scwb-graph-only scwb-theme-<?php echo esc_attr(get_option(self::OPTION_THEME, 'institutional')); ?> scwb-display-<?php echo esc_attr(sanitize_key($atts['display'])); ?>" data-scwb-graph-only>
+            <div class="scwb-head">
+                <p class="scwb-eyebrow">Sustainable Catalyst Workbench</p>
+                <h2><?php echo esc_html(sanitize_text_field($atts['title'])); ?></h2>
+                <p>Enter a symbolic function, adjust parameters with sliders, generate exportable graphs, and inspect the equation, assumptions, range, and derivative view.</p>
+            </div>
+            <?php echo $this->graph_studio_html(); ?>
+            <p class="scwb-fineprint">Educational and analytical support only. Not a substitute for licensed engineering, safety-critical, legal, medical, or financial judgment.</p>
+        </section>
+        <?php return ob_get_clean();
+    }
+
     private function chalkboard_html() {
         ob_start(); ?>
         <div class="scwb-chalkboard" data-scwb-chalkboard>
@@ -230,6 +256,32 @@ a = 3.5 m/s^2">x^2 + 3x - 4</textarea>
         <?php return ob_get_clean();
     }
 
+    private function graph_studio_html() {
+        ob_start(); ?>
+        <div class="scwb-graph-studio" data-scwb-graph-studio>
+            <form data-scwb-graph-form class="scwb-form scwb-graph-form">
+                <label>Graph expression
+                    <textarea name="input" rows="4" data-scwb-graph-input placeholder="Examples:
+y = a*sin(b*x)
+f(x) = A*exp(-k*x)*sin(omega*x)
+y = m*x + b">y = a*sin(b*x)</textarea>
+                    <small>Use <code>x</code> as the graph axis and symbols such as <code>a</code>, <code>b</code>, <code>k</code>, or <code>omega</code> as adjustable slider parameters.</small>
+                </label>
+                <div class="scwb-inline-controls scwb-graph-controls-row">
+                    <label>Variable <input name="variable" type="text" value="x"></label>
+                    <label>x min <input name="x_min" type="number" value="-10" step="any"></label>
+                    <label>x max <input name="x_max" type="number" value="10" step="any"></label>
+                    <label>Samples <input name="points" type="number" value="700" step="1" min="80" max="2000"></label>
+                    <label class="scwb-check-label"><input name="show_derivative" type="checkbox" value="1"> Show derivative</label>
+                    <button type="submit" class="scwb-button">Generate Graph</button>
+                </div>
+            </form>
+            <div class="scwb-graph-slider-panel" data-scwb-graph-sliders hidden></div>
+            <div class="scwb-output" data-scwb-graph-output hidden></div>
+        </div>
+        <?php return ob_get_clean();
+    }
+
     public function render_pathways($atts) {
         $this->ensure_assets();
         return '<div class="scwb scwb-pathways-only">' . $this->pathways_html() . '</div>';
@@ -270,6 +322,7 @@ a = 3.5 m/s^2">x^2 + 3x - 4</textarea>
         register_rest_route('sc-workbench/v1', '/tool-catalog', ['methods'=>'GET', 'callback'=>[$this,'rest_tool_catalog'], 'permission_callback'=>'__return_true']);
         register_rest_route('sc-workbench/v1', '/placement-assistant', ['methods'=>'GET', 'callback'=>[$this,'rest_placement_assistant'], 'permission_callback'=>[$this,'admin_permission']]);
         register_rest_route('sc-workbench/v1', '/symbolic', ['methods'=>'POST', 'callback'=>[$this,'rest_symbolic'], 'permission_callback'=>'__return_true']);
+        register_rest_route('sc-workbench/v1', '/graph', ['methods'=>'POST', 'callback'=>[$this,'rest_graph'], 'permission_callback'=>'__return_true']);
     }
 
     public function admin_permission() { return current_user_can('manage_options'); }
@@ -348,6 +401,42 @@ a = 3.5 m/s^2">x^2 + 3x - 4</textarea>
                     'required_action'=>'Deploy or start the FastAPI backend and confirm the Backend URL in SC Workbench settings.'
                 ],
                 'warnings'=>['Symbolic math, unit-aware analysis, and graph generation require the FastAPI backend.'],
+                'disclaimer'=>'Educational support only. Engineering outputs require qualified professional review.'
+            ], 200);
+        }
+        return new WP_REST_Response($res, 200);
+    }
+
+    public function rest_graph(WP_REST_Request $request) {
+        $payload = $request->get_json_params();
+        $payload = is_array($payload) ? $payload : [];
+        $payload['input'] = sanitize_textarea_field($payload['input'] ?? '');
+        $payload['variable'] = sanitize_text_field($payload['variable'] ?? 'x');
+        $payload['x_min'] = is_numeric($payload['x_min'] ?? null) ? floatval($payload['x_min']) : -10;
+        $payload['x_max'] = is_numeric($payload['x_max'] ?? null) ? floatval($payload['x_max']) : 10;
+        $payload['points'] = is_numeric($payload['points'] ?? null) ? intval($payload['points']) : 700;
+        $payload['show_derivative'] = !empty($payload['show_derivative']);
+        $params = [];
+        if (isset($payload['parameters']) && is_array($payload['parameters'])) {
+            foreach ($payload['parameters'] as $key => $value) {
+                $safe_key = preg_replace('/[^A-Za-z0-9_]/', '', sanitize_text_field((string)$key));
+                if ($safe_key !== '' && is_numeric($value)) { $params[$safe_key] = floatval($value); }
+            }
+        }
+        $payload['parameters'] = $params;
+        $res = $this->backend_post('/graph/studio', $payload);
+        if (is_wp_error($res)) {
+            return new WP_REST_Response([
+                'ok'=>false,
+                'tool'=>'Graph Studio',
+                'summary'=>'The Graph Studio interface is loaded, but the graph backend is not reachable from WordPress.',
+                'error'=>$res->get_error_message(),
+                'values'=>[
+                    'keyboard_input'=>$payload['input'],
+                    'backend_status'=>'offline_or_unreachable',
+                    'required_action'=>'Deploy or start the FastAPI backend and confirm the Backend URL in SC Workbench settings.'
+                ],
+                'warnings'=>['Graph Studio requires the FastAPI backend for symbolic parsing, parameter sliders, and SVG graph generation.'],
                 'disclaimer'=>'Educational support only. Engineering outputs require qualified professional review.'
             ], 200);
         }
@@ -475,7 +564,7 @@ a = 3.5 m/s^2">x^2 + 3x - 4</textarea>
             if (!$this->feature_builder_count()) {
                 $this->import_feature_builder_from_file($this->bundled_feature_builder_queue_csv(), true);
             }
-            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, and v1.1 Chalkboard Translator symbolic math plus engineering units.
+            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, and v1.2 Graph Studio with parameter sliders.
             // The equation table is a generated cache, so it is safe to clear during scanner upgrades and rebuild from posts.
             if ($old_version && version_compare($old_version, '0.9.4', '<')) {
                 $this->clear_equation_registry();
@@ -1050,7 +1139,7 @@ a = 3.5 m/s^2">x^2 + 3x - 4</textarea>
                 </div>
                 <?php submit_button('Save Workbench Settings'); ?>
             </form>
-            <section class="scwb-admin-card"><h2>Shortcodes</h2><code>[sc_workbench topic="research-library" title="Ask the Sustainable Catalyst Workbench"]</code><br><code>[sc_workbench mode="library" topic="research-library"]</code><br><code>[sc_workbench mode="auto"]</code><br><code>[sc_workbench article="article-slug"]</code><br><code>[sc_workbench_pathways]</code><br><code>[sc_workbench mode="tool" display="compact" tool="systems-modeling-tool" article="article-slug"]</code><p><a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-equations')); ?>">Open Equation Registry →</a> · <a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-feature-builder')); ?>">Open Feature Builder →</a> · <a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-embed-shortcodes')); ?>">Open Embed Shortcodes →</a> · <a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-placement-assistant')); ?>">Open Placement Assistant →</a> · <a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-validation-dashboard')); ?>">Open Validation Dashboard →</a></p></section>
+            <section class="scwb-admin-card"><h2>Shortcodes</h2><code>[sc_workbench topic="research-library" title="Ask the Sustainable Catalyst Workbench"]</code><br><code>[sc_workbench mode="library" topic="research-library"]</code><br><code>[sc_workbench mode="auto"]</code><br><code>[sc_workbench article="article-slug"]</code><br><code>[sc_workbench_pathways]</code><br><code>[sc_workbench_chalkboard title="Chalkboard Translator"]</code><br><code>[sc_workbench_graph_studio title="Graph Studio"]</code><br><code>[sc_workbench mode="tool" display="compact" tool="systems-modeling-tool" article="article-slug"]</code><p><a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-equations')); ?>">Open Equation Registry →</a> · <a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-feature-builder')); ?>">Open Feature Builder →</a> · <a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-embed-shortcodes')); ?>">Open Embed Shortcodes →</a> · <a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-placement-assistant')); ?>">Open Placement Assistant →</a> · <a href="<?php echo esc_url(admin_url('admin.php?page=sustainable-catalyst-workbench-validation-dashboard')); ?>">Open Validation Dashboard →</a></p></section>
         </div>
     <?php }
 
