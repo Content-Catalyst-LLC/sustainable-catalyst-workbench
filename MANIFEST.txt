@@ -29,3 +29,11 @@ terminal/V130_ENGINEERING_MODE_COMMANDS.txt
 ## v1.4.0 Core Engineering Calculators
 
 Adds a core engineering calculator library for mechanics, stress/strain, beam deflection, circuits, RC response, heat transfer, pump power, energy emissions, and FMEA-style risk screening. Outputs include calculation notes, assumptions, validation checks, warnings, and sensitivity graphs.
+
+
+## v1.5.0 Exportable Calculation Reports
+- Added backend calculation report engine.
+- Added POST /reports/calculation endpoint.
+- Added WordPress REST proxy /wp-json/sc-workbench/v1/calculation-report.
+- Added Markdown, HTML, copy, Print/PDF, JSON report export actions to result panels.
+- Added report generation tests and documentation.

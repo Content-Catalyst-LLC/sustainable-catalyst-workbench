@@ -1,4 +1,4 @@
-# Sustainable Catalyst Workbench v1.4.0
+# Sustainable Catalyst Workbench v1.5.0
 
 A compact AI-enabled research and analytics workbench for modeling, calculating, visualizing, and interpreting complex systems across science, sustainability, engineering, architecture, psychology, economics, governance, and meaning.
 
@@ -149,3 +149,22 @@ Backend endpoint: `POST /graph/studio`. WordPress REST proxy: `/wp-json/sc-workb
 ## v1.4.0 Core Engineering Calculators
 
 Adds a core engineering calculator library for mechanics, stress/strain, beam deflection, circuits, RC response, heat transfer, pump power, energy emissions, and FMEA-style risk screening. Outputs include calculation notes, assumptions, validation checks, warnings, and sensitivity graphs.
+
+
+## v1.5.0 Exportable Calculation Reports
+
+Phase 5 adds backend-generated calculation reports for Workbench results. Engineering Calculator and Engineering Mode outputs can now be exported as structured Markdown and HTML calculation notes with purpose, formula, inputs, units, computed results, graphs, assumptions, validation checks, methods, warnings, and professional-review boundaries.
+
+Backend endpoint:
+
+```text
+POST /reports/calculation
+```
+
+WordPress proxy endpoint:
+
+```text
+/wp-json/sc-workbench/v1/calculation-report
+```
+
+Report export buttons now appear in Workbench result panels: Print/PDF, Markdown Report, HTML Report, Copy Report, and Download JSON.

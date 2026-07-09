@@ -4,7 +4,7 @@
   const safeName = s => String(s||'workbench').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,80) || 'workbench';
   function downloadBlob(name, blob){ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},500); }
   function renderValues(values){ if(!values) return ''; return '<dl class="scwb-values">' + Object.entries(values).map(([k,v])=>`<div><dt>${esc(k.replaceAll('_',' '))}</dt><dd>${esc(typeof v==='object'?JSON.stringify(v):v)}</dd></div>`).join('') + '</dl>'; }
-  function exportRow(hasGraphs){ return `<div class="scwb-export-row"><button type="button" class="scwb-mini" data-scwb-export="pdf">PDF Report</button><button type="button" class="scwb-mini" data-scwb-export="json">Download JSON</button>${hasGraphs?'<span>Graph images: use SVG/PNG buttons below each figure.</span>':''}</div>`; }
+  function exportRow(hasGraphs){ return `<div class="scwb-export-row"><button type="button" class="scwb-mini" data-scwb-export="pdf">Print/PDF</button><button type="button" class="scwb-mini" data-scwb-export="report-md">Markdown Report</button><button type="button" class="scwb-mini" data-scwb-export="report-html">HTML Report</button><button type="button" class="scwb-mini" data-scwb-export="report-copy">Copy Report</button><button type="button" class="scwb-mini" data-scwb-export="json">Download JSON</button>${hasGraphs?'<span>Graph images: use SVG/PNG buttons below each figure.</span>':''}</div>`; }
   function renderResult(data){
     if(!data) return '<p>No response.</p>';
     if(data.answer) return `<div class="scwb-answer"><p>${esc(data.answer).replace(/\n/g,'<br>')}</p>${data.recommended_tools?'<h4>Recommended tools</h4><ul>'+data.recommended_tools.slice(0,5).map(t=>`<li>${esc(t.title)} <span>${esc(t.domain)}</span></li>`).join('')+'</ul>':''}</div>`;
@@ -25,6 +25,30 @@
     const title=esc(data && data.tool ? data.tool : 'Sustainable Catalyst Workbench Report');
     w.document.write(`<!doctype html><html><head><title>${title}</title><meta charset="utf-8"><style>body{font-family:Arial,Helvetica,sans-serif;margin:34px;color:#111}.scwb-result{max-width:980px}.scwb-export-row,.scwb-graph-actions{display:none}.scwb-values{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.scwb-values div{border:1px solid #ddd;padding:8px}.scwb-graph{break-inside:avoid;border:1px solid #ddd;padding:12px;margin:16px 0}.scwb-graph svg{max-width:100%;height:auto}.scwb-warnings{border-left:4px solid #b40000;padding-left:12px}.scwb-disclaimer{font-size:12px;color:#555;border-top:1px solid #ddd;padding-top:12px}@page{margin:.6in}</style></head><body><p style="text-transform:uppercase;letter-spacing:.08em;color:#b40000;font-weight:bold">Sustainable Catalyst Workbench</p>${html}<script>window.onload=()=>setTimeout(()=>window.print(),300)<\/script></body></html>`);
     w.document.close();
+  }
+  function calculationReportPayload(data){
+    return {source_result:data || {}, include_graphs:true, report_type:'engineering_calculation_note'};
+  }
+  function requestCalculationReport(data){
+    return api('/calculation-report',{method:'POST',body:JSON.stringify(calculationReportPayload(data))});
+  }
+  function downloadCalculationReport(data, format){
+    if(!data) return alert('Run a Workbench calculation before exporting a report.');
+    requestCalculationReport(data).then(report=>{
+      if(!report || report.ok===false) return alert((report && (report.error || report.summary)) || 'Report generation failed.');
+      const base=safeName(report.filename_base || report.report_title || data.tool || 'calculation-report');
+      const formats=report.formats || {};
+      if(format==='md') return downloadBlob(base+'.md', new Blob([formats.markdown || ''], {type:'text/markdown'}));
+      if(format==='html') return downloadBlob(base+'.html', new Blob([formats.html || ''], {type:'text/html'}));
+      if(format==='copy'){
+        const text=formats.markdown || formats.text || '';
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(text).then(()=>alert('Calculation report copied to clipboard.')).catch(()=>downloadBlob(base+'.md', new Blob([text], {type:'text/markdown'})));
+        } else {
+          downloadBlob(base+'.md', new Blob([text], {type:'text/markdown'}));
+        }
+      }
+    }).catch(err=>alert('Report generation failed: '+err.message));
   }
   function svgMarkupFromFigure(fig){ const svg=fig && fig.querySelector('svg'); return svg ? new XMLSerializer().serializeToString(svg) : ''; }
   function downloadSvg(fig){ const title=(fig.querySelector('figcaption')||{}).textContent || 'graph'; const svg=svgMarkupFromFigure(fig); if(!svg) return; downloadBlob(safeName(title)+'.svg', new Blob([svg], {type:'image/svg+xml'})); }
@@ -236,6 +260,9 @@
     const out=ev.target.closest('.scwb-output') || document.querySelector('.scwb-output');
     const data=out && out.__scwbLastResult ? out.__scwbLastResult : null;
     if(action==='json' && data){ downloadBlob(safeName(data.tool||'workbench-result')+'.json', new Blob([JSON.stringify(data,null,2)], {type:'application/json'})); return true; }
+    if(action==='report-md'){ downloadCalculationReport(data, 'md'); return true; }
+    if(action==='report-html'){ downloadCalculationReport(data, 'html'); return true; }
+    if(action==='report-copy'){ downloadCalculationReport(data, 'copy'); return true; }
     if(action==='pdf'){ const res=ev.target.closest('.scwb-result'); openPdfReport(data||{}, res ? res.outerHTML : ''); return true; }
     if(action==='svg'){ downloadSvg(ev.target.closest('.scwb-graph')); return true; }
     if(action==='png'){ downloadPng(ev.target.closest('.scwb-graph')); return true; }

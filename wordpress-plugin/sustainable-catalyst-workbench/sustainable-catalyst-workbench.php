@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Workbench
- * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, and v1.4 Core Engineering Calculators.
- * Version: 1.4.0
+ * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, v1.4 Core Engineering Calculators, and v1.5 Exportable Calculation Reports.
+ * Version: 1.5.0
  * Author: Content Catalyst LLC
  * License: MIT
  * Text Domain: sustainable-catalyst-workbench
@@ -11,7 +11,7 @@
 if (!defined('ABSPATH')) { exit; }
 
 final class SC_Workbench_Plugin {
-    const VERSION = '1.4.0';
+    const VERSION = '1.5.0';
     const OPTION_BACKEND_URL = 'sc_workbench_backend_url';
     const OPTION_BACKEND_KEY = 'sc_workbench_backend_key';
     const OPTION_AI_PROVIDER = 'sc_workbench_ai_provider';
@@ -449,6 +449,7 @@ a = 3.5 m/s^2</textarea>
         register_rest_route('sc-workbench/v1', '/engineering', ['methods'=>'POST', 'callback'=>[$this,'rest_engineering'], 'permission_callback'=>'__return_true']);
         register_rest_route('sc-workbench/v1', '/engineering-calculators', ['methods'=>'GET', 'callback'=>[$this,'rest_engineering_calculators'], 'permission_callback'=>'__return_true']);
         register_rest_route('sc-workbench/v1', '/engineering-calculate', ['methods'=>'POST', 'callback'=>[$this,'rest_engineering_calculate'], 'permission_callback'=>'__return_true']);
+        register_rest_route('sc-workbench/v1', '/calculation-report', ['methods'=>'POST', 'callback'=>[$this,'rest_calculation_report'], 'permission_callback'=>'__return_true']);
     }
 
     public function admin_permission() { return current_user_can('manage_options'); }
@@ -642,6 +643,35 @@ a = 3.5 m/s^2</textarea>
         return new WP_REST_Response($res, 200);
     }
 
+
+    public function rest_calculation_report(WP_REST_Request $request) {
+        $payload = $request->get_json_params();
+        $payload = is_array($payload) ? $payload : [];
+        if (!isset($payload['source_result']) || !is_array($payload['source_result'])) {
+            $payload['source_result'] = [];
+        }
+        $payload['include_graphs'] = !empty($payload['include_graphs']);
+        $payload['report_type'] = sanitize_key($payload['report_type'] ?? 'engineering_calculation_note');
+        if (!$payload['report_type']) { $payload['report_type'] = 'engineering_calculation_note'; }
+        $res = $this->backend_post('/reports/calculation', $payload);
+        if (is_wp_error($res)) {
+            return new WP_REST_Response([
+                'ok'=>false,
+                'tool'=>'Exportable Calculation Reports',
+                'summary'=>'The report exporter is loaded, but the Workbench backend report endpoint is not reachable from WordPress.',
+                'error'=>$res->get_error_message(),
+                'warnings'=>['Deploy or start the Workbench backend v1.5.0 and confirm the Backend URL in SC Workbench settings.'],
+                'formats'=>[
+                    'markdown'=>'# Workbench calculation report unavailable\n\nThe report backend was not reachable. Confirm that the Workbench backend is deployed and running v1.5.0.',
+                    'html'=>'<p>Workbench calculation report unavailable. Confirm that the backend is deployed and running v1.5.0.</p>',
+                    'text'=>'Workbench calculation report unavailable.'
+                ],
+                'filename_base'=>'workbench-report-unavailable'
+            ], 200);
+        }
+        return new WP_REST_Response($res, 200);
+    }
+
     public function rest_ask(WP_REST_Request $request) {
         if (get_option(self::OPTION_ENABLE_AI, '1') !== '1') { return new WP_REST_Response(['ok'=>false, 'answer'=>'AI is disabled in Workbench settings.'], 200); }
         $payload = $request->get_json_params();
@@ -763,7 +793,7 @@ a = 3.5 m/s^2</textarea>
             if (!$this->feature_builder_count()) {
                 $this->import_feature_builder_from_file($this->bundled_feature_builder_queue_csv(), true);
             }
-            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, and v1.4 Core Engineering Calculators.
+            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, v1.4 Core Engineering Calculators, and v1.5 Exportable Calculation Reports.
             // The equation table is a generated cache, so it is safe to clear during scanner upgrades and rebuild from posts.
             if ($old_version && version_compare($old_version, '0.9.4', '<')) {
                 $this->clear_equation_registry();
