@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Workbench
- * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, and public tool catalog endpoints.
- * Version: 1.0.0
+ * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, and v1.1 Chalkboard Translator symbolic math plus engineering units.
+ * Version: 1.1.0
  * Author: Content Catalyst LLC
  * License: MIT
  * Text Domain: sustainable-catalyst-workbench
@@ -11,7 +11,7 @@
 if (!defined('ABSPATH')) { exit; }
 
 final class SC_Workbench_Plugin {
-    const VERSION = '1.0.0';
+    const VERSION = '1.1.0';
     const OPTION_BACKEND_URL = 'sc_workbench_backend_url';
     const OPTION_BACKEND_KEY = 'sc_workbench_backend_key';
     const OPTION_AI_PROVIDER = 'sc_workbench_ai_provider';
@@ -79,6 +79,7 @@ final class SC_Workbench_Plugin {
         add_shortcode('sc_workbench', [$this, 'render_workbench']);
         add_shortcode('sc_workbench_compact', [$this, 'render_workbench']);
         add_shortcode('sc_workbench_pathways', [$this, 'render_pathways']);
+        add_shortcode('sc_workbench_chalkboard', [$this, 'render_chalkboard']);
     }
 
     private function ensure_assets() {
@@ -112,6 +113,7 @@ final class SC_Workbench_Plugin {
             </div>
             <div class="scwb-mode-row" role="tablist" aria-label="Workbench modes">
                 <button type="button" class="is-active" data-scwb-tab="ask">Ask</button>
+                <button type="button" data-scwb-tab="chalkboard">Chalkboard</button>
                 <button type="button" data-scwb-tab="calculate">Calculate</button>
                 <button type="button" data-scwb-tab="models">Models</button>
                 <button type="button" data-scwb-tab="equations">Equations</button>
@@ -129,6 +131,10 @@ final class SC_Workbench_Plugin {
                     </div>
                 </form>
                 <div class="scwb-output" data-scwb-ask-output hidden></div>
+            </div>
+
+            <div class="scwb-panel" data-scwb-panel="chalkboard">
+                <?php echo $this->chalkboard_html(); ?>
             </div>
 
             <div class="scwb-panel" data-scwb-panel="calculate">
@@ -157,6 +163,70 @@ final class SC_Workbench_Plugin {
             </div>
             <p class="scwb-fineprint">Educational and analytical support only. Not a substitute for licensed engineering, architecture, clinical, legal, financial, or safety-critical professional judgment.</p>
         </section>
+        <?php return ob_get_clean();
+    }
+
+    public function render_chalkboard($atts) {
+        $this->ensure_assets();
+        $atts = shortcode_atts([
+            'title' => 'Chalkboard Translator',
+            'display' => 'full'
+        ], $atts, 'sc_workbench_chalkboard');
+        $uid = 'scwb-chalkboard-' . wp_generate_uuid4();
+        ob_start(); ?>
+        <section id="<?php echo esc_attr($uid); ?>" class="scwb scwb-chalkboard-only scwb-theme-<?php echo esc_attr(get_option(self::OPTION_THEME, 'institutional')); ?> scwb-display-<?php echo esc_attr(sanitize_key($atts['display'])); ?>" data-scwb-chalkboard-only>
+            <div class="scwb-head">
+                <p class="scwb-eyebrow">Sustainable Catalyst Workbench</p>
+                <h2><?php echo esc_html(sanitize_text_field($atts['title'])); ?></h2>
+                <p>Type keyboard math, engineering formulas, or unit-aware expressions and translate them into chalkboard notation, LaTeX, SymPy code, symbolic results, unit notes, and graphs.</p>
+            </div>
+            <?php echo $this->chalkboard_html(); ?>
+            <p class="scwb-fineprint">Educational and analytical support only. Not a substitute for licensed engineering, safety-critical, legal, medical, or financial judgment.</p>
+        </section>
+        <?php return ob_get_clean();
+    }
+
+    private function chalkboard_html() {
+        ob_start(); ?>
+        <div class="scwb-chalkboard" data-scwb-chalkboard>
+            <div class="scwb-chalkboard-grid">
+                <form data-scwb-symbolic-form class="scwb-form scwb-symbolic-form">
+                    <label>Keyboard input
+                        <textarea name="input" rows="6" data-scwb-symbolic-input placeholder="Examples:
+x^2 + 3x - 4
+y = sin(x) + 0.3sin(3x)
+F = m*a
+m = 12 kg
+a = 3.5 m/s^2">x^2 + 3x - 4</textarea>
+                        <small>Use normal keyboard syntax: <code>^</code> for powers, <code>sqrt(x)</code>, <code>sin(theta)</code>, <code>int</code>-style notation, or engineering lines with units.</small>
+                    </label>
+                    <div class="scwb-inline-controls scwb-symbolic-controls">
+                        <label>Action
+                            <select name="action">
+                                <option value="translate">Translate</option>
+                                <option value="simplify">Simplify</option>
+                                <option value="solve">Solve</option>
+                                <option value="differentiate">Differentiate</option>
+                                <option value="integrate">Integrate</option>
+                                <option value="factor">Factor</option>
+                                <option value="expand">Expand</option>
+                                <option value="graph">Graph</option>
+                            </select>
+                        </label>
+                        <label>Variable <input name="variable" type="text" value="x"></label>
+                        <label>x min <input name="x_min" type="number" value="-10" step="any"></label>
+                        <label>x max <input name="x_max" type="number" value="10" step="any"></label>
+                        <button type="submit" class="scwb-button">Run Symbolic Analysis</button>
+                    </div>
+                </form>
+                <div class="scwb-chalkboard-preview-card">
+                    <p class="scwb-card-label">Live chalkboard preview</p>
+                    <div class="scwb-chalkboard-display" data-scwb-chalkboard-preview>x² + 3x − 4</div>
+                    <p class="scwb-muted">This preview helps users see what their keyboard input means before the backend computes it.</p>
+                </div>
+            </div>
+            <div class="scwb-output" data-scwb-symbolic-output hidden></div>
+        </div>
         <?php return ob_get_clean();
     }
 
@@ -199,6 +269,7 @@ final class SC_Workbench_Plugin {
         register_rest_route('sc-workbench/v1', '/validation-summary', ['methods'=>'GET', 'callback'=>[$this,'rest_validation_summary'], 'permission_callback'=>[$this,'admin_permission']]);
         register_rest_route('sc-workbench/v1', '/tool-catalog', ['methods'=>'GET', 'callback'=>[$this,'rest_tool_catalog'], 'permission_callback'=>'__return_true']);
         register_rest_route('sc-workbench/v1', '/placement-assistant', ['methods'=>'GET', 'callback'=>[$this,'rest_placement_assistant'], 'permission_callback'=>[$this,'admin_permission']]);
+        register_rest_route('sc-workbench/v1', '/symbolic', ['methods'=>'POST', 'callback'=>[$this,'rest_symbolic'], 'permission_callback'=>'__return_true']);
     }
 
     public function admin_permission() { return current_user_can('manage_options'); }
@@ -250,6 +321,34 @@ final class SC_Workbench_Plugin {
                 ],
                 'warnings'=>['This tool requires the Python/FastAPI backend for computation and graph generation.'],
                 'disclaimer'=>'Educational support only. Advanced calculators run on the backend, not in browser JavaScript.'
+            ], 200);
+        }
+        return new WP_REST_Response($res, 200);
+    }
+
+    public function rest_symbolic(WP_REST_Request $request) {
+        $payload = $request->get_json_params();
+        $payload = is_array($payload) ? $payload : [];
+        $payload['input'] = sanitize_textarea_field($payload['input'] ?? '');
+        $payload['action'] = sanitize_key($payload['action'] ?? 'translate');
+        $payload['variable'] = sanitize_text_field($payload['variable'] ?? 'x');
+        $payload['x_min'] = is_numeric($payload['x_min'] ?? null) ? floatval($payload['x_min']) : -10;
+        $payload['x_max'] = is_numeric($payload['x_max'] ?? null) ? floatval($payload['x_max']) : 10;
+        $payload['include_graph'] = ($payload['action'] === 'graph');
+        $res = $this->backend_post('/symbolic/analyze', $payload);
+        if (is_wp_error($res)) {
+            return new WP_REST_Response([
+                'ok'=>false,
+                'tool'=>'Chalkboard Translator + Symbolic Math',
+                'summary'=>'The Chalkboard interface is loaded, but the symbolic math backend is not reachable from WordPress.',
+                'error'=>$res->get_error_message(),
+                'values'=>[
+                    'keyboard_input'=>$payload['input'],
+                    'backend_status'=>'offline_or_unreachable',
+                    'required_action'=>'Deploy or start the FastAPI backend and confirm the Backend URL in SC Workbench settings.'
+                ],
+                'warnings'=>['Symbolic math, unit-aware analysis, and graph generation require the FastAPI backend.'],
+                'disclaimer'=>'Educational support only. Engineering outputs require qualified professional review.'
             ], 200);
         }
         return new WP_REST_Response($res, 200);
@@ -376,7 +475,7 @@ final class SC_Workbench_Plugin {
             if (!$this->feature_builder_count()) {
                 $this->import_feature_builder_from_file($this->bundled_feature_builder_queue_csv(), true);
             }
-            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, and public tool catalog endpoints.
+            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, and v1.1 Chalkboard Translator symbolic math plus engineering units.
             // The equation table is a generated cache, so it is safe to clear during scanner upgrades and rebuild from posts.
             if ($old_version && version_compare($old_version, '0.9.4', '<')) {
                 $this->clear_equation_registry();

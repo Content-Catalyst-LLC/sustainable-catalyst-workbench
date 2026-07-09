@@ -2,6 +2,58 @@
 if (!defined('ABSPATH')) { exit; }
 return [
     [
+        'id' => 'chalkboard-symbolic-math',
+        'title' => 'Chalkboard Translator + Symbolic Math',
+        'domain' => 'Mathematical Modeling',
+        'topic' => 'Symbolic Math and Engineering Units',
+        'family' => 'symbolic_math',
+        'engine' => 'python/sympy + pint',
+        'description' => 'Translate keyboard math into chalkboard notation, LaTeX, SymPy code, symbolic operations, unit-aware engineering notes, and optional function graphs.',
+        'inputs' => [
+            [
+                'name' => 'input',
+                'label' => 'Keyboard math / engineering expression',
+                'type' => 'textarea',
+                'default' => "F = m*a
+m = 12 kg
+a = 3.5 m/s^2",
+                'help' => 'Use keyboard syntax such as x^2 + 3x - 4, y = sin(x), or engineering lines with units.'
+            ],
+            [
+                'name' => 'action',
+                'label' => 'Action',
+                'type' => 'select',
+                'default' => 'translate',
+                'options' => ['translate', 'simplify', 'solve', 'differentiate', 'integrate', 'factor', 'expand', 'graph'],
+                'help' => ''
+            ],
+            [
+                'name' => 'variable',
+                'label' => 'Variable',
+                'type' => 'text',
+                'default' => 'x',
+                'help' => ''
+            ],
+            [
+                'name' => 'x_min',
+                'label' => 'Graph x min',
+                'type' => 'number',
+                'default' => '-10',
+                'help' => ''
+            ],
+            [
+                'name' => 'x_max',
+                'label' => 'Graph x max',
+                'type' => 'number',
+                'default' => '10',
+                'help' => ''
+            ]
+        ],
+        'graph_types' => ['function_curve', 'symbolic_translation', 'unit_check'],
+        'audience_modes' => ['guided', 'analyst', 'expert'],
+        'safety_level' => 'professional_review_required'
+    ],
+    [
         'id' => 'linear-system-solver',
         'title' => 'Linear System Solver',
         'domain' => 'Mathematical Modeling',

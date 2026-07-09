@@ -9,3 +9,5 @@ matplotlib>=3.8,<4
 requests>=2.31,<3
 python-dotenv>=1.0,<2
 pytest>=8,<9
+sympy>=1.12,<2
+pint>=0.23,<1

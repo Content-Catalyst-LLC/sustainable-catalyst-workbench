@@ -125,3 +125,15 @@ Adds **SC Workbench → Embed Shortcodes**, which analyzes indexed equations by 
 ## v1.0.0 Stable Workbench Core
 
 v1.0.0 adds stable shortcode display modes, an Article Calculator Placement Assistant, a Validation Dashboard, and a Tool Catalog. Use `display="inline"`, `display="compact"`, `display="full"`, or `display="drawer"` to embed calculators near formulas without overwhelming long pages.
+
+## v1.1.0 — Chalkboard Translator + Symbolic Math + Units
+
+Workbench v1.1.0 adds Phase 1 of the advanced symbolic calculator layer:
+
+- `POST /symbolic/analyze` FastAPI endpoint.
+- WordPress `/wp-json/sc-workbench/v1/symbolic` proxy.
+- Chalkboard tab inside `[sc_workbench]`.
+- Standalone shortcode: `[sc_workbench_chalkboard title="Chalkboard Translator"]`.
+- Keyboard math translation to chalkboard preview, LaTeX, SymPy code, symbolic operations, optional SVG graphs, and unit-aware engineering notes.
+
+See `docs/V110_CHALKBOARD_SYMBOLIC_MATH_UNITS.md`.

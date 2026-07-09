@@ -1,13 +1,16 @@
-Sustainable Catalyst Workbench v1.0.0
+Sustainable Catalyst Workbench v1.1.0
 
-Stable Workbench Core, Placement Assistant, and Validation Dashboard.
+Chalkboard Translator, Symbolic Math, Engineering Units, Stable Workbench Core, Placement Assistant, and Validation Dashboard.
 
 Includes:
 - WordPress plugin with stable shortcode display modes
+- New Chalkboard tab inside [sc_workbench]
+- New standalone [sc_workbench_chalkboard] shortcode
 - FastAPI backend with routing and calculator engines
+- New /symbolic/analyze endpoint for symbolic math, LaTeX, SymPy code, unit notes, and graphs
 - Equation registry and CSV export
 - Calculator backlog and feature builder
 - Article calculator placement assistant
 - Validation dashboard
 - Tool catalog endpoint and admin page
-- v1.0.0 documentation and terminal commands
+- v1.1.0 documentation and tests

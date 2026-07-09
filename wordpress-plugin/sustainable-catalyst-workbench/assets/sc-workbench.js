@@ -30,6 +30,52 @@
   function downloadSvg(fig){ const title=(fig.querySelector('figcaption')||{}).textContent || 'graph'; const svg=svgMarkupFromFigure(fig); if(!svg) return; downloadBlob(safeName(title)+'.svg', new Blob([svg], {type:'image/svg+xml'})); }
   function downloadPng(fig){ const title=(fig.querySelector('figcaption')||{}).textContent || 'graph'; const svg=svgMarkupFromFigure(fig); if(!svg) return; const img=new Image(); const url=URL.createObjectURL(new Blob([svg], {type:'image/svg+xml'})); img.onload=function(){ const scale=2; const canvas=document.createElement('canvas'); canvas.width=(img.width||900)*scale; canvas.height=(img.height||520)*scale; const ctx=canvas.getContext('2d'); ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.drawImage(img,0,0,canvas.width,canvas.height); canvas.toBlob(blob=>downloadBlob(safeName(title)+'.png', blob), 'image/png'); URL.revokeObjectURL(url); }; img.src=url; }
 
+
+  function keyboardPreview(s){
+    let out=String(s||'').split('\n')[0] || '';
+    const reps=[['theta','θ'],['lambda','λ'],['sigma','σ'],['omega','ω'],['alpha','α'],['beta','β'],['gamma','γ'],['delta','δ'],['phi','φ'],['pi','π'],['sqrt','√'],['<=','≤'],['>=','≥'],['!=','≠'],['->','→'],['+-','±']];
+    reps.forEach(([a,b])=>{ out=out.replace(new RegExp('(^|[^A-Za-z])'+a+'([^A-Za-z]|$)','g'), (m,p,q)=>p+b+q); });
+    const sup={'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹','+':'⁺','-':'⁻','=':'⁼','(':'⁽',')':'⁾','n':'ⁿ'};
+    const sub={'0':'₀','1':'₁','2':'₂','3':'₃','4':'₄','5':'₅','6':'₆','7':'₇','8':'₈','9':'₉','+':'₊','-':'₋','=':'₌','(':'₍',')':'₎','n':'ₙ'};
+    out=out.replace(/\^\{([^{}]+)\}/g, (_,x)=>String(x).split('').map(ch=>sup[ch]||ch).join(''));
+    out=out.replace(/\^([A-Za-z0-9+\-=()]+)/g, (_,x)=>String(x).split('').map(ch=>sup[ch]||ch).join(''));
+    out=out.replace(/_\{([^{}]+)\}/g, (_,x)=>String(x).split('').map(ch=>sub[ch]||ch).join(''));
+    out=out.replace(/_([A-Za-z0-9+\-=()]+)/g, (_,x)=>String(x).split('').map(ch=>sub[ch]||ch).join(''));
+    out=out.replace(/\*/g,'·').replace(/-/g,'−');
+    return out || 'Type an equation to preview it here.';
+  }
+  function renderCodeBlock(label, value){ if(value===undefined || value===null || value==='') return ''; return `<div class="scwb-code-row"><strong>${esc(label)}</strong><code>${esc(typeof value==='object'?JSON.stringify(value,null,2):value)}</code></div>`; }
+  function renderSymbolicResult(data){
+    if(!data) return '<p>No response.</p>';
+    if(data.ok===false) return renderResult(data);
+    const v=data.values||{};
+    const unit=v.unit_analysis ? `<div class="scwb-unit-box"><h4>Unit-aware engineering notes</h4>${renderCodeBlock('Result', v.unit_analysis.quantity || '')}${renderCodeBlock('Units', v.unit_analysis.units || '')}${renderCodeBlock('Assignments', v.unit_analysis.assignments || {})}</div>` : '';
+    const steps=(data.steps||[]).length ? '<ol class="scwb-steps">'+data.steps.map(step=>`<li>${esc(step)}</li>`).join('')+'</ol>' : '';
+    const warnings=(data.warnings||[]).length ? '<div class="scwb-warnings"><strong>Warnings</strong><ul>'+data.warnings.map(w=>`<li>${esc(w)}</li>`).join('')+'</ul></div>' : '';
+    const graphs=(data.graphs||[]).map((g,i)=>`<figure class="scwb-graph" data-graph-index="${i}"><figcaption>${esc(g.title||'Graph')}</figcaption>${g.svg||''}<div class="scwb-graph-actions"><button type="button" class="scwb-mini" data-scwb-export="svg">Download SVG</button><button type="button" class="scwb-mini" data-scwb-export="png">Download PNG</button></div></figure>`).join('');
+    return `<div class="scwb-result scwb-symbolic-result"><h3>${esc(data.tool||'Chalkboard Translator')}</h3><p>${esc(data.summary||'')}</p>${exportRow((data.graphs||[]).length>0)}<div class="scwb-symbolic-layout"><div class="scwb-chalkboard-display scwb-chalkboard-display-large">${esc(v.chalkboard_preview||'')}</div><div class="scwb-code-stack">${renderCodeBlock('LaTeX', v.latex)}${renderCodeBlock('SymPy', v.sympy_code)}${renderCodeBlock('Operation', v.operation)}${renderCodeBlock('Symbolic result', v.symbolic_result)}${renderCodeBlock('LaTeX result', v.latex_result)}${renderCodeBlock('Variables', v.variables)}</div></div>${unit}${warnings}${steps}${graphs}<p class="scwb-disclaimer">${esc(data.disclaimer||'Educational support only. Engineering outputs require qualified professional review.')}</p></div>`;
+  }
+  function initSymbolicForms(root=document){
+    root.querySelectorAll('[data-scwb-symbolic-form]').forEach(form=>{
+      if(form.__scwbSymbolicReady) return;
+      form.__scwbSymbolicReady=true;
+      const wrap=form.closest('[data-scwb-chalkboard]') || form.closest('.scwb') || root;
+      const input=form.querySelector('[data-scwb-symbolic-input]') || form.querySelector('textarea[name="input"]');
+      const preview=wrap.querySelector('[data-scwb-chalkboard-preview]');
+      const out=wrap.querySelector('[data-scwb-symbolic-output]');
+      const update=()=>{ if(preview && input) preview.textContent=keyboardPreview(input.value); };
+      input && input.addEventListener('input', update);
+      update();
+      form.addEventListener('submit', ev=>{
+        ev.preventDefault();
+        const fd=new FormData(form);
+        const payload={input:fd.get('input')||'', action:fd.get('action')||'translate', variable:fd.get('variable')||'x', x_min:fd.get('x_min')||-10, x_max:fd.get('x_max')||10};
+        if(out){ out.hidden=false; out.innerHTML='<p class="scwb-muted">Running symbolic math and unit checks…</p>'; }
+        api('/symbolic',{method:'POST',body:JSON.stringify(payload)}).then(d=>{ if(out){ out.__scwbLastResult=d; out.innerHTML=renderSymbolicResult(d); } }).catch(err=>{ if(out){ out.innerHTML='<div class="scwb-error">'+esc(err.message)+'</div>'; } });
+      });
+    });
+  }
+
   function shouldUseLibraryEquationMode(el){
     const topic = (el.dataset.topic || '').toLowerCase();
     const slug = (el.dataset.articleSlug || '').toLowerCase();
@@ -68,6 +114,7 @@
   }
 
   function initWorkbench(el){
+    initSymbolicForms(el);
     const topic = el.dataset.topic || 'research-library';
     const displayMode = (el.dataset.display || 'compact').toLowerCase();
     if(displayMode === 'drawer'){
@@ -156,5 +203,5 @@
     open && open.addEventListener('click',()=>{ const id=select && select.value; const spec=tools.find(t=>t.id===id); const shell=el.querySelector('[data-scwb-tool-shell]'); if(!shell) return; if(!spec){ shell.innerHTML='<div class="scwb-error">No calculator is selected. Reload the page or check that the Workbench plugin assets are active.</div>'; return; } shell.innerHTML=`<form class="scwb-tool-form"><h3>${esc(spec.title)}</h3><p>${esc(spec.description)}</p>${(spec.inputs||[]).map(fieldHtml).join('')}<button class="scwb-button" type="submit">Run Calculator</button><div class="scwb-output" data-tool-output></div></form>`; shell.querySelector('form').addEventListener('submit', ev=>{ ev.preventDefault(); const fd=new FormData(ev.currentTarget); const inputs={}; for(const [k,v] of fd.entries()) inputs[k]=v; const out=shell.querySelector('[data-tool-output]'); out.innerHTML='<p class="scwb-muted">Running backend analytics…</p>'; api('/run',{method:'POST',body:JSON.stringify({tool_id:id, inputs, mode:(el.querySelector('[data-scwb-tool-mode]')||{}).value||'guided', topic})}).then(d=>storeAndRender(out,d)).catch(err=>out.innerHTML='<div class="scwb-error">'+esc(err.message)+'</div>'); }); });
   }
   function renderModels(el, tools){ const box=el.querySelector('[data-scwb-models]'); if(!box) return; const groups={}; tools.forEach(t=>{ (groups[t.domain]||(groups[t.domain]=[])).push(t); }); box.innerHTML=Object.entries(groups).map(([domain,items])=>`<section><h3>${esc(domain)}</h3><ul>${items.map(t=>`<li><strong>${esc(t.title)}</strong><span>${esc(t.family)} · ${esc(t.engine)}</span></li>`).join('')}</ul></section>`).join(''); }
-  document.addEventListener('DOMContentLoaded',()=>document.querySelectorAll('[data-scwb]').forEach(initWorkbench));
+  document.addEventListener('DOMContentLoaded',()=>{ document.querySelectorAll('[data-scwb]').forEach(initWorkbench); initSymbolicForms(document); });
 })();
