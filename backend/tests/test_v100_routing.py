@@ -6,7 +6,7 @@ client = TestClient(app)
 def test_health_v100():
     data = client.get('/health').json()
     assert data['ok'] is True
-    assert data['version'] in {'1.3.0', '1.4.0', '1.5.0'}
+    assert data['version'] in {'1.3.0', '1.4.0', '1.5.0', '1.6.0'}
 
 def test_shortcode_recommend_includes_display_mode():
     payload = {

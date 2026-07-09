@@ -1,4 +1,4 @@
-# Sustainable Catalyst Workbench v1.5.0
+# Sustainable Catalyst Workbench v1.6.0
 
 A compact AI-enabled research and analytics workbench for modeling, calculating, visualizing, and interpreting complex systems across science, sustainability, engineering, architecture, psychology, economics, governance, and meaning.
 
@@ -168,3 +168,13 @@ WordPress proxy endpoint:
 ```
 
 Report export buttons now appear in Workbench result panels: Print/PDF, Markdown Report, HTML Report, Copy Report, and Download JSON.
+
+
+## v1.6.0 Article-Embedded Calculators Near Formulas
+- Added backend formula embed planner: POST /articles/formula-embed.
+- Added WordPress REST proxy /wp-json/sc-workbench/v1/formula-embed.
+- Added [sc_workbench_formula_calculator] and [sc_formula_calculator] shortcodes.
+- Added Article Embeds tab to the Workbench.
+- Added near-formula shortcode generation to Embed Shortcodes and Placement Assistant admin pages.
+- Added frontend formula cards with Recommend, Symbolic, Graph, and Engineering Note actions.
+- Added tests and documentation for Phase 6.

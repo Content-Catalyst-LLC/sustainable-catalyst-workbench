@@ -110,3 +110,133 @@
 .scwb-engineering-calc-hero article strong{font-size:1rem;margin:2px 0 0}
 .scwb-engineering-calculators-only .scwb-engineering-calculators{margin-top:18px}
 @media(max-width:900px){.scwb-engineering-calculator-shell,.scwb-engineering-calculator-fields,.scwb-engineering-calculator-result .scwb-engineering-calc-hero{grid-template-columns:1fr}}
+
+/* =========================================================
+   v1.6.0 Article-Embedded Formula Calculators
+   ========================================================= */
+.scwb .scwb-formula-embed-card,
+.scwb-formula-calculator-only .scwb-formula-embed-card {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.10);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.035);
+}
+
+.scwb .scwb-formula-embed-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.scwb .scwb-formula-embed-head h3 {
+  margin: 0;
+  color: #111;
+  font-size: 1.12rem;
+  line-height: 1.25;
+}
+
+.scwb .scwb-formula-tool-chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(255,0,0,0.20);
+  background: rgba(255,0,0,0.045);
+  color: #9d0000;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.scwb .scwb-formula-display {
+  background: #fffaf0;
+  border: 1px solid rgba(0,0,0,0.10);
+  border-left: 4px solid #ff0000;
+  border-radius: 10px;
+  color: #111;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  line-height: 1.45;
+  padding: 14px 16px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+.scwb .scwb-formula-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.scwb .scwb-formula-result-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.scwb .scwb-formula-result-grid article {
+  border: 1px solid rgba(0,0,0,0.09);
+  border-radius: 10px;
+  padding: 12px;
+  background: #fff;
+}
+
+.scwb .scwb-formula-result-grid span {
+  display: block;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #777;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.scwb .scwb-formula-result-grid strong {
+  display: block;
+  font-size: 0.95rem;
+  color: #111;
+  line-height: 1.35;
+}
+
+.scwb .scwb-tool-list-mini {
+  margin: 8px 0 0 18px;
+  color: #555;
+  line-height: 1.55;
+}
+
+.scwb .scwb-tool-list-mini span {
+  display: block;
+  color: #777;
+  font-size: 0.86rem;
+}
+
+.scwb .scwb-formula-embed-builder {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.scwb-display-inline.scwb-formula-calculator-only {
+  margin: 18px 0;
+}
+
+.scwb-display-inline .scwb-formula-embed-card {
+  padding: 16px;
+}
+
+@media (max-width: 860px) {
+  .scwb .scwb-formula-embed-head,
+  .scwb .scwb-formula-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .scwb .scwb-formula-result-grid {
+    grid-template-columns: 1fr;
+  }
+}

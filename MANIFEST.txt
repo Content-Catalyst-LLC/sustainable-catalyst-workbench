@@ -37,3 +37,13 @@ Adds a core engineering calculator library for mechanics, stress/strain, beam de
 - Added WordPress REST proxy /wp-json/sc-workbench/v1/calculation-report.
 - Added Markdown, HTML, copy, Print/PDF, JSON report export actions to result panels.
 - Added report generation tests and documentation.
+
+
+## v1.6.0 Article-Embedded Calculators Near Formulas
+- Added backend formula embed planner: POST /articles/formula-embed.
+- Added WordPress REST proxy /wp-json/sc-workbench/v1/formula-embed.
+- Added [sc_workbench_formula_calculator] and [sc_formula_calculator] shortcodes.
+- Added Article Embeds tab to the Workbench.
+- Added near-formula shortcode generation to Embed Shortcodes and Placement Assistant admin pages.
+- Added frontend formula cards with Recommend, Symbolic, Graph, and Engineering Note actions.
+- Added tests and documentation for Phase 6.

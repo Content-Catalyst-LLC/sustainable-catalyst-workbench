@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Workbench
- * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, v1.4 Core Engineering Calculators, and v1.5 Exportable Calculation Reports.
- * Version: 1.5.0
+ * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, v1.4 Core Engineering Calculators, and v1.5 Exportable Calculation Reports, and v1.6 Article-Embedded Calculators near formulas.
+ * Version: 1.6.0
  * Author: Content Catalyst LLC
  * License: MIT
  * Text Domain: sustainable-catalyst-workbench
@@ -11,7 +11,7 @@
 if (!defined('ABSPATH')) { exit; }
 
 final class SC_Workbench_Plugin {
-    const VERSION = '1.5.0';
+    const VERSION = '1.6.0';
     const OPTION_BACKEND_URL = 'sc_workbench_backend_url';
     const OPTION_BACKEND_KEY = 'sc_workbench_backend_key';
     const OPTION_AI_PROVIDER = 'sc_workbench_ai_provider';
@@ -83,6 +83,8 @@ final class SC_Workbench_Plugin {
         add_shortcode('sc_workbench_graph_studio', [$this, 'render_graph_studio']);
         add_shortcode('sc_workbench_engineering_mode', [$this, 'render_engineering_mode']);
         add_shortcode('sc_workbench_engineering_calculators', [$this, 'render_engineering_calculators']);
+        add_shortcode('sc_workbench_formula_calculator', [$this, 'render_formula_calculator']);
+        add_shortcode('sc_formula_calculator', [$this, 'render_formula_calculator']);
     }
 
     private function ensure_assets() {
@@ -120,6 +122,7 @@ final class SC_Workbench_Plugin {
                 <button type="button" data-scwb-tab="graph">Graph Studio</button>
                 <button type="button" data-scwb-tab="engineering">Engineering Mode</button>
                 <button type="button" data-scwb-tab="engineering-calculators">Engineering Calculators</button>
+                <button type="button" data-scwb-tab="article-embeds">Article Embeds</button>
                 <button type="button" data-scwb-tab="calculate">Calculate</button>
                 <button type="button" data-scwb-tab="models">Models</button>
                 <button type="button" data-scwb-tab="equations">Equations</button>
@@ -153,6 +156,10 @@ final class SC_Workbench_Plugin {
 
             <div class="scwb-panel" data-scwb-panel="engineering-calculators">
                 <?php echo $this->engineering_calculators_html(); ?>
+            </div>
+
+            <div class="scwb-panel" data-scwb-panel="article-embeds">
+                <?php echo $this->formula_embed_builder_html(); ?>
             </div>
 
             <div class="scwb-panel" data-scwb-panel="calculate">
@@ -405,6 +412,81 @@ a = 3.5 m/s^2</textarea>
         <?php return ob_get_clean();
     }
 
+
+    public function render_formula_calculator($atts) {
+        $this->ensure_assets();
+        $atts = shortcode_atts([
+            'title' => 'Formula Calculator',
+            'display' => 'inline',
+            'formula' => '',
+            'equation' => '',
+            'tool' => '',
+            'context' => '',
+            'article' => '',
+            'action' => 'auto',
+            'variable' => 'x',
+            'auto_run' => '0',
+        ], $atts, 'sc_workbench_formula_calculator');
+        $formula = sanitize_textarea_field($atts['formula'] ?: $atts['equation']);
+        $tool = sanitize_key($atts['tool']);
+        $display = sanitize_key($atts['display'] ?: 'inline');
+        $uid = 'scwb-formula-calculator-' . wp_generate_uuid4();
+        ob_start(); ?>
+        <section id="<?php echo esc_attr($uid); ?>" class="scwb scwb-formula-calculator-only scwb-theme-<?php echo esc_attr(get_option(self::OPTION_THEME, 'institutional')); ?> scwb-display-<?php echo esc_attr($display); ?>" data-scwb-formula-embed data-formula="<?php echo esc_attr($formula); ?>" data-tool="<?php echo esc_attr($tool); ?>" data-context="<?php echo esc_attr(sanitize_text_field($atts['context'])); ?>" data-article="<?php echo esc_attr(sanitize_title($atts['article'])); ?>" data-action="<?php echo esc_attr(sanitize_key($atts['action'])); ?>" data-variable="<?php echo esc_attr(sanitize_key($atts['variable'])); ?>" data-auto-run="<?php echo esc_attr(sanitize_key($atts['auto_run'])); ?>">
+            <?php echo $this->formula_embed_html($atts); ?>
+        </section>
+        <?php return ob_get_clean();
+    }
+
+    private function formula_embed_html($atts=[]) {
+        $atts = is_array($atts) ? $atts : [];
+        $formula = sanitize_textarea_field(($atts['formula'] ?? '') ?: ($atts['equation'] ?? ''));
+        $title = sanitize_text_field($atts['title'] ?? 'Formula Calculator');
+        $tool = sanitize_key($atts['tool'] ?? '');
+        ob_start(); ?>
+        <div class="scwb-formula-embed-card">
+            <div class="scwb-formula-embed-head">
+                <div>
+                    <p class="scwb-card-label">Article Formula Calculator</p>
+                    <h3><?php echo esc_html($title); ?></h3>
+                    <p class="scwb-muted">Place this directly below a formula so readers can translate, graph, analyze, or turn the expression into a calculation note without leaving the article.</p>
+                </div>
+                <?php if ($tool): ?><span class="scwb-formula-tool-chip"><?php echo esc_html($tool); ?></span><?php endif; ?>
+            </div>
+            <div class="scwb-formula-display" data-scwb-formula-preview><?php echo esc_html($formula ?: 'Formula will appear here.'); ?></div>
+            <div class="scwb-formula-actions">
+                <button type="button" class="scwb-mini" data-scwb-formula-action="recommend">Recommend Embed</button>
+                <button type="button" class="scwb-mini" data-scwb-formula-action="symbolic">Symbolic</button>
+                <button type="button" class="scwb-mini" data-scwb-formula-action="graph">Graph</button>
+                <button type="button" class="scwb-mini" data-scwb-formula-action="engineering">Engineering Note</button>
+            </div>
+            <div class="scwb-output" data-scwb-formula-output hidden></div>
+        </div>
+        <?php return ob_get_clean();
+    }
+
+    private function formula_embed_builder_html() {
+        ob_start(); ?>
+        <div class="scwb-formula-embed-builder" data-scwb-formula-embed-builder>
+            <form class="scwb-form scwb-formula-builder-form" data-scwb-formula-builder-form>
+                <label>Formula or equation
+                    <textarea name="formula" rows="4" placeholder="Examples:
+y = a*sin(b*x)
+σ = F/A
+NPV = \sum_{t=0}^{n} CF_t/(1+r)^t">y = a*sin(b*x)</textarea>
+                    <small>Paste the equation that appears in the article. The Workbench will recommend a near-formula calculator shortcode.</small>
+                </label>
+                <div class="scwb-inline-controls">
+                    <label>Preferred tool <input name="tool" type="text" placeholder="optional tool id"></label>
+                    <label>Display <select name="display"><option value="inline">Inline</option><option value="compact">Compact</option><option value="drawer">Drawer</option></select></label>
+                    <button type="submit" class="scwb-button">Generate Formula Embed</button>
+                </div>
+            </form>
+            <div class="scwb-output" data-scwb-formula-builder-output hidden></div>
+        </div>
+        <?php return ob_get_clean();
+    }
+
     public function render_pathways($atts) {
         $this->ensure_assets();
         return '<div class="scwb scwb-pathways-only">' . $this->pathways_html() . '</div>';
@@ -450,6 +532,7 @@ a = 3.5 m/s^2</textarea>
         register_rest_route('sc-workbench/v1', '/engineering-calculators', ['methods'=>'GET', 'callback'=>[$this,'rest_engineering_calculators'], 'permission_callback'=>'__return_true']);
         register_rest_route('sc-workbench/v1', '/engineering-calculate', ['methods'=>'POST', 'callback'=>[$this,'rest_engineering_calculate'], 'permission_callback'=>'__return_true']);
         register_rest_route('sc-workbench/v1', '/calculation-report', ['methods'=>'POST', 'callback'=>[$this,'rest_calculation_report'], 'permission_callback'=>'__return_true']);
+        register_rest_route('sc-workbench/v1', '/formula-embed', ['methods'=>'POST', 'callback'=>[$this,'rest_formula_embed'], 'permission_callback'=>'__return_true']);
     }
 
     public function admin_permission() { return current_user_can('manage_options'); }
@@ -644,6 +727,83 @@ a = 3.5 m/s^2</textarea>
     }
 
 
+
+
+    private function formula_shortcode_for_formula($formula, $tool='', $display='inline', $title='Formula Calculator') {
+        $formula = trim(sanitize_textarea_field((string)$formula));
+        $tool = sanitize_key($tool);
+        $display = sanitize_key($display ?: 'inline');
+        $title = sanitize_text_field($title ?: 'Formula Calculator');
+        $tool_attr = $tool ? ' tool="' . esc_attr($tool) . '"' : '';
+        return '[sc_workbench_formula_calculator display="' . esc_attr($display) . '" formula="' . esc_attr($formula) . '"' . $tool_attr . ' title="' . esc_attr($title) . '"]';
+    }
+
+    private function formula_shortcode_for_recommendation($row, $display=null) {
+        $examples = trim((string)($row['example_equations'] ?? ''));
+        $formula = $examples ? trim(explode(' ; ', $examples)[0]) : '';
+        if (!$formula) { $formula = sanitize_text_field($row['recommended_tool_title'] ?? ''); }
+        $tool = sanitize_key($row['recommended_tool_id'] ?? '');
+        $mode = $display ? sanitize_key($display) : sanitize_key($row['display_mode'] ?? 'inline');
+        $title = sanitize_text_field(($row['recommended_tool_title'] ?? 'Formula Calculator') . ' near this formula');
+        return $this->formula_shortcode_for_formula($formula, $tool, $mode, $title);
+    }
+
+    private function local_formula_embed_response($payload, $error='') {
+        $formula = sanitize_textarea_field($payload['formula'] ?? '');
+        $context = strtolower($formula . ' ' . sanitize_textarea_field($payload['context'] ?? ''));
+        $tool = sanitize_key($payload['tool'] ?? '');
+        $display = sanitize_key($payload['display'] ?? 'inline');
+        $domain = 'Mathematical Modeling';
+        $kind = 'symbolic';
+        if (!$tool) {
+            if (preg_match('/y\s*=|f\s*\(\s*x\s*\)|sin|cos|exp|log|x\^/', $context)) { $tool = 'graphable-function-explorer'; $domain = 'Graphable Functions'; $kind = 'graph'; }
+            elseif (preg_match('/stress|strain|force|beam|load|voltage|current|pump|heat|sigma|σ/', $context)) { $tool = 'mechanical-systems-engineering-tool'; $domain = 'Engineering Analysis'; $kind = 'engineering'; }
+            elseif (preg_match('/npv|roi|payback|elasticity|discount/', $context)) { $tool = 'economics-calculator'; $domain = 'Economics and Tradeoff Analysis'; $kind = 'calculator'; }
+            else { $tool = 'systems-modeling-tool'; }
+        }
+        $title = $this->tool_title_from_id($tool) . ' for this formula';
+        $near = $this->formula_shortcode_for_formula($formula, $tool, $display, $title);
+        return [
+            'ok'=>true,
+            'source'=>'wordpress-local-formula-embed-planner',
+            'version'=>self::VERSION,
+            'tool'=>'Article Formula Embed Planner',
+            'summary'=>'Formula embed guidance generated locally because the backend formula-embed endpoint is unavailable.',
+            'values'=>[
+                'formula'=>$formula,
+                'primary_domain'=>$domain,
+                'embed_kind'=>$kind,
+                'recommended_tool_id'=>$tool,
+                'recommended_tool_title'=>$this->tool_title_from_id($tool),
+                'confidence'=>'medium',
+                'suggested_placement'=>'place directly after the formula block or paragraph where the formula is interpreted',
+                'near_formula_shortcode'=>$near,
+                'drawer_shortcode'=>$this->formula_shortcode_for_formula($formula, $tool, 'drawer', $title),
+                'compact_shortcode'=>$this->formula_shortcode_for_formula($formula, $tool, 'compact', $title),
+            ],
+            'shortcodes'=>['near_formula'=>$near],
+            'warnings'=>array_filter(['Backend formula embed planning is unavailable; local recommendation should be reviewed.', $error ? 'Backend error: ' . $error : '']),
+            'disclaimer'=>'Educational and analytical support only. Verify formula meaning, assumptions, units, and professional constraints before use.'
+        ];
+    }
+
+    public function rest_formula_embed(WP_REST_Request $request) {
+        $payload = $request->get_json_params();
+        $payload = is_array($payload) ? $payload : [];
+        $formula = sanitize_textarea_field($payload['formula'] ?? ($payload['equation'] ?? ($payload['input'] ?? '')));
+        $payload['formula'] = $formula;
+        $payload['context'] = sanitize_textarea_field($payload['context'] ?? '');
+        $payload['article_title'] = sanitize_text_field($payload['article_title'] ?? '');
+        $payload['article_slug'] = sanitize_title($payload['article_slug'] ?? ($payload['article'] ?? ''));
+        $payload['tool'] = sanitize_key($payload['tool'] ?? ($payload['preferred_tool'] ?? ''));
+        $payload['display'] = sanitize_key($payload['display'] ?? ($payload['preferred_display'] ?? 'inline'));
+        $res = $this->backend_post('/articles/formula-embed', $payload);
+        if (is_wp_error($res)) {
+            return new WP_REST_Response($this->local_formula_embed_response($payload, $res->get_error_message()), 200);
+        }
+        return new WP_REST_Response($res, 200);
+    }
+
     public function rest_calculation_report(WP_REST_Request $request) {
         $payload = $request->get_json_params();
         $payload = is_array($payload) ? $payload : [];
@@ -793,7 +953,7 @@ a = 3.5 m/s^2</textarea>
             if (!$this->feature_builder_count()) {
                 $this->import_feature_builder_from_file($this->bundled_feature_builder_queue_csv(), true);
             }
-            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, v1.4 Core Engineering Calculators, and v1.5 Exportable Calculation Reports.
+            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, v1.4 Core Engineering Calculators, and v1.5 Exportable Calculation Reports, and v1.6 Article-Embedded Calculators near formulas.
             // The equation table is a generated cache, so it is safe to clear during scanner upgrades and rebuild from posts.
             if ($old_version && version_compare($old_version, '0.9.4', '<')) {
                 $this->clear_equation_registry();
@@ -2087,7 +2247,7 @@ a = 3.5 m/s^2</textarea>
                     'suggested_placement' => $suggested_placement,
                     'display_mode' => $display_mode,
                     'placement_status' => 'proposed',
-                    'placement_notes' => 'v1.0.0 generated placement recommendation. Confirm location in article editor before publishing.',
+                    'placement_notes' => 'v1.6.0 generated page-level and near-formula placement recommendation. Place the formula shortcode directly under the relevant equation after editorial review.',
                     'created_at' => $now,
                     'updated_at' => $now,
                 ], ['%d','%s','%s','%s','%s','%d','%d','%d','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s']);
@@ -2255,10 +2415,10 @@ a = 3.5 m/s^2</textarea>
             <h1>Article Calculator Placement Assistant</h1>
             <p>Use this editorial view to decide where calculator embeds should be inserted near article formulas.</p>
             <section class="scwb-admin-card scwb-admin-wide">
-                <table class="widefat striped scwb-admin-table"><thead><tr><th>Article</th><th>Recommended placement</th><th>Display</th><th>Calculator</th><th>Confidence</th><th>Shortcode</th></tr></thead><tbody>
-                <?php if (!$rows): ?><tr><td colspan="6">No placements yet. Open Embed Shortcodes and build recommendations.</td></tr><?php endif; ?>
+                <table class="widefat striped scwb-admin-table"><thead><tr><th>Article</th><th>Recommended placement</th><th>Display</th><th>Calculator</th><th>Confidence</th><th>Near-formula shortcode</th><th>Full Workbench shortcode</th></tr></thead><tbody>
+                <?php if (!$rows): ?><tr><td colspan="7">No placements yet. Open Embed Shortcodes and build recommendations.</td></tr><?php endif; ?>
                 <?php foreach ($rows as $row): ?>
-                    <tr><td><strong><?php echo esc_html($row['post_title']); ?></strong><br><a href="<?php echo esc_url($row['permalink']); ?>" target="_blank" rel="noopener">View article</a></td><td><?php echo esc_html($row['suggested_placement'] ?? 'Review article and place after the relevant equation.'); ?></td><td><code><?php echo esc_html($row['display_mode'] ?? 'compact'); ?></code></td><td><?php echo esc_html($row['recommended_tool_title']); ?><br><code><?php echo esc_html($row['recommended_tool_id']); ?></code></td><td><span class="scwb-confidence scwb-confidence-<?php echo esc_attr($row['confidence']); ?>"><?php echo esc_html($row['confidence']); ?></span></td><td><textarea readonly class="scwb-shortcode-copy" rows="3"><?php echo esc_textarea($row['embed_shortcode']); ?></textarea><button type="button" class="button button-small" data-scwb-copy-shortcode>Copy</button></td></tr>
+                    <tr><td><strong><?php echo esc_html($row['post_title']); ?></strong><br><a href="<?php echo esc_url($row['permalink']); ?>" target="_blank" rel="noopener">View article</a></td><td><?php echo esc_html($row['suggested_placement'] ?? 'Review article and place after the relevant equation.'); ?></td><td><code><?php echo esc_html($row['display_mode'] ?? 'compact'); ?></code></td><td><?php echo esc_html($row['recommended_tool_title']); ?><br><code><?php echo esc_html($row['recommended_tool_id']); ?></code></td><td><span class="scwb-confidence scwb-confidence-<?php echo esc_attr($row['confidence']); ?>"><?php echo esc_html($row['confidence']); ?></span></td><td><textarea readonly class="scwb-shortcode-copy" rows="4"><?php echo esc_textarea($this->formula_shortcode_for_recommendation($row)); ?></textarea><button type="button" class="button button-small" data-scwb-copy-shortcode>Copy</button></td><td><textarea readonly class="scwb-shortcode-copy" rows="4"><?php echo esc_textarea($row['embed_shortcode']); ?></textarea><button type="button" class="button button-small" data-scwb-copy-shortcode>Copy</button></td></tr>
                 <?php endforeach; ?>
                 </tbody></table>
             </section>
@@ -2306,10 +2466,10 @@ public function render_embed_shortcodes_page() {
                 <h2>Recommended Calculator Embeds</h2>
                 <p>Copy the tool-specific shortcode into the article near the formula it supports. The shortcode opens the Workbench directly to the recommended calculator.</p>
                 <table class="widefat striped scwb-admin-table">
-                    <thead><tr><th>Article</th><th>Equations</th><th>Domain</th><th>Calculator</th><th>Placement</th><th>Confidence</th><th>Shortcode</th></tr></thead>
+                    <thead><tr><th>Article</th><th>Equations</th><th>Domain</th><th>Calculator</th><th>Placement</th><th>Confidence</th><th>Near-formula shortcode</th><th>Full Workbench shortcode</th></tr></thead>
                     <tbody>
                     <?php if (!$rows): ?>
-                        <tr><td colspan="7">No recommendations yet. Build recommendations from the equation registry.</td></tr>
+                        <tr><td colspan="8">No recommendations yet. Build recommendations from the equation registry.</td></tr>
                     <?php endif; ?>
                     <?php foreach ($rows as $row): ?>
                         <tr>
@@ -2319,7 +2479,7 @@ public function render_embed_shortcodes_page() {
                             <td><code><?php echo esc_html($row['recommended_tool_id']); ?></code><br><?php echo esc_html($row['recommended_tool_title']); ?></td>
                             <td><?php echo esc_html($row['suggested_placement'] ?? 'Review placement.'); ?><br><code><?php echo esc_html($row['display_mode'] ?? 'compact'); ?></code></td>
                             <td><span class="scwb-confidence scwb-confidence-<?php echo esc_attr($row['confidence']); ?>"><?php echo esc_html($row['confidence']); ?></span></td>
-                            <td><textarea readonly class="scwb-shortcode-copy" rows="3"><?php echo esc_textarea($row['embed_shortcode']); ?></textarea><button type="button" class="button button-small" data-scwb-copy-shortcode>Copy</button></td>
+                            <td><textarea readonly class="scwb-shortcode-copy" rows="4"><?php echo esc_textarea($this->formula_shortcode_for_recommendation($row)); ?></textarea><button type="button" class="button button-small" data-scwb-copy-shortcode>Copy</button><p class="description">Paste directly below the formula.</p></td><td><textarea readonly class="scwb-shortcode-copy" rows="4"><?php echo esc_textarea($row['embed_shortcode']); ?></textarea><button type="button" class="button button-small" data-scwb-copy-shortcode>Copy</button><p class="description">Use for a larger page-level Workbench embed.</p></td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

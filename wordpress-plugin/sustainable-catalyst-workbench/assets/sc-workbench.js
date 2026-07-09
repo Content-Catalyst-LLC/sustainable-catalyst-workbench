@@ -116,6 +116,73 @@
     return `<div class="scwb-result scwb-engineering-calculator-result"><h3>${esc(data.tool||'Engineering Calculator')}</h3><p>${esc(data.summary||'')}</p>${exportRow((data.graphs||[]).length>0)}<div class="scwb-engineering-calc-hero"><div><p class="scwb-card-label">Formula</p><strong>${esc(v.formula||note.formula||'')}</strong><span>${esc(note.calculation_title||'Core engineering calculator')}</span></div><div><p class="scwb-card-label">Primary result</p>${resultCards || '<span>No result fields returned.</span>'}</div></div><div class="scwb-engineering-section"><h4>Inputs</h4>${renderCodeBlock('Inputs', inputs)}</div><div class="scwb-engineering-section"><h4>Calculation note</h4>${renderCodeBlock('Formula', note.formula||v.formula)}${renderCodeBlock('Results', note.results||results)}</div>${renderList('Assumptions', note.assumptions||[])}${renderList('Validation checks', note.validation_checks||[])}${warnings}${graphs}<div class="scwb-engineering-section"><h4>Method</h4>${method}</div><p class="scwb-disclaimer">${esc(data.disclaimer||'Educational support only. Engineering outputs require qualified professional review.')}</p></div>`;
   }
 
+
+  function renderFormulaEmbedResult(data){
+    if(!data) return '<p>No response.</p>';
+    if(data.ok===false) return renderResult(data);
+    const v=data.values||{};
+    const shorts=data.shortcodes||{};
+    const tools=(data.recommended_tools||[]).slice(0,4).map(t=>`<li><strong>${esc(t.title||t.id)}</strong><span>${esc(t.domain||'')}</span></li>`).join('');
+    const warnings=(data.warnings||[]).length ? '<div class="scwb-warnings"><strong>Review before embedding</strong><ul>'+data.warnings.map(w=>`<li>${esc(w)}</li>`).join('')+'</ul></div>' : '';
+    return `<div class="scwb-result scwb-formula-recommendation-result"><h3>${esc(data.tool||'Article Formula Embed Planner')}</h3><p>${esc(data.summary||'')}</p><div class="scwb-formula-result-grid"><article><span>Domain</span><strong>${esc(v.primary_domain||'')}</strong></article><article><span>Embed kind</span><strong>${esc(v.embed_kind||'')}</strong></article><article><span>Confidence</span><strong>${esc(v.confidence||'')}</strong></article><article><span>Recommended tool</span><strong>${esc(v.recommended_tool_title||v.recommended_tool_id||'')}</strong></article></div><div class="scwb-engineering-section"><h4>Suggested placement</h4><p>${esc(v.suggested_placement||'Place directly below the relevant formula after editorial review.')}</p></div>${tools?'<div class="scwb-engineering-section"><h4>Recommended tools</h4><ul class="scwb-tool-list-mini">'+tools+'</ul></div>':''}<div class="scwb-engineering-section"><h4>Near-formula shortcode</h4>${renderCodeBlock('Paste this below the formula', shorts.near_formula || v.near_formula_shortcode || '')}${renderCodeBlock('Drawer option', shorts.drawer || v.drawer_shortcode || '')}${renderCodeBlock('Compact option', shorts.compact || v.compact_shortcode || '')}${renderCodeBlock('Full Workbench option', shorts.full_workbench || v.full_workbench_shortcode || '')}</div>${warnings}<p class="scwb-disclaimer">${esc(data.disclaimer||'Educational support only.')}</p></div>`;
+  }
+
+  function formulaPayloadFromDataset(wrap){
+    return {
+      formula: wrap.dataset.formula || '',
+      context: wrap.dataset.context || '',
+      article_slug: wrap.dataset.article || '',
+      tool: wrap.dataset.tool || '',
+      display: (wrap.dataset.display || '').replace('scwb-display-','') || 'inline'
+    };
+  }
+
+  function runFormulaEmbedAction(wrap, action){
+    const out=wrap.querySelector('[data-scwb-formula-output]');
+    const payload=formulaPayloadFromDataset(wrap);
+    const variable=wrap.dataset.variable || 'x';
+    if(out){ out.hidden=false; out.innerHTML='<p class="scwb-muted">Running near-formula '+esc(action)+'…</p>'; }
+    let request;
+    if(action==='symbolic') request=api('/symbolic',{method:'POST',body:JSON.stringify({input:payload.formula, action:'translate', variable})});
+    else if(action==='graph') request=api('/graph',{method:'POST',body:JSON.stringify({input:payload.formula, variable, x_min:-10, x_max:10, points:700, show_derivative:false, parameters:{}})});
+    else if(action==='engineering') request=api('/engineering',{method:'POST',body:JSON.stringify({input:payload.formula, variable:'', include_solve:false})});
+    else request=api('/formula-embed',{method:'POST',body:JSON.stringify(payload)});
+    request.then(d=>{
+      if(!out) return;
+      out.__scwbLastResult=d;
+      if(action==='symbolic') out.innerHTML=renderSymbolicResult(d);
+      else if(action==='engineering') out.innerHTML=renderEngineeringResult(d);
+      else if(action==='recommend') out.innerHTML=renderFormulaEmbedResult(d);
+      else out.innerHTML=renderResult(d);
+    }).catch(err=>{ if(out){ out.innerHTML='<div class="scwb-error">'+esc(err.message)+'</div>'; } });
+  }
+
+  function initFormulaEmbeds(root=document){
+    root.querySelectorAll('[data-scwb-formula-embed]').forEach(wrap=>{
+      if(wrap.__scwbFormulaEmbedReady) return;
+      wrap.__scwbFormulaEmbedReady=true;
+      const preview=wrap.querySelector('[data-scwb-formula-preview]');
+      if(preview && wrap.dataset.formula) preview.textContent=keyboardPreview(wrap.dataset.formula);
+      wrap.querySelectorAll('[data-scwb-formula-action]').forEach(btn=>{
+        btn.addEventListener('click',()=>runFormulaEmbedAction(wrap, btn.dataset.scwbFormulaAction || 'recommend'));
+      });
+      if((wrap.dataset.autoRun||'')==='1') setTimeout(()=>runFormulaEmbedAction(wrap, wrap.dataset.action==='auto'?'recommend':wrap.dataset.action), 120);
+    });
+    root.querySelectorAll('[data-scwb-formula-builder-form]').forEach(form=>{
+      if(form.__scwbFormulaBuilderReady) return;
+      form.__scwbFormulaBuilderReady=true;
+      const wrap=form.closest('[data-scwb-formula-embed-builder]') || form.closest('.scwb') || root;
+      const out=wrap.querySelector('[data-scwb-formula-builder-output]');
+      form.addEventListener('submit', ev=>{
+        ev.preventDefault();
+        const fd=new FormData(form);
+        const payload={formula:fd.get('formula')||'', tool:fd.get('tool')||'', display:fd.get('display')||'inline'};
+        if(out){ out.hidden=false; out.innerHTML='<p class="scwb-muted">Generating near-formula shortcode…</p>'; }
+        api('/formula-embed',{method:'POST',body:JSON.stringify(payload)}).then(d=>{ if(out){ out.__scwbLastResult=d; out.innerHTML=renderFormulaEmbedResult(d); } }).catch(err=>{ if(out){ out.innerHTML='<div class="scwb-error">'+esc(err.message)+'</div>'; } });
+      });
+    });
+  }
+
   function calcFieldHtml(f){
     const val=esc(f.default||'');
     const unit=f.unit ? `<span class="scwb-unit-chip">${esc(f.unit)}</span>` : '';
@@ -300,7 +367,7 @@
       const heading = libraryMode ? `<p class="scwb-muted">Showing a compact preview of ${Math.min(equations.length, 8)} indexed equations. Full registry exports are available in WordPress admin.</p>` : `<p class="scwb-muted">${equations.length} indexed equation${equations.length===1?'':'s'} found for this article. Select one equation to analyze.</p>`;
       box.innerHTML=heading+'<div class="scwb-equation-list scwb-equation-list-compact">'+equations.map((eq,i)=>{
         const tools=(eq.suggested_tools||[]).slice(0,4).join(', ');
-        return `<article class="scwb-equation-card scwb-equation-card-compact" data-eq-index="${i}"><p class="scwb-card-label">${esc(eq.suggested_domain||'Equation')}</p><pre>${esc(eq.equation_normalized||eq.equation_raw)}</pre><small>${esc(tools)}</small><button type="button" class="scwb-mini" data-scwb-analyze-equation="${i}">Analyze selected equation</button><div class="scwb-output" data-scwb-equation-output hidden></div></article>`;
+        return `<article class="scwb-equation-card scwb-equation-card-compact" data-eq-index="${i}"><p class="scwb-card-label">${esc(eq.suggested_domain||'Equation')}</p><pre>${esc(eq.equation_normalized||eq.equation_raw)}</pre><small>${esc(tools)}</small><button type="button" class="scwb-mini" data-scwb-analyze-equation="${i}">Analyze selected equation</button><button type="button" class="scwb-mini" data-scwb-plan-formula-embed="${i}">Plan near-formula embed</button><div class="scwb-output" data-scwb-equation-output hidden></div></article>`;
       }).join('')+'</div>';
       box.__scwbEquations=equations;
     }).catch(err=>{ box.innerHTML='<div class="scwb-error">Equation registry unavailable: '+esc(err.message)+'</div>'; });
@@ -311,6 +378,7 @@
     initGraphStudioForms(el);
     initEngineeringForms(el);
     initEngineeringCalculatorForms(el);
+    initFormulaEmbeds(el);
     const topic = el.dataset.topic || 'research-library';
     const displayMode = (el.dataset.display || 'compact').toLowerCase();
     if(displayMode === 'drawer'){
@@ -330,6 +398,18 @@
     el.addEventListener('click', ev=>{
       if(ev.target && ev.target.dataset && ev.target.dataset.scwbLoadEquations !== undefined){
         renderEquationsBox(el, true);
+        return;
+      }
+      const planIdx=ev.target && ev.target.dataset && ev.target.dataset.scwbPlanFormulaEmbed;
+      if(planIdx !== undefined){
+        const card=ev.target.closest('.scwb-equation-card');
+        const box=el.querySelector('[data-scwb-equations]');
+        const eq=box && box.__scwbEquations ? box.__scwbEquations[Number(planIdx)] : null;
+        const out=card && card.querySelector('[data-scwb-equation-output]');
+        if(out && eq){
+          out.hidden=false; out.innerHTML='<p class="scwb-muted">Planning near-formula calculator embed…</p>';
+          api('/formula-embed',{method:'POST',body:JSON.stringify({formula:eq.equation_normalized||eq.equation_raw, context:(eq.context_before||'')+' '+(eq.context_after||''), article_title:eq.post_title||'', article_slug:eq.post_slug||'', tool:(eq.suggested_tools||[])[0]||'', display:'inline'})}).then(d=>{ out.__scwbLastResult=d; out.innerHTML=renderFormulaEmbedResult(d); }).catch(err=>out.innerHTML='<div class="scwb-error">'+esc(err.message)+'</div>');
+        }
         return;
       }
       const idx=ev.target && ev.target.dataset && ev.target.dataset.scwbAnalyzeEquation;
@@ -393,5 +473,5 @@
   }
   function renderModels(el, tools){ const box=el.querySelector('[data-scwb-models]'); if(!box) return; const groups={}; tools.forEach(t=>{ (groups[t.domain]||(groups[t.domain]=[])).push(t); }); box.innerHTML=Object.entries(groups).map(([domain,items])=>`<section><h3>${esc(domain)}</h3><ul>${items.map(t=>`<li><strong>${esc(t.title)}</strong><span>${esc(t.family)} · ${esc(t.engine)}</span></li>`).join('')}</ul></section>`).join(''); }
   document.addEventListener('click', ev=>{ if(!ev.defaultPrevented && ev.target && ev.target.dataset && ev.target.dataset.scwbExport){ handleWorkbenchExportClick(ev); } });
-  document.addEventListener('DOMContentLoaded',()=>{ document.querySelectorAll('[data-scwb]').forEach(initWorkbench); initSymbolicForms(document); initGraphStudioForms(document); initEngineeringForms(document); initEngineeringCalculatorForms(document); });
+  document.addEventListener('DOMContentLoaded',()=>{ document.querySelectorAll('[data-scwb]').forEach(initWorkbench); initSymbolicForms(document); initGraphStudioForms(document); initEngineeringForms(document); initEngineeringCalculatorForms(document); initFormulaEmbeds(document); });
 })();
