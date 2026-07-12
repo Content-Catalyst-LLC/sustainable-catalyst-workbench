@@ -1,4 +1,4 @@
-# Sustainable Catalyst Workbench v1.9.1
+# Sustainable Catalyst Prototyping Workbench v2.0.0
 
 A compact AI-enabled research and analytics workbench for modeling, calculating, visualizing, and interpreting complex systems across science, sustainability, engineering, architecture, psychology, economics, governance, and meaning.
 
@@ -229,3 +229,9 @@ Highlights:
 - Command-line interface retained as an optional Advanced Console
 
 See `docs/V191_EDITOR_FIRST_BROWSER_CODE_LAB.md`.
+
+## Version 2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation
+
+Adds an optional loopback-only Go runner, one-time browser pairing, origin-bound tokens, allowlisted native runtime discovery and execution, a Research Lab Canvas, structured Research and Lab Notebook, Technical Documentation Studio, Arduino Studio, conceptual schematic and PCB generators, synchronized BOM workflows, an Assembly Translator foundation, and an FPGA Studio foundation.
+
+Native execution is disabled by default and is not a hostile-code sandbox. It runs only on the local visitor machine when the runner is explicitly started with `--enable-native-exec`. Generated code, electronics, PCB, and FPGA outputs require technical review and validation.

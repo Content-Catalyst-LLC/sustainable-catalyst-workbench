@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: Sustainable Catalyst Workbench
- * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, v1.4 Core Engineering Calculators, and v1.5 Exportable Calculation Reports, and v1.6 Article-Embedded Calculators near formulas, and v1.7 Advanced Scientific, Econometric, Psychometric, Architecture, Infrastructure, Pattern, and Astrophysics Calculators, plus v1.8 Browser Code Studio Foundation, v1.9 browser-native JavaScript, Python, R, and SQL execution, and v1.9.1 an editor-first Run experience with direct output, automatic runtime loading, file switching, line numbers, and an optional advanced console.
- * Version: 1.9.1
+ * Plugin Name: Sustainable Catalyst Prototyping Workbench
+ * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, v1.4 Core Engineering Calculators, and v1.5 Exportable Calculation Reports, and v1.6 Article-Embedded Calculators near formulas, and v1.7 Advanced Scientific, Econometric, Psychometric, Architecture, Infrastructure, Pattern, and Astrophysics Calculators, plus v1.8 Browser Code Studio Foundation, v1.9 browser-native JavaScript, Python, R, and SQL execution, and v2.0.0 an editor-first Run experience with direct output, automatic runtime loading, file switching, line numbers, and an optional advanced console.
+ * Version: 2.0.0
  * Author: Content Catalyst LLC
  * License: MIT
  * Text Domain: sustainable-catalyst-workbench
@@ -11,7 +11,7 @@
 if (!defined('ABSPATH')) { exit; }
 
 final class SC_Workbench_Plugin {
-    const VERSION = '1.9.1';
+    const VERSION = '2.0.0';
     const OPTION_BACKEND_URL = 'sc_workbench_backend_url';
     const OPTION_BACKEND_KEY = 'sc_workbench_backend_key';
     const OPTION_AI_PROVIDER = 'sc_workbench_ai_provider';
@@ -159,10 +159,10 @@ final class SC_Workbench_Plugin {
                 ],
             ],
             'runtimes' => [
-                ['id'=>'javascript', 'label'=>'JavaScript', 'target'=>'browser-worker', 'status'=>'available', 'version'=>'Browser ES', 'packages'=>['Workbench console','Workbench tables','Workbench chart specs'], 'release'=>'1.9.1'],
-                ['id'=>'python', 'label'=>'Python', 'target'=>'pyodide-worker', 'status'=>'available', 'version'=>'Pyodide 314.0.2', 'packages'=>['Python standard library','NumPy','pandas','SciPy','SymPy','Matplotlib','scikit-learn','statsmodels'], 'release'=>'1.9.1'],
-                ['id'=>'r', 'label'=>'R', 'target'=>'webr-worker', 'status'=>'available', 'version'=>'webR 0.6.0 / R 4.6.0', 'packages'=>['base','stats','graphics','grDevices','utils','datasets','methods'], 'release'=>'1.9.1'],
-                ['id'=>'sql', 'label'=>'SQL', 'target'=>'duckdb-wasm', 'status'=>'available', 'version'=>'DuckDB-Wasm 1.30.0', 'packages'=>['CSV','JSON','window functions','analytical SQL'], 'release'=>'1.9.1'],
+                ['id'=>'javascript', 'label'=>'JavaScript', 'target'=>'browser-worker', 'status'=>'available', 'version'=>'Browser ES', 'packages'=>['Workbench console','Workbench tables','Workbench chart specs'], 'release'=>'2.0.0'],
+                ['id'=>'python', 'label'=>'Python', 'target'=>'pyodide-worker', 'status'=>'available', 'version'=>'Pyodide 314.0.2', 'packages'=>['Python standard library','NumPy','pandas','SciPy','SymPy','Matplotlib','scikit-learn','statsmodels'], 'release'=>'2.0.0'],
+                ['id'=>'r', 'label'=>'R', 'target'=>'webr-worker', 'status'=>'available', 'version'=>'webR 0.6.0 / R 4.6.0', 'packages'=>['base','stats','graphics','grDevices','utils','datasets','methods'], 'release'=>'2.0.0'],
+                ['id'=>'sql', 'label'=>'SQL', 'target'=>'duckdb-wasm', 'status'=>'available', 'version'=>'DuckDB-Wasm 1.30.0', 'packages'=>['CSV','JSON','window functions','analytical SQL'], 'release'=>'2.0.0'],
                 ['id'=>'c', 'label'=>'C', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.2.0'],
                 ['id'=>'cpp', 'label'=>'C++', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.2.0'],
                 ['id'=>'go', 'label'=>'Go', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.2.0'],
@@ -315,7 +315,7 @@ final class SC_Workbench_Plugin {
                 <p>Choose a language, type or paste code into the editor, and click Run. JavaScript, Python, R, and SQL execute in the browser with output, tables, charts, files, and an optional advanced console.</p>
             </div>
             <?php echo $this->code_studio_html($project_id, false); ?>
-            <p class="scwb-fineprint">Workbench v1.9.1 runs supported code on the visitor’s device. WordPress and FastAPI do not execute submitted code, and project files are not uploaded by default.</p>
+            <p class="scwb-fineprint">Workbench v2.0.0 runs supported code on the visitor’s device. WordPress and FastAPI do not execute submitted code, and project files are not uploaded by default.</p>
         </section>
         <?php return ob_get_clean();
     }
@@ -339,7 +339,7 @@ final class SC_Workbench_Plugin {
                 <p>A black-and-green command-line terminal for navigating a persistent project and running JavaScript, Python, R, and SQL on the visitor’s device.</p>
             </div>
             <?php echo $this->code_studio_html($project_id, true); ?>
-            <p class="scwb-fineprint">This v1.9.1 terminal is a controlled browser project shell, not unrestricted operating-system access.</p>
+            <p class="scwb-fineprint">This v2.0.0 terminal is a controlled browser project shell, not unrestricted operating-system access.</p>
         </section>
         <?php return ob_get_clean();
     }
@@ -1149,10 +1149,10 @@ NPV = \sum_{t=0}^{n} CF_t/(1+r)^t">y = a*sin(b*x)</textarea>
                 'tool'=>'Exportable Calculation Reports',
                 'summary'=>'The report exporter is loaded, but the Workbench backend report endpoint is not reachable from WordPress.',
                 'error'=>$res->get_error_message(),
-                'warnings'=>['Deploy or start the Workbench backend v1.9.1 and confirm the Backend URL in SC Workbench settings.'],
+                'warnings'=>['Deploy or start the Workbench backend v2.0.0 and confirm the Backend URL in SC Workbench settings.'],
                 'formats'=>[
-                    'markdown'=>'# Workbench calculation report unavailable\n\nThe report backend was not reachable. Confirm that the Workbench backend is deployed and running v1.9.1.',
-                    'html'=>'<p>Workbench calculation report unavailable. Confirm that the backend is deployed and running v1.9.1.</p>',
+                    'markdown'=>'# Workbench calculation report unavailable\n\nThe report backend was not reachable. Confirm that the Workbench backend is deployed and running v2.0.0.',
+                    'html'=>'<p>Workbench calculation report unavailable. Confirm that the backend is deployed and running v2.0.0.</p>',
                     'text'=>'Workbench calculation report unavailable.'
                 ],
                 'filename_base'=>'workbench-report-unavailable'
@@ -1282,7 +1282,7 @@ NPV = \sum_{t=0}^{n} CF_t/(1+r)^t">y = a*sin(b*x)</textarea>
             if (!$this->feature_builder_count()) {
                 $this->import_feature_builder_from_file($this->bundled_feature_builder_queue_csv(), true);
             }
-            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, v1.4 Core Engineering Calculators, and v1.5 Exportable Calculation Reports, and v1.6 Article-Embedded Calculators near formulas, and v1.7 Advanced Scientific, Econometric, Psychometric, Architecture, Infrastructure, Pattern, and Astrophysics Calculators, plus v1.8 Browser Code Studio Foundation, v1.9 browser-native JavaScript, Python, R, and SQL execution, and v1.9.1 an editor-first Run experience with direct output, automatic runtime loading, file switching, line numbers, and an optional advanced console.
+            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, v1.4 Core Engineering Calculators, and v1.5 Exportable Calculation Reports, and v1.6 Article-Embedded Calculators near formulas, and v1.7 Advanced Scientific, Econometric, Psychometric, Architecture, Infrastructure, Pattern, and Astrophysics Calculators, plus v1.8 Browser Code Studio Foundation, v1.9 browser-native JavaScript, Python, R, and SQL execution, and v2.0.0 an editor-first Run experience with direct output, automatic runtime loading, file switching, line numbers, and an optional advanced console.
             // The equation table is a generated cache, so it is safe to clear during scanner upgrades and rebuild from posts.
             if ($old_version && version_compare($old_version, '0.9.4', '<')) {
                 $this->clear_equation_registry();
@@ -2822,3 +2822,9 @@ public function render_embed_shortcodes_page() {
 
 register_activation_hook(__FILE__, ['SC_Workbench_Plugin', 'activate']);
 new SC_Workbench_Plugin();
+
+// Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
+if (!defined('SCWB_V200_PLUGIN_FILE')) {
+    define('SCWB_V200_PLUGIN_FILE', __FILE__);
+}
+require_once __DIR__ . '/includes/scwb-v200-foundation.php';

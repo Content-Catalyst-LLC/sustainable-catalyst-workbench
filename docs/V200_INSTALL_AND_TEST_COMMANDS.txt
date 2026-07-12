@@ -1,0 +1,57 @@
+SUSTAINABLE CATALYST PROTOTYPING WORKBENCH v2.0.0
+GO RUNNER, RESEARCH LAB, AND HARDWARE STUDIO FOUNDATION
+
+IMMEDIATE WORDPRESS FOUNDATION INSTALL
+
+Upload this ZIP while Workbench v1.9.1 remains active:
+
+  sustainable-catalyst-workbench-v2.0.0-foundation-addon.zip
+
+This add-on exposes the v2.0.0 research, documentation, hardware, and runner panels without deleting or replacing the existing Workbench plugin.
+
+FULL REPOSITORY UPGRADE AND GITHUB PUSH
+
+1. Extract sustainable-catalyst-workbench-v2.0.0-upgrade-bundle.zip in Downloads.
+2. In Terminal:
+
+   cd ~/Downloads/sustainable-catalyst-workbench-v2.0.0-upgrade-bundle
+   chmod +x push_workbench_v2_0_0_to_github.sh
+   ./push_workbench_v2_0_0_to_github.sh
+
+The script clones or refreshes the existing GitHub repository, applies the v2.0.0 overlay, runs PHP/JavaScript/Python/Go checks, packages a complete replacement WordPress plugin ZIP and complete repository ZIP in Downloads, commits, and pushes main.
+
+MACOS RUNNER
+
+1. Extract workbench-runner-v2.0.0-macos.zip.
+2. Run:
+
+   cd ~/Downloads/workbench-runner-v2.0.0-macos
+   chmod +x install.sh workbench-runner-darwin-*
+   ./install.sh
+
+3. Discovery-only mode:
+
+   ~/.local/bin/workbench-runner serve
+
+4. Trusted native execution mode:
+
+   ~/.local/bin/workbench-runner serve --enable-native-exec
+
+PAIRING
+
+1. Keep the runner terminal open.
+2. Open Workbench Code Studio or [sc_workbench_local_runner].
+3. Use http://127.0.0.1:8787.
+4. Enter the six-digit code printed by the runner.
+5. Select Pair.
+6. Use Discover runtimes.
+
+RUNNER DIAGNOSTICS
+
+  ~/.local/bin/workbench-runner version
+  ~/.local/bin/workbench-runner doctor
+  ~/.local/bin/workbench-runner runtimes
+
+SECURITY
+
+Native execution is not a hostile-code sandbox. It runs with local user permissions. Run only code you trust. Use discovery-only mode unless native execution is needed.
