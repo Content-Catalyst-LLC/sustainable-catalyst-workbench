@@ -86,6 +86,9 @@ func main() {
 		case "robotics-tools":
 			printJSON(discoverRoboticsTools())
 			return
+		case "instrumentation-tools":
+			printJSON(discoverInstrumentationTools())
+			return
 		case "serve":
 			serve(os.Args[2:])
 			return
@@ -93,7 +96,7 @@ func main() {
 	}
 	fmt.Println("Sustainable Catalyst Workbench Runner " + runner.Version)
 	fmt.Println("Usage: workbench-runner serve [--enable-native-exec] [--timeout 8s]")
-	fmt.Println("       workbench-runner version | doctor | runtimes | devices | hardware-tools | robotics-tools")
+	fmt.Println("       workbench-runner version | doctor | runtimes | devices | hardware-tools | robotics-tools | instrumentation-tools")
 }
 
 func serve(args []string) {
@@ -119,6 +122,8 @@ func serve(args []string) {
 	mux.HandleFunc("/hardware-task", s.withCORS(s.authorized(s.hardwareTask)))
 	mux.HandleFunc("/robotics-tools", s.withCORS(s.authorized(s.roboticsTools)))
 	mux.HandleFunc("/robotics-task", s.withCORS(s.authorized(s.roboticsTask)))
+	mux.HandleFunc("/instrumentation-tools", s.withCORS(s.authorized(s.instrumentationTools)))
+	mux.HandleFunc("/instrumentation-task", s.withCORS(s.authorized(s.instrumentationTask)))
 	mux.HandleFunc("/execute", s.withCORS(s.authorized(s.execute)))
 
 	httpServer := &http.Server{
@@ -176,26 +181,30 @@ func (s *server) health(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	writeJSON(w, http.StatusOK, map[string]any{
-		"ok":                     true,
-		"version":                runner.Version,
-		"service":                "sustainable-catalyst-workbench-runner",
-		"listen":                 listenAddress,
-		"loopbackOnly":           true,
-		"nativeExecutionEnabled": s.nativeExec,
-		"arbitraryShellEndpoint": false,
-		"pairingRequired":        true,
-		"platform":               runtime.GOOS + "/" + runtime.GOARCH,
-		"embeddedDeviceStudio":   true,
-		"deviceDiscovery":        true,
-		"structuredDeviceTasks":  true,
-		"fpgaStudio":             true,
-		"electronicsDesign":      true,
-		"hardwareValidation":     true,
-		"hardwareToolDiscovery":  true,
+		"ok":                      true,
+		"version":                 runner.Version,
+		"service":                 "sustainable-catalyst-workbench-runner",
+		"listen":                  listenAddress,
+		"loopbackOnly":            true,
+		"nativeExecutionEnabled":  s.nativeExec,
+		"arbitraryShellEndpoint":  false,
+		"pairingRequired":         true,
+		"platform":                runtime.GOOS + "/" + runtime.GOARCH,
+		"embeddedDeviceStudio":    true,
+		"deviceDiscovery":         true,
+		"structuredDeviceTasks":   true,
+		"fpgaStudio":              true,
+		"electronicsDesign":       true,
+		"hardwareValidation":      true,
+		"hardwareToolDiscovery":   true,
 		"roboticsStudio":          true,
 		"controlSimulation":       true,
-		"mechatronicsValidation": true,
+		"mechatronicsValidation":  true,
 		"roboticsToolDiscovery":   true,
+		"instrumentationStudio":   true,
+		"dataAcquisitionPlanning": true,
+		"signalAnalysis":          true,
+		"instrumentToolDiscovery": true,
 	})
 }
 
@@ -386,21 +395,40 @@ func (s *server) execute(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, result)
 }
 
-
 func (s *server) roboticsTools(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet { writeError(w, http.StatusMethodNotAllowed, "GET required"); return }
+	if r.Method != http.MethodGet {
+		writeError(w, http.StatusMethodNotAllowed, "GET required")
+		return
+	}
 	writeJSON(w, http.StatusOK, map[string]any{"ok": true, "version": runner.Version, "tools": discoverRoboticsTools(), "notes": []string{"Discovery only confirms that a command is visible to the local user.", "Robot motion, actuator power, control stability, physical interfaces, and safety functions require hardware-specific validation."}})
 }
 
 func (s *server) roboticsTask(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost { writeError(w, http.StatusMethodNotAllowed, "POST required"); return }
-	if !s.nativeExec { writeError(w, http.StatusForbidden, "robotics tasks are disabled; restart with --enable-native-exec"); return }
+	if r.Method != http.MethodPost {
+		writeError(w, http.StatusMethodNotAllowed, "POST required")
+		return
+	}
+	if !s.nativeExec {
+		writeError(w, http.StatusForbidden, "robotics tasks are disabled; restart with --enable-native-exec")
+		return
+	}
 	var req deviceTaskRequest
-	if err := readJSON(r, &req); err != nil { writeError(w, http.StatusBadRequest, err.Error()); return }
-	if !req.Consent { writeError(w, http.StatusBadRequest, "explicit consent is required for a local robotics task"); return }
+	if err := readJSON(r, &req); err != nil {
+		writeError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+	if !req.Consent {
+		writeError(w, http.StatusBadRequest, "explicit consent is required for a local robotics task")
+		return
+	}
 	result, err := runRoboticsTask(r.Context(), s.timeout, strings.ToLower(req.Task))
-	if err != nil { writeError(w, http.StatusBadRequest, err.Error()); return }
-	result["ok"] = true; result["version"] = runner.Version; result["arbitraryShellEndpoint"] = false
+	if err != nil {
+		writeError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+	result["ok"] = true
+	result["version"] = runner.Version
+	result["arbitraryShellEndpoint"] = false
 	writeJSON(w, http.StatusOK, result)
 }
 
@@ -411,7 +439,14 @@ func discoverRoboticsTools() []runtimeRecord {
 		{"robotics-serial-minicom", "minicom"}, {"robotics-serial-picocom", "picocom"},
 	}
 	out := make([]runtimeRecord, 0, len(specs))
-	for _, spec := range specs { record := runtimeRecord{Language: spec.language, Command: spec.command}; if path, err := exec.LookPath(spec.command); err == nil { record.Available = true; record.Path = path }; out = append(out, record) }
+	for _, spec := range specs {
+		record := runtimeRecord{Language: spec.language, Command: spec.command}
+		if path, err := exec.LookPath(spec.command); err == nil {
+			record.Available = true
+			record.Path = path
+		}
+		out = append(out, record)
+	}
 	return out
 }
 
@@ -420,12 +455,129 @@ func runRoboticsTask(parent context.Context, timeout time.Duration, task string)
 		"ros2-version": {"ros2", "--help"}, "platformio-version": {"pio", "--version"}, "arduino-cli-version": {"arduino-cli", "version"},
 		"openocd-version": {"openocd", "--version"}, "minicom-version": {"minicom", "--version"}, "picocom-version": {"picocom", "--help"},
 	}
-	parts, ok := specs[task]; if !ok { return map[string]any{"task": task}, errors.New("robotics task is not allowlisted") }
-	path, err := exec.LookPath(parts[0]); if err != nil { return map[string]any{"task": task, "command": parts[0]}, fmt.Errorf("tool is not available: %s", parts[0]) }
-	ctx, cancel := context.WithTimeout(parent, timeout); defer cancel()
-	command := exec.CommandContext(ctx, path, parts[1:]...); command.Env = minimalEnvironment(os.TempDir()); output, commandErr := command.CombinedOutput(); limited := appendLimited(nil, output, maxOutputBytes)
-	if ctx.Err() == context.DeadlineExceeded { return map[string]any{"task": task, "output": string(limited)}, errors.New("robotics task timed out") }
-	if commandErr != nil && len(limited) == 0 { return map[string]any{"task": task, "output": string(limited)}, fmt.Errorf("robotics task failed: %w", commandErr) }
+	parts, ok := specs[task]
+	if !ok {
+		return map[string]any{"task": task}, errors.New("robotics task is not allowlisted")
+	}
+	path, err := exec.LookPath(parts[0])
+	if err != nil {
+		return map[string]any{"task": task, "command": parts[0]}, fmt.Errorf("tool is not available: %s", parts[0])
+	}
+	ctx, cancel := context.WithTimeout(parent, timeout)
+	defer cancel()
+	command := exec.CommandContext(ctx, path, parts[1:]...)
+	command.Env = minimalEnvironment(os.TempDir())
+	output, commandErr := command.CombinedOutput()
+	limited := appendLimited(nil, output, maxOutputBytes)
+	if ctx.Err() == context.DeadlineExceeded {
+		return map[string]any{"task": task, "output": string(limited)}, errors.New("robotics task timed out")
+	}
+	if commandErr != nil && len(limited) == 0 {
+		return map[string]any{"task": task, "output": string(limited)}, fmt.Errorf("robotics task failed: %w", commandErr)
+	}
+	return map[string]any{"task": task, "command": parts[0], "path": path, "output": string(limited)}, nil
+}
+
+func (s *server) instrumentationTools(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		writeError(w, http.StatusMethodNotAllowed, "GET required")
+		return
+	}
+	writeJSON(w, http.StatusOK, map[string]any{
+		"ok":      true,
+		"version": runner.Version,
+		"tools":   discoverInstrumentationTools(),
+		"notes": []string{
+			"Discovery only confirms that a command is visible to the local user.",
+			"Instrument voltage, isolation, grounding, probes, sample clocks, calibration, and uncertainty require equipment-specific review.",
+		},
+	})
+}
+
+func (s *server) instrumentationTask(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		writeError(w, http.StatusMethodNotAllowed, "POST required")
+		return
+	}
+	if !s.nativeExec {
+		writeError(w, http.StatusForbidden, "instrumentation tasks are disabled; restart with --enable-native-exec")
+		return
+	}
+	var req deviceTaskRequest
+	if err := readJSON(r, &req); err != nil {
+		writeError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+	if !req.Consent {
+		writeError(w, http.StatusBadRequest, "explicit consent is required for a local instrumentation task")
+		return
+	}
+	result, err := runInstrumentationTask(r.Context(), s.timeout, strings.ToLower(req.Task))
+	if err != nil {
+		writeError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+	result["ok"] = true
+	result["version"] = runner.Version
+	result["arbitraryShellEndpoint"] = false
+	writeJSON(w, http.StatusOK, result)
+}
+
+func discoverInstrumentationTools() []runtimeRecord {
+	specs := []struct{ language, command string }{
+		{"instrument-sigrok", "sigrok-cli"},
+		{"instrument-pulseview", "pulseview"},
+		{"instrument-sox", "sox"},
+		{"instrument-ffmpeg", "ffmpeg"},
+		{"instrument-rtl-test", "rtl_test"},
+		{"instrument-rtl-power", "rtl_power"},
+		{"instrument-alsa-record", "arecord"},
+		{"instrument-libiio", "iio_info"},
+		{"instrument-serial-minicom", "minicom"},
+		{"instrument-serial-picocom", "picocom"},
+	}
+	out := make([]runtimeRecord, 0, len(specs))
+	for _, spec := range specs {
+		record := runtimeRecord{Language: spec.language, Command: spec.command}
+		if path, err := exec.LookPath(spec.command); err == nil {
+			record.Available = true
+			record.Path = path
+		}
+		out = append(out, record)
+	}
+	return out
+}
+
+func runInstrumentationTask(parent context.Context, timeout time.Duration, task string) (map[string]any, error) {
+	specs := map[string][]string{
+		"sigrok-version":  {"sigrok-cli", "--version"},
+		"sox-version":     {"sox", "--version"},
+		"ffmpeg-version":  {"ffmpeg", "-version"},
+		"arecord-devices": {"arecord", "-l"},
+		"iio-info":        {"iio_info"},
+		"minicom-version": {"minicom", "--version"},
+		"picocom-version": {"picocom", "--help"},
+	}
+	parts, ok := specs[task]
+	if !ok {
+		return map[string]any{"task": task}, errors.New("instrumentation task is not allowlisted")
+	}
+	path, err := exec.LookPath(parts[0])
+	if err != nil {
+		return map[string]any{"task": task, "command": parts[0]}, fmt.Errorf("tool is not available: %s", parts[0])
+	}
+	ctx, cancel := context.WithTimeout(parent, timeout)
+	defer cancel()
+	command := exec.CommandContext(ctx, path, parts[1:]...)
+	command.Env = minimalEnvironment(os.TempDir())
+	output, commandErr := command.CombinedOutput()
+	limited := appendLimited(nil, output, maxOutputBytes)
+	if ctx.Err() == context.DeadlineExceeded {
+		return map[string]any{"task": task, "output": string(limited)}, errors.New("instrumentation task timed out")
+	}
+	if commandErr != nil && len(limited) == 0 {
+		return map[string]any{"task": task, "output": string(limited)}, fmt.Errorf("instrumentation task failed: %w", commandErr)
+	}
 	return map[string]any{"task": task, "command": parts[0], "path": path, "output": string(limited)}, nil
 }
 

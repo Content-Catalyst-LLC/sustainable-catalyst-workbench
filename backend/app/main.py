@@ -5,7 +5,7 @@ from app.core.config import get_settings
 from app.routers import tools, ai, models, equations, routing, symbolic, graph, engineering, engineering_calculators, reports, article_embeds, code_studio
 
 settings = get_settings()
-app = FastAPI(title='Sustainable Catalyst Workbench API', version='2.3.0')
+app = FastAPI(title='Sustainable Catalyst Workbench API', version='2.4.0')
 app.add_middleware(CORSMiddleware, allow_origins=settings.origins or ['*'], allow_credentials=True, allow_methods=['*'], allow_headers=['*'])
 
 @app.middleware('http')
@@ -18,11 +18,11 @@ async def backend_key_check(request: Request, call_next):
 
 @app.get('/')
 def root():
-    return {"ok": True, "name": "Sustainable Catalyst Workbench API", "version": "2.3.0"}
+    return {"ok": True, "name": "Sustainable Catalyst Workbench API", "version": "2.4.0"}
 
 @app.get('/health')
 def health():
-    return {"ok": True, "status": "healthy", "version": "2.3.0"}
+    return {"ok": True, "status": "healthy", "version": "2.4.0"}
 
 app.include_router(tools.router)
 app.include_router(ai.router)
@@ -53,3 +53,7 @@ app.include_router(v220_router)
 # Workbench v2.3.0 robotics and controls routes.
 from app.v230 import router as v230_router
 app.include_router(v230_router)
+
+# Workbench v2.4.0 instrumentation and signal-analysis routes.
+from app.v240 import router as v240_router
+app.include_router(v240_router)

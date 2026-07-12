@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
  * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, v1.4 Core Engineering Calculators, and v1.5 Exportable Calculation Reports, and v1.6 Article-Embedded Calculators near formulas, and v1.7 Advanced Scientific, Econometric, Psychometric, Architecture, Infrastructure, Pattern, and Astrophysics Calculators, plus v1.8 Browser Code Studio Foundation, v1.9 browser-native JavaScript, Python, R, and SQL execution, and v2.0.0 an editor-first Run experience with direct output, automatic runtime loading, file switching, line numbers, and an optional advanced console.
- * Version: 2.3.0
+ * Version: 2.4.0
  * Author: Content Catalyst LLC
  * License: MIT
  * Text Domain: sustainable-catalyst-workbench
@@ -11,7 +11,7 @@
 if (!defined('ABSPATH')) { exit; }
 
 final class SC_Workbench_Plugin {
-    const VERSION = '2.3.0';
+    const VERSION = '2.4.0';
     const OPTION_BACKEND_URL = 'sc_workbench_backend_url';
     const OPTION_BACKEND_KEY = 'sc_workbench_backend_key';
     const OPTION_AI_PROVIDER = 'sc_workbench_ai_provider';
@@ -159,21 +159,21 @@ final class SC_Workbench_Plugin {
                 ],
             ],
             'runtimes' => [
-                ['id'=>'javascript', 'label'=>'JavaScript', 'target'=>'browser-worker', 'status'=>'available', 'version'=>'Browser ES', 'packages'=>['Workbench console','Workbench tables','Workbench chart specs'], 'release'=>'2.3.0'],
-                ['id'=>'python', 'label'=>'Python', 'target'=>'pyodide-worker', 'status'=>'available', 'version'=>'Pyodide 314.0.2', 'packages'=>['Python standard library','NumPy','pandas','SciPy','SymPy','Matplotlib','scikit-learn','statsmodels'], 'release'=>'2.3.0'],
-                ['id'=>'r', 'label'=>'R', 'target'=>'webr-worker', 'status'=>'available', 'version'=>'webR 0.6.0 / R 4.6.0', 'packages'=>['base','stats','graphics','grDevices','utils','datasets','methods'], 'release'=>'2.3.0'],
-                ['id'=>'sql', 'label'=>'SQL', 'target'=>'duckdb-wasm', 'status'=>'available', 'version'=>'DuckDB-Wasm 1.30.0', 'packages'=>['CSV','JSON','window functions','analytical SQL'], 'release'=>'2.3.0'],
-                ['id'=>'c', 'label'=>'C', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.3.0'],
-                ['id'=>'cpp', 'label'=>'C++', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.3.0'],
-                ['id'=>'go', 'label'=>'Go', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.3.0'],
-                ['id'=>'rust', 'label'=>'Rust', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.3.0'],
-                ['id'=>'java', 'label'=>'Java', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.3.0'],
-                ['id'=>'haskell', 'label'=>'Haskell', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.3.0'],
-                ['id'=>'fortran', 'label'=>'Fortran', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.3.0'],
-                ['id'=>'julia', 'label'=>'Julia', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.3.0'],
-                ['id'=>'octave', 'label'=>'GNU Octave', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.3.0'],
-                ['id'=>'gretl', 'label'=>'Gretl / hansl', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.3.0'],
-                ['id'=>'stan', 'label'=>'Stan', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.3.0'],
+                ['id'=>'javascript', 'label'=>'JavaScript', 'target'=>'browser-worker', 'status'=>'available', 'version'=>'Browser ES', 'packages'=>['Workbench console','Workbench tables','Workbench chart specs'], 'release'=>'2.4.0'],
+                ['id'=>'python', 'label'=>'Python', 'target'=>'pyodide-worker', 'status'=>'available', 'version'=>'Pyodide 314.0.2', 'packages'=>['Python standard library','NumPy','pandas','SciPy','SymPy','Matplotlib','scikit-learn','statsmodels'], 'release'=>'2.4.0'],
+                ['id'=>'r', 'label'=>'R', 'target'=>'webr-worker', 'status'=>'available', 'version'=>'webR 0.6.0 / R 4.6.0', 'packages'=>['base','stats','graphics','grDevices','utils','datasets','methods'], 'release'=>'2.4.0'],
+                ['id'=>'sql', 'label'=>'SQL', 'target'=>'duckdb-wasm', 'status'=>'available', 'version'=>'DuckDB-Wasm 1.30.0', 'packages'=>['CSV','JSON','window functions','analytical SQL'], 'release'=>'2.4.0'],
+                ['id'=>'c', 'label'=>'C', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.4.0'],
+                ['id'=>'cpp', 'label'=>'C++', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.4.0'],
+                ['id'=>'go', 'label'=>'Go', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.4.0'],
+                ['id'=>'rust', 'label'=>'Rust', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.4.0'],
+                ['id'=>'java', 'label'=>'Java', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.4.0'],
+                ['id'=>'haskell', 'label'=>'Haskell', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.4.0'],
+                ['id'=>'fortran', 'label'=>'Fortran', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.4.0'],
+                ['id'=>'julia', 'label'=>'Julia', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.4.0'],
+                ['id'=>'octave', 'label'=>'GNU Octave', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.4.0'],
+                ['id'=>'gretl', 'label'=>'Gretl / hansl', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.4.0'],
+                ['id'=>'stan', 'label'=>'Stan', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.4.0'],
             ],
             'runner_contract' => [
                 'status' => 'draft',
@@ -181,7 +181,7 @@ final class SC_Workbench_Plugin {
                 'transport' => 'loopback-structured-jobs',
                 'pairing_required' => true,
                 'arbitrary_shell' => false,
-                'release' => '2.3.0',
+                'release' => '2.4.0',
             ],
             'safety' => [
                 'fastapi_executes_user_code' => false,
@@ -2844,3 +2844,7 @@ require_once __DIR__ . '/includes/scwb-v220-hardware-validation.php';
 // Workbench v2.3.0 — Robotics, Controls, and Mechatronics Studio.
 if (!defined('SCWB_V230_PLUGIN_FILE')) { define('SCWB_V230_PLUGIN_FILE', __FILE__); }
 require_once __DIR__ . '/includes/scwb-v230-robotics-controls.php';
+
+// Workbench v2.4.0 — Instrumentation, Data Acquisition, and Signal Analysis Studio.
+if (!defined('SCWB_V240_PLUGIN_FILE')) { define('SCWB_V240_PLUGIN_FILE', __FILE__); }
+require_once __DIR__ . '/includes/scwb-v240-instrumentation.php';
