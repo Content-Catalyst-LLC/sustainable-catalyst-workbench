@@ -1,0 +1,46 @@
+SUSTAINABLE CATALYST PROTOTYPING WORKBENCH v2.2.0
+FPGA, ELECTRONICS DESIGN, AND HARDWARE VALIDATION STUDIO
+
+GITHUB UPGRADE
+
+cd ~/Downloads
+unzip sustainable-catalyst-workbench-v2.2.0-upgrade-bundle.zip
+cd sustainable-catalyst-workbench-v2.2.0-upgrade-bundle
+chmod +x push_workbench_v2_2_0_to_github.sh
+./push_workbench_v2_2_0_to_github.sh
+
+The script applies v2.0.0 and v2.1.0 prerequisites when needed, applies v2.2.0, normalizes source whitespace, runs release checks, creates the complete WordPress plugin and repository ZIPs, and pushes main.
+
+EXPECTED OUTPUTS
+
+~/Downloads/sustainable-catalyst-workbench-plugin-v2.2.0.zip
+~/Downloads/sustainable-catalyst-workbench-v2.2.0-repo.zip
+
+WORDPRESS SHORTCODES
+
+[sc_workbench_fpga_studio project="default"]
+[sc_workbench_electronics_design project="default"]
+[sc_workbench_schematic_editor project="default"]
+[sc_workbench_bom_validation project="default"]
+[sc_workbench_pcb_studio project="default"]
+[sc_workbench_hardware_validation project="default"]
+
+LOCAL RUNNER
+
+workbench-runner version
+workbench-runner doctor
+workbench-runner hardware-tools
+workbench-runner serve
+workbench-runner serve --enable-native-exec
+
+The browser must first pair through the existing Local Go Runner panel. Tool discovery does not execute project code. Named hardware-version tasks require explicit consent and --enable-native-exec.
+
+REPOSITORY TEST
+
+cd ~/Downloads/sustainable-catalyst-workbench-repo
+chmod +x scripts/test_v220_release.sh
+./scripts/test_v220_release.sh
+
+OPTIONAL GITHUB RELEASE
+
+SCWB_PUBLISH_GITHUB_RELEASE=1 ./push_workbench_v2_2_0_to_github.sh

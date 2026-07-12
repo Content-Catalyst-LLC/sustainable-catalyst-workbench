@@ -80,6 +80,9 @@ func main() {
 		case "devices":
 			printJSON(discoverDevices())
 			return
+		case "hardware-tools":
+			printJSON(discoverHardwareTools())
+			return
 		case "serve":
 			serve(os.Args[2:])
 			return
@@ -87,7 +90,7 @@ func main() {
 	}
 	fmt.Println("Sustainable Catalyst Workbench Runner " + runner.Version)
 	fmt.Println("Usage: workbench-runner serve [--enable-native-exec] [--timeout 8s]")
-	fmt.Println("       workbench-runner version | doctor | runtimes | devices")
+	fmt.Println("       workbench-runner version | doctor | runtimes | devices | hardware-tools")
 }
 
 func serve(args []string) {
@@ -109,6 +112,8 @@ func serve(args []string) {
 	mux.HandleFunc("/runtimes", s.withCORS(s.authorized(s.runtimes)))
 	mux.HandleFunc("/devices", s.withCORS(s.authorized(s.devices)))
 	mux.HandleFunc("/device-task", s.withCORS(s.authorized(s.deviceTask)))
+	mux.HandleFunc("/hardware-tools", s.withCORS(s.authorized(s.hardwareTools)))
+	mux.HandleFunc("/hardware-task", s.withCORS(s.authorized(s.hardwareTask)))
 	mux.HandleFunc("/execute", s.withCORS(s.authorized(s.execute)))
 
 	httpServer := &http.Server{
@@ -178,6 +183,10 @@ func (s *server) health(w http.ResponseWriter, r *http.Request) {
 		"embeddedDeviceStudio":   true,
 		"deviceDiscovery":        true,
 		"structuredDeviceTasks":  true,
+		"fpgaStudio":             true,
+		"electronicsDesign":      true,
+		"hardwareValidation":     true,
+		"hardwareToolDiscovery":  true,
 	})
 }
 
@@ -258,6 +267,51 @@ func (s *server) devices(w http.ResponseWriter, r *http.Request) {
 		"platform": runtime.GOOS + "/" + runtime.GOARCH,
 		"devices":  discoverDevices(),
 	})
+}
+
+func (s *server) hardwareTools(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		writeError(w, http.StatusMethodNotAllowed, "GET required")
+		return
+	}
+	writeJSON(w, http.StatusOK, map[string]any{
+		"ok":      true,
+		"version": runner.Version,
+		"tools":   discoverHardwareTools(),
+		"notes": []string{
+			"Availability only confirms that a command is visible to the local user.",
+			"Tool versions, target-device support, constraints, licenses, and generated results require project-specific review.",
+		},
+	})
+}
+
+func (s *server) hardwareTask(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		writeError(w, http.StatusMethodNotAllowed, "POST required")
+		return
+	}
+	if !s.nativeExec {
+		writeError(w, http.StatusForbidden, "hardware tasks are disabled; restart with --enable-native-exec")
+		return
+	}
+	var req deviceTaskRequest
+	if err := readJSON(r, &req); err != nil {
+		writeError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+	if !req.Consent {
+		writeError(w, http.StatusBadRequest, "explicit consent is required for a local hardware task")
+		return
+	}
+	result, err := runHardwareTask(r.Context(), s.timeout, strings.ToLower(req.Task))
+	if err != nil {
+		writeError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+	result["ok"] = true
+	result["version"] = runner.Version
+	result["arbitraryShellEndpoint"] = false
+	writeJSON(w, http.StatusOK, result)
 }
 
 func (s *server) deviceTask(w http.ResponseWriter, r *http.Request) {
@@ -422,6 +476,32 @@ func discoverEmbeddedTools() []runtimeRecord {
 	return out
 }
 
+func discoverHardwareTools() []runtimeRecord {
+	specs := []struct{ language, command string }{
+		{"fpga-yosys", "yosys"},
+		{"fpga-nextpnr-ice40", "nextpnr-ice40"},
+		{"fpga-nextpnr-ecp5", "nextpnr-ecp5"},
+		{"fpga-iverilog", "iverilog"},
+		{"fpga-verilator", "verilator"},
+		{"fpga-ghdl", "ghdl"},
+		{"fpga-openfpgaloader", "openFPGALoader"},
+		{"fpga-icepack", "icepack"},
+		{"hardware-openocd", "openocd"},
+		{"hardware-arduino-cli", "arduino-cli"},
+		{"hardware-kicad-cli", "kicad-cli"},
+	}
+	out := make([]runtimeRecord, 0, len(specs))
+	for _, spec := range specs {
+		record := runtimeRecord{Language: spec.language, Command: spec.command}
+		if path, err := exec.LookPath(spec.command); err == nil {
+			record.Available = true
+			record.Path = path
+		}
+		out = append(out, record)
+	}
+	return out
+}
+
 func globExisting(patterns ...string) []string {
 	seen := make(map[string]bool)
 	out := make([]string, 0)
@@ -452,6 +532,41 @@ func readSmallFile(path string, limit int64) string {
 		return ""
 	}
 	return strings.TrimRight(string(contents), "\x00\r\n ")
+}
+
+func runHardwareTask(parent context.Context, timeout time.Duration, task string) (map[string]any, error) {
+	specs := map[string][]string{
+		"yosys-version":          {"yosys", "-V"},
+		"nextpnr-ice40-version":  {"nextpnr-ice40", "--version"},
+		"nextpnr-ecp5-version":   {"nextpnr-ecp5", "--version"},
+		"iverilog-version":       {"iverilog", "-V"},
+		"verilator-version":      {"verilator", "--version"},
+		"ghdl-version":           {"ghdl", "--version"},
+		"openfpgaloader-version": {"openFPGALoader", "--version"},
+		"openocd-version":        {"openocd", "--version"},
+		"kicad-cli-version":      {"kicad-cli", "version"},
+	}
+	parts, ok := specs[task]
+	if !ok {
+		return map[string]any{"task": task}, errors.New("hardware task is not allowlisted")
+	}
+	path, err := exec.LookPath(parts[0])
+	if err != nil {
+		return map[string]any{"task": task, "command": parts[0]}, fmt.Errorf("tool is not available: %s", parts[0])
+	}
+	ctx, cancel := context.WithTimeout(parent, timeout)
+	defer cancel()
+	command := exec.CommandContext(ctx, path, parts[1:]...)
+	command.Env = minimalEnvironment(os.TempDir())
+	output, commandErr := command.CombinedOutput()
+	limited := appendLimited(nil, output, maxOutputBytes)
+	if ctx.Err() == context.DeadlineExceeded {
+		return map[string]any{"task": task, "command": parts[0], "output": string(limited)}, errors.New("hardware task timed out")
+	}
+	if commandErr != nil {
+		return map[string]any{"task": task, "command": parts[0], "output": string(limited)}, fmt.Errorf("hardware task failed: %w", commandErr)
+	}
+	return map[string]any{"task": task, "command": parts[0], "path": path, "output": string(limited)}, nil
 }
 
 func runDeviceTask(parent context.Context, timeout time.Duration, task string) (map[string]any, bool, error) {

@@ -1,4 +1,4 @@
-# Sustainable Catalyst Prototyping Workbench v2.1.0
+# Sustainable Catalyst Prototyping Workbench v2.2.0
 
 A compact AI-enabled research and analytics workbench for modeling, calculating, visualizing, and interpreting complex systems across science, sustainability, engineering, architecture, psychology, economics, governance, and meaning.
 
@@ -241,3 +241,9 @@ Native execution is disabled by default and is not a hostile-code sandbox. It ru
 Adds a Raspberry Pi project generator, structured embedded-device discovery through the loopback Go Runner, TinyML dataset validation and browser baselines, INT8 and Float16 deployment previews, sensor calibration with residual and uncertainty records, device observation logs, an expanded embedded board catalog, and project-bundle exports.
 
 The local runner remains loopback-only and origin-paired. It exposes no arbitrary shell endpoint. The new device-task endpoint accepts only named allowlisted tasks; Arduino CLI board discovery additionally requires `--enable-native-exec`. Generated models, code, wiring assumptions, and deployment scaffolds require hardware-in-the-loop validation.
+
+## Version 2.2.0 — FPGA, Electronics Design, and Hardware Validation Studio
+
+Adds FPGA project generation and implementation-report review, HDL and board-constraint records, electronics architecture checks, structured schematic and netlist validation, BOM lifecycle/cost/substitution review, preliminary PCB planning and design-rule checks, hardware test-plan evaluation, validation dossiers, and expanded local hardware-tool discovery.
+
+The local runner remains loopback-only and origin-paired. It exposes no arbitrary shell endpoint. Named hardware-version tasks require explicit consent and `--enable-native-exec`. Generated HDL, constraints, schematics, netlists, BOMs, PCB plans, test records, and validation results require qualified engineering review and hardware-in-the-loop verification.
