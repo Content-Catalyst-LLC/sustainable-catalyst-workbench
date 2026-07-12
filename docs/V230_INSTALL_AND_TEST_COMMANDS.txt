@@ -1,0 +1,20 @@
+Workbench v2.3.0 — Install and Test
+
+1. Unzip the complete upgrade bundle in ~/Downloads.
+2. Run:
+   cd ~/Downloads/sustainable-catalyst-workbench-v2.3.0-upgrade-bundle
+   chmod +x push_workbench_v2_3_0_to_github.sh
+   ./push_workbench_v2_3_0_to_github.sh
+
+WordPress shortcodes:
+[sc_workbench_robotics_studio project="default"]
+[sc_workbench_controls_studio project="default"]
+[sc_workbench_mechatronics_studio project="default"]
+[sc_workbench_actuator_studio project="default"]
+[sc_workbench_state_machine_studio project="default"]
+[sc_workbench_hil_validation project="default"]
+
+Runner:
+workbench-runner serve
+workbench-runner serve --enable-native-exec
+workbench-runner robotics-tools

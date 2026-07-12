@@ -1,4 +1,4 @@
-# Sustainable Catalyst Prototyping Workbench v2.2.0
+# Sustainable Catalyst Prototyping Workbench v2.3.0
 
 A compact AI-enabled research and analytics workbench for modeling, calculating, visualizing, and interpreting complex systems across science, sustainability, engineering, architecture, psychology, economics, governance, and meaning.
 
@@ -247,3 +247,7 @@ The local runner remains loopback-only and origin-paired. It exposes no arbitrar
 Adds FPGA project generation and implementation-report review, HDL and board-constraint records, electronics architecture checks, structured schematic and netlist validation, BOM lifecycle/cost/substitution review, preliminary PCB planning and design-rule checks, hardware test-plan evaluation, validation dossiers, and expanded local hardware-tool discovery.
 
 The local runner remains loopback-only and origin-paired. It exposes no arbitrary shell endpoint. Named hardware-version tasks require explicit consent and `--enable-native-exec`. Generated HDL, constraints, schematics, netlists, BOMs, PCB plans, test records, and validation results require qualified engineering review and hardware-in-the-loop verification.
+
+## Version 2.3.0 — Robotics, Controls, and Mechatronics Studio
+
+Adds differential-drive kinematics, PID baseline simulation, mechatronics architecture review, actuator sizing, robot state-machine validation, hardware-in-the-loop telemetry checks, and paired local robotics-tool discovery.
