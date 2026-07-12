@@ -10,12 +10,14 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"net"
 	"net/http"
 	"net/url"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -50,6 +52,11 @@ type executeRequest struct {
 	Consent  bool   `json:"consent"`
 }
 
+type deviceTaskRequest struct {
+	Task    string `json:"task"`
+	Consent bool   `json:"consent"`
+}
+
 type runtimeRecord struct {
 	Language  string `json:"language"`
 	Command   string `json:"command"`
@@ -70,6 +77,9 @@ func main() {
 		case "runtimes":
 			printJSON(discoverRuntimes())
 			return
+		case "devices":
+			printJSON(discoverDevices())
+			return
 		case "serve":
 			serve(os.Args[2:])
 			return
@@ -77,7 +87,7 @@ func main() {
 	}
 	fmt.Println("Sustainable Catalyst Workbench Runner " + runner.Version)
 	fmt.Println("Usage: workbench-runner serve [--enable-native-exec] [--timeout 8s]")
-	fmt.Println("       workbench-runner version | doctor | runtimes")
+	fmt.Println("       workbench-runner version | doctor | runtimes | devices")
 }
 
 func serve(args []string) {
@@ -97,6 +107,8 @@ func serve(args []string) {
 	mux.HandleFunc("/health", s.withCORS(s.health))
 	mux.HandleFunc("/pair", s.withCORS(s.pair))
 	mux.HandleFunc("/runtimes", s.withCORS(s.authorized(s.runtimes)))
+	mux.HandleFunc("/devices", s.withCORS(s.authorized(s.devices)))
+	mux.HandleFunc("/device-task", s.withCORS(s.authorized(s.deviceTask)))
 	mux.HandleFunc("/execute", s.withCORS(s.authorized(s.execute)))
 
 	httpServer := &http.Server{
@@ -163,6 +175,9 @@ func (s *server) health(w http.ResponseWriter, r *http.Request) {
 		"arbitraryShellEndpoint": false,
 		"pairingRequired":        true,
 		"platform":               runtime.GOOS + "/" + runtime.GOARCH,
+		"embeddedDeviceStudio":   true,
+		"deviceDiscovery":        true,
+		"structuredDeviceTasks":  true,
 	})
 }
 
@@ -232,6 +247,48 @@ func (s *server) runtimes(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+func (s *server) devices(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		writeError(w, http.StatusMethodNotAllowed, "GET required")
+		return
+	}
+	writeJSON(w, http.StatusOK, map[string]any{
+		"ok":       true,
+		"version":  runner.Version,
+		"platform": runtime.GOOS + "/" + runtime.GOARCH,
+		"devices":  discoverDevices(),
+	})
+}
+
+func (s *server) deviceTask(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		writeError(w, http.StatusMethodNotAllowed, "POST required")
+		return
+	}
+	var req deviceTaskRequest
+	if err := readJSON(r, &req); err != nil {
+		writeError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+	if !req.Consent {
+		writeError(w, http.StatusBadRequest, "explicit consent is required for a local device task")
+		return
+	}
+	result, requiresExec, err := runDeviceTask(r.Context(), s.timeout, strings.ToLower(req.Task))
+	if requiresExec && !s.nativeExec {
+		writeError(w, http.StatusForbidden, "this allowlisted device task requires --enable-native-exec")
+		return
+	}
+	if err != nil {
+		writeError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+	result["ok"] = true
+	result["version"] = runner.Version
+	result["arbitraryShellEndpoint"] = false
+	writeJSON(w, http.StatusOK, result)
+}
+
 func (s *server) execute(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		writeError(w, http.StatusMethodNotAllowed, "POST required")
@@ -299,6 +356,142 @@ func discoverRuntimes() []runtimeRecord {
 		out = append(out, rec)
 	}
 	return out
+}
+
+func discoverDevices() map[string]any {
+	serialPatterns := []string{"/dev/ttyUSB*", "/dev/ttyACM*", "/dev/serial/by-id/*"}
+	if runtime.GOOS == "darwin" {
+		serialPatterns = []string{"/dev/cu.*", "/dev/tty.*"}
+	}
+	interfaces := make([]map[string]any, 0)
+	if records, err := net.Interfaces(); err == nil {
+		for _, record := range records {
+			addresses, _ := record.Addrs()
+			values := make([]string, 0, len(addresses))
+			for _, address := range addresses {
+				values = append(values, address.String())
+			}
+			interfaces = append(interfaces, map[string]any{
+				"name":      record.Name,
+				"flags":     record.Flags.String(),
+				"addresses": values,
+			})
+		}
+	}
+	model := strings.TrimSpace(readSmallFile("/proc/device-tree/model", 512))
+	if model == "" {
+		model = strings.TrimSpace(readSmallFile("/sys/firmware/devicetree/base/model", 512))
+	}
+	return map[string]any{
+		"raspberryPiModel": model,
+		"serial":           globExisting(serialPatterns...),
+		"i2c":              globExisting("/dev/i2c-*"),
+		"gpio":             globExisting("/dev/gpiochip*"),
+		"spi":              globExisting("/dev/spidev*"),
+		"video":            globExisting("/dev/video*"),
+		"network":          interfaces,
+		"toolchains":       discoverEmbeddedTools(),
+		"notes": []string{
+			"Discovery reports interfaces visible to the current local user.",
+			"A listed interface does not establish electrical compatibility, permissions, calibration, or safe operation.",
+		},
+	}
+}
+
+func discoverEmbeddedTools() []runtimeRecord {
+	specs := []struct{ language, command string }{
+		{"arduino-cli", "arduino-cli"},
+		{"python-smbus", "python3"},
+		{"gpio-tools", "gpiodetect"},
+		{"i2c-tools", "i2cdetect"},
+		{"picotool", "picotool"},
+		{"openocd", "openocd"},
+		{"esptool", "esptool.py"},
+		{"yosys", "yosys"},
+		{"nextpnr", "nextpnr-ice40"},
+	}
+	out := make([]runtimeRecord, 0, len(specs))
+	for _, spec := range specs {
+		record := runtimeRecord{Language: spec.language, Command: spec.command}
+		if path, err := exec.LookPath(spec.command); err == nil {
+			record.Available = true
+			record.Path = path
+		}
+		out = append(out, record)
+	}
+	return out
+}
+
+func globExisting(patterns ...string) []string {
+	seen := make(map[string]bool)
+	out := make([]string, 0)
+	for _, pattern := range patterns {
+		matches, _ := filepath.Glob(pattern)
+		for _, match := range matches {
+			if seen[match] {
+				continue
+			}
+			if _, err := os.Stat(match); err == nil {
+				seen[match] = true
+				out = append(out, match)
+			}
+		}
+	}
+	sort.Strings(out)
+	return out
+}
+
+func readSmallFile(path string, limit int64) string {
+	file, err := os.Open(path)
+	if err != nil {
+		return ""
+	}
+	defer file.Close()
+	contents, err := io.ReadAll(io.LimitReader(file, limit))
+	if err != nil {
+		return ""
+	}
+	return strings.TrimRight(string(contents), "\x00\r\n ")
+}
+
+func runDeviceTask(parent context.Context, timeout time.Duration, task string) (map[string]any, bool, error) {
+	switch task {
+	case "raspberry-pi-info":
+		return map[string]any{
+			"task":           task,
+			"model":          strings.TrimSpace(readSmallFile("/proc/device-tree/model", 512)),
+			"cpuInfoPreview": readSmallFile("/proc/cpuinfo", 16*1024),
+		}, false, nil
+	case "serial-list":
+		patterns := []string{"/dev/ttyUSB*", "/dev/ttyACM*", "/dev/serial/by-id/*"}
+		if runtime.GOOS == "darwin" {
+			patterns = []string{"/dev/cu.*", "/dev/tty.*"}
+		}
+		return map[string]any{"task": task, "interfaces": globExisting(patterns...)}, false, nil
+	case "i2c-list":
+		return map[string]any{"task": task, "interfaces": globExisting("/dev/i2c-*")}, false, nil
+	case "gpio-list":
+		return map[string]any{"task": task, "interfaces": globExisting("/dev/gpiochip*")}, false, nil
+	case "arduino-board-list":
+		path, err := exec.LookPath("arduino-cli")
+		if err != nil {
+			return map[string]any{"task": task}, true, errors.New("arduino-cli is not available")
+		}
+		ctx, cancel := context.WithTimeout(parent, timeout)
+		defer cancel()
+		command := exec.CommandContext(ctx, path, "board", "list", "--format", "json")
+		command.Env = minimalEnvironment(os.TempDir())
+		output, commandErr := command.CombinedOutput()
+		if ctx.Err() == context.DeadlineExceeded {
+			return map[string]any{"task": task}, true, errors.New("Arduino board discovery timed out")
+		}
+		if commandErr != nil {
+			return map[string]any{"task": task, "output": string(appendLimited(nil, output, maxOutputBytes))}, true, fmt.Errorf("arduino-cli board list failed: %w", commandErr)
+		}
+		return map[string]any{"task": task, "output": string(appendLimited(nil, output, maxOutputBytes))}, true, nil
+	default:
+		return map[string]any{"task": task}, false, errors.New("device task is not allowlisted")
+	}
 }
 
 func runSource(parent context.Context, timeout time.Duration, language, filename, source string) (map[string]any, error) {

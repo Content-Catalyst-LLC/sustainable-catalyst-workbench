@@ -37,6 +37,6 @@ The feature builder turns article equations into an implementation roadmap:
 
 ## How this fits the Workbench roadmap
 
-v0.9.5 created the Equation Registry and CSV export.  
-v0.9.6 created the Calculator Backlog.  
+v0.9.5 created the Equation Registry and CSV export.
+v0.9.6 created the Calculator Backlog.
 v0.9.7 connects both into a feature-building system that can guide v1.0 implementation.

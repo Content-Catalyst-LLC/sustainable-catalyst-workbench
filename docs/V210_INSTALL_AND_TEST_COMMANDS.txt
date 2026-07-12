@@ -1,0 +1,83 @@
+SUSTAINABLE CATALYST WORKBENCH v2.1.0
+Raspberry Pi, TinyML, and Embedded Device Studio
+
+1. BUILD, VALIDATE, PACKAGE, AND PUSH
+
+Place the v2.1.0 upgrade bundle in Downloads, then run:
+
+cd ~/Downloads
+unzip sustainable-catalyst-workbench-v2.1.0-upgrade-bundle.zip
+cd sustainable-catalyst-workbench-v2.1.0-upgrade-bundle
+chmod +x push_workbench_v2_1_0_to_github.sh
+./push_workbench_v2_1_0_to_github.sh
+
+The script starts from the current GitHub main branch. If the v2.0.0 foundation is missing, the bundled v2.0.0 prerequisite overlay is applied first. It then applies v2.1.0, removes trailing whitespace from source files, runs release checks, creates the complete WordPress plugin ZIP and repository ZIP, commits, and pushes.
+
+Expected output files in ~/Downloads:
+
+sustainable-catalyst-workbench-plugin-v2.1.0.zip
+sustainable-catalyst-workbench-v2.1.0-repo.zip
+
+2. WORDPRESS INSTALLATION
+
+Upload sustainable-catalyst-workbench-plugin-v2.1.0.zip through Plugins > Add New Plugin > Upload Plugin and replace the existing Workbench plugin.
+
+For a non-destructive preview, keep the existing Workbench plugin active and upload:
+
+sustainable-catalyst-workbench-v2.1.0-embedded-addon.zip
+
+3. SHORTCODES
+
+[sc_workbench_embedded_device_studio project="default"]
+[sc_workbench_raspberry_pi project="default"]
+[sc_workbench_tinyml project="default"]
+[sc_workbench_sensor_calibration project="default"]
+[sc_workbench_device_logs project="default"]
+[sc_workbench_embedded_board_catalog project="default"]
+
+4. INSTALL THE LOCAL RUNNER ON macOS
+
+cd ~/Downloads
+unzip workbench-runner-v2.1.0-macos.zip
+cd workbench-runner-v2.1.0-macos
+chmod +x install.sh workbench-runner-darwin-*
+./install.sh
+
+Start discovery-only mode:
+
+~/.local/bin/workbench-runner serve
+
+Start allowlisted native execution mode:
+
+~/.local/bin/workbench-runner serve --enable-native-exec
+
+5. INSTALL THE LOCAL RUNNER ON LINUX OR RASPBERRY PI
+
+cd ~/Downloads
+unzip workbench-runner-v2.1.0-linux.zip
+cd workbench-runner-v2.1.0-linux
+chmod +x install.sh workbench-runner-linux-*
+./install.sh
+
+Then start the runner as shown above.
+
+6. RUNNER DIAGNOSTICS
+
+~/.local/bin/workbench-runner version
+~/.local/bin/workbench-runner doctor
+~/.local/bin/workbench-runner runtimes
+~/.local/bin/workbench-runner devices
+
+7. PAIRING
+
+Open the existing v2.0.0 Local Go Runner panel in Workbench. Enter the six-digit pairing code shown in the terminal. The Embedded Device Studio reuses the origin-bound token for the same project.
+
+8. RELEASE TESTS IN A REPOSITORY CHECKOUT
+
+cd ~/Downloads/sustainable-catalyst-workbench-repo
+chmod +x scripts/test_v210_release.sh
+./scripts/test_v210_release.sh
+
+9. OPTIONAL GITHUB RELEASE
+
+SCWB_PUBLISH_GITHUB_RELEASE=1 ./push_workbench_v2_1_0_to_github.sh

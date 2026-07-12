@@ -1,4 +1,4 @@
-# Sustainable Catalyst Prototyping Workbench v2.0.0
+# Sustainable Catalyst Prototyping Workbench v2.1.0
 
 A compact AI-enabled research and analytics workbench for modeling, calculating, visualizing, and interpreting complex systems across science, sustainability, engineering, architecture, psychology, economics, governance, and meaning.
 
@@ -235,3 +235,9 @@ See `docs/V191_EDITOR_FIRST_BROWSER_CODE_LAB.md`.
 Adds an optional loopback-only Go runner, one-time browser pairing, origin-bound tokens, allowlisted native runtime discovery and execution, a Research Lab Canvas, structured Research and Lab Notebook, Technical Documentation Studio, Arduino Studio, conceptual schematic and PCB generators, synchronized BOM workflows, an Assembly Translator foundation, and an FPGA Studio foundation.
 
 Native execution is disabled by default and is not a hostile-code sandbox. It runs only on the local visitor machine when the runner is explicitly started with `--enable-native-exec`. Generated code, electronics, PCB, and FPGA outputs require technical review and validation.
+
+## Version 2.1.0 — Raspberry Pi, TinyML, and Embedded Device Studio
+
+Adds a Raspberry Pi project generator, structured embedded-device discovery through the loopback Go Runner, TinyML dataset validation and browser baselines, INT8 and Float16 deployment previews, sensor calibration with residual and uncertainty records, device observation logs, an expanded embedded board catalog, and project-bundle exports.
+
+The local runner remains loopback-only and origin-paired. It exposes no arbitrary shell endpoint. The new device-task endpoint accepts only named allowlisted tasks; Arduino CLI board discovery additionally requires `--enable-native-exec`. Generated models, code, wiring assumptions, and deployment scaffolds require hardware-in-the-loop validation.
