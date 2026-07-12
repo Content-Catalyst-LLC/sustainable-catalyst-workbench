@@ -1,0 +1,39 @@
+# Workbench v1.8.0 Browser Code Studio Foundation
+
+# Install WordPress plugin
+# 1. Upload sustainable-catalyst-workbench-plugin-v1.8.0.zip
+# 2. Replace the previous Sustainable Catalyst Workbench plugin version
+# 3. Activate or reactivate the plugin
+
+# Main Workbench with Code Studio tab
+[sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
+
+# Standalone full Code Studio
+[sc_workbench_code_studio title="Browser Code Studio" project="default" display="full"]
+
+# Standalone black-and-green terminal
+[sc_workbench_terminal title="Workbench Terminal" project="default" display="full"]
+
+# Browser terminal smoke test
+help
+status
+pwd
+ls
+cat README.md
+edit src/main.js
+runtimes
+export workbench-browser-project
+
+# Backend manifest smoke test
+curl http://127.0.0.1:8088/code-studio/manifest
+
+# WordPress manifest smoke test
+# Replace the domain as needed.
+curl https://sustainablecatalyst.com/wp-json/sc-workbench/v1/code-studio/manifest
+
+# Repository validation
+cd backend
+PYTHONPATH=. pytest -q
+
+cd ../tests/frontend
+node test_code_studio_foundation.js

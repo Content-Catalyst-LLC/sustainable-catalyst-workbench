@@ -1,0 +1,36 @@
+# Workbench v1.9.0 Browser Runtime Pack
+
+# WordPress
+# 1. Upload sustainable-catalyst-workbench-plugin-v1.9.0.zip
+# 2. Activate or replace the existing plugin
+# 3. Clear WordPress, CDN, and browser caches
+
+# Shortcodes
+[sc_workbench_code_studio title="Browser Code Studio" project="default" display="full"]
+[sc_workbench_terminal title="Workbench Terminal" project="default" display="full"]
+[sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
+
+# Terminal runtime commands
+runtimes
+runtime
+runtime python
+runtime load python
+packages python
+run /src/main.js
+node /src/main.js
+python /src/analysis.py
+Rscript /src/analysis.R
+duckdb /src/query.sql
+stop
+
+# Repository validation
+chmod +x scripts/test_v190_release.sh
+./scripts/test_v190_release.sh
+
+# Runtime notes
+# - JavaScript runs in a dedicated browser worker.
+# - Python uses Pyodide and loads approved packages on demand.
+# - R uses webR.
+# - SQL uses DuckDB-Wasm.
+# - First loads require internet access to the pinned runtime assets.
+# - WordPress and FastAPI do not execute project source.

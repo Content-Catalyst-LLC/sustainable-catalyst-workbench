@@ -1,0 +1,23 @@
+# Sustainable Catalyst Workbench v1.9.1
+# Editor-First Browser Code Lab
+
+# WordPress shortcode
+[sc_workbench_code_studio title="Browser Code Studio" project="default" display="full"]
+
+# Primary browser workflow
+1. Select JavaScript, Python, R, or SQL.
+2. Select a starter or project file.
+3. Type or paste code in the editor.
+4. Click Run.
+5. Read output beside the editor.
+
+# Keyboard shortcut
+Ctrl + Enter
+Command + Enter on macOS
+
+# Advanced Console remains available inside Code Studio.
+# Standalone console shortcode:
+[sc_workbench_terminal title="Workbench Terminal" project="default" display="full"]
+
+# Release validation
+./scripts/test_v191_release.sh

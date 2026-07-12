@@ -1,6 +1,9 @@
-Sustainable Catalyst Workbench v1.2.0
+Sustainable Catalyst Workbench v1.9.1
+Editor-First Browser Code Lab and Browser Runtime Pack
 
-Chalkboard Translator, Symbolic Math, Engineering Units, Graph Studio, Stable Workbench Core, Placement Assistant, and Validation Dashboard.
+Sustainable Catalyst Workbench v1.8.0
+
+Browser Code Studio Foundation, Chalkboard Translator, Symbolic Math, Engineering Units, Graph Studio, Stable Workbench Core, advanced calculators, article embeds, Placement Assistant, and Validation Dashboard.
 
 Includes:
 - WordPress plugin with stable shortcode display modes
@@ -53,3 +56,81 @@ V1.7.0 Advanced Domain Calculators
 - backend/tests/test_v170_advanced_domain_calculators.py
 - docs/V170_ADVANCED_DOMAIN_CALCULATORS.md
 - terminal/V170_ADVANCED_DOMAIN_CALCULATORS_COMMANDS.txt
+
+V1.8.0 Browser Code Studio Foundation
+- Main Workbench Code Studio tab
+- [sc_workbench_code_studio] standalone shortcode
+- [sc_workbench_terminal] standalone shortcode
+- Black-and-green controlled browser terminal
+- IndexedDB project storage with localStorage fallback
+- Virtual project filesystem and persistent command history
+- Browser editor, file browser, output log, chart placeholder, and documentation panel
+- JSON project export and individual file download
+- Modular frontend code-studio assets
+- WordPress and FastAPI Code Studio manifests
+- Draft Go runner structured-job contract
+- Frontend and backend release tests
+
+wordpress-plugin/sustainable-catalyst-workbench/assets/css/sc-workbench-code-studio.css
+wordpress-plugin/sustainable-catalyst-workbench/assets/js/code-studio/filesystem.js
+wordpress-plugin/sustainable-catalyst-workbench/assets/js/code-studio/session.js
+wordpress-plugin/sustainable-catalyst-workbench/assets/js/code-studio/runtime-registry.js
+wordpress-plugin/sustainable-catalyst-workbench/assets/js/code-studio/output.js
+wordpress-plugin/sustainable-catalyst-workbench/assets/js/code-studio/editor.js
+wordpress-plugin/sustainable-catalyst-workbench/assets/js/code-studio/terminal.js
+wordpress-plugin/sustainable-catalyst-workbench/assets/js/code-studio/code-studio.js
+backend/app/routers/code_studio.py
+backend/tests/test_v180_browser_code_studio.py
+docs/V180_BROWSER_CODE_STUDIO_FOUNDATION.md
+terminal/V180_BROWSER_CODE_STUDIO_COMMANDS.txt
+tests/frontend/test_code_studio_foundation.js
+scripts/test_v180_release.sh
+tests/php/test_code_studio_shortcodes.php
+
+- docs/V190_BROWSER_PYTHON_R_JAVASCRIPT_SQL.md
+- scripts/test_v190_release.sh
+- terminal/V190_BROWSER_RUNTIME_COMMANDS.txt
+
+V1.9.0 Browser Python, R, JavaScript, and SQL
+- Dedicated JavaScript execution worker with Workbench table, chart, file, and artifact helpers
+- Pyodide Python worker with approved scientific package loading and Matplotlib output capture
+- webR execution with PostMessage fallback and plot capture
+- DuckDB-Wasm analytical SQL with browser-project CSV and JSON registration
+- Lazy runtime selection, load, run, stop, reset, and package commands
+- Runtime toolbar and status indicators
+- Structured table, SVG chart, image, and canvas rendering
+- Browser source-size and execution-time limits
+- Runtime-specific static safety checks
+- v1.8 project migration without overwriting user files
+- WordPress and FastAPI v1.9 manifests
+- Frontend worker, shortcode, API, syntax, and release tests
+
+wordpress-plugin/sustainable-catalyst-workbench/assets/js/code-studio/runtime-manager.js
+wordpress-plugin/sustainable-catalyst-workbench/assets/js/code-studio/runtime-javascript.js
+wordpress-plugin/sustainable-catalyst-workbench/assets/js/code-studio/runtime-python.js
+wordpress-plugin/sustainable-catalyst-workbench/assets/js/code-studio/runtime-r.js
+wordpress-plugin/sustainable-catalyst-workbench/assets/js/code-studio/runtime-sql.js
+wordpress-plugin/sustainable-catalyst-workbench/assets/js/code-studio/workers/javascript-worker.js
+wordpress-plugin/sustainable-catalyst-workbench/assets/js/code-studio/workers/python-worker.js
+wordpress-plugin/sustainable-catalyst-workbench/assets/js/code-studio/chart-renderer.js
+backend/tests/test_v190_browser_runtimes.py
+docs/V190_BROWSER_PYTHON_R_JAVASCRIPT_SQL.md
+terminal/V190_BROWSER_RUNTIME_COMMANDS.txt
+scripts/test_v190_release.sh
+
+
+V1.9.1 Editor-First Browser Code Lab
+- Code editor opens by default instead of the command-line terminal
+- Language and runnable-file selectors
+- Large direct Run button with automatic save and lazy runtime loading
+- Dedicated stdout, stderr, status, and completion pane beside the editor
+- Line-number gutter and Ctrl/Command + Enter shortcut
+- Tables and charts panel retained
+- Terminal retained as an optional Advanced Console
+- Existing browser projects migrated without overwriting source files
+- Frontend editor-first contract tests and updated shortcode tests
+
+docs/V191_EDITOR_FIRST_BROWSER_CODE_LAB.md
+terminal/V191_EDITOR_FIRST_CODE_LAB_COMMANDS.txt
+tests/frontend/test_editor_first_contract.js
+scripts/test_v191_release.sh

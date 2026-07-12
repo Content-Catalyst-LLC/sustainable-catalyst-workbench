@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Worker smoke</title></head>
+<body data-status="starting"><pre id="result"></pre>
+<script>
+(function () {
+  const output = document.getElementById('result');
+  const worker = new Worker('/wordpress-plugin/sustainable-catalyst-workbench/assets/js/code-studio/workers/javascript-worker.js');
+  const timer = setTimeout(function () {
+    document.body.dataset.status = 'timeout';
+    output.textContent = 'Worker timeout';
+  }, 5000);
+  worker.onmessage = function (event) {
+    const message = event.data || {};
+    if (message.type !== 'done') return;
+    clearTimeout(timer);
+    const valid = message.ok === true && message.tables && message.tables.length === 1 && message.charts && message.charts.length === 1 && message.artifacts && message.artifacts.length === 1;
+    document.body.dataset.status = valid ? 'passed' : 'failed';
+    output.textContent = JSON.stringify(message);
+    worker.terminate();
+  };
+  worker.onerror = function (event) {
+    clearTimeout(timer);
+    document.body.dataset.status = 'error';
+    output.textContent = event.message || 'worker error';
+  };
+  worker.postMessage({
+    type: 'run',
+    path: '/src/smoke.js',
+    files: {'/data/value.txt': '42'},
+    code: 'console.log("worker", workbench.readFile("/data/value.txt")); workbench.table("T", [{x: 1}]); workbench.chart("C", {type:"line", x:[1], y:[2]}); workbench.artifact("smoke.txt", "ok"); return 7;'
+  });
+})();
+</script></body></html>

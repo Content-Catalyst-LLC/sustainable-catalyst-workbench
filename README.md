@@ -1,8 +1,8 @@
-# Sustainable Catalyst Workbench v1.6.0
+# Sustainable Catalyst Workbench v1.9.1
 
 A compact AI-enabled research and analytics workbench for modeling, calculating, visualizing, and interpreting complex systems across science, sustainability, engineering, architecture, psychology, economics, governance, and meaning.
 
-This release is backend-first: WordPress provides the compact interface, while FastAPI/Python performs the analytical work and returns structured results plus SVG graphs. R, Julia, Haskell, and C++ extension bridges are included for deeper statistical, simulation, formal logic, and performance workflows.
+Workbench now combines three layers: WordPress provides the public interface, FastAPI/Python performs the established analytical work, and Browser Code Studio provides an editor-first local coding lab with persistent project files, direct Run controls, output, charts, and an optional advanced console. R, Julia, Haskell, and C++ extension bridges remain included for deeper statistical, simulation, formal logic, and performance workflows.
 
 ## Packages
 
@@ -183,3 +183,49 @@ Report export buttons now appear in Workbench result panels: Print/PDF, Markdown
 ## Version 1.7.0 — Advanced Domain Calculators
 
 Adds deterministic calculator families for econometrics, psychometrics, computational biology, computational chemistry, computational physics, architecture, infrastructure, pattern recognition, and astrophysics. The existing engineering calculator UI is upgraded into an Advanced Calculator Library while preserving the prior shortcode.
+
+## Version 1.8.0 — Browser Code Studio Foundation
+
+Adds a browser-native Code Studio to the main Workbench and two standalone shortcodes. The release includes a black-and-green command-line interface, IndexedDB project persistence with localStorage fallback, a virtual filesystem, editor, file browser, event log, chart workspace contract, documentation panel, project export, a WordPress/FastAPI manifest, and a draft structured-job contract for the future downloadable Go runner. Arbitrary code execution is intentionally disabled until the browser runtime release.
+
+```text
+[sc_workbench_code_studio title="Browser Code Studio" project="default"]
+[sc_workbench_terminal title="Workbench Terminal" project="default"]
+```
+
+See `docs/V180_BROWSER_CODE_STUDIO_FOUNDATION.md`.
+
+
+
+## Version 1.9.0 — Browser Python, R, JavaScript, and SQL
+
+Adds lazy-loaded browser execution for JavaScript, Python through Pyodide, R through webR, and analytical SQL through DuckDB-Wasm. Code runs on the visitor device in controlled browser workers or WebAssembly runtimes. The release adds runtime selection, load/run/stop controls, command aliases, approved package manifests, structured table and chart rendering, local artifacts, runtime timeouts, and static browser safety checks. WordPress and FastAPI remain non-execution layers.
+
+```text
+run /src/main.js
+python /src/analysis.py
+Rscript /src/analysis.R
+duckdb /src/query.sql
+```
+
+See `docs/V190_BROWSER_PYTHON_R_JAVASCRIPT_SQL.md`.
+
+
+## Version 1.9.1 — Editor-First Browser Code Lab
+
+This interface correction makes Code Studio work like a browser coding exercise rather than requiring terminal commands. The Code panel opens by default, users select a language and file, type or paste code, click **Run**, and read output beside the editor. Runtimes still execute entirely on the visitor device.
+
+Highlights:
+
+- Editor-first default view
+- Direct Run and Stop controls
+- Automatic save before execution
+- Automatic runtime loading on first run
+- Dedicated stdout and error pane
+- Line-number gutter
+- Runnable-file selector
+- Ctrl/Command + Enter execution shortcut
+- Tables and charts retained in a separate results panel
+- Command-line interface retained as an optional Advanced Console
+
+See `docs/V191_EDITOR_FIRST_BROWSER_CODE_LAB.md`.

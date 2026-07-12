@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Workbench
- * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, v1.4 Core Engineering Calculators, and v1.5 Exportable Calculation Reports, and v1.6 Article-Embedded Calculators near formulas, and v1.7 Advanced Scientific, Econometric, Psychometric, Architecture, Infrastructure, Pattern, and Astrophysics Calculators.
- * Version: 1.7.0
+ * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, v1.4 Core Engineering Calculators, and v1.5 Exportable Calculation Reports, and v1.6 Article-Embedded Calculators near formulas, and v1.7 Advanced Scientific, Econometric, Psychometric, Architecture, Infrastructure, Pattern, and Astrophysics Calculators, plus v1.8 Browser Code Studio Foundation, v1.9 browser-native JavaScript, Python, R, and SQL execution, and v1.9.1 an editor-first Run experience with direct output, automatic runtime loading, file switching, line numbers, and an optional advanced console.
+ * Version: 1.9.1
  * Author: Content Catalyst LLC
  * License: MIT
  * Text Domain: sustainable-catalyst-workbench
@@ -11,7 +11,7 @@
 if (!defined('ABSPATH')) { exit; }
 
 final class SC_Workbench_Plugin {
-    const VERSION = '1.7.0';
+    const VERSION = '1.9.1';
     const OPTION_BACKEND_URL = 'sc_workbench_backend_url';
     const OPTION_BACKEND_KEY = 'sc_workbench_backend_key';
     const OPTION_AI_PROVIDER = 'sc_workbench_ai_provider';
@@ -54,13 +54,30 @@ final class SC_Workbench_Plugin {
 
     public function enqueue_assets() {
         wp_register_style('sc-workbench', plugin_dir_url(__FILE__) . 'assets/sc-workbench.css', [], self::VERSION);
+        wp_register_style('sc-workbench-code-studio', plugin_dir_url(__FILE__) . 'assets/css/sc-workbench-code-studio.css', ['sc-workbench'], self::VERSION);
+
         wp_register_script('sc-workbench', plugin_dir_url(__FILE__) . 'assets/sc-workbench.js', [], self::VERSION, true);
+        wp_register_script('sc-workbench-code-filesystem', plugin_dir_url(__FILE__) . 'assets/js/code-studio/filesystem.js', [], self::VERSION, true);
+        wp_register_script('sc-workbench-code-session', plugin_dir_url(__FILE__) . 'assets/js/code-studio/session.js', ['sc-workbench-code-filesystem'], self::VERSION, true);
+        wp_register_script('sc-workbench-code-runtime-registry', plugin_dir_url(__FILE__) . 'assets/js/code-studio/runtime-registry.js', ['sc-workbench-code-session'], self::VERSION, true);
+        wp_register_script('sc-workbench-code-output', plugin_dir_url(__FILE__) . 'assets/js/code-studio/output.js', ['sc-workbench-code-runtime-registry'], self::VERSION, true);
+        wp_register_script('sc-workbench-code-chart-renderer', plugin_dir_url(__FILE__) . 'assets/js/code-studio/chart-renderer.js', ['sc-workbench-code-output'], self::VERSION, true);
+        wp_register_script('sc-workbench-code-runtime-javascript', plugin_dir_url(__FILE__) . 'assets/js/code-studio/runtime-javascript.js', ['sc-workbench-code-chart-renderer'], self::VERSION, true);
+        wp_register_script('sc-workbench-code-runtime-python', plugin_dir_url(__FILE__) . 'assets/js/code-studio/runtime-python.js', ['sc-workbench-code-runtime-javascript'], self::VERSION, true);
+        wp_register_script('sc-workbench-code-runtime-r', plugin_dir_url(__FILE__) . 'assets/js/code-studio/runtime-r.js', ['sc-workbench-code-runtime-python'], self::VERSION, true);
+        wp_register_script('sc-workbench-code-runtime-sql', plugin_dir_url(__FILE__) . 'assets/js/code-studio/runtime-sql.js', ['sc-workbench-code-runtime-r'], self::VERSION, true);
+        wp_register_script('sc-workbench-code-runtime-manager', plugin_dir_url(__FILE__) . 'assets/js/code-studio/runtime-manager.js', ['sc-workbench-code-runtime-sql'], self::VERSION, true);
+        wp_register_script('sc-workbench-code-editor', plugin_dir_url(__FILE__) . 'assets/js/code-studio/editor.js', ['sc-workbench-code-runtime-manager'], self::VERSION, true);
+        wp_register_script('sc-workbench-code-terminal', plugin_dir_url(__FILE__) . 'assets/js/code-studio/terminal.js', ['sc-workbench-code-editor'], self::VERSION, true);
+        wp_register_script('sc-workbench-code-studio', plugin_dir_url(__FILE__) . 'assets/js/code-studio/code-studio.js', ['sc-workbench', 'sc-workbench-code-terminal'], self::VERSION, true);
+
         wp_localize_script('sc-workbench', 'SCWorkbench', [
             'restUrl' => esc_url_raw(rest_url('sc-workbench/v1')),
             'nonce' => wp_create_nonce('wp_rest'),
             'theme' => get_option(self::OPTION_THEME, 'institutional'),
             'localTools' => $this->local_tools(),
             'backendRequiredHelp' => 'Calculators are listed locally. Advanced computation and graph generation require the FastAPI backend to be running and reachable.',
+            'codeStudioManifest' => $this->code_studio_manifest(),
         ]);
     }
 
@@ -86,6 +103,8 @@ final class SC_Workbench_Plugin {
         add_shortcode('sc_workbench_advanced_calculators', [$this, 'render_engineering_calculators']);
         add_shortcode('sc_workbench_formula_calculator', [$this, 'render_formula_calculator']);
         add_shortcode('sc_formula_calculator', [$this, 'render_formula_calculator']);
+        add_shortcode('sc_workbench_code_studio', [$this, 'render_code_studio']);
+        add_shortcode('sc_workbench_terminal', [$this, 'render_terminal']);
     }
 
     private function ensure_assets() {
@@ -93,8 +112,88 @@ final class SC_Workbench_Plugin {
         wp_enqueue_script('sc-workbench');
     }
 
-    public function render_workbench($atts) {
+    private function ensure_code_studio_assets() {
         $this->ensure_assets();
+        wp_enqueue_style('sc-workbench-code-studio');
+        wp_enqueue_script('sc-workbench-code-studio');
+    }
+
+    private function code_studio_manifest() {
+        $asset_base = plugin_dir_url(__FILE__) . 'assets/js/code-studio/';
+        return [
+            'version' => self::VERSION,
+            'phase' => 'editor-first-browser-runtime-pack',
+            'execution_enabled' => true,
+            'storage' => [
+                'primary' => 'indexeddb',
+                'fallback' => 'localstorage',
+                'scope' => 'browser-origin',
+                'project_upload_default' => false,
+            ],
+            'limits' => [
+                'executionTimeoutMs' => 15000,
+                'maxSourceBytes' => 262144,
+                'maxTableRowsRendered' => 500,
+                'networkAccess' => 'restricted',
+            ],
+            'runtime_config' => [
+                'javascript' => [
+                    'workerUrl' => $asset_base . 'workers/javascript-worker.js',
+                    'version' => 'browser-es',
+                ],
+                'python' => [
+                    'workerUrl' => $asset_base . 'workers/python-worker.js',
+                    'loaderUrl' => 'https://cdn.jsdelivr.net/pyodide/v314.0.2/full/pyodide.js',
+                    'indexUrl' => 'https://cdn.jsdelivr.net/pyodide/v314.0.2/full/',
+                    'version' => '314.0.2',
+                    'approvedPackages' => ['numpy','pandas','scipy','sympy','matplotlib','sklearn','statsmodels'],
+                    'packageMap' => ['sklearn'=>'scikit-learn'],
+                ],
+                'r' => [
+                    'moduleUrl' => 'https://webr.r-wasm.org/v0.6.0/webr.mjs',
+                    'version' => '0.6.0 / R 4.6.0',
+                ],
+                'sql' => [
+                    'moduleUrl' => 'https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.30.0/+esm',
+                    'version' => '1.30.0',
+                ],
+            ],
+            'runtimes' => [
+                ['id'=>'javascript', 'label'=>'JavaScript', 'target'=>'browser-worker', 'status'=>'available', 'version'=>'Browser ES', 'packages'=>['Workbench console','Workbench tables','Workbench chart specs'], 'release'=>'1.9.1'],
+                ['id'=>'python', 'label'=>'Python', 'target'=>'pyodide-worker', 'status'=>'available', 'version'=>'Pyodide 314.0.2', 'packages'=>['Python standard library','NumPy','pandas','SciPy','SymPy','Matplotlib','scikit-learn','statsmodels'], 'release'=>'1.9.1'],
+                ['id'=>'r', 'label'=>'R', 'target'=>'webr-worker', 'status'=>'available', 'version'=>'webR 0.6.0 / R 4.6.0', 'packages'=>['base','stats','graphics','grDevices','utils','datasets','methods'], 'release'=>'1.9.1'],
+                ['id'=>'sql', 'label'=>'SQL', 'target'=>'duckdb-wasm', 'status'=>'available', 'version'=>'DuckDB-Wasm 1.30.0', 'packages'=>['CSV','JSON','window functions','analytical SQL'], 'release'=>'1.9.1'],
+                ['id'=>'c', 'label'=>'C', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.2.0'],
+                ['id'=>'cpp', 'label'=>'C++', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.2.0'],
+                ['id'=>'go', 'label'=>'Go', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.2.0'],
+                ['id'=>'rust', 'label'=>'Rust', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.2.0'],
+                ['id'=>'java', 'label'=>'Java', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.2.0'],
+                ['id'=>'haskell', 'label'=>'Haskell', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.2.0'],
+                ['id'=>'fortran', 'label'=>'Fortran', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.2.0'],
+                ['id'=>'julia', 'label'=>'Julia', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.2.0'],
+                ['id'=>'octave', 'label'=>'GNU Octave', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.3.0'],
+                ['id'=>'gretl', 'label'=>'Gretl / hansl', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.3.0'],
+                ['id'=>'stan', 'label'=>'Stan', 'target'=>'local-runner', 'status'=>'roadmap', 'release'=>'2.3.0'],
+            ],
+            'runner_contract' => [
+                'status' => 'draft',
+                'implementation' => 'go',
+                'transport' => 'loopback-structured-jobs',
+                'pairing_required' => true,
+                'arbitrary_shell' => false,
+                'release' => '2.0.0',
+            ],
+            'safety' => [
+                'fastapi_executes_user_code' => false,
+                'wordpress_executes_user_code' => false,
+                'project_files_uploaded_by_default' => false,
+                'browser_runtime_network_restricted' => true,
+            ],
+        ];
+    }
+
+    public function render_workbench($atts) {
+        $this->ensure_code_studio_assets();
         $atts = shortcode_atts([
             'topic' => get_option(self::OPTION_DEFAULT_TOPIC, 'research-library'),
             'title' => 'Ask the Sustainable Catalyst Workbench',
@@ -115,7 +214,7 @@ final class SC_Workbench_Plugin {
             <div class="scwb-head">
                 <p class="scwb-eyebrow">Sustainable Catalyst Workbench</p>
                 <h2><?php echo esc_html(sanitize_text_field($atts['title'])); ?></h2>
-                <p>A compact research and analytics tool for asking questions, running calculators, generating graphs, and following model-aware pathways across the Sustainable Catalyst knowledge system.</p>
+                <p>A compact research, analytics, and code environment for asking questions, running calculators, generating graphs, managing browser projects, and following model-aware pathways across the Sustainable Catalyst knowledge system.</p>
             </div>
             <div class="scwb-mode-row" role="tablist" aria-label="Workbench modes">
                 <button type="button" class="is-active" data-scwb-tab="ask">Ask</button>
@@ -124,6 +223,7 @@ final class SC_Workbench_Plugin {
                 <button type="button" data-scwb-tab="engineering">Engineering Mode</button>
                 <button type="button" data-scwb-tab="engineering-calculators">Advanced Calculators</button>
                 <button type="button" data-scwb-tab="article-embeds">Article Embeds</button>
+                <button type="button" data-scwb-tab="code-studio">Code Studio</button>
                 <button type="button" data-scwb-tab="calculate">Calculate</button>
                 <button type="button" data-scwb-tab="models">Models</button>
                 <button type="button" data-scwb-tab="equations">Equations</button>
@@ -163,6 +263,10 @@ final class SC_Workbench_Plugin {
                 <?php echo $this->formula_embed_builder_html(); ?>
             </div>
 
+            <div class="scwb-panel" data-scwb-panel="code-studio">
+                <?php echo $this->code_studio_html('workbench-' . sanitize_key($atts['topic']) . ($article_slug ? '-' . sanitize_key($article_slug) : ''), false); ?>
+            </div>
+
             <div class="scwb-panel" data-scwb-panel="calculate">
                 <div class="scwb-toolbar">
                     <label>Calculator <select data-scwb-tool-select><option value="">Loading calculators…</option></select></label>
@@ -189,6 +293,225 @@ final class SC_Workbench_Plugin {
             </div>
             <p class="scwb-fineprint">Educational and analytical support only. Not a substitute for licensed engineering, architecture, clinical, legal, financial, or safety-critical professional judgment.</p>
         </section>
+        <?php return ob_get_clean();
+    }
+
+    public function render_code_studio($atts) {
+        $this->ensure_code_studio_assets();
+        $atts = shortcode_atts([
+            'title' => 'Browser Code Studio',
+            'project' => 'default',
+            'display' => 'full'
+        ], $atts, 'sc_workbench_code_studio');
+        $uid = 'scwb-code-studio-' . wp_generate_uuid4();
+        $display = sanitize_key($atts['display']);
+        if (!in_array($display, ['compact','full'], true)) { $display = 'full'; }
+        $project_id = sanitize_key($atts['project']) ?: 'default';
+        ob_start(); ?>
+        <section id="<?php echo esc_attr($uid); ?>" class="scwb scwb-code-studio-only scwb-theme-<?php echo esc_attr(get_option(self::OPTION_THEME, 'institutional')); ?> scwb-display-<?php echo esc_attr($display); ?>">
+            <div class="scwb-head">
+                <p class="scwb-eyebrow">Sustainable Catalyst Workbench</p>
+                <h2><?php echo esc_html(sanitize_text_field($atts['title'])); ?></h2>
+                <p>Choose a language, type or paste code into the editor, and click Run. JavaScript, Python, R, and SQL execute in the browser with output, tables, charts, files, and an optional advanced console.</p>
+            </div>
+            <?php echo $this->code_studio_html($project_id, false); ?>
+            <p class="scwb-fineprint">Workbench v1.9.1 runs supported code on the visitor’s device. WordPress and FastAPI do not execute submitted code, and project files are not uploaded by default.</p>
+        </section>
+        <?php return ob_get_clean();
+    }
+
+    public function render_terminal($atts) {
+        $this->ensure_code_studio_assets();
+        $atts = shortcode_atts([
+            'title' => 'Workbench Terminal',
+            'project' => 'default',
+            'display' => 'full'
+        ], $atts, 'sc_workbench_terminal');
+        $uid = 'scwb-terminal-' . wp_generate_uuid4();
+        $display = sanitize_key($atts['display']);
+        if (!in_array($display, ['compact','full'], true)) { $display = 'full'; }
+        $project_id = sanitize_key($atts['project']) ?: 'default';
+        ob_start(); ?>
+        <section id="<?php echo esc_attr($uid); ?>" class="scwb scwb-terminal-only scwb-theme-<?php echo esc_attr(get_option(self::OPTION_THEME, 'institutional')); ?> scwb-display-<?php echo esc_attr($display); ?>">
+            <div class="scwb-head">
+                <p class="scwb-eyebrow">Sustainable Catalyst Workbench</p>
+                <h2><?php echo esc_html(sanitize_text_field($atts['title'])); ?></h2>
+                <p>A black-and-green command-line terminal for navigating a persistent project and running JavaScript, Python, R, and SQL on the visitor’s device.</p>
+            </div>
+            <?php echo $this->code_studio_html($project_id, true); ?>
+            <p class="scwb-fineprint">This v1.9.1 terminal is a controlled browser project shell, not unrestricted operating-system access.</p>
+        </section>
+        <?php return ob_get_clean();
+    }
+
+    private function code_studio_html($project_id='default', $terminal_only=false) {
+        $project_id = sanitize_key($project_id) ?: 'default';
+        ob_start(); ?>
+        <div class="scwb-code-studio<?php echo $terminal_only ? ' scwb-code-studio-terminal-only' : ' scwb-code-studio-editor-first'; ?>" data-scwb-code-studio data-scwb-project-id="<?php echo esc_attr($project_id); ?>" data-scwb-terminal-only="<?php echo $terminal_only ? '1' : '0'; ?>">
+            <header class="scwb-code-studio-head">
+                <div>
+                    <p class="scwb-code-studio-kicker"><?php echo $terminal_only ? 'Advanced Console' : 'Browser Code Lab'; ?></p>
+                    <h3><?php echo $terminal_only ? 'Controlled Workbench terminal' : 'Write code, click Run, and inspect the result'; ?></h3>
+                    <p><?php echo $terminal_only ? 'Use structured Workbench commands inside the browser project.' : 'Select JavaScript, Python, R, or SQL. The runtime loads automatically when Run is clicked, and code stays on the visitor’s device.'; ?></p>
+                </div>
+                <div class="scwb-code-status-row" aria-label="Code Studio status">
+                    <span class="scwb-code-status-chip" data-scwb-storage-chip>Browser storage starting</span>
+                    <span class="scwb-code-status-chip scwb-code-status-chip-muted" data-scwb-runtime-chip>JavaScript: idle · Loads on Run</span>
+                    <span class="scwb-code-status-chip scwb-code-status-chip-muted" data-scwb-runner-chip>Local runner: v2.0.0 roadmap</span>
+                </div>
+            </header>
+
+            <div class="scwb-runtime-toolbar" aria-label="Browser runtime controls">
+                <label>Language
+                    <select data-scwb-runtime-select>
+                        <option value="javascript">JavaScript</option>
+                        <option value="python">Python</option>
+                        <option value="r">R</option>
+                        <option value="sql">SQL</option>
+                    </select>
+                </label>
+                <?php if (!$terminal_only): ?>
+                <label class="scwb-code-file-picker">File
+                    <select data-scwb-file-select aria-label="Open a runnable project file"></select>
+                </label>
+                <?php endif; ?>
+                <button type="button" class="scwb-runtime-load" data-scwb-load-runtime>Prepare runtime</button>
+                <?php if (!$terminal_only): ?>
+                <button type="button" class="scwb-runtime-run" data-scwb-run-active>▶ Run</button>
+                <?php endif; ?>
+                <button type="button" class="scwb-runtime-stop" data-scwb-stop-active disabled>Stop</button>
+                <span class="scwb-runtime-note"><?php echo $terminal_only ? 'Use commands such as python, Rscript, node, or duckdb.' : 'Shortcut: Ctrl/⌘ + Enter'; ?></span>
+            </div>
+
+            <?php if (!$terminal_only): ?>
+            <nav class="scwb-code-nav" aria-label="Code Studio panels">
+                <button type="button" class="is-active" data-scwb-code-tab="code">Code</button>
+                <button type="button" data-scwb-code-tab="files">Files</button>
+                <button type="button" data-scwb-code-tab="results">Tables &amp; Charts</button>
+                <button type="button" data-scwb-code-tab="console">Advanced Console</button>
+                <button type="button" data-scwb-code-tab="documentation">Documentation</button>
+            </nav>
+
+            <section class="scwb-code-panel is-active" data-scwb-code-panel="code">
+                <div class="scwb-code-lab-grid">
+                    <article class="scwb-code-editor-card">
+                        <div class="scwb-code-toolbar">
+                            <div class="scwb-code-toolbar-group">
+                                <span class="scwb-editor-path" data-scwb-editor-path>/src/main.js</span>
+                                <span class="scwb-editor-status" data-scwb-editor-status>Saved locally</span>
+                            </div>
+                            <div class="scwb-code-toolbar-group">
+                                <button type="button" data-scwb-editor-save disabled>Save</button>
+                                <button type="button" data-scwb-editor-download>Download</button>
+                                <button type="button" data-scwb-code-export>Export project</button>
+                            </div>
+                        </div>
+                        <div class="scwb-code-editor-frame">
+                            <pre class="scwb-code-line-numbers" data-scwb-line-numbers aria-hidden="true">1</pre>
+                            <textarea class="scwb-code-editor" data-scwb-code-editor spellcheck="false" aria-label="Code editor"></textarea>
+                        </div>
+                    </article>
+
+                    <article class="scwb-code-run-card">
+                        <div class="scwb-code-toolbar">
+                            <div class="scwb-code-toolbar-group">
+                                <strong>Output</strong>
+                                <span class="scwb-run-state" data-scwb-run-state>Ready</span>
+                            </div>
+                            <button type="button" data-scwb-run-clear>Clear</button>
+                        </div>
+                        <div class="scwb-run-output" data-scwb-run-output role="log" aria-live="polite">
+                            <div class="scwb-run-output-line scwb-run-output-system">Type or paste code, then click Run.</div>
+                        </div>
+                    </article>
+                </div>
+                <p class="scwb-code-run-hint">Code is saved locally before each run. The first Python, R, or SQL run may take longer while its browser runtime downloads.</p>
+            </section>
+
+            <section class="scwb-code-panel" data-scwb-code-panel="files">
+                <div class="scwb-code-file-browser">
+                    <form class="scwb-code-create-form" data-scwb-code-create-form>
+                        <label>Type
+                            <select name="type"><option value="file">File</option><option value="directory">Directory</option></select>
+                        </label>
+                        <label>Project path
+                            <input name="path" type="text" placeholder="src/model.py" required>
+                        </label>
+                        <button type="submit">Create</button>
+                    </form>
+                    <div class="scwb-code-file-list" data-scwb-code-files></div>
+                </div>
+            </section>
+
+            <section class="scwb-code-panel" data-scwb-code-panel="results">
+                <div class="scwb-code-toolbar">
+                    <strong>Tables and charts</strong>
+                    <button type="button" data-scwb-chart-clear>Clear results</button>
+                </div>
+                <div class="scwb-code-results" data-scwb-chart-results></div>
+            </section>
+
+            <section class="scwb-code-panel" data-scwb-code-panel="console">
+                <div class="scwb-terminal-shell" data-scwb-terminal-focus>
+                    <div class="scwb-terminal-output" data-scwb-terminal-output role="log" aria-live="polite"></div>
+                    <div class="scwb-terminal-input-row">
+                        <span class="scwb-terminal-prompt" data-scwb-terminal-prompt>workbench@browser:~$</span>
+                        <input class="scwb-terminal-input" data-scwb-terminal-input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Workbench terminal command">
+                    </div>
+                </div>
+                <div class="scwb-code-toolbar">
+                    <strong>Project and execution events</strong>
+                    <button type="button" data-scwb-output-clear>Clear events</button>
+                </div>
+                <div class="scwb-code-output-panel"><div class="scwb-code-event-list" data-scwb-code-events></div></div>
+            </section>
+
+            <section class="scwb-code-panel" data-scwb-code-panel="documentation">
+                <div class="scwb-code-docs">
+                    <div class="scwb-code-doc-grid">
+                        <article>
+                            <h5>Run code</h5>
+                            <ul>
+                                <li>Select a language and starter file.</li>
+                                <li>Type or paste code in the editor.</li>
+                                <li>Click <strong>Run</strong> or press Ctrl/⌘ + Enter.</li>
+                                <li>Read stdout, errors, and completion status in Output.</li>
+                            </ul>
+                        </article>
+                        <article>
+                            <h5>Browser runtimes</h5>
+                            <ul>
+                                <li>JavaScript runs in an isolated Web Worker.</li>
+                                <li>Python uses Pyodide.</li>
+                                <li>R uses webR.</li>
+                                <li>SQL uses DuckDB-Wasm.</li>
+                            </ul>
+                        </article>
+                        <article>
+                            <h5>Files and results</h5>
+                            <p>Use Files to create or open project files. Tables and charts produced by code appear in the Tables &amp; Charts panel.</p>
+                        </article>
+                        <article>
+                            <h5>Execution boundary</h5>
+                            <p>Supported code executes on the visitor’s device. WordPress and FastAPI do not execute submitted code, and project files are not uploaded by default.</p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+            <?php else: ?>
+            <section class="scwb-code-panel is-active" data-scwb-code-panel="terminal">
+                <div class="scwb-terminal-shell" data-scwb-terminal-focus>
+                    <div class="scwb-terminal-output" data-scwb-terminal-output role="log" aria-live="polite"></div>
+                    <div class="scwb-terminal-input-row">
+                        <span class="scwb-terminal-prompt" data-scwb-terminal-prompt>workbench@browser:~$</span>
+                        <input class="scwb-terminal-input" data-scwb-terminal-input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Workbench terminal command">
+                    </div>
+                </div>
+                <div class="scwb-code-event-list" data-scwb-code-events hidden></div>
+                <div data-scwb-chart-results hidden></div>
+            </section>
+            <?php endif; ?>
+        </div>
         <?php return ob_get_clean();
     }
 
@@ -534,9 +857,14 @@ NPV = \sum_{t=0}^{n} CF_t/(1+r)^t">y = a*sin(b*x)</textarea>
         register_rest_route('sc-workbench/v1', '/engineering-calculate', ['methods'=>'POST', 'callback'=>[$this,'rest_engineering_calculate'], 'permission_callback'=>'__return_true']);
         register_rest_route('sc-workbench/v1', '/calculation-report', ['methods'=>'POST', 'callback'=>[$this,'rest_calculation_report'], 'permission_callback'=>'__return_true']);
         register_rest_route('sc-workbench/v1', '/formula-embed', ['methods'=>'POST', 'callback'=>[$this,'rest_formula_embed'], 'permission_callback'=>'__return_true']);
+        register_rest_route('sc-workbench/v1', '/code-studio/manifest', ['methods'=>'GET', 'callback'=>[$this,'rest_code_studio_manifest'], 'permission_callback'=>'__return_true']);
     }
 
     public function admin_permission() { return current_user_can('manage_options'); }
+
+    public function rest_code_studio_manifest() {
+        return new WP_REST_Response(['ok'=>true, 'code_studio'=>$this->code_studio_manifest()], 200);
+    }
 
     public function rest_tools(WP_REST_Request $request) {
         $query = [];
@@ -821,10 +1149,10 @@ NPV = \sum_{t=0}^{n} CF_t/(1+r)^t">y = a*sin(b*x)</textarea>
                 'tool'=>'Exportable Calculation Reports',
                 'summary'=>'The report exporter is loaded, but the Workbench backend report endpoint is not reachable from WordPress.',
                 'error'=>$res->get_error_message(),
-                'warnings'=>['Deploy or start the Workbench backend v1.7.0 and confirm the Backend URL in SC Workbench settings.'],
+                'warnings'=>['Deploy or start the Workbench backend v1.9.1 and confirm the Backend URL in SC Workbench settings.'],
                 'formats'=>[
-                    'markdown'=>'# Workbench calculation report unavailable\n\nThe report backend was not reachable. Confirm that the Workbench backend is deployed and running v1.7.0.',
-                    'html'=>'<p>Workbench calculation report unavailable. Confirm that the backend is deployed and running v1.7.0.</p>',
+                    'markdown'=>'# Workbench calculation report unavailable\n\nThe report backend was not reachable. Confirm that the Workbench backend is deployed and running v1.9.1.',
+                    'html'=>'<p>Workbench calculation report unavailable. Confirm that the backend is deployed and running v1.9.1.</p>',
                     'text'=>'Workbench calculation report unavailable.'
                 ],
                 'filename_base'=>'workbench-report-unavailable'
@@ -954,7 +1282,7 @@ NPV = \sum_{t=0}^{n} CF_t/(1+r)^t">y = a*sin(b*x)</textarea>
             if (!$this->feature_builder_count()) {
                 $this->import_feature_builder_from_file($this->bundled_feature_builder_queue_csv(), true);
             }
-            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, v1.4 Core Engineering Calculators, and v1.5 Exportable Calculation Reports, and v1.6 Article-Embedded Calculators near formulas, and v1.7 Advanced Scientific, Econometric, Psychometric, Architecture, Infrastructure, Pattern, and Astrophysics Calculators.
+            // v0.9.6 keeps the scanner cache rebuild behavior and adds equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, v1.4 Core Engineering Calculators, and v1.5 Exportable Calculation Reports, and v1.6 Article-Embedded Calculators near formulas, and v1.7 Advanced Scientific, Econometric, Psychometric, Architecture, Infrastructure, Pattern, and Astrophysics Calculators, plus v1.8 Browser Code Studio Foundation, v1.9 browser-native JavaScript, Python, R, and SQL execution, and v1.9.1 an editor-first Run experience with direct output, automatic runtime loading, file switching, line numbers, and an optional advanced console.
             // The equation table is a generated cache, so it is safe to clear during scanner upgrades and rebuild from posts.
             if ($old_version && version_compare($old_version, '0.9.4', '<')) {
                 $this->clear_equation_registry();
