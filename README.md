@@ -1,4 +1,4 @@
-# Sustainable Catalyst Workbench v3.5.0
+# Sustainable Catalyst Workbench v3.6.0
 
 **Embedded Studio Shortcode Display Repair**
 
@@ -20,3 +20,8 @@ Adds reviewer roles, review queues, record-level comments, requested changes, re
 ## v3.5.0 — Advanced Device and Instrument Orchestration
 
 Adds device inventory, capability discovery, local consent and allowlists, calibration scheduling, instrument sessions, experiment-run planning, hardware-absent simulation, chained device logs, and recovery plans without arbitrary command execution.
+
+
+## Workbench v3.6.0 — Computational Intelligence and Predictive Analytics
+
+Adds local-first dataset profiling, predictive evaluation, forecasting, drift and leakage diagnostics, subgroup performance audits, model cards, cross-language reproducibility contracts, and responsible-use experiment scaffolds.

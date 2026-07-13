@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 3.5.0
+ * Version: 3.6.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '3.5.0');
+define('SCWB_VERSION', '3.6.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -90,6 +90,11 @@ require_once __DIR__ . '/includes/scwb-v340-collaboration-review.php';
 // Workbench v3.5.0 — Advanced Device and Instrument Orchestration.
 if (!defined('SCWB_V350_PLUGIN_FILE')) { define('SCWB_V350_PLUGIN_FILE', __FILE__); }
 require_once __DIR__ . '/includes/scwb-v350-device-orchestration.php';
+
+
+// Workbench v3.6.0 — Computational Intelligence and Predictive Analytics.
+if (!defined('SCWB_V360_PLUGIN_FILE')) { define('SCWB_V360_PLUGIN_FILE', __FILE__); }
+require_once __DIR__ . '/includes/scwb-v360-computational-intelligence.php';
 
 // Canonical primary shortcode and unified studio selector.
 require_once __DIR__ . '/includes/scwb-primary-shortcode.php';
