@@ -1,0 +1,28 @@
+Sustainable Catalyst Workbench v2.6.0
+Multi-Language Engineering Runtime Studio
+
+WORDPRESS
+1. Upload sustainable-catalyst-workbench-plugin-v2.6.0.zip.
+2. Replace the existing Workbench plugin when prompted.
+3. Clear WordPress, theme, optimization, CDN, and browser caches.
+
+SHORTCODES
+[sc_workbench_multilanguage_runtime project="default"]
+[sc_workbench_language_equivalence project="default"]
+[sc_workbench_numerical_benchmark project="default"]
+[sc_workbench_runtime_project_generator project="default"]
+[sc_workbench_reproducibility_validator project="default"]
+[sc_workbench_execution_audit project="default"]
+
+RELEASE TEST
+cd sustainable-catalyst-workbench-repo
+chmod +x scripts/test_v260_release.sh
+./scripts/test_v260_release.sh
+
+RUNNER
+workbench-runner version
+workbench-runner multi-language-tools
+workbench-runner serve
+workbench-runner serve --enable-native-exec
+
+The runner listens only on 127.0.0.1:8787, requires browser pairing for protected routes, and exposes no arbitrary shell endpoint.

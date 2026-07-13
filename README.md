@@ -1,4 +1,4 @@
-# Sustainable Catalyst Prototyping Workbench v2.5.0
+# Sustainable Catalyst Prototyping Workbench v2.6.0
 
 A compact AI-enabled research and analytics workbench for modeling, calculating, visualizing, and interpreting complex systems across science, sustainability, engineering, architecture, psychology, economics, governance, and meaning.
 
@@ -259,3 +259,7 @@ Adds instrumentation range and resolution review, data-acquisition sizing, time-
 ## Version 2.5.0 — Simulation, Digital Twin, and Systems Modeling Studio
 
 Adds dynamic simulation, bounded digital-twin calibration, coupled systems models, scenario sweeps, seeded Monte Carlo uncertainty, model validation, and paired local simulation-tool discovery.
+
+## Version 2.6.0 — Multi-Language Engineering Runtime Studio
+
+Adds cross-language runtime discovery and structured execution, equivalence checks, numerical-stability benchmarks, generated engineering projects, reproducibility validation, and execution-boundary auditing.

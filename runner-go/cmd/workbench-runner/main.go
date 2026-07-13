@@ -92,6 +92,9 @@ func main() {
 		case "simulation-tools":
 			printJSON(discoverSimulationTools())
 			return
+		case "multi-language-tools":
+			printJSON(discoverMultiLanguageTools())
+			return
 		case "serve":
 			serve(os.Args[2:])
 			return
@@ -99,7 +102,7 @@ func main() {
 	}
 	fmt.Println("Sustainable Catalyst Workbench Runner " + runner.Version)
 	fmt.Println("Usage: workbench-runner serve [--enable-native-exec] [--timeout 8s]")
-	fmt.Println("       workbench-runner version | doctor | runtimes | devices | hardware-tools | robotics-tools | instrumentation-tools | simulation-tools")
+	fmt.Println("       workbench-runner version | doctor | runtimes | devices | hardware-tools | robotics-tools | instrumentation-tools | simulation-tools | multi-language-tools")
 }
 
 func serve(args []string) {
@@ -129,6 +132,8 @@ func serve(args []string) {
 	mux.HandleFunc("/instrumentation-task", s.withCORS(s.authorized(s.instrumentationTask)))
 	mux.HandleFunc("/simulation-tools", s.withCORS(s.authorized(s.simulationTools)))
 	mux.HandleFunc("/simulation-task", s.withCORS(s.authorized(s.simulationTask)))
+	mux.HandleFunc("/multi-language-tools", s.withCORS(s.authorized(s.multiLanguageTools)))
+	mux.HandleFunc("/multi-language-task", s.withCORS(s.authorized(s.multiLanguageTask)))
 	mux.HandleFunc("/execute", s.withCORS(s.authorized(s.execute)))
 
 	httpServer := &http.Server{
@@ -186,34 +191,38 @@ func (s *server) health(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	writeJSON(w, http.StatusOK, map[string]any{
-		"ok":                      true,
-		"version":                 runner.Version,
-		"service":                 "sustainable-catalyst-workbench-runner",
-		"listen":                  listenAddress,
-		"loopbackOnly":            true,
-		"nativeExecutionEnabled":  s.nativeExec,
-		"arbitraryShellEndpoint":  false,
-		"pairingRequired":         true,
-		"platform":                runtime.GOOS + "/" + runtime.GOARCH,
-		"embeddedDeviceStudio":    true,
-		"deviceDiscovery":         true,
-		"structuredDeviceTasks":   true,
-		"fpgaStudio":              true,
-		"electronicsDesign":       true,
-		"hardwareValidation":      true,
-		"hardwareToolDiscovery":   true,
-		"roboticsStudio":          true,
-		"controlSimulation":       true,
-		"mechatronicsValidation":  true,
-		"roboticsToolDiscovery":   true,
-		"instrumentationStudio":   true,
-		"dataAcquisitionPlanning": true,
-		"signalAnalysis":          true,
-		"instrumentToolDiscovery": true,
-		"simulationStudio":        true,
-		"digitalTwinStudio":       true,
-		"systemsModeling":         true,
-		"simulationToolDiscovery": true,
+		"ok":                         true,
+		"version":                    runner.Version,
+		"service":                    "sustainable-catalyst-workbench-runner",
+		"listen":                     listenAddress,
+		"loopbackOnly":               true,
+		"nativeExecutionEnabled":     s.nativeExec,
+		"arbitraryShellEndpoint":     false,
+		"pairingRequired":            true,
+		"platform":                   runtime.GOOS + "/" + runtime.GOARCH,
+		"embeddedDeviceStudio":       true,
+		"deviceDiscovery":            true,
+		"structuredDeviceTasks":      true,
+		"fpgaStudio":                 true,
+		"electronicsDesign":          true,
+		"hardwareValidation":         true,
+		"hardwareToolDiscovery":      true,
+		"roboticsStudio":             true,
+		"controlSimulation":          true,
+		"mechatronicsValidation":     true,
+		"roboticsToolDiscovery":      true,
+		"instrumentationStudio":      true,
+		"dataAcquisitionPlanning":    true,
+		"signalAnalysis":             true,
+		"instrumentToolDiscovery":    true,
+		"simulationStudio":           true,
+		"digitalTwinStudio":          true,
+		"systemsModeling":            true,
+		"simulationToolDiscovery":    true,
+		"multiLanguageRuntime":       true,
+		"languageEquivalence":        true,
+		"reproducibilityValidation":  true,
+		"multiLanguageToolDiscovery": true,
 	})
 }
 
@@ -635,6 +644,106 @@ func (s *server) simulationTask(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, result)
 }
 
+func (s *server) multiLanguageTools(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		writeError(w, http.StatusMethodNotAllowed, "GET required")
+		return
+	}
+	writeJSON(w, http.StatusOK, map[string]any{
+		"ok":      true,
+		"version": runner.Version,
+		"tools":   discoverMultiLanguageTools(),
+		"executionBoundary": map[string]any{
+			"loopbackOnly": true, "pairingRequired": true, "originBoundTokens": true,
+			"arbitraryShellEndpoint": false, "maximumSourceBytes": 200 * 1024,
+			"maximumOutputBytes": maxOutputBytes, "temporaryWorkingDirectory": true,
+		},
+		"notes": []string{
+			"Availability only confirms that a command is visible to the local user.",
+			"Compiler, interpreter, package, ABI, numeric, and platform behavior require project-specific validation.",
+		},
+	})
+}
+
+func (s *server) multiLanguageTask(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		writeError(w, http.StatusMethodNotAllowed, "POST required")
+		return
+	}
+	if !s.nativeExec {
+		writeError(w, http.StatusForbidden, "multi-language tasks are disabled; restart with --enable-native-exec")
+		return
+	}
+	var req deviceTaskRequest
+	if err := readJSON(r, &req); err != nil {
+		writeError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+	if !req.Consent {
+		writeError(w, http.StatusBadRequest, "explicit consent is required for a local runtime task")
+		return
+	}
+	result, err := runMultiLanguageTask(r.Context(), s.timeout, strings.ToLower(req.Task))
+	if err != nil {
+		writeError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+	result["ok"] = true
+	result["version"] = runner.Version
+	result["arbitraryShellEndpoint"] = false
+	writeJSON(w, http.StatusOK, result)
+}
+
+func discoverMultiLanguageTools() []runtimeRecord {
+	specs := []struct{ language, command string }{
+		{"python", "python3"}, {"javascript", "node"}, {"r", "Rscript"}, {"sql", "sqlite3"},
+		{"go", "go"}, {"c", "cc"}, {"cpp", "c++"}, {"rust", "rustc"}, {"rust-cargo", "cargo"},
+		{"haskell", "runhaskell"}, {"haskell-ghc", "ghc"}, {"assembly-nasm", "nasm"},
+	}
+	out := make([]runtimeRecord, 0, len(specs))
+	for _, spec := range specs {
+		record := runtimeRecord{Language: spec.language, Command: spec.command}
+		if path, err := exec.LookPath(spec.command); err == nil {
+			record.Available = true
+			record.Path = path
+		}
+		out = append(out, record)
+	}
+	return out
+}
+
+func runMultiLanguageTask(parent context.Context, timeout time.Duration, task string) (map[string]any, error) {
+	specs := map[string][]string{
+		"python-version": {"python3", "--version"}, "javascript-version": {"node", "--version"},
+		"r-version": {"Rscript", "--version"}, "sql-version": {"sqlite3", "--version"},
+		"go-version": {"go", "version"}, "c-version": {"cc", "--version"}, "cpp-version": {"c++", "--version"},
+		"rust-version": {"rustc", "--version"}, "cargo-version": {"cargo", "--version"},
+		"haskell-version": {"runhaskell", "--version"}, "ghc-version": {"ghc", "--version"},
+		"nasm-version": {"nasm", "-v"},
+	}
+	parts, ok := specs[task]
+	if !ok {
+		return map[string]any{"task": task}, errors.New("runtime task is not allowlisted")
+	}
+	path, err := exec.LookPath(parts[0])
+	if err != nil {
+		return map[string]any{"task": task, "command": parts[0]}, fmt.Errorf("runtime is not available: %s", parts[0])
+	}
+	ctx, cancel := context.WithTimeout(parent, timeout)
+	defer cancel()
+	command := exec.CommandContext(ctx, path, parts[1:]...)
+	command.Env = minimalEnvironment(os.TempDir())
+	output, commandErr := command.CombinedOutput()
+	limited := appendLimited(nil, output, maxOutputBytes)
+	if ctx.Err() == context.DeadlineExceeded {
+		return map[string]any{"task": task, "output": string(limited)}, errors.New("runtime task timed out")
+	}
+	if commandErr != nil && len(limited) == 0 {
+		return map[string]any{"task": task, "output": string(limited)}, fmt.Errorf("runtime task failed: %w", commandErr)
+	}
+	return map[string]any{"task": task, "command": parts[0], "path": path, "output": string(limited)}, nil
+}
+
 func discoverSimulationTools() []runtimeRecord {
 	specs := []struct{ language, command string }{
 		{"simulation-python", "python3"},
@@ -694,10 +803,10 @@ func runSimulationTask(parent context.Context, timeout time.Duration, task strin
 
 func discoverRuntimes() []runtimeRecord {
 	specs := []struct{ language, command string }{
-		{"python", "python3"}, {"javascript", "node"}, {"go", "go"},
-		{"c", "cc"}, {"cpp", "c++"}, {"rust", "rustc"},
+		{"python", "python3"}, {"javascript", "node"}, {"r", "Rscript"}, {"sql", "sqlite3"}, {"go", "go"},
+		{"c", "cc"}, {"cpp", "c++"}, {"rust", "rustc"}, {"haskell", "runhaskell"},
 		{"arduino", "arduino-cli"}, {"fpga-yosys", "yosys"},
-		{"fpga-nextpnr", "nextpnr-ice40"}, {"haskell", "runhaskell"},
+		{"fpga-nextpnr", "nextpnr-ice40"}, {"assembly", "nasm"},
 	}
 	out := make([]runtimeRecord, 0, len(specs))
 	for _, spec := range specs {
@@ -934,7 +1043,7 @@ func runSource(parent context.Context, timeout time.Duration, language, filename
 	ctx, cancel := context.WithTimeout(parent, timeout)
 	defer cancel()
 
-	ext := map[string]string{"python": ".py", "javascript": ".js", "go": ".go", "c": ".c", "cpp": ".cpp", "rust": ".rs"}[language]
+	ext := map[string]string{"python": ".py", "javascript": ".js", "r": ".R", "sql": ".sql", "go": ".go", "c": ".c", "cpp": ".cpp", "rust": ".rs", "haskell": ".hs"}[language]
 	if ext == "" {
 		return map[string]any{"language": language}, errors.New("language is not allowlisted")
 	}
@@ -953,6 +1062,12 @@ func runSource(parent context.Context, timeout time.Duration, language, filename
 		commands = [][]string{{"python3", sourcePath}}
 	case "javascript":
 		commands = [][]string{{"node", sourcePath}}
+	case "r":
+		commands = [][]string{{"Rscript", sourcePath}}
+	case "sql":
+		commands = [][]string{{"sqlite3", ":memory:", ".read " + sourcePath}}
+	case "haskell":
+		commands = [][]string{{"runhaskell", sourcePath}}
 	case "go":
 		commands = [][]string{{"go", "run", sourcePath}}
 	case "c":

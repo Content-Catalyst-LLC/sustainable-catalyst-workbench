@@ -61,3 +61,7 @@ app.include_router(v240_router)
 # Workbench v2.5.0 simulation, digital-twin, and systems-modeling routes.
 from app.v250 import router as v250_router
 app.include_router(v250_router)
+
+# Workbench v2.6.0 multi-language engineering runtime routes.
+from app.v260 import router as v260_router
+app.include_router(v260_router)
