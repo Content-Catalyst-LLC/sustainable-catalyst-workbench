@@ -1,0 +1,22 @@
+Workbench v3.8.0 installation and test commands
+
+macOS:
+  chmod +x installers/macos/install_workbench_macos.command
+  ./installers/macos/install_workbench_macos.command
+
+Linux:
+  chmod +x installers/linux/install_workbench_linux.sh
+  ./installers/linux/install_workbench_linux.sh
+
+Raspberry Pi OS:
+  chmod +x installers/raspberry-pi/install_workbench_raspberry_pi.sh
+  ./installers/raspberry-pi/install_workbench_raspberry_pi.sh
+
+Manual local launch:
+  python3 -m venv .venv
+  . .venv/bin/activate
+  python -m pip install -r offline/requirements.txt
+  python offline/start_local_workbench.py
+
+Release tests:
+  bash scripts/test_v380_release.sh

@@ -1,0 +1,91 @@
+{
+  "schema": "sc-workbench-offline-package-manifest/1.0",
+  "package": "sustainable-catalyst-workbench",
+  "version": "3.8.0",
+  "platforms": [
+    "macos",
+    "linux",
+    "raspberry-pi"
+  ],
+  "localServiceHost": "127.0.0.1",
+  "defaultPort": 8787,
+  "renderRequired": false,
+  "paidServiceRequired": false,
+  "remoteShell": false,
+  "automaticCloudUpload": false,
+  "files": [
+    {
+      "path": "offline/start_local_workbench.py",
+      "size": 1440,
+      "sha256": "e7255436eda950eaa9877bc93bc57cd646307a499af55f90f5f4488f212df770",
+      "required": true
+    },
+    {
+      "path": "offline/requirements.txt",
+      "size": 62,
+      "sha256": "d84c859a67c865264a8ce14ebb48698f1d4744736167fe70c9bf613b0b214653",
+      "required": true
+    },
+    {
+      "path": "offline/web/index.html",
+      "size": 1901,
+      "sha256": "2505b4b3e442c977216d9862136e14f5b9d4a6e4090fa5aacc059185e2b6cdc1",
+      "required": true
+    },
+    {
+      "path": "offline/web/app.js",
+      "size": 3219,
+      "sha256": "9a8b554b3ca841ddfd8b42f2a367cb39de82d4fbb2860971494dc713ca4cb01e",
+      "required": true
+    },
+    {
+      "path": "offline/web/styles.css",
+      "size": 1300,
+      "sha256": "147cdaec162e3f47317586bf896caabdaeb2af7771b87ea7f4da577e6b5b85d1",
+      "required": true
+    },
+    {
+      "path": "offline/web/manifest.webmanifest",
+      "size": 300,
+      "sha256": "ffae3a7e6a7eedfd816c86f950bab602b1e3c3e9c50ebd37af6d56cdeaf7df66",
+      "required": true
+    },
+    {
+      "path": "offline/web/service-worker.js",
+      "size": 696,
+      "sha256": "ba813729a3ed30f21846d4ad808d1a33a40987d80ba9f81a724d680ff70cad7a",
+      "required": true
+    },
+    {
+      "path": "installers/common/install_workbench_common.sh",
+      "size": 2944,
+      "sha256": "59ff3c85fa537aeb05714a5d4f05c0e2f98a1b3bb70a7b2a2e5ba969ab5985de",
+      "required": true
+    },
+    {
+      "path": "installers/common/uninstall_workbench.sh",
+      "size": 460,
+      "sha256": "54d84d515f318dad1000dc261dedce0b8fb9513e77e2a1e328763d7d14480490",
+      "required": true
+    },
+    {
+      "path": "installers/macos/install_workbench_macos.command",
+      "size": 405,
+      "sha256": "db55b73cdfacbe81b20170ef35158ba5eff55dc568573cb8a74061b5bba9df83",
+      "required": true
+    },
+    {
+      "path": "installers/linux/install_workbench_linux.sh",
+      "size": 823,
+      "sha256": "5e53661a3c1f08ae65fb82a4f8b10d112b7c8647a43ec3cd5515204308a3bb99",
+      "required": true
+    },
+    {
+      "path": "installers/raspberry-pi/install_workbench_raspberry_pi.sh",
+      "size": 965,
+      "sha256": "a34b59ff841c44f6ef337bb3439b1acbe3e053dd64442c59c241f91a8e2a234f",
+      "required": true
+    }
+  ],
+  "manifestHash": "6229877bd3a203a64fb9cba9c88aacc56704869a7ca0465cfe004683148cbc35"
+}

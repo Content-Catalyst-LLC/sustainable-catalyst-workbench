@@ -1,0 +1,11 @@
+{
+  "name": "Sustainable Catalyst Workbench",
+  "short_name": "SC Workbench",
+  "start_url": "/offline/",
+  "scope": "/offline/",
+  "display": "standalone",
+  "background_color": "#f3f5f6",
+  "theme_color": "#121416",
+  "description": "Offline Sustainable Catalyst Workbench v3.8.0",
+  "icons": []
+}

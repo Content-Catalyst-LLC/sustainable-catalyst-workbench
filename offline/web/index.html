@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#121416">
+  <meta name="description" content="Offline Sustainable Catalyst Workbench">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+  <title>Sustainable Catalyst Workbench — Offline</title>
+</head>
+<body>
+  <header class="hero">
+    <p class="eyebrow">Sustainable Catalyst Workbench · v3.8.0</p>
+    <h1>Offline Workbench</h1>
+    <p>Local projects, backups, evidence, notebooks, synchronization bundles, and Workbench service diagnostics without a hosted backend.</p>
+    <div class="status" id="service-status" role="status">Checking local service…</div>
+  </header>
+  <main>
+    <section class="grid">
+      <article>
+        <h2>Local service</h2>
+        <p>The FastAPI service is restricted to the loopback interface.</p>
+        <button data-action="health">Run health check</button>
+      </article>
+      <article>
+        <h2>Project storage</h2>
+        <p>Save lightweight project records in this browser and export them before moving devices.</p>
+        <button data-action="new-project">Create sample project</button>
+      </article>
+      <article>
+        <h2>Portable bundle</h2>
+        <p>Build an explicit JSON synchronization bundle. Nothing uploads automatically.</p>
+        <button data-action="export">Export bundle</button>
+      </article>
+      <article>
+        <h2>Recovery</h2>
+        <p>Preserve data first, then repair application files and validate the local service.</p>
+        <button data-action="recovery">Create recovery plan</button>
+      </article>
+    </section>
+    <section class="console">
+      <h2>Local record</h2>
+      <pre id="output">{}</pre>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

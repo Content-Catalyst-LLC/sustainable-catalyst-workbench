@@ -1,9 +1,11 @@
-# Sustainable Catalyst Workbench v3.7.0
+# Sustainable Catalyst Workbench v3.8.0
 
-**Embedded Studio Shortcode Display Repair**
+**Offline and Installable Workbench**
 
-Workbench v3.3.1 preserves the v3.3.0 platform-handoff and shared-evidence release while removing legacy escaped-shortcode launcher cards from the Embedded Devices studio. Robotics, Instrumentation, and Multi-Language Runtime remain available as dedicated unified Workbench studios and standalone shortcodes.
-
+Workbench v3.8.0 adds an offline-first local application, loopback-only FastAPI
+service, platform installers for macOS, Linux, and Raspberry Pi OS, portable
+project synchronization, runtime management, and recovery-safe updates. Render
+and paid cloud storage are not required after local installation.
 
 Primary shortcode:
 
@@ -11,6 +13,11 @@ Primary shortcode:
 [sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
 ```
 
+## Workbench v3.8.0 — Offline and Installable Workbench
+
+Adds browser-local operation, versioned local installations, a PWA shell,
+service-worker caching, optional wheelhouse installation, private offline-node
+records, synchronization bundles, update planning, and recovery safeguards.
 
 ## v3.4.0 — Collaboration, Review, and Technical Sign-Off
 
