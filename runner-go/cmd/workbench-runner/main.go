@@ -95,6 +95,9 @@ func main() {
 		case "multi-language-tools":
 			printJSON(discoverMultiLanguageTools())
 			return
+		case "visualization-tools":
+			printJSON(discoverVisualizationTools())
+			return
 		case "serve":
 			serve(os.Args[2:])
 			return
@@ -102,7 +105,7 @@ func main() {
 	}
 	fmt.Println("Sustainable Catalyst Workbench Runner " + runner.Version)
 	fmt.Println("Usage: workbench-runner serve [--enable-native-exec] [--timeout 8s]")
-	fmt.Println("       workbench-runner version | doctor | runtimes | devices | hardware-tools | robotics-tools | instrumentation-tools | simulation-tools | multi-language-tools")
+	fmt.Println("       workbench-runner version | doctor | runtimes | devices | hardware-tools | robotics-tools | instrumentation-tools | simulation-tools | multi-language-tools | visualization-tools")
 }
 
 func serve(args []string) {
@@ -134,6 +137,8 @@ func serve(args []string) {
 	mux.HandleFunc("/simulation-task", s.withCORS(s.authorized(s.simulationTask)))
 	mux.HandleFunc("/multi-language-tools", s.withCORS(s.authorized(s.multiLanguageTools)))
 	mux.HandleFunc("/multi-language-task", s.withCORS(s.authorized(s.multiLanguageTask)))
+	mux.HandleFunc("/visualization-tools", s.withCORS(s.authorized(s.visualizationTools)))
+	mux.HandleFunc("/visualization-task", s.withCORS(s.authorized(s.visualizationTask)))
 	mux.HandleFunc("/execute", s.withCORS(s.authorized(s.execute)))
 
 	httpServer := &http.Server{
@@ -223,6 +228,10 @@ func (s *server) health(w http.ResponseWriter, r *http.Request) {
 		"languageEquivalence":        true,
 		"reproducibilityValidation":  true,
 		"multiLanguageToolDiscovery": true,
+		"scientificVisualization":    true,
+		"engineeringDashboards":      true,
+		"validationOverlays":         true,
+		"visualizationToolDiscovery": true,
 	})
 }
 
@@ -740,6 +749,104 @@ func runMultiLanguageTask(parent context.Context, timeout time.Duration, task st
 	}
 	if commandErr != nil && len(limited) == 0 {
 		return map[string]any{"task": task, "output": string(limited)}, fmt.Errorf("runtime task failed: %w", commandErr)
+	}
+	return map[string]any{"task": task, "command": parts[0], "path": path, "output": string(limited)}, nil
+}
+
+func (s *server) visualizationTools(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		writeError(w, http.StatusMethodNotAllowed, "GET required")
+		return
+	}
+	writeJSON(w, http.StatusOK, map[string]any{
+		"ok": true, "version": runner.Version, "tools": discoverVisualizationTools(),
+		"executionBoundary": map[string]any{
+			"loopbackOnly": true, "pairingRequired": true, "originBoundTokens": true,
+			"arbitraryShellEndpoint": false, "allowlistedDiagnosticsOnly": true,
+		},
+		"notes": []string{
+			"Availability only confirms that a visualization command is visible to the current local user.",
+			"Chart accuracy, fonts, color profiles, export formats, accessibility, and rendering behavior require project-specific review.",
+		},
+	})
+}
+
+func (s *server) visualizationTask(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		writeError(w, http.StatusMethodNotAllowed, "POST required")
+		return
+	}
+	if !s.nativeExec {
+		writeError(w, http.StatusForbidden, "visualization tasks are disabled; restart with --enable-native-exec")
+		return
+	}
+	var req deviceTaskRequest
+	if err := readJSON(r, &req); err != nil {
+		writeError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+	if !req.Consent {
+		writeError(w, http.StatusBadRequest, "explicit consent is required for a local visualization task")
+		return
+	}
+	result, err := runVisualizationTask(r.Context(), s.timeout, strings.ToLower(req.Task))
+	if err != nil {
+		writeError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+	result["ok"] = true
+	result["version"] = runner.Version
+	result["arbitraryShellEndpoint"] = false
+	writeJSON(w, http.StatusOK, result)
+}
+
+func discoverVisualizationTools() []runtimeRecord {
+	specs := []struct{ language, command string }{
+		{"visualization-gnuplot", "gnuplot"}, {"visualization-graphviz", "dot"},
+		{"visualization-imagemagick", "magick"}, {"visualization-convert", "convert"},
+		{"visualization-inkscape", "inkscape"}, {"visualization-ffmpeg", "ffmpeg"},
+		{"visualization-chromium", "chromium"}, {"visualization-chromium-browser", "chromium-browser"},
+		{"visualization-python", "python3"},
+	}
+	out := make([]runtimeRecord, 0, len(specs))
+	for _, spec := range specs {
+		record := runtimeRecord{Language: spec.language, Command: spec.command}
+		if path, err := exec.LookPath(spec.command); err == nil {
+			record.Available = true
+			record.Path = path
+		}
+		out = append(out, record)
+	}
+	return out
+}
+
+func runVisualizationTask(parent context.Context, timeout time.Duration, task string) (map[string]any, error) {
+	specs := map[string][]string{
+		"gnuplot-version": {"gnuplot", "--version"}, "graphviz-version": {"dot", "-V"},
+		"imagemagick-version": {"magick", "--version"}, "convert-version": {"convert", "--version"},
+		"inkscape-version": {"inkscape", "--version"}, "ffmpeg-version": {"ffmpeg", "-version"},
+		"chromium-version": {"chromium", "--version"}, "chromium-browser-version": {"chromium-browser", "--version"},
+		"python-version": {"python3", "--version"},
+	}
+	parts, ok := specs[task]
+	if !ok {
+		return map[string]any{"task": task}, errors.New("visualization task is not allowlisted")
+	}
+	path, err := exec.LookPath(parts[0])
+	if err != nil {
+		return map[string]any{"task": task, "command": parts[0]}, fmt.Errorf("visualization tool is not available: %s", parts[0])
+	}
+	ctx, cancel := context.WithTimeout(parent, timeout)
+	defer cancel()
+	command := exec.CommandContext(ctx, path, parts[1:]...)
+	command.Env = minimalEnvironment(os.TempDir())
+	output, commandErr := command.CombinedOutput()
+	limited := appendLimited(nil, output, maxOutputBytes)
+	if ctx.Err() == context.DeadlineExceeded {
+		return map[string]any{"task": task, "output": string(limited)}, errors.New("visualization task timed out")
+	}
+	if commandErr != nil && len(limited) == 0 {
+		return map[string]any{"task": task, "output": string(limited)}, fmt.Errorf("visualization task failed: %w", commandErr)
 	}
 	return map[string]any{"task": task, "command": parts[0], "path": path, "output": string(limited)}, nil
 }

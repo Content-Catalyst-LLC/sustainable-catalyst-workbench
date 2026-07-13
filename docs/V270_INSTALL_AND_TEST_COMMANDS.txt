@@ -1,0 +1,18 @@
+Workbench v2.7.0 installation and validation
+
+1. Upload sustainable-catalyst-workbench-plugin-v2.7.0.zip in WordPress and replace the previous Workbench plugin.
+2. Clear WordPress, optimization, CDN, and browser caches.
+3. Add one or more v2.7.0 shortcodes to a test page.
+4. Render a line chart, dashboard, validation overlay, and system-state view.
+5. Test JSON, SVG, and PNG export.
+6. Start the optional local runner and pair from Visual Export and Accessibility Studio.
+
+Repository checks:
+  chmod +x scripts/test_v270_release.sh
+  ./scripts/test_v270_release.sh
+
+Runner:
+  workbench-runner version
+  workbench-runner visualization-tools
+  workbench-runner serve
+  workbench-runner serve --enable-native-exec

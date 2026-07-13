@@ -1,9 +1,0 @@
-cd ~/Downloads
-chmod +x update_and_push_sustainable_catalyst_workbench_v0_9_9_to_github.sh
-./update_and_push_sustainable_catalyst_workbench_v0_9_9_to_github.sh
-
-After install:
-1. WordPress → Plugins → upload sustainable-catalyst-workbench-plugin-v0.9.9.zip
-2. SC Workbench → Equation Registry → Scan / Rebuild Equation Registry
-3. SC Workbench → Embed Shortcodes → Build Shortcode Recommendations
-4. Copy calculator-specific shortcodes into formula-heavy articles.

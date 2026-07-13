@@ -40,13 +40,7 @@ command -v php >/dev/null 2>&1 && php -l "$PLUGIN" >/dev/null
 command -v php >/dev/null 2>&1 && php -l "$V200" >/dev/null
 command -v php >/dev/null 2>&1 && php -l "$V210" >/dev/null
 command -v node >/dev/null 2>&1 && node --check "$JS"
-python3 - "$BACKEND" "$ROUTES" <<'PYCODE'
-from pathlib import Path
-import sys
-for filename in sys.argv[1:]:
-    path = Path(filename)
-    compile(path.read_text(encoding="utf-8"), str(path), "exec")
-PYCODE
+python3 -m py_compile "$BACKEND" "$ROUTES"
 
 if command -v go >/dev/null 2>&1; then
   (cd "$ROOT/runner-go" && go test ./... && go vet ./...)
