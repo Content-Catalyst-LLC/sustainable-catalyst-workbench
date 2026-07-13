@@ -1,0 +1,3 @@
+Run: bash scripts/test_v350_release.sh
+Primary shortcode: [sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
+Device orchestration shortcode: [sc_workbench_device_orchestration project="default"]

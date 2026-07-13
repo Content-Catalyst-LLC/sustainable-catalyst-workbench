@@ -25,6 +25,7 @@ final class SCWB_V301_Production_Reliability {
             'reviews' => array('label' => 'Collaboration & Sign-Off', 'shortcode' => 'sc_workbench_collaboration_review', 'description' => 'Review queues, record comments, requested changes, revision comparison, traceability, immutable snapshots, and technical sign-off.'),
             'research' => array('label' => 'Research Lab', 'shortcode' => 'sc_workbench_lab_canvas', 'description' => 'Canvas, notebook, documentation, and project records.'),
             'embedded' => array('label' => 'Embedded Devices', 'shortcode' => 'sc_workbench_embedded_device_studio', 'description' => 'Raspberry Pi, TinyML, sensors, calibration, and device logs.'),
+            'devices' => array('label' => 'Device Orchestration', 'shortcode' => 'sc_workbench_device_orchestration', 'description' => 'Device inventory, consent, capability discovery, calibration, instrument sessions, experiment runs, simulation, logs, and recovery.'),
             'electronics' => array('label' => 'Electronics & FPGA', 'shortcode' => 'sc_workbench_fpga_studio', 'description' => 'HDL, constraints, schematics, BOMs, PCB planning, and validation.'),
             'robotics' => array('label' => 'Robotics & Controls', 'shortcode' => 'sc_workbench_robotics_studio', 'description' => 'Kinematics, PID, actuators, state machines, and HIL records.'),
             'instrumentation' => array('label' => 'Instrumentation', 'shortcode' => 'sc_workbench_instrumentation_studio', 'description' => 'Acquisition planning, signals, spectra, calibration, and uncertainty.'),

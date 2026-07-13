@@ -1,4 +1,4 @@
-# Sustainable Catalyst Workbench v3.4.0
+# Sustainable Catalyst Workbench v3.5.0
 
 **Embedded Studio Shortcode Display Repair**
 
@@ -15,3 +15,8 @@ Primary shortcode:
 ## v3.4.0 — Collaboration, Review, and Technical Sign-Off
 
 Adds reviewer roles, review queues, record-level comments, requested changes, revision comparison, requirements-to-review traceability, immutable review snapshots, internal and qualified-professional sign-off records, and exportable review dossiers.
+
+
+## v3.5.0 — Advanced Device and Instrument Orchestration
+
+Adds device inventory, capability discovery, local consent and allowlists, calibration scheduling, instrument sessions, experiment-run planning, hardware-absent simulation, chained device logs, and recovery plans without arbitrary command execution.
