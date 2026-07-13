@@ -1,0 +1,41 @@
+(() => {
+  'use strict';
+  const VERSION = '3.0.0';
+  const q = (root, sel) => root.querySelector(sel);
+  const field = (root, name) => (q(root, `[data-scwb-v300-field="${name}"]`) || {}).value || '';
+  const lines = value => String(value || '').split(/\r?\n/).map(v => v.trim()).filter(Boolean);
+  const parse = (value, fallback) => { try { return JSON.parse(value); } catch (error) { throw new Error(`Invalid JSON: ${error.message}`); } };
+  const hash = async value => {
+    const data = new TextEncoder().encode(JSON.stringify(value, Object.keys(value || {}).sort()));
+    const digest = await crypto.subtle.digest('SHA-256', data);
+    return [...new Uint8Array(digest)].map(v => v.toString(16).padStart(2, '0')).join('');
+  };
+  const download = (name, text) => { const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([text],{type:'application/json'})); a.download=name; a.click(); URL.revokeObjectURL(a.href); };
+  const storageKey = root => `scwb-v300:${root.dataset.scwbV300Project}:${root.dataset.scwbV300Panel}`;
+  function studioAudit(manifest, dependencies) {
+    const ids = manifest.studios.map(s => s.id); const known = new Set(ids);
+    const duplicates = ids.filter((id,i)=>ids.indexOf(id)!==i).filter((v,i,a)=>a.indexOf(v)===i);
+    const artifactPaths = (manifest.artifacts||[]).map(a=>a.path);
+    const duplicateArtifacts = artifactPaths.filter((id,i)=>artifactPaths.indexOf(id)!==i).filter((v,i,a)=>a.indexOf(v)===i);
+    const unknown = dependencies.filter(e=>!known.has(e.source)||!known.has(e.target));
+    const blocked = manifest.studios.filter(s=>s.status==='blocked').map(s=>s.id);
+    const complete = manifest.studios.filter(s=>s.status==='complete').length;
+    const missingHashes = (manifest.artifacts||[]).filter(a=>!a.content_hash).map(a=>a.path);
+    const completeness = manifest.studios.length ? 100*complete/manifest.studios.length : 0;
+    const integrity = (manifest.artifacts||[]).length ? 100*(1-missingHashes.length/manifest.artifacts.length) : 100;
+    return {ok:!duplicates.length&&!duplicateArtifacts.length&&!unknown.length&&!blocked.length,schema:'sc-workbench-unified-project-audit/1.0',version:VERSION,projectId:manifest.project_id,revision:manifest.revision,studioCount:manifest.studios.length,completeStudioCount:complete,artifactCount:(manifest.artifacts||[]).length,evidenceCount:new Set(manifest.evidence_ids||[]).size,completenessPercent:+completeness.toFixed(4),integrityPercent:+integrity.toFixed(4),duplicateStudioIds:duplicates,duplicateArtifactPaths:duplicateArtifacts,unknownDependencies:unknown,blockedStudios:blocked,artifactsMissingHash:missingHashes};
+  }
+  async function analyze(root) {
+    const panel=root.dataset.scwbV300Panel; let result;
+    if(panel==='hub') { const manifest=parse(field(root,'manifest'),{}); result=studioAudit(manifest,parse(field(root,'dependencies'),[])); result.projectHash=await hash(manifest); }
+    else if(panel==='registry') { const studios=parse(field(root,'studios'),[]); result=studioAudit({project_id:root.dataset.scwbV300Project,revision:VERSION,studios,artifacts:[],evidence_ids:[]},parse(field(root,'dependencies'),[])); }
+    else if(panel==='handoff') { const packet={projectId:root.dataset.scwbV300Project,revision:field(root,'revision'),source:'workbench',target:field(root,'target'),recordIds:lines(field(root,'record_ids')),evidenceIds:lines(field(root,'evidence_ids')),summary:field(root,'summary'),assumptions:lines(field(root,'assumptions')),limitations:lines(field(root,'limitations')),requestedAction:'review',generatedAt:new Date().toISOString()}; result={ok:!!packet.summary&&(packet.recordIds.length+packet.evidenceIds.length>0),schema:'sc-workbench-platform-handoff/1.0',version:VERSION,packet,packetHash:await hash(packet)}; }
+    else if(panel==='health') { const records=parse(field(root,'records'),[]), keys=records.map(r=>r.key), duplicates=keys.filter((v,i)=>keys.indexOf(v)!==i).filter((v,i,a)=>a.indexOf(v)===i), missing=records.filter(r=>!r.content_hash).map(r=>r.key), expected=lines(field(root,'expected_categories')), counts={}; records.forEach(r=>counts[r.category]=(counts[r.category]||0)+1); result={ok:!duplicates.length,schema:'sc-workbench-workspace-health/1.0',version:VERSION,recordCount:records.length,totalBytes:records.reduce((s,r)=>s+(+r.size_bytes||0),0),categoryCounts:counts,duplicateKeys:duplicates,recordsMissingHash:missing,missingExpectedCategories:expected.filter(c=>!counts[c]),protectedKeys:records.filter(r=>r.protected).map(r=>r.key),healthScore:Math.max(0,100-(missing.length*5)-(duplicates.length*10))}; result.workspaceHash=await hash(records); }
+    else if(panel==='package') { const manifest=parse(field(root,'manifest'),{}), files=parse(field(root,'files'),[]), paths=files.map(f=>f.path), duplicates=paths.filter((v,i)=>paths.indexOf(v)!==i).filter((v,i,a)=>a.indexOf(v)===i), missing=files.filter(f=>!f.content_hash).map(f=>f.path), packageManifest={project:manifest,generatedAt:new Date().toISOString(),previousPackageHash:field(root,'previous_package_hash'),files,format:'sc-workbench-project-package/1.0'}; result={ok:!duplicates.length&&!missing.length,schema:'sc-workbench-project-package/1.0',version:VERSION,manifest:packageManifest,fileCount:files.length,totalBytes:files.reduce((s,f)=>s+(+f.size_bytes||0),0),duplicatePaths:duplicates,filesMissingHash:missing,packageHash:await hash(packageManifest),chainLinked:!!field(root,'previous_package_hash')}; }
+    else { const records=parse(field(root,'records'),[]), scope=field(root,'scope'), selectedKeys=new Set(lines(field(root,'selected_keys'))), categories=new Set(lines(field(root,'categories'))); let selected=scope==='all'?records:(scope==='category'?records.filter(r=>categories.has(r.category)):records.filter(r=>selectedKeys.has(r.key))); const protectedKeys=selected.filter(r=>r.protected).map(r=>r.key), backup=field(root,'backup_confirmed').toLowerCase()==='true', confirmation=field(root,'confirmation_text').trim().toUpperCase()==='RESET WORKBENCH', backupRequired=scope==='all'||protectedKeys.length>0; result={ok:selected.length>0&&confirmation&&(backup||!backupRequired),schema:'sc-workbench-reset-plan/1.0',version:VERSION,scope,selectedKeys:selected.map(r=>r.key),selectedCount:selected.length,selectedBytes:selected.reduce((s,r)=>s+(+r.size_bytes||0),0),protectedKeys,backupRequired,backupConfirmed:backup,confirmationValid:confirmation,executionAllowed:selected.length>0&&confirmation&&(backup||!backupRequired)}; result.planHash=await hash(result.selectedKeys); }
+    result.generatedAt=result.generatedAt||new Date().toISOString(); return result;
+  }
+  function render(root,result){ q(root,'[data-scwb-v300-result]').textContent=JSON.stringify(result,null,2); const summary=q(root,'[data-scwb-v300-summary]'); summary.innerHTML=`<strong>${result.ok?'PASS':'REVIEW'}</strong><p>Schema: ${result.schema||'record'}</p><p>Version: ${result.version||VERSION}</p>`; q(root,'[data-scwb-v300-status]').textContent=result.ok?'Validated record':'Review required'; root.__scwbV300Result=result; }
+  async function connect(root){ const response=await fetch('http://127.0.0.1:8787/health'); const data=await response.json(); render(root,{ok:data.ok,schema:'sc-workbench-runner-health/1.0',version:data.version,runner:data}); }
+  document.addEventListener('click',async event=>{ const button=event.target.closest('[data-scwb-v300-action]'); if(!button)return; const root=button.closest('[data-scwb-v300]'); try{ const action=button.dataset.scwbV300Action; if(action==='analyze')render(root,await analyze(root)); else if(action==='save'){const result=root.__scwbV300Result||await analyze(root); localStorage.setItem(storageKey(root),JSON.stringify(result)); render(root,{...result,saved:true});} else if(action==='export'){const result=root.__scwbV300Result||await analyze(root); download(`workbench-${root.dataset.scwbV300Project}-${root.dataset.scwbV300Panel}.json`,JSON.stringify(result,null,2));} else if(action==='connect')await connect(root);}catch(error){render(root,{ok:false,schema:'sc-workbench-error/1.0',version:VERSION,error:error.message});} });
+})();

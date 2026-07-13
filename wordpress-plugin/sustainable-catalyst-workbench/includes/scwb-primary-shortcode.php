@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) {
 }
 
 final class SCWB_Primary_Shortcode_Repair {
-    const VERSION = '2.9.0';
+    const VERSION = '3.0.0';
 
     public static function boot() {
         add_action('init', array(__CLASS__, 'register_shortcode'), 99);
@@ -36,6 +36,11 @@ final class SCWB_Primary_Shortcode_Repair {
 
     private static function studios() {
         return array(
+            'unified' => array(
+                'label' => 'Unified Project Hub',
+                'shortcode' => 'sc_workbench_unified',
+                'description' => 'Shared projects, studio registry, health, handoffs, packages, and reset safeguards.',
+            ),
             'research' => array(
                 'label' => 'Research Lab',
                 'shortcode' => 'sc_workbench_lab_canvas',
@@ -96,7 +101,7 @@ final class SCWB_Primary_Shortcode_Repair {
                 'title' => 'Sustainable Catalyst Workbench',
                 'display' => 'full',
                 'project' => 'default',
-                'studio' => 'research',
+                'studio' => 'unified',
             ),
             $atts,
             'sc_workbench'
@@ -115,7 +120,7 @@ final class SCWB_Primary_Shortcode_Repair {
         $studios = self::studios();
         $initial = sanitize_key($atts['studio']);
         if (!isset($studios[$initial])) {
-            $initial = 'research';
+            $initial = 'unified';
         }
 
         wp_enqueue_style('scwb-primary-repair');
@@ -148,14 +153,13 @@ final class SCWB_Primary_Shortcode_Repair {
         >
             <header class="scwb-primary__header">
                 <div>
-                    <p class="scwb-primary__eyebrow">Sustainable Catalyst Workbench v2.9.0</p>
+                    <p class="scwb-primary__eyebrow">Sustainable Catalyst Workbench v3.0.0</p>
                     <h2><?php echo esc_html($atts['title']); ?></h2>
                     <p>
-                        Select a studio to open its working interface. Calculations and records remain
-                        separated by project while sharing the same Workbench environment.
+                        Open the unified project hub or a specialist studio. Shared project identifiers, packages, evidence, and handoff records connect the full Workbench environment.
                     </p>
                 </div>
-                <span class="scwb-primary__status">Unified Workbench selector</span>
+                <span class="scwb-primary__status">Unified production environment</span>
             </header>
 
             <div class="scwb-primary__layout">

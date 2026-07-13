@@ -1,3 +1,7 @@
+# Sustainable Catalyst Workbench v3.0.0
+
+Unified Prototyping Workbench connecting all v2.x studios through shared project, evidence, handoff, package, health, migration, and reset records.
+
 # Sustainable Catalyst Prototyping Workbench v2.8.0
 
 ## Version 2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation

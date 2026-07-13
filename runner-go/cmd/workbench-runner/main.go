@@ -104,6 +104,9 @@ func main() {
 		case "documentation-tools":
 			printJSON(discoverDocumentationTools())
 			return
+		case "unified-tools":
+			printJSON(discoverUnifiedTools())
+			return
 		case "serve":
 			serve(os.Args[2:])
 			return
@@ -111,7 +114,7 @@ func main() {
 	}
 	fmt.Println("Sustainable Catalyst Workbench Runner " + runner.Version)
 	fmt.Println("Usage: workbench-runner serve [--enable-native-exec] [--timeout 8s]")
-	fmt.Println("       workbench-runner version | doctor | runtimes | devices | hardware-tools | robotics-tools | instrumentation-tools | simulation-tools | multi-language-tools | visualization-tools | experiment-tools | documentation-tools")
+	fmt.Println("       workbench-runner version | doctor | runtimes | devices | hardware-tools | robotics-tools | instrumentation-tools | simulation-tools | multi-language-tools | visualization-tools | experiment-tools | documentation-tools | unified-tools")
 }
 
 func serve(args []string) {
@@ -149,6 +152,8 @@ func serve(args []string) {
 	mux.HandleFunc("/experiment-task", s.withCORS(s.authorized(s.experimentTask)))
 	mux.HandleFunc("/documentation-tools", s.withCORS(s.authorized(s.documentationTools)))
 	mux.HandleFunc("/documentation-task", s.withCORS(s.authorized(s.documentationTask)))
+	mux.HandleFunc("/unified-tools", s.withCORS(s.authorized(s.unifiedTools)))
+	mux.HandleFunc("/unified-task", s.withCORS(s.authorized(s.unifiedTask)))
 	mux.HandleFunc("/execute", s.withCORS(s.authorized(s.execute)))
 
 	httpServer := &http.Server{
@@ -246,6 +251,11 @@ func (s *server) health(w http.ResponseWriter, r *http.Request) {
 		"protocolValidation":         true,
 		"workflowReproducibility":    true,
 		"experimentToolDiscovery":    true,
+		"unifiedProjectHub":          true,
+		"projectPackageExport":      true,
+		"workspaceResetSafeguards":  true,
+		"platformHandoffRecords":    true,
+		"unifiedToolDiscovery":      true,
 	})
 }
 
@@ -1058,6 +1068,54 @@ func runDocumentationTask(parent context.Context, timeout time.Duration, task st
 	if commandErr != nil && len(limited) == 0 {
 		return map[string]any{"task": task, "output": string(limited)}, fmt.Errorf("documentation task failed: %w", commandErr)
 	}
+	return map[string]any{"task": task, "command": parts[0], "path": path, "output": string(limited)}, nil
+}
+
+func (s *server) unifiedTools(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet { writeError(w, http.StatusMethodNotAllowed, "GET required"); return }
+	writeJSON(w, http.StatusOK, map[string]any{
+		"ok": true, "version": runner.Version, "tools": discoverUnifiedTools(),
+		"executionBoundary": map[string]any{"loopbackOnly": true, "pairingRequired": true, "originBoundTokens": true, "arbitraryShellEndpoint": false, "allowlistedDiagnosticsOnly": true},
+		"notes": []string{"Tool visibility does not validate project correctness, package integrity, destination compatibility, or safe deletion.", "Reset execution remains browser-controlled and requires explicit backup and confirmation safeguards."},
+	})
+}
+
+func (s *server) unifiedTask(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost { writeError(w, http.StatusMethodNotAllowed, "POST required"); return }
+	if !s.nativeExec { writeError(w, http.StatusForbidden, "unified tasks are disabled; restart with --enable-native-exec"); return }
+	var req deviceTaskRequest
+	if err := readJSON(r, &req); err != nil { writeError(w, http.StatusBadRequest, err.Error()); return }
+	if !req.Consent { writeError(w, http.StatusBadRequest, "explicit consent is required for a local unified-workbench task"); return }
+	result, err := runUnifiedTask(r.Context(), s.timeout, strings.ToLower(req.Task))
+	if err != nil { writeError(w, http.StatusBadRequest, err.Error()); return }
+	result["ok"] = true; result["version"] = runner.Version; result["arbitraryShellEndpoint"] = false
+	writeJSON(w, http.StatusOK, result)
+}
+
+func discoverUnifiedTools() []runtimeRecord {
+	specs := []struct{ language, command string }{
+		{"unified-git", "git"}, {"unified-python", "python3"}, {"unified-node", "node"},
+		{"unified-zip", "zip"}, {"unified-unzip", "unzip"}, {"unified-tar", "tar"},
+		{"unified-shasum", "shasum"}, {"unified-sha256sum", "sha256sum"}, {"unified-openssl", "openssl"},
+	}
+	out := make([]runtimeRecord, 0, len(specs))
+	for _, spec := range specs { record := runtimeRecord{Language: spec.language, Command: spec.command}; if path, err := exec.LookPath(spec.command); err == nil { record.Available = true; record.Path = path }; out = append(out, record) }
+	return out
+}
+
+func runUnifiedTask(parent context.Context, timeout time.Duration, task string) (map[string]any, error) {
+	specs := map[string][]string{
+		"git-version": {"git", "--version"}, "python-version": {"python3", "--version"}, "node-version": {"node", "--version"},
+		"zip-version": {"zip", "-v"}, "unzip-version": {"unzip", "-v"}, "tar-version": {"tar", "--version"},
+		"shasum-version": {"shasum", "--version"}, "sha256sum-version": {"sha256sum", "--version"}, "openssl-version": {"openssl", "version"},
+	}
+	parts, ok := specs[task]; if !ok { return map[string]any{"task": task}, errors.New("unified-workbench task is not allowlisted") }
+	path, err := exec.LookPath(parts[0]); if err != nil { return map[string]any{"task": task, "command": parts[0]}, fmt.Errorf("unified-workbench tool is not available: %s", parts[0]) }
+	ctx, cancel := context.WithTimeout(parent, timeout); defer cancel()
+	command := exec.CommandContext(ctx, path, parts[1:]...); command.Env = minimalEnvironment(os.TempDir())
+	output, commandErr := command.CombinedOutput(); limited := appendLimited(nil, output, maxOutputBytes)
+	if ctx.Err() == context.DeadlineExceeded { return map[string]any{"task": task, "output": string(limited)}, errors.New("unified-workbench task timed out") }
+	if commandErr != nil && len(limited) == 0 { return map[string]any{"task": task, "output": string(limited)}, fmt.Errorf("unified-workbench task failed: %w", commandErr) }
 	return map[string]any{"task": task, "command": parts[0], "path": path, "output": string(limited)}, nil
 }
 
