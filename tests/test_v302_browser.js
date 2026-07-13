@@ -5,5 +5,5 @@ const source = fs.readFileSync(path.join(__dirname, '..', 'wordpress-plugin', 's
 for (const marker of ['sc-workbench-migration-plan/2.0','sc-workbench-backup/2.0','sc-workbench-restore-plan/2.0','CLEAN WORKSPACE','ROLLBACK WORKBENCH','MutationObserver','crypto.subtle','localStorage']) assert(source.includes(marker), `Missing marker: ${marker}`);
 const router = fs.readFileSync(path.join(__dirname, '..', 'wordpress-plugin', 'sustainable-catalyst-workbench', 'assets', 'js', 'scwb-primary-repair.js'), 'utf8');
 assert(router.includes("'recovery'"));
-assert(router.includes("version: '3.0.2'"));
-console.log('Workbench v3.0.2 browser recovery source audit passed.');
+assert(router.includes("version: '3.1.0'"));
+console.log('Workbench v3.1.0 browser recovery source audit passed.');

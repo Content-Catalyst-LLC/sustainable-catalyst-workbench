@@ -1,0 +1,20 @@
+Workbench v3.1.0 installation and verification
+
+WordPress:
+1. Upload sustainable-catalyst-workbench-plugin-v3.1.0.zip.
+2. Choose Replace current with uploaded.
+3. Clear WordPress, theme, optimization, CDN, and browser caches.
+4. Use [sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"].
+5. Open Persistent Projects in the unified studio navigation.
+
+Focused shortcode:
+[sc_workbench_persistent_workspace project="default"]
+
+REST status:
+/wp-json/scwb/v1/persistent-status
+
+FastAPI status:
+/v310/status
+
+Repository verification:
+bash scripts/test_v310_release.sh

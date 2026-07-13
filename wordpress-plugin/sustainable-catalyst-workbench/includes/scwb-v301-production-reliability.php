@@ -19,6 +19,7 @@ final class SCWB_V301_Production_Reliability {
     public static function studio_catalog() {
         return array(
             'unified' => array('label' => 'Unified Project Hub', 'shortcode' => 'sc_workbench_unified', 'description' => 'Shared projects, studio registry, health, handoffs, packages, and reset safeguards.'),
+            'projects' => array('label' => 'Persistent Projects', 'shortcode' => 'sc_workbench_persistent_workspace', 'description' => 'Create, switch, autosave, version, export, and optionally synchronize private Workbench projects.'),
             'research' => array('label' => 'Research Lab', 'shortcode' => 'sc_workbench_lab_canvas', 'description' => 'Canvas, notebook, documentation, and project records.'),
             'embedded' => array('label' => 'Embedded Devices', 'shortcode' => 'sc_workbench_embedded_device_studio', 'description' => 'Raspberry Pi, TinyML, sensors, calibration, and device logs.'),
             'electronics' => array('label' => 'Electronics & FPGA', 'shortcode' => 'sc_workbench_fpga_studio', 'description' => 'HDL, constraints, schematics, BOMs, PCB planning, and validation.'),

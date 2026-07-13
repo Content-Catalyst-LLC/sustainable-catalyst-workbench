@@ -2,7 +2,7 @@
   'use strict';
 
   var SELECTOR = '[data-scwb-primary]';
-  var EXPECTED = ['unified','research','embedded','electronics','robotics','instrumentation','simulation','runtime','visualization','experiments','documentation','recovery'];
+  var EXPECTED = ['unified','projects','research','embedded','electronics','robotics','instrumentation','simulation','runtime','visualization','experiments','documentation','recovery'];
 
   function list(root, selector) {
     return Array.prototype.slice.call(root.querySelectorAll(selector));
@@ -200,11 +200,22 @@
     }).observe(document.documentElement, { childList: true, subtree: true });
   }
 
+
+  document.addEventListener('scwb:project-changed', function (event) {
+    var detail = event.detail || {};
+    var projectId = detail.projectId || (detail.project && detail.project.project_id) || '';
+    if (!projectId) return;
+    document.querySelectorAll(SELECTOR).forEach(function (root) {
+      root.setAttribute('data-scwb-project', projectId);
+      root.dispatchEvent(new CustomEvent('scwb:active-project-updated', { bubbles: true, detail: detail }));
+    });
+  });
+
   window.SCWBPrimaryRouter = {
     activate: activate,
     audit: audit,
     init: init,
     expectedStudios: EXPECTED.slice(),
-    version: '3.0.2'
+    version: '3.1.0'
   };
 })();
