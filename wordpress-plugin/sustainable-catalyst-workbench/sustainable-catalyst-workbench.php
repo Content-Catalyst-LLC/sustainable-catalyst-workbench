@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
  * Description: Compact AI-enabled research and analytics workbench with Python/R/Julia/Haskell-ready backend, advanced calculators, serious global-impact tools, SVG visual analytics, and Gemini/DeepSeek/OpenAI provider support, exportable SVG/PNG graph images, and PDF-ready reports with equation CSV export, and equation-derived calculator backlog management, feature-builder queue, article profiles, domain summaries, and 59 equation-derived built calculator tools, plus validation/routing dashboards and page-level calculator embed shortcode recommendations, stable v1.0 shortcode placement modes, validation dashboard, article placement assistant, public tool catalog endpoints, v1.1 Chalkboard Translator symbolic math plus engineering units, v1.2 Graph Studio with parameter sliders, and v1.3 Engineering Mode output templates, v1.4 Core Engineering Calculators, and v1.5 Exportable Calculation Reports, and v1.6 Article-Embedded Calculators near formulas, and v1.7 Advanced Scientific, Econometric, Psychometric, Architecture, Infrastructure, Pattern, and Astrophysics Calculators, plus v1.8 Browser Code Studio Foundation, v1.9 browser-native JavaScript, Python, R, and SQL execution, and v2.0.0 an editor-first Run experience with direct output, automatic runtime loading, file switching, line numbers, and an optional advanced console.
- * Version: 2.4.0
+ * Version: 2.5.0
  * Author: Content Catalyst LLC
  * License: MIT
  * Text Domain: sustainable-catalyst-workbench
@@ -2848,3 +2848,7 @@ require_once __DIR__ . '/includes/scwb-v230-robotics-controls.php';
 // Workbench v2.4.0 — Instrumentation, Data Acquisition, and Signal Analysis Studio.
 if (!defined('SCWB_V240_PLUGIN_FILE')) { define('SCWB_V240_PLUGIN_FILE', __FILE__); }
 require_once __DIR__ . '/includes/scwb-v240-instrumentation.php';
+
+// Workbench v2.5.0 — Simulation, Digital Twin, and Systems Modeling Studio.
+if (!defined('SCWB_V250_PLUGIN_FILE')) { define('SCWB_V250_PLUGIN_FILE', __FILE__); }
+require_once __DIR__ . '/includes/scwb-v250-simulation-digital-twin.php';

@@ -89,6 +89,9 @@ func main() {
 		case "instrumentation-tools":
 			printJSON(discoverInstrumentationTools())
 			return
+		case "simulation-tools":
+			printJSON(discoverSimulationTools())
+			return
 		case "serve":
 			serve(os.Args[2:])
 			return
@@ -96,7 +99,7 @@ func main() {
 	}
 	fmt.Println("Sustainable Catalyst Workbench Runner " + runner.Version)
 	fmt.Println("Usage: workbench-runner serve [--enable-native-exec] [--timeout 8s]")
-	fmt.Println("       workbench-runner version | doctor | runtimes | devices | hardware-tools | robotics-tools | instrumentation-tools")
+	fmt.Println("       workbench-runner version | doctor | runtimes | devices | hardware-tools | robotics-tools | instrumentation-tools | simulation-tools")
 }
 
 func serve(args []string) {
@@ -124,6 +127,8 @@ func serve(args []string) {
 	mux.HandleFunc("/robotics-task", s.withCORS(s.authorized(s.roboticsTask)))
 	mux.HandleFunc("/instrumentation-tools", s.withCORS(s.authorized(s.instrumentationTools)))
 	mux.HandleFunc("/instrumentation-task", s.withCORS(s.authorized(s.instrumentationTask)))
+	mux.HandleFunc("/simulation-tools", s.withCORS(s.authorized(s.simulationTools)))
+	mux.HandleFunc("/simulation-task", s.withCORS(s.authorized(s.simulationTask)))
 	mux.HandleFunc("/execute", s.withCORS(s.authorized(s.execute)))
 
 	httpServer := &http.Server{
@@ -205,6 +210,10 @@ func (s *server) health(w http.ResponseWriter, r *http.Request) {
 		"dataAcquisitionPlanning": true,
 		"signalAnalysis":          true,
 		"instrumentToolDiscovery": true,
+		"simulationStudio":        true,
+		"digitalTwinStudio":       true,
+		"systemsModeling":         true,
+		"simulationToolDiscovery": true,
 	})
 }
 
@@ -577,6 +586,108 @@ func runInstrumentationTask(parent context.Context, timeout time.Duration, task 
 	}
 	if commandErr != nil && len(limited) == 0 {
 		return map[string]any{"task": task, "output": string(limited)}, fmt.Errorf("instrumentation task failed: %w", commandErr)
+	}
+	return map[string]any{"task": task, "command": parts[0], "path": path, "output": string(limited)}, nil
+}
+
+func (s *server) simulationTools(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		writeError(w, http.StatusMethodNotAllowed, "GET required")
+		return
+	}
+	writeJSON(w, http.StatusOK, map[string]any{
+		"ok":      true,
+		"version": runner.Version,
+		"tools":   discoverSimulationTools(),
+		"notes": []string{
+			"Discovery only confirms that a command is visible to the local user.",
+			"Models, solvers, units, parameters, calibration, and boundary conditions require independent validation.",
+		},
+	})
+}
+
+func (s *server) simulationTask(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		writeError(w, http.StatusMethodNotAllowed, "POST required")
+		return
+	}
+	if !s.nativeExec {
+		writeError(w, http.StatusForbidden, "simulation tasks are disabled; restart with --enable-native-exec")
+		return
+	}
+	var req deviceTaskRequest
+	if err := readJSON(r, &req); err != nil {
+		writeError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+	if !req.Consent {
+		writeError(w, http.StatusBadRequest, "explicit consent is required for a local simulation task")
+		return
+	}
+	result, err := runSimulationTask(r.Context(), s.timeout, strings.ToLower(req.Task))
+	if err != nil {
+		writeError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+	result["ok"] = true
+	result["version"] = runner.Version
+	result["arbitraryShellEndpoint"] = false
+	writeJSON(w, http.StatusOK, result)
+}
+
+func discoverSimulationTools() []runtimeRecord {
+	specs := []struct{ language, command string }{
+		{"simulation-python", "python3"},
+		{"simulation-jupyter", "jupyter"},
+		{"simulation-ipython", "ipython"},
+		{"simulation-r", "Rscript"},
+		{"simulation-julia", "julia"},
+		{"simulation-octave", "octave"},
+		{"simulation-openmodelica", "omc"},
+		{"simulation-gnuplot", "gnuplot"},
+	}
+	out := make([]runtimeRecord, 0, len(specs))
+	for _, spec := range specs {
+		record := runtimeRecord{Language: spec.language, Command: spec.command}
+		if path, err := exec.LookPath(spec.command); err == nil {
+			record.Available = true
+			record.Path = path
+		}
+		out = append(out, record)
+	}
+	return out
+}
+
+func runSimulationTask(parent context.Context, timeout time.Duration, task string) (map[string]any, error) {
+	specs := map[string][]string{
+		"python-version":       {"python3", "--version"},
+		"jupyter-version":      {"jupyter", "--version"},
+		"ipython-version":      {"ipython", "--version"},
+		"r-version":            {"Rscript", "--version"},
+		"julia-version":        {"julia", "--version"},
+		"octave-version":       {"octave", "--version"},
+		"openmodelica-version": {"omc", "--version"},
+		"gnuplot-version":      {"gnuplot", "--version"},
+	}
+	parts, ok := specs[task]
+	if !ok {
+		return map[string]any{"task": task}, errors.New("simulation task is not allowlisted")
+	}
+	path, err := exec.LookPath(parts[0])
+	if err != nil {
+		return map[string]any{"task": task, "command": parts[0]}, fmt.Errorf("tool is not available: %s", parts[0])
+	}
+	ctx, cancel := context.WithTimeout(parent, timeout)
+	defer cancel()
+	command := exec.CommandContext(ctx, path, parts[1:]...)
+	command.Env = minimalEnvironment(os.TempDir())
+	output, commandErr := command.CombinedOutput()
+	limited := appendLimited(nil, output, maxOutputBytes)
+	if ctx.Err() == context.DeadlineExceeded {
+		return map[string]any{"task": task, "output": string(limited)}, errors.New("simulation task timed out")
+	}
+	if commandErr != nil && len(limited) == 0 {
+		return map[string]any{"task": task, "output": string(limited)}, fmt.Errorf("simulation task failed: %w", commandErr)
 	}
 	return map[string]any{"task": task, "command": parts[0], "path": path, "output": string(limited)}, nil
 }

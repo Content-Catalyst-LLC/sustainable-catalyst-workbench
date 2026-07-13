@@ -1,4 +1,4 @@
-# Sustainable Catalyst Prototyping Workbench v2.4.0
+# Sustainable Catalyst Prototyping Workbench v2.5.0
 
 A compact AI-enabled research and analytics workbench for modeling, calculating, visualizing, and interpreting complex systems across science, sustainability, engineering, architecture, psychology, economics, governance, and meaning.
 
@@ -255,3 +255,7 @@ Adds differential-drive kinematics, PID baseline simulation, mechatronics archit
 ## Version 2.4.0 — Instrumentation, Data Acquisition, and Signal Analysis Studio
 
 Adds instrumentation range and resolution review, data-acquisition sizing, time-domain statistics, browser-local spectrum analysis, calibration and uncertainty budgets, measurement-campaign validation, and paired local instrumentation-tool discovery.
+
+## Version 2.5.0 — Simulation, Digital Twin, and Systems Modeling Studio
+
+Adds dynamic simulation, bounded digital-twin calibration, coupled systems models, scenario sweeps, seeded Monte Carlo uncertainty, model validation, and paired local simulation-tool discovery.

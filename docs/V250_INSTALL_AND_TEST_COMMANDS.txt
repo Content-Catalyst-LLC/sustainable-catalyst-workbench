@@ -1,0 +1,28 @@
+Sustainable Catalyst Workbench v2.5.0
+Simulation, Digital Twin, and Systems Modeling Studio
+
+WORDPRESS
+1. Upload sustainable-catalyst-workbench-plugin-v2.5.0.zip.
+2. Replace the existing Workbench plugin when prompted.
+3. Clear WordPress, theme, optimization, CDN, and browser caches.
+
+SHORTCODES
+[sc_workbench_simulation_studio project="default"]
+[sc_workbench_digital_twin project="default"]
+[sc_workbench_systems_modeling project="default"]
+[sc_workbench_scenario_sweep project="default"]
+[sc_workbench_monte_carlo project="default"]
+[sc_workbench_model_validation project="default"]
+
+RELEASE TEST
+cd sustainable-catalyst-workbench-repo
+chmod +x scripts/test_v250_release.sh
+./scripts/test_v250_release.sh
+
+RUNNER
+workbench-runner version
+workbench-runner simulation-tools
+workbench-runner serve
+workbench-runner serve --enable-native-exec
+
+The runner listens only on 127.0.0.1:8787 and requires pairing for protected routes.
