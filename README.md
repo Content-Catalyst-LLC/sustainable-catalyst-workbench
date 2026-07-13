@@ -1,11 +1,11 @@
-# Sustainable Catalyst Workbench v3.9.0
+# Sustainable Catalyst Workbench v4.0.0
 
-**Production Evaluation and Public Release Hardening**
+**Connected Scientific and Engineering Workbench**
 
-Workbench v3.9.0 adds evidence-backed accessibility, performance, security,
-compatibility, migration stress, failure recovery, onboarding, extension-contract,
-and human-controlled public-release evaluation while retaining the complete
-v3.8.0 offline and installable Workbench.
+Workbench v4.0.0 unifies persistent projects, calculations, code, simulations,
+devices, instruments, experiments, evidence, reviews, documentation, Domain
+Laboratories, Site Intelligence, Decision Studio, Research Librarian, the
+Knowledge Library, and offline operation under one auditable project contract.
 
 Primary shortcode:
 
@@ -13,29 +13,18 @@ Primary shortcode:
 [sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
 ```
 
-Production hardening studio:
+Connected environment studio:
 
 ```text
-[sc_workbench_production_hardening project="default"]
+[sc_workbench_connected_environment project="default"]
 ```
 
-## Public-release boundary
+## Operating boundary
 
-A successful gate records complete evaluation evidence and explicit human
-approval. It does not publish automatically, claim regulatory certification,
-or replace professional accessibility, security, privacy, legal, scientific,
-or engineering review.
+The connected environment plans and records work. It does not authorize arbitrary
+commands, remote shells, automatic publication, autonomous device control, or
+professional certification. Destructive and high-stakes actions remain subject to
+explicit human review and the controls established in earlier Workbench releases.
 
-## Retained platform capabilities
-
-- Persistent project workspace and recovery
-- Knowledge Library and article integration
-- Shared evidence and platform handoffs
-- Collaboration and technical sign-off
-- Device and instrument orchestration
-- Computational intelligence and predictive analytics
-- Domain Laboratory integration
-- Offline and installable macOS, Linux, and Raspberry Pi operation
-
-See `V390_RELEASE_NOTES.md` and `docs/V390_SECURITY_BOUNDARY.md` for the full
-release contract.
+See `V400_RELEASE_NOTES.md`, `docs/V400_SECURITY_BOUNDARY.md`, and
+`docs/V400_EXTENSION_CONTRACT.md` for the release contract.

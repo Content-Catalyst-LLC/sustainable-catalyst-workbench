@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var VERSION = '3.9.0';
+  var VERSION = '4.0.0';
   var STORE = 'scwb:offline:projects';
   var output = document.getElementById('output');
   var status = document.getElementById('service-status');
@@ -14,7 +14,7 @@
 
   async function health() {
     try {
-      var response = await fetch('/v380/status', { cache: 'no-store' });
+      var response = await fetch('/v400/status', { cache: 'no-store' });
       var data = await response.json();
       status.textContent = data.ok ? 'Local service online · v' + data.version : 'Local service needs review';
       status.className = 'status online';
@@ -29,7 +29,7 @@
   function newProject() {
     var projects = readProjects();
     var project = {
-      schema: 'sc-workbench-offline-project/1.0',
+      schema: 'sc-workbench-connected-environment-project/1.0',
       id: 'offline-' + Date.now(),
       title: 'Offline Workbench Project',
       version: VERSION,
@@ -56,7 +56,7 @@
   function exportBundle() {
     var projects = readProjects();
     var bundle = {
-      schema: 'sc-workbench-offline-sync-bundle/1.0',
+      schema: 'sc-workbench-connected-environment-sync-bundle/1.0',
       version: VERSION,
       exportedAt: new Date().toISOString(),
       projects: projects,

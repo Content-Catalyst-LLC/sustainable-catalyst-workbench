@@ -22,7 +22,7 @@ if sys.version_info < (3, 11):
     raise SystemExit("Python 3.11 or newer is required.")
 PY
 
-VERSION="3.9.0"
+VERSION="4.0.0"
 APP_DIR="$TARGET_ROOT/releases/$VERSION"
 CURRENT_LINK="$TARGET_ROOT/current"
 DATA_DIR="$TARGET_ROOT/data"
@@ -96,10 +96,11 @@ EOF
 "$VENV_DIR/bin/python" -m py_compile \
   "$APP_DIR/offline/start_local_workbench.py" \
   "$APP_DIR/backend/app/v380.py" \
-  "$APP_DIR/backend/app/v390.py"
+  "$APP_DIR/backend/app/v390.py" \
+  "$APP_DIR/backend/app/v400.py"
 
 echo
-echo "Sustainable Catalyst Workbench v3.9.0 installed."
+echo "Sustainable Catalyst Workbench v4.0.0 installed."
 echo "Platform: $PLATFORM"
 echo "Location: $APP_DIR"
 echo "Launcher: $LAUNCHER_PATH"

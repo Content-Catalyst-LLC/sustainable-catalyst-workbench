@@ -18,6 +18,7 @@ final class SCWB_V301_Production_Reliability {
 
     public static function studio_catalog() {
         return array(
+            'connected' => array('label' => 'Connected Environment', 'shortcode' => 'sc_workbench_connected_environment', 'description' => 'One auditable project environment connecting Workbench, Lab, Site Intelligence, Decision Studio, Research Librarian, the Knowledge Library, and offline operation.'),
             'unified' => array('label' => 'Unified Project Hub', 'shortcode' => 'sc_workbench_unified', 'description' => 'Shared projects, studio registry, health, handoffs, packages, and reset safeguards.'),
             'projects' => array('label' => 'Persistent Projects', 'shortcode' => 'sc_workbench_persistent_workspace', 'description' => 'Create, switch, autosave, version, export, and optionally synchronize private Workbench projects.'),
             'library' => array('label' => 'Library & Articles', 'shortcode' => 'sc_workbench_library_integration', 'description' => 'Article links, formulas, calculator embeds, citations, Research Librarian routes, and draft return.'),

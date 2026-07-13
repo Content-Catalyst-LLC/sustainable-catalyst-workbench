@@ -1,0 +1,14 @@
+Install the WordPress plugin:
+
+1. Upload sustainable-catalyst-workbench-plugin-v4.0.0.zip.
+2. Choose Replace current with uploaded.
+3. Clear WordPress, optimization, CDN, and browser caches.
+4. Use [sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"].
+
+Run release checks from the repository root:
+
+bash scripts/test_v400_release.sh
+
+Run the local application:
+
+python3 offline/start_local_workbench.py

@@ -1,0 +1,23 @@
+{
+  "schema": "sc-workbench-connected-environment-project/1.0",
+  "version": "4.0.0",
+  "projectId": "connected-demo",
+  "title": "Connected Scientific and Engineering Demonstration",
+  "storageMode": "browser-local",
+  "objectives": [
+    "Frame a sustainability question",
+    "Collect public evidence",
+    "Run auditable calculations",
+    "Review findings",
+    "Produce a human-approved decision dossier"
+  ],
+  "platformLinks": [
+    {"platform": "site-intelligence", "purpose": "public indicators"},
+    {"platform": "sustainable-catalyst-lab", "purpose": "domain experiment"},
+    {"platform": "decision-studio", "purpose": "decision packet"},
+    {"platform": "research-librarian", "purpose": "source routing"}
+  ],
+  "humanControlRequired": true,
+  "automaticPublicationAuthorized": false,
+  "remoteShellAllowed": false
+}
