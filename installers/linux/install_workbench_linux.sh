@@ -13,7 +13,7 @@ cat > "$DESKTOP_DIR/sustainable-catalyst-workbench.desktop" <<EOF
 [Desktop Entry]
 Type=Application
 Name=Sustainable Catalyst Workbench
-Comment=Offline Sustainable Catalyst Workbench v3.8.0
+Comment=Offline Sustainable Catalyst Workbench v3.9.0
 Exec=$LAUNCHER
 Terminal=true
 Categories=Development;Science;Education;

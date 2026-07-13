@@ -1,0 +1,8 @@
+python3 -m pip install pytest fastapi pydantic uvicorn
+bash scripts/test_v390_release.sh
+
+WordPress primary shortcode:
+[sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
+
+Production hardening shortcode:
+[sc_workbench_production_hardening project="default"]

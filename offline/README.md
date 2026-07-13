@@ -1,4 +1,4 @@
-# Workbench v3.8.0 local application
+# Workbench v3.9.0 local application
 
 The local application runs the existing Workbench FastAPI service and a small
 installable web shell on `http://127.0.0.1:8787/offline/`.

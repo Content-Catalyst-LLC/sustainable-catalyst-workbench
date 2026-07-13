@@ -1,0 +1,19 @@
+{
+  "schema": "sc-workbench-production-hardening-evaluation-baseline/1.0",
+  "version": "3.9.0",
+  "status": "hold",
+  "reason": "Human approval and environment-specific audits are required before public release.",
+  "requiredEvaluations": [
+    "accessibility",
+    "performance",
+    "security",
+    "compatibility",
+    "migration-stress",
+    "failure-recovery",
+    "onboarding",
+    "extension-contract"
+  ],
+  "automaticPublicationAuthorized": false,
+  "productionCertificationClaim": false,
+  "baselineHash": "7b28b6c67304306fb9df6d3078106b354286dfdf69922b9eecae8f51d378c5bb"
+}

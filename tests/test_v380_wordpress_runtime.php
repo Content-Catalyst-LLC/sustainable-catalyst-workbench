@@ -55,5 +55,5 @@ $catalog=SCWB_V301_Production_Reliability::studio_catalog();
 if(!isset($catalog['offline'])||'sc_workbench_offline_installable'!==$catalog['offline']['shortcode']){
     fwrite(STDERR,"Offline studio missing.\n");exit(1);
 }
-if(20!==count($catalog)){fwrite(STDERR,"Expected 20 studios, found ".count($catalog).".\n");exit(1);}
+if(count($catalog)<20){fwrite(STDERR,"Expected at least 20 studios, found ".count($catalog).".\n");exit(1);}
 echo "Workbench v3.8.0 WordPress offline runtime passed.\n";

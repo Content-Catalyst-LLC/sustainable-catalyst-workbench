@@ -1,0 +1,10 @@
+const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('assert');
+const storage=new Map();
+const document={readyState:'complete',body:{appendChild(){}},querySelectorAll(){return[]},addEventListener(){},createElement(){return{click(){},remove(){}}}};
+const localStorage={setItem(k,v){storage.set(k,v)},getItem(k){return storage.has(k)?storage.get(k):null},removeItem(k){storage.delete(k)}};
+const URLObject={createObjectURL(){return'blob:test'},revokeObjectURL(){}};
+const windowObject={SCWBV390Config:{authenticated:false,restUrl:'/wp-json/scwb/v1'},setTimeout,clearTimeout,URL:URLObject,addEventListener(){}};
+const context={window:windowObject,document,localStorage,Blob:class Blob{},URL:URLObject,navigator:{},console,Promise,Date,JSON,Set,Map,Array,String,Number,Object,Math,Error,fetch(){return Promise.reject(new Error('not used'))}};Object.assign(windowObject,{window:windowObject,document,localStorage});
+const source=fs.readFileSync(path.join(__dirname,'..','wordpress-plugin','sustainable-catalyst-workbench','assets','js','sc-workbench-v390.js'),'utf8');
+for(const marker of ['sc-workbench-production-hardening-accessibility/1.0','sc-workbench-production-hardening-performance/1.0','sc-workbench-production-hardening-security/1.0','sc-workbench-production-hardening-release-gate/1.0','automaticPublicationAuthorized: false','productionCertificationClaim: false'])assert(source.includes(marker),`Missing marker: ${marker}`);
+vm.runInNewContext(source,context,{filename:'sc-workbench-v390.js'});const api=windowObject.SCWBProductionHardening;assert(api,'API not exported');assert.strictEqual(api.version,'3.9.0');assert.strictEqual(Array.from(api.requiredEvaluations).length,8);assert.strictEqual(api.automaticPublicationAuthorized,false);assert.strictEqual(api.productionCertificationClaim,false);console.log('Workbench v3.9.0 browser production hardening regression passed.');
