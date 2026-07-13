@@ -1,0 +1,8 @@
+<?php
+$repo=dirname(__DIR__);$plugin=$repo.'/wordpress-plugin/sustainable-catalyst-workbench';$failures=array();
+function v340_marker($path,$marker,&$failures){if(!is_file($path)||false===strpos(file_get_contents($path),$marker))$failures[]=basename($path).': '.$marker;}
+$bootstrap=$plugin.'/sustainable-catalyst-workbench.php';v340_marker($bootstrap,'Version: 3.4.0',$failures);v340_marker($bootstrap,"define('SCWB_VERSION', '3.4.0')",$failures);v340_marker($bootstrap,'scwb-v340-collaboration-review.php',$failures);
+$module=$plugin.'/includes/scwb-v340-collaboration-review.php';foreach(array('sc_workbench_collaboration_review','sc_workbench_review_queue','sc_workbench_record_comments','sc_workbench_change_requests','sc_workbench_revision_compare','sc_workbench_technical_signoff','sc_workbench_review_dossier','register_post_type(self::REVIEW_POST_TYPE','register_post_type(self::SNAPSHOT_POST_TYPE','/collaboration-review-status','/technical-reviews','/review-snapshots','/review-signoffs','Sign-off boundary') as $marker)v340_marker($module,$marker,$failures);
+v340_marker($plugin.'/includes/scwb-v301-production-reliability.php',"'reviews' => array",$failures);v340_marker($plugin.'/includes/scwb-primary-shortcode.php','data-scwb-version="3.4.0"',$failures);v340_marker($plugin.'/assets/js/scwb-primary-repair.js',"'reviews'",$failures);
+foreach(array('sc-workbench-v340.css','sc-workbench-v340.js') as $file){$path=$plugin.'/assets/'.(str_ends_with($file,'.css')?'css/':'js/').$file;if(!is_file($path)||filesize($path)<1000)$failures[]='Missing or incomplete asset: '.$file;}
+if($failures){fwrite(STDERR,"Workbench v3.4.0 activation audit failed:\n- ".implode("\n- ",$failures)."\n");exit(1);}echo "Workbench v3.4.0 activation audit passed.\n";

@@ -1,4 +1,4 @@
-# Sustainable Catalyst Workbench v3.3.1
+# Sustainable Catalyst Workbench v3.4.0
 
 **Embedded Studio Shortcode Display Repair**
 
@@ -10,3 +10,8 @@ Primary shortcode:
 ```text
 [sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
 ```
+
+
+## v3.4.0 — Collaboration, Review, and Technical Sign-Off
+
+Adds reviewer roles, review queues, record-level comments, requested changes, revision comparison, requirements-to-review traceability, immutable review snapshots, internal and qualified-professional sign-off records, and exportable review dossiers.

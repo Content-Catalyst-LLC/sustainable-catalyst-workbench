@@ -1,0 +1,3 @@
+Run: bash scripts/test_v340_release.sh
+Primary shortcode: [sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
+Review shortcode: [sc_workbench_collaboration_review project="default"]

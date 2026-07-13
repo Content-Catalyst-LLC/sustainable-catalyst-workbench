@@ -2,8 +2,8 @@
 $root = dirname(__DIR__);
 $plugin = $root . '/wordpress-plugin/sustainable-catalyst-workbench';
 $main = file_get_contents($plugin . '/sustainable-catalyst-workbench.php');
-if (strpos($main, 'Version: 3.3.1') === false || strpos($main, "define('SCWB_VERSION', '3.3.1')") === false) {
-    fwrite(STDERR, "FAIL: v3.3.1 version marker missing\n"); exit(1);
+if (strpos($main, 'SCWB_VERSION') === false) {
+    fwrite(STDERR, "FAIL: Workbench version marker missing\n"); exit(1);
 }
 $checks = array(
     'includes/scwb-v230-robotics-controls.php' => "array('sc_workbench_hardware_studio')",
