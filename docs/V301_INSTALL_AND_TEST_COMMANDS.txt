@@ -1,0 +1,27 @@
+SUSTAINABLE CATALYST WORKBENCH v3.0.1
+
+WORDPRESS
+1. Upload sustainable-catalyst-workbench-plugin-v3.0.1.zip.
+2. Choose Replace current with uploaded.
+3. Activate the plugin if necessary.
+4. Clear WordPress, Astra, optimization-plugin, Cloudflare, and browser caches.
+5. Use a WordPress Shortcode block:
+
+[sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
+
+DIAGNOSTICS
+Add temporarily to a private administrator page:
+
+[sc_workbench_diagnostics]
+
+REST STATUS
+/wp-json/scwb/v1/production-status
+
+LOCAL RELEASE TESTS
+cd sustainable-catalyst-workbench-v3.0.1-repo
+./scripts/test_v301_release.sh
+
+BACKEND TESTS
+PYTHONPATH=backend python3 -m pytest -q tests
+
+The v3.0.0 runner remains compatible. No runner replacement is required for v3.0.1.

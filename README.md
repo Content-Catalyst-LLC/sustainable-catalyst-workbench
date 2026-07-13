@@ -1,6 +1,8 @@
-# Sustainable Catalyst Workbench v3.0.0
+# Sustainable Catalyst Workbench v3.0.1
 
-Unified Prototyping Workbench connecting all v2.x studios through shared project, evidence, handoff, package, health, migration, and reset records.
+Production Activation and Interface Reliability for the Unified Prototyping Workbench. The release restores canonical `[sc_workbench]` ownership, validates all 11 studio routes, adds visible module states and diagnostics, and hardens Gutenberg, Elementor, Classic Editor, mobile, keyboard, cache, and dynamic-rendering behavior.
+
+See `V301_RELEASE_NOTES.md`.
 
 # Sustainable Catalyst Prototyping Workbench v2.8.0
 

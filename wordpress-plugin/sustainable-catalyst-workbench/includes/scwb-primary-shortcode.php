@@ -1,206 +1,213 @@
 <?php
-/** Workbench v2.8.1 primary shortcode repair. */
+/** Canonical Workbench v3.0.1 primary shortcode and studio router. */
 if (!defined('ABSPATH')) {
     exit;
 }
 
 final class SCWB_Primary_Shortcode_Repair {
-    const VERSION = '3.0.0';
+    const VERSION = '3.0.1';
 
     public static function boot() {
-        add_action('init', array(__CLASS__, 'register_shortcode'), 99);
-        add_action('wp_enqueue_scripts', array(__CLASS__, 'register_assets'));
+        add_action('init', array(__CLASS__, 'register_assets'), 4);
+        add_action('init', array(__CLASS__, 'register_shortcode'), 1000);
+        add_action('wp_loaded', array(__CLASS__, 'register_shortcode'), 1000);
     }
 
     public static function register_assets() {
-        wp_register_style(
-            'scwb-primary-repair',
-            plugins_url('../assets/css/scwb-primary-repair.css', __FILE__),
-            array(),
-            self::VERSION
-        );
-        wp_register_script(
-            'scwb-primary-repair',
-            plugins_url('../assets/js/scwb-primary-repair.js', __FILE__),
-            array(),
-            self::VERSION,
-            true
-        );
+        $plugin_file = defined('SCWB_V301_PLUGIN_FILE') ? SCWB_V301_PLUGIN_FILE : dirname(__DIR__) . '/sustainable-catalyst-workbench.php';
+        $base = dirname($plugin_file);
+        $css = $base . '/assets/css/scwb-primary-repair.css';
+        $js = $base . '/assets/js/scwb-primary-repair.js';
+        wp_register_style('scwb-primary-repair', plugins_url('assets/css/scwb-primary-repair.css', $plugin_file), array(), file_exists($css) ? (string) filemtime($css) : self::VERSION);
+        wp_register_script('scwb-primary-repair', plugins_url('assets/js/scwb-primary-repair.js', $plugin_file), array(), file_exists($js) ? (string) filemtime($js) : self::VERSION, true);
     }
 
     public static function register_shortcode() {
-        if (!shortcode_exists('sc_workbench')) {
-            add_shortcode('sc_workbench', array(__CLASS__, 'render'));
+        // v3.0.1 deliberately owns the canonical public shortcode. This removes
+        // stale add-on callbacks that previously left the page rendering an old
+        // selector or the literal shortcode text.
+        if (shortcode_exists('sc_workbench')) {
+            remove_shortcode('sc_workbench');
         }
+        add_shortcode('sc_workbench', array(__CLASS__, 'render'));
     }
 
     private static function studios() {
-        return array(
-            'unified' => array(
-                'label' => 'Unified Project Hub',
-                'shortcode' => 'sc_workbench_unified',
-                'description' => 'Shared projects, studio registry, health, handoffs, packages, and reset safeguards.',
-            ),
-            'research' => array(
-                'label' => 'Research Lab',
-                'shortcode' => 'sc_workbench_lab_canvas',
-                'description' => 'Canvas, notebook, documentation, and project records.',
-            ),
-            'embedded' => array(
-                'label' => 'Embedded Devices',
-                'shortcode' => 'sc_workbench_embedded_device_studio',
-                'description' => 'Raspberry Pi, TinyML, sensors, calibration, and device logs.',
-            ),
-            'electronics' => array(
-                'label' => 'Electronics & FPGA',
-                'shortcode' => 'sc_workbench_fpga_studio',
-                'description' => 'HDL, constraints, schematics, BOMs, PCB planning, and validation.',
-            ),
-            'robotics' => array(
-                'label' => 'Robotics & Controls',
-                'shortcode' => 'sc_workbench_robotics_studio',
-                'description' => 'Kinematics, PID, actuators, state machines, and HIL records.',
-            ),
-            'instrumentation' => array(
-                'label' => 'Instrumentation',
-                'shortcode' => 'sc_workbench_instrumentation_studio',
-                'description' => 'Acquisition planning, signals, spectra, calibration, and uncertainty.',
-            ),
-            'simulation' => array(
-                'label' => 'Simulation & Digital Twins',
-                'shortcode' => 'sc_workbench_simulation_studio',
-                'description' => 'Dynamic models, scenarios, Monte Carlo analysis, and validation.',
-            ),
-            'runtime' => array(
-                'label' => 'Multi-Language Runtime',
-                'shortcode' => 'sc_workbench_multilanguage_runtime',
-                'description' => 'Engineering runtimes, equivalence checks, and reproducibility.',
-            ),
-            'visualization' => array(
-                'label' => 'Visualization & Dashboards',
-                'shortcode' => 'sc_workbench_scientific_visualization',
-                'description' => 'Scientific plots, dashboards, overlays, state views, and exports.',
-            ),
-            'experiments' => array(
-                'label' => 'Experiment Automation',
-                'shortcode' => 'sc_workbench_experiment_automation',
-                'description' => 'Protocols, workflows, schedules, checkpoints, and run audits.',
-            ),
-            'documentation' => array(
-                'label' => 'Documentation & Dossiers',
-                'shortcode' => 'sc_workbench_documentation_dossier',
-                'description' => 'Technical reports, traceability, evidence, revisions, and release readiness.',
-            ),
-        );
+        if (class_exists('SCWB_V301_Production_Reliability')) {
+            return SCWB_V301_Production_Reliability::studio_catalog();
+        }
+        return array();
+    }
+
+    private static function enqueue_assets() {
+        self::register_assets();
+        wp_enqueue_style('scwb-primary-repair');
+        wp_enqueue_script('scwb-primary-repair');
+        if (class_exists('SCWB_V301_Production_Reliability')) {
+            SCWB_V301_Production_Reliability::register_assets();
+            wp_enqueue_style('scwb-v301');
+            wp_enqueue_script('scwb-v301');
+        }
+    }
+
+    private static function render_studio($studio, $project, $key) {
+        if (!shortcode_exists($studio['shortcode'])) {
+            return sprintf(
+                '<div class="scwb-primary__module-error" role="alert"><strong>%s is unavailable.</strong><p>The shortcode <code>[%s]</code> is not registered. Install the complete Workbench v3.0.1 plugin and clear all caches.</p></div>',
+                esc_html($studio['label']),
+                esc_html($studio['shortcode'])
+            );
+        }
+
+        $source = sprintf('[%s project="%s" display="full"]', $studio['shortcode'], esc_attr($project));
+        try {
+            $output = do_shortcode($source);
+        } catch (Throwable $error) {
+            return sprintf(
+                '<div class="scwb-primary__module-error" role="alert"><strong>%s failed to render.</strong><p>%s</p></div>',
+                esc_html($studio['label']),
+                esc_html($error->getMessage())
+            );
+        }
+
+        if (!is_string($output) || '' === trim($output) || false !== strpos($output, '[' . $studio['shortcode'])) {
+            return sprintf(
+                '<div class="scwb-primary__module-error" role="alert"><strong>%s returned no usable interface.</strong><p>Verify the module file, shortcode registration, and asset loader for <code>[%s]</code>.</p></div>',
+                esc_html($studio['label']),
+                esc_html($studio['shortcode'])
+            );
+        }
+
+        return '<div class="scwb-primary__module-mount" data-scwb-module-mount data-scwb-module-state="ready">' . $output . '</div>';
     }
 
     public static function render($atts = array()) {
-        $atts = shortcode_atts(
-            array(
-                'topic' => 'workbench',
-                'title' => 'Sustainable Catalyst Workbench',
-                'display' => 'full',
-                'project' => 'default',
-                'studio' => 'unified',
-            ),
-            $atts,
-            'sc_workbench'
-        );
+        self::enqueue_assets();
+        $atts = shortcode_atts(array(
+            'topic' => 'workbench',
+            'title' => 'Sustainable Catalyst Workbench',
+            'display' => 'full',
+            'project' => 'default',
+            'studio' => 'unified',
+            'remember' => 'true',
+            'diagnostics' => 'true',
+        ), $atts, 'sc_workbench');
 
         $display = sanitize_key($atts['display']);
         if (!in_array($display, array('inline', 'compact', 'full', 'drawer'), true)) {
             $display = 'full';
         }
-
-        $project = sanitize_key($atts['project']);
-        if (!$project) {
-            $project = 'default';
-        }
-
+        $project = sanitize_key($atts['project']) ?: 'default';
         $studios = self::studios();
-        $initial = sanitize_key($atts['studio']);
-        if (!isset($studios[$initial])) {
-            $initial = 'unified';
+        if (!$studios) {
+            return '<div class="scwb-primary scwb-primary--error"><strong>Workbench registry is unavailable.</strong><p>Confirm that the complete v3.0.1 plugin is active.</p></div>';
         }
 
-        wp_enqueue_style('scwb-primary-repair');
-        wp_enqueue_script('scwb-primary-repair');
-
-        $available = array();
+        $availability = array();
         foreach ($studios as $key => $studio) {
-            if (shortcode_exists($studio['shortcode'])) {
-                $available[$key] = $studio;
-            }
+            $availability[$key] = shortcode_exists($studio['shortcode']);
+        }
+        $available_keys = array_keys(array_filter($availability));
+        if (!$available_keys) {
+            return '<div class="scwb-primary scwb-primary--error"><strong>Workbench modules are unavailable.</strong><p>Install the complete v3.0.1 plugin rather than a partial add-on.</p></div>';
         }
 
-        if (!$available) {
-            return '<div class="scwb-primary scwb-primary--error"><strong>Workbench modules are unavailable.</strong> Confirm that the Sustainable Catalyst Prototyping Workbench plugin is active.</div>';
-        }
-
-        if (!isset($available[$initial])) {
-            $initial = array_key_first($available);
+        $initial = sanitize_key($atts['studio']);
+        if (!isset($studios[$initial]) || empty($availability[$initial])) {
+            $initial = $available_keys[0];
         }
 
         $instance = 'scwb-primary-' . wp_generate_uuid4();
+        $available_count = count($available_keys);
+        $total_count = count($studios);
+        $remember = filter_var($atts['remember'], FILTER_VALIDATE_BOOLEAN);
+        $show_diagnostics = filter_var($atts['diagnostics'], FILTER_VALIDATE_BOOLEAN);
 
         ob_start();
         ?>
         <section
             id="<?php echo esc_attr($instance); ?>"
-            class="scwb-primary scwb-primary--<?php echo esc_attr($display); ?>"
+            class="scwb-primary scwb-primary--<?php echo esc_attr($display); ?> is-loading"
             data-scwb-primary
             data-scwb-initial="<?php echo esc_attr($initial); ?>"
+            data-scwb-project="<?php echo esc_attr($project); ?>"
+            data-scwb-remember="<?php echo $remember ? 'true' : 'false'; ?>"
+            data-scwb-version="3.0.1"
+            aria-busy="true"
         >
+            <noscript><div class="scwb-primary__module-error"><strong>JavaScript is required for Workbench studio navigation.</strong></div></noscript>
             <header class="scwb-primary__header">
                 <div>
-                    <p class="scwb-primary__eyebrow">Sustainable Catalyst Workbench v3.0.0</p>
+                    <p class="scwb-primary__eyebrow">Sustainable Catalyst Workbench v3.0.1</p>
                     <h2><?php echo esc_html($atts['title']); ?></h2>
-                    <p>
-                        Open the unified project hub or a specialist studio. Shared project identifiers, packages, evidence, and handoff records connect the full Workbench environment.
-                    </p>
+                    <p>Open the unified project hub or a specialist studio. Production diagnostics now expose missing modules and rendering failures instead of leaving blank panels.</p>
                 </div>
-                <span class="scwb-primary__status">Unified production environment</span>
+                <span class="scwb-primary__status <?php echo $available_count === $total_count ? 'is-ok' : 'is-review'; ?>" data-scwb-primary-status>
+                    <?php echo esc_html($available_count . '/' . $total_count . ' studios available'); ?>
+                </span>
             </header>
 
+            <div class="scwb-primary__activation" data-scwb-activation role="status" aria-live="polite"><span class="scwb-primary__spinner" aria-hidden="true"></span><span>Activating Workbench studios…</span></div>
+
             <div class="scwb-primary__layout">
-                <nav class="scwb-primary__nav" aria-label="Workbench studios" role="tablist">
-                    <?php foreach ($available as $key => $studio) : ?>
+                <nav class="scwb-primary__nav" aria-label="Workbench studios" role="tablist" aria-orientation="vertical">
+                    <?php foreach ($studios as $key => $studio) :
+                        $available = !empty($availability[$key]);
+                        $active = $available && $key === $initial;
+                        $tab_id = $instance . '-tab-' . $key;
+                        $panel_id = $instance . '-panel-' . $key;
+                    ?>
                         <button
+                            id="<?php echo esc_attr($tab_id); ?>"
                             type="button"
-                            class="scwb-primary__tab<?php echo $key === $initial ? ' is-active' : ''; ?>"
+                            class="scwb-primary__tab<?php echo $active ? ' is-active' : ''; ?><?php echo !$available ? ' is-unavailable' : ''; ?>"
                             role="tab"
-                            aria-selected="<?php echo $key === $initial ? 'true' : 'false'; ?>"
-                            aria-controls="<?php echo esc_attr($instance . '-panel-' . $key); ?>"
+                            aria-selected="<?php echo $active ? 'true' : 'false'; ?>"
+                            aria-controls="<?php echo esc_attr($panel_id); ?>"
+                            tabindex="<?php echo $active ? '0' : '-1'; ?>"
                             data-scwb-primary-tab="<?php echo esc_attr($key); ?>"
+                            <?php disabled(!$available); ?>
                         >
-                            <strong><?php echo esc_html($studio['label']); ?></strong>
+                            <span class="scwb-primary__tab-title"><strong><?php echo esc_html($studio['label']); ?></strong><em><?php echo $available ? 'Ready' : 'Unavailable'; ?></em></span>
                             <span><?php echo esc_html($studio['description']); ?></span>
                         </button>
                     <?php endforeach; ?>
                 </nav>
 
-                <div class="scwb-primary__workspace">
-                    <?php foreach ($available as $key => $studio) : ?>
+                <div class="scwb-primary__workspace" data-scwb-primary-workspace>
+                    <?php foreach ($studios as $key => $studio) :
+                        $available = !empty($availability[$key]);
+                        $active = $available && $key === $initial;
+                        $tab_id = $instance . '-tab-' . $key;
+                        $panel_id = $instance . '-panel-' . $key;
+                    ?>
                         <section
-                            id="<?php echo esc_attr($instance . '-panel-' . $key); ?>"
-                            class="scwb-primary__panel<?php echo $key === $initial ? ' is-active' : ''; ?>"
+                            id="<?php echo esc_attr($panel_id); ?>"
+                            class="scwb-primary__panel<?php echo $active ? ' is-active' : ''; ?>"
                             role="tabpanel"
+                            aria-labelledby="<?php echo esc_attr($tab_id); ?>"
+                            tabindex="0"
                             data-scwb-primary-panel="<?php echo esc_attr($key); ?>"
-                            <?php echo $key === $initial ? '' : 'hidden'; ?>
+                            data-scwb-studio-shortcode="<?php echo esc_attr($studio['shortcode']); ?>"
+                            <?php echo $active ? '' : 'hidden'; ?>
                         >
-                            <?php
-                            echo do_shortcode(
-                                sprintf(
-                                    '[%s project="%s"]',
-                                    esc_attr($studio['shortcode']),
-                                    esc_attr($project)
-                                )
-                            );
-                            ?>
+                            <?php echo self::render_studio($studio, $project, $key); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                         </section>
                     <?php endforeach; ?>
                 </div>
             </div>
+
+            <?php if ($show_diagnostics) : ?>
+                <details class="scwb-primary__diagnostics">
+                    <summary>Interface diagnostics</summary>
+                    <div class="scwb-primary__diagnostics-grid">
+                        <div><strong>Primary shortcode</strong><span>Registered by v3.0.1</span></div>
+                        <div><strong>Browser router</strong><span data-scwb-primary-js-status>Initializing</span></div>
+                        <div><strong>Project</strong><span><?php echo esc_html($project); ?></span></div>
+                        <div><strong>Available studios</strong><span><?php echo esc_html($available_count . ' of ' . $total_count); ?></span></div>
+                    </div>
+                </details>
+            <?php endif; ?>
         </section>
         <?php
         return ob_get_clean();
