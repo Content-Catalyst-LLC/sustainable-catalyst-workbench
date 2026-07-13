@@ -4,7 +4,7 @@ const vm = require('vm');
 const path = require('path');
 const assert = require('assert');
 
-const expected = ['unified','research','embedded','electronics','robotics','instrumentation','simulation','runtime','visualization','experiments','documentation'];
+const expected = ['unified','research','embedded','electronics','robotics','instrumentation','simulation','runtime','visualization','experiments','documentation','recovery'];
 
 class ClassList {
   constructor() { this.values = new Set(); }
@@ -114,12 +114,12 @@ vm.runInNewContext(source, context, { filename: 'scwb-primary-repair.js' });
 
 const router = windowObject.SCWBPrimaryRouter;
 assert(router, 'Router was not exported');
-assert.strictEqual(router.version, '3.0.1');
+assert.strictEqual(router.version, '3.0.2');
 assert.deepStrictEqual(Array.from(router.expectedStudios), expected);
 assert.strictEqual(root.getAttribute('data-scwb-active'), 'unified');
 assert.strictEqual(root.getAttribute('aria-busy'), 'false');
 assert(root.classList.contains('is-ready'));
-assert.strictEqual(root.getAttribute('data-scwb-audit-count'), '11');
+assert.strictEqual(root.getAttribute('data-scwb-audit-count'), '12');
 
 for (const key of expected) {
   assert.strictEqual(router.activate(root, key, { hash: false }), true, `Could not activate ${key}`);
@@ -133,4 +133,4 @@ for (const key of expected) {
 }
 
 assert(root.status.textContent.includes('keyboard'));
-console.log(`Workbench v3.0.1 router regression passed for ${expected.length} studios.`);
+console.log(`Workbench v3.0.2 router regression passed for ${expected.length} studios.`);

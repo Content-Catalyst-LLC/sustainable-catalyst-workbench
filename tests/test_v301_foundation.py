@@ -31,7 +31,7 @@ def test_status_reports_all_studios():
     result = status()
     assert result["ok"] is True
     assert result["version"] == "3.0.1"
-    assert result["expectedStudioCount"] == 11
+    assert result["expectedStudioCount"] == 12
     assert result["expectedStudios"] == list(EXPECTED_STUDIOS)
 
 
@@ -62,7 +62,7 @@ def test_activation_audit_exposes_failures():
     )
     result = activation_audit(request)
     assert result["ok"] is False
-    assert "documentation" in result["missingStudios"]
+    assert "recovery" in result["missingStudios"]
     assert "embedded" in result["unrenderedStudios"]
     assert result["viewport"]["mobileLayout"] is True
     assert result["score"] < 95
@@ -76,7 +76,7 @@ def test_registry_validation_detects_duplicates_and_missing():
     )
     result = validate_registry(request)
     assert result["ok"] is False
-    assert result["missingKeys"] == ["documentation"]
+    assert result["missingKeys"] == ["recovery"]
     assert result["duplicateShortcodes"] == ["sc_workbench_unified"]
 
 

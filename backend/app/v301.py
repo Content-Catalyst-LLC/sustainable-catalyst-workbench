@@ -22,6 +22,7 @@ EXPECTED_STUDIOS = (
     "visualization",
     "experiments",
     "documentation",
+    "recovery",
 )
 
 router = APIRouter(prefix="/v301", tags=["workbench-v301"])

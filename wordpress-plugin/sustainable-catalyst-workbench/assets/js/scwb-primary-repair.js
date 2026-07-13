@@ -2,7 +2,7 @@
   'use strict';
 
   var SELECTOR = '[data-scwb-primary]';
-  var EXPECTED = ['unified','research','embedded','electronics','robotics','instrumentation','simulation','runtime','visualization','experiments','documentation'];
+  var EXPECTED = ['unified','research','embedded','electronics','robotics','instrumentation','simulation','runtime','visualization','experiments','documentation','recovery'];
 
   function list(root, selector) {
     return Array.prototype.slice.call(root.querySelectorAll(selector));
@@ -205,6 +205,6 @@
     audit: audit,
     init: init,
     expectedStudios: EXPECTED.slice(),
-    version: '3.0.1'
+    version: '3.0.2'
   };
 })();

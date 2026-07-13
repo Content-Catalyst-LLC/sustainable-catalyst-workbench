@@ -45,6 +45,7 @@ $expected = array(
     'sc_workbench_scientific_visualization',
     'sc_workbench_experiment_automation',
     'sc_workbench_documentation_dossier',
+    'sc_workbench_migration_recovery',
 );
 
 $missing = array_values(array_filter($expected, static function($tag) { return !shortcode_exists($tag); }));
@@ -59,4 +60,4 @@ if (!is_array($primary) || 'SCWB_Primary_Shortcode_Repair' !== $primary[0] || 'r
     exit(1);
 }
 
-echo 'Workbench v3.0.1 WordPress runtime activation passed for ' . count($expected) . " required shortcodes.\n";
+echo 'Workbench v3.0.2 WordPress runtime activation passed for ' . count($expected) . " required shortcodes.\n";

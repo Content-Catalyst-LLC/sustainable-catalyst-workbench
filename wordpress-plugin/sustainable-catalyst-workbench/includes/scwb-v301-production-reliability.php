@@ -29,6 +29,7 @@ final class SCWB_V301_Production_Reliability {
             'visualization' => array('label' => 'Visualization & Dashboards', 'shortcode' => 'sc_workbench_scientific_visualization', 'description' => 'Scientific plots, dashboards, overlays, state views, and exports.'),
             'experiments' => array('label' => 'Experiment Automation', 'shortcode' => 'sc_workbench_experiment_automation', 'description' => 'Protocols, workflows, schedules, checkpoints, and run audits.'),
             'documentation' => array('label' => 'Documentation & Dossiers', 'shortcode' => 'sc_workbench_documentation_dossier', 'description' => 'Technical reports, traceability, evidence, revisions, and release readiness.'),
+            'recovery' => array('label' => 'Migration, Storage & Recovery', 'shortcode' => 'sc_workbench_migration_recovery', 'description' => 'Legacy project migration, browser-storage health, backup, restore, cleanup, and rollback.'),
         );
     }
 

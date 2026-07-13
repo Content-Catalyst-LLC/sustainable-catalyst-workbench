@@ -1,0 +1,10 @@
+Upload sustainable-catalyst-workbench-plugin-v3.0.2.zip and replace the current plugin.
+
+Primary shortcode:
+[sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
+
+Focused recovery shortcode:
+[sc_workbench_migration_recovery project="default"]
+
+Run repository validation:
+bash scripts/test_v302_release.sh

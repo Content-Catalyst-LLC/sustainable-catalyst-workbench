@@ -15,8 +15,8 @@ function require_marker($path, $marker, &$failures) {
 }
 
 $bootstrap = $plugin . '/sustainable-catalyst-workbench.php';
-require_marker($bootstrap, 'Version: 3.0.1', $failures);
-require_marker($bootstrap, "define('SCWB_VERSION', '3.0.1')", $failures);
+require_marker($bootstrap, 'Version: 3.0.2', $failures);
+require_marker($bootstrap, "define('SCWB_VERSION', '3.0.2')", $failures);
 require_marker($bootstrap, 'scwb-v301-production-reliability.php', $failures);
 require_marker($bootstrap, 'scwb-primary-shortcode.php', $failures);
 
@@ -41,6 +41,7 @@ $expected = array(
     'sc_workbench_scientific_visualization',
     'sc_workbench_experiment_automation',
     'sc_workbench_documentation_dossier',
+    'sc_workbench_migration_recovery',
 );
 foreach ($expected as $shortcode) {
     require_marker($reliability, "'shortcode' => '{$shortcode}'", $failures);
@@ -75,8 +76,8 @@ foreach (array('MutationObserver', 'hashchange', 'ArrowRight', 'scwb:studio-acti
 }
 
 if ($failures) {
-    fwrite(STDERR, "Workbench v3.0.1 activation audit failed:\n- " . implode("\n- ", $failures) . "\n");
+    fwrite(STDERR, "Workbench v3.0.2 activation audit failed:\n- " . implode("\n- ", $failures) . "\n");
     exit(1);
 }
 
-echo "Workbench v3.0.1 plugin activation audit passed for " . count($expected) . " studios.\n";
+echo "Workbench v3.0.2 plugin activation audit passed for " . count($expected) . " studios.\n";
