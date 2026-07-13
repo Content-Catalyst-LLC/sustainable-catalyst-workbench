@@ -98,6 +98,9 @@ func main() {
 		case "visualization-tools":
 			printJSON(discoverVisualizationTools())
 			return
+		case "experiment-tools":
+			printJSON(discoverExperimentTools())
+			return
 		case "serve":
 			serve(os.Args[2:])
 			return
@@ -105,7 +108,7 @@ func main() {
 	}
 	fmt.Println("Sustainable Catalyst Workbench Runner " + runner.Version)
 	fmt.Println("Usage: workbench-runner serve [--enable-native-exec] [--timeout 8s]")
-	fmt.Println("       workbench-runner version | doctor | runtimes | devices | hardware-tools | robotics-tools | instrumentation-tools | simulation-tools | multi-language-tools | visualization-tools")
+	fmt.Println("       workbench-runner version | doctor | runtimes | devices | hardware-tools | robotics-tools | instrumentation-tools | simulation-tools | multi-language-tools | visualization-tools | experiment-tools")
 }
 
 func serve(args []string) {
@@ -139,6 +142,8 @@ func serve(args []string) {
 	mux.HandleFunc("/multi-language-task", s.withCORS(s.authorized(s.multiLanguageTask)))
 	mux.HandleFunc("/visualization-tools", s.withCORS(s.authorized(s.visualizationTools)))
 	mux.HandleFunc("/visualization-task", s.withCORS(s.authorized(s.visualizationTask)))
+	mux.HandleFunc("/experiment-tools", s.withCORS(s.authorized(s.experimentTools)))
+	mux.HandleFunc("/experiment-task", s.withCORS(s.authorized(s.experimentTask)))
 	mux.HandleFunc("/execute", s.withCORS(s.authorized(s.execute)))
 
 	httpServer := &http.Server{
@@ -232,6 +237,10 @@ func (s *server) health(w http.ResponseWriter, r *http.Request) {
 		"engineeringDashboards":      true,
 		"validationOverlays":         true,
 		"visualizationToolDiscovery": true,
+		"experimentAutomation":       true,
+		"protocolValidation":         true,
+		"workflowReproducibility":    true,
+		"experimentToolDiscovery":    true,
 	})
 }
 
@@ -847,6 +856,104 @@ func runVisualizationTask(parent context.Context, timeout time.Duration, task st
 	}
 	if commandErr != nil && len(limited) == 0 {
 		return map[string]any{"task": task, "output": string(limited)}, fmt.Errorf("visualization task failed: %w", commandErr)
+	}
+	return map[string]any{"task": task, "command": parts[0], "path": path, "output": string(limited)}, nil
+}
+
+func (s *server) experimentTools(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		writeError(w, http.StatusMethodNotAllowed, "GET required")
+		return
+	}
+	writeJSON(w, http.StatusOK, map[string]any{
+		"ok": true, "version": runner.Version, "tools": discoverExperimentTools(),
+		"executionBoundary": map[string]any{
+			"loopbackOnly": true, "pairingRequired": true, "originBoundTokens": true,
+			"arbitraryShellEndpoint": false, "allowlistedDiagnosticsOnly": true,
+		},
+		"notes": []string{
+			"Availability confirms only that a workflow or experiment command is visible to the current local user.",
+			"The runner does not install an unattended scheduler, bypass equipment interlocks, or approve an experiment protocol.",
+		},
+	})
+}
+
+func (s *server) experimentTask(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		writeError(w, http.StatusMethodNotAllowed, "POST required")
+		return
+	}
+	if !s.nativeExec {
+		writeError(w, http.StatusForbidden, "experiment tasks are disabled; restart with --enable-native-exec")
+		return
+	}
+	var req deviceTaskRequest
+	if err := readJSON(r, &req); err != nil {
+		writeError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+	if !req.Consent {
+		writeError(w, http.StatusBadRequest, "explicit consent is required for a local experiment task")
+		return
+	}
+	result, err := runExperimentTask(r.Context(), s.timeout, strings.ToLower(req.Task))
+	if err != nil {
+		writeError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+	result["ok"] = true
+	result["version"] = runner.Version
+	result["arbitraryShellEndpoint"] = false
+	writeJSON(w, http.StatusOK, result)
+}
+
+func discoverExperimentTools() []runtimeRecord {
+	specs := []struct{ language, command string }{
+		{"experiment-python", "python3"}, {"experiment-pytest", "pytest"},
+		{"experiment-git", "git"}, {"experiment-make", "make"},
+		{"experiment-jupyter", "jupyter"}, {"experiment-papermill", "papermill"},
+		{"experiment-snakemake", "snakemake"}, {"experiment-nextflow", "nextflow"},
+		{"experiment-dvc", "dvc"}, {"experiment-sqlite", "sqlite3"},
+	}
+	out := make([]runtimeRecord, 0, len(specs))
+	for _, spec := range specs {
+		record := runtimeRecord{Language: spec.language, Command: spec.command}
+		if path, err := exec.LookPath(spec.command); err == nil {
+			record.Available = true
+			record.Path = path
+		}
+		out = append(out, record)
+	}
+	return out
+}
+
+func runExperimentTask(parent context.Context, timeout time.Duration, task string) (map[string]any, error) {
+	specs := map[string][]string{
+		"python-version": {"python3", "--version"}, "pytest-version": {"pytest", "--version"},
+		"git-version": {"git", "--version"}, "make-version": {"make", "--version"},
+		"jupyter-version": {"jupyter", "--version"}, "papermill-version": {"papermill", "--version"},
+		"snakemake-version": {"snakemake", "--version"}, "nextflow-version": {"nextflow", "-version"},
+		"dvc-version": {"dvc", "--version"}, "sqlite-version": {"sqlite3", "--version"},
+	}
+	parts, ok := specs[task]
+	if !ok {
+		return map[string]any{"task": task}, errors.New("experiment task is not allowlisted")
+	}
+	path, err := exec.LookPath(parts[0])
+	if err != nil {
+		return map[string]any{"task": task, "command": parts[0]}, fmt.Errorf("experiment tool is not available: %s", parts[0])
+	}
+	ctx, cancel := context.WithTimeout(parent, timeout)
+	defer cancel()
+	command := exec.CommandContext(ctx, path, parts[1:]...)
+	command.Env = minimalEnvironment(os.TempDir())
+	output, commandErr := command.CombinedOutput()
+	limited := appendLimited(nil, output, maxOutputBytes)
+	if ctx.Err() == context.DeadlineExceeded {
+		return map[string]any{"task": task, "output": string(limited)}, errors.New("experiment task timed out")
+	}
+	if commandErr != nil && len(limited) == 0 {
+		return map[string]any{"task": task, "output": string(limited)}, fmt.Errorf("experiment task failed: %w", commandErr)
 	}
 	return map[string]any{"task": task, "command": parts[0], "path": path, "output": string(limited)}, nil
 }

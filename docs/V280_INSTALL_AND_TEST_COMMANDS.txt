@@ -1,0 +1,27 @@
+Sustainable Catalyst Prototyping Workbench v2.8.0
+Experiment Automation and Reproducible Workflow Studio
+
+WORDPRESS
+1. Back up the current plugin and browser-local project records.
+2. Upload sustainable-catalyst-workbench-plugin-v2.8.0.zip.
+3. Replace the existing Sustainable Catalyst Prototyping Workbench plugin.
+4. Clear WordPress, optimization, Cloudflare, and browser caches.
+
+SHORTCODES
+[sc_workbench_experiment_automation project="default"]
+[sc_workbench_protocol_builder project="default"]
+[sc_workbench_workflow_pipeline project="default"]
+[sc_workbench_experiment_scheduler project="default"]
+[sc_workbench_version_checkpoint project="default"]
+[sc_workbench_reproducibility_audit project="default"]
+
+RUNNER
+workbench-runner serve
+workbench-runner serve --enable-native-exec
+workbench-runner experiment-tools
+
+REPOSITORY VALIDATION
+bash scripts/test_v280_release.sh
+
+GITHUB
+Use the push_complete_workbench_v2_8_0_to_github.sh script in the upgrade bundle. It starts from a fresh clone, copies the complete validated v2.8.0 snapshot, commits, pushes main, creates the v2.8.0 tag, and verifies the remote commit.

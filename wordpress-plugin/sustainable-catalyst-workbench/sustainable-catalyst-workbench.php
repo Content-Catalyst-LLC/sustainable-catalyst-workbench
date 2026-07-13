@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 2.7.0
+ * Version: 2.8.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '2.7.0');
+define('SCWB_VERSION', '2.8.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -43,3 +43,7 @@ require_once __DIR__ . '/includes/scwb-v260-multilanguage-runtime.php';
 // Workbench v2.7.0 — Scientific Visualization and Engineering Dashboard Studio.
 if (!defined('SCWB_V270_PLUGIN_FILE')) { define('SCWB_V270_PLUGIN_FILE', __FILE__); }
 require_once __DIR__ . '/includes/scwb-v270-visualization-dashboard.php';
+
+// Workbench v2.8.0 — Experiment Automation and Reproducible Workflow Studio.
+if (!defined('SCWB_V280_PLUGIN_FILE')) { define('SCWB_V280_PLUGIN_FILE', __FILE__); }
+require_once __DIR__ . '/includes/scwb-v280-experiment-automation.php';

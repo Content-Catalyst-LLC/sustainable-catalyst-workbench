@@ -1,4 +1,4 @@
-# Sustainable Catalyst Prototyping Workbench v2.7.0
+# Sustainable Catalyst Prototyping Workbench v2.8.0
 
 ## Version 2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation
 
@@ -37,3 +37,7 @@ Adds Python, JavaScript, R, SQL, Go, C, C++, Rust, Haskell, and assembly profile
 ## Version 2.7.0 — Scientific Visualization and Engineering Dashboard Studio
 
 Adds browser-local scientific figures, threshold-aware engineering dashboards, interactive parameter charts, validation overlays, system-state views, accessible descriptions, and report-ready visual exports.
+
+## Version 2.8.0 — Experiment Automation and Reproducible Workflow Studio
+
+Adds structured protocols, dependency-aware experiment pipelines, schedule and resource-conflict planning, dataset/configuration manifests, automatic checkpoints, reproducibility comparison, deviation records, and exportable experiment bundles.
