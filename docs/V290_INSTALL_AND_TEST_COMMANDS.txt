@@ -1,0 +1,25 @@
+WORKBENCH v2.9.0 INSTALLATION AND TESTING
+
+WordPress plugin:
+  Upload sustainable-catalyst-workbench-plugin-v2.9.0.zip through Plugins > Add New Plugin > Upload Plugin.
+  Choose Replace current with uploaded when prompted.
+
+Primary shortcode:
+  [sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
+
+Documentation shortcodes:
+  [sc_workbench_documentation_dossier project="default"]
+  [sc_workbench_product_dossier project="default"]
+  [sc_workbench_requirements_traceability project="default"]
+  [sc_workbench_revision_change_control project="default"]
+  [sc_workbench_verification_evidence project="default"]
+  [sc_workbench_release_readiness project="default"]
+
+Repository validation:
+  chmod +x scripts/test_v290_release.sh
+  ./scripts/test_v290_release.sh
+
+Runner discovery:
+  workbench-runner documentation-tools
+  workbench-runner serve
+  workbench-runner serve --enable-native-exec

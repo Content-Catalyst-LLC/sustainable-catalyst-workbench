@@ -101,6 +101,9 @@ func main() {
 		case "experiment-tools":
 			printJSON(discoverExperimentTools())
 			return
+		case "documentation-tools":
+			printJSON(discoverDocumentationTools())
+			return
 		case "serve":
 			serve(os.Args[2:])
 			return
@@ -108,7 +111,7 @@ func main() {
 	}
 	fmt.Println("Sustainable Catalyst Workbench Runner " + runner.Version)
 	fmt.Println("Usage: workbench-runner serve [--enable-native-exec] [--timeout 8s]")
-	fmt.Println("       workbench-runner version | doctor | runtimes | devices | hardware-tools | robotics-tools | instrumentation-tools | simulation-tools | multi-language-tools | visualization-tools | experiment-tools")
+	fmt.Println("       workbench-runner version | doctor | runtimes | devices | hardware-tools | robotics-tools | instrumentation-tools | simulation-tools | multi-language-tools | visualization-tools | experiment-tools | documentation-tools")
 }
 
 func serve(args []string) {
@@ -144,6 +147,8 @@ func serve(args []string) {
 	mux.HandleFunc("/visualization-task", s.withCORS(s.authorized(s.visualizationTask)))
 	mux.HandleFunc("/experiment-tools", s.withCORS(s.authorized(s.experimentTools)))
 	mux.HandleFunc("/experiment-task", s.withCORS(s.authorized(s.experimentTask)))
+	mux.HandleFunc("/documentation-tools", s.withCORS(s.authorized(s.documentationTools)))
+	mux.HandleFunc("/documentation-task", s.withCORS(s.authorized(s.documentationTask)))
 	mux.HandleFunc("/execute", s.withCORS(s.authorized(s.execute)))
 
 	httpServer := &http.Server{
@@ -954,6 +959,104 @@ func runExperimentTask(parent context.Context, timeout time.Duration, task strin
 	}
 	if commandErr != nil && len(limited) == 0 {
 		return map[string]any{"task": task, "output": string(limited)}, fmt.Errorf("experiment task failed: %w", commandErr)
+	}
+	return map[string]any{"task": task, "command": parts[0], "path": path, "output": string(limited)}, nil
+}
+
+func (s *server) documentationTools(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		writeError(w, http.StatusMethodNotAllowed, "GET required")
+		return
+	}
+	writeJSON(w, http.StatusOK, map[string]any{
+		"ok": true, "version": runner.Version, "tools": discoverDocumentationTools(),
+		"executionBoundary": map[string]any{
+			"loopbackOnly": true, "pairingRequired": true, "originBoundTokens": true,
+			"arbitraryShellEndpoint": false, "versionAndDiscoveryTasksOnly": true,
+		},
+		"notes": []string{
+			"Discovery only confirms that a documentation or conversion command is visible to the local user.",
+			"Generated documents, hashes, readiness records, and exports require controlled-source review and approval.",
+		},
+	})
+}
+
+func (s *server) documentationTask(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		writeError(w, http.StatusMethodNotAllowed, "POST required")
+		return
+	}
+	if !s.nativeExec {
+		writeError(w, http.StatusForbidden, "documentation tasks are disabled; restart with --enable-native-exec")
+		return
+	}
+	var req deviceTaskRequest
+	if err := readJSON(r, &req); err != nil {
+		writeError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+	if !req.Consent {
+		writeError(w, http.StatusBadRequest, "explicit consent is required for a local documentation task")
+		return
+	}
+	result, err := runDocumentationTask(r.Context(), s.timeout, strings.ToLower(req.Task))
+	if err != nil {
+		writeError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+	result["ok"] = true
+	result["version"] = runner.Version
+	result["arbitraryShellEndpoint"] = false
+	writeJSON(w, http.StatusOK, result)
+}
+
+func discoverDocumentationTools() []runtimeRecord {
+	specs := []struct{ language, command string }{
+		{"documentation-pandoc", "pandoc"}, {"documentation-typst", "typst"},
+		{"documentation-latex", "pdflatex"}, {"documentation-wkhtmltopdf", "wkhtmltopdf"},
+		{"documentation-libreoffice", "libreoffice"}, {"documentation-graphviz", "dot"},
+		{"documentation-git", "git"}, {"documentation-openssl", "openssl"},
+		{"documentation-shasum", "shasum"}, {"documentation-sha256sum", "sha256sum"},
+	}
+	out := make([]runtimeRecord, 0, len(specs))
+	for _, spec := range specs {
+		record := runtimeRecord{Language: spec.language, Command: spec.command}
+		if path, err := exec.LookPath(spec.command); err == nil {
+			record.Available = true
+			record.Path = path
+		}
+		out = append(out, record)
+	}
+	return out
+}
+
+func runDocumentationTask(parent context.Context, timeout time.Duration, task string) (map[string]any, error) {
+	specs := map[string][]string{
+		"pandoc-version": {"pandoc", "--version"}, "typst-version": {"typst", "--version"},
+		"latex-version": {"pdflatex", "--version"}, "wkhtmltopdf-version": {"wkhtmltopdf", "--version"},
+		"libreoffice-version": {"libreoffice", "--version"}, "graphviz-version": {"dot", "-V"},
+		"git-version": {"git", "--version"}, "openssl-version": {"openssl", "version"},
+		"shasum-version": {"shasum", "--version"}, "sha256sum-version": {"sha256sum", "--version"},
+	}
+	parts, ok := specs[task]
+	if !ok {
+		return map[string]any{"task": task}, errors.New("documentation task is not allowlisted")
+	}
+	path, err := exec.LookPath(parts[0])
+	if err != nil {
+		return map[string]any{"task": task, "command": parts[0]}, fmt.Errorf("documentation tool is not available: %s", parts[0])
+	}
+	ctx, cancel := context.WithTimeout(parent, timeout)
+	defer cancel()
+	command := exec.CommandContext(ctx, path, parts[1:]...)
+	command.Env = minimalEnvironment(os.TempDir())
+	output, commandErr := command.CombinedOutput()
+	limited := appendLimited(nil, output, maxOutputBytes)
+	if ctx.Err() == context.DeadlineExceeded {
+		return map[string]any{"task": task, "output": string(limited)}, errors.New("documentation task timed out")
+	}
+	if commandErr != nil && len(limited) == 0 {
+		return map[string]any{"task": task, "output": string(limited)}, fmt.Errorf("documentation task failed: %w", commandErr)
 	}
 	return map[string]any{"task": task, "command": parts[0], "path": path, "output": string(limited)}, nil
 }

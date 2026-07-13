@@ -41,3 +41,9 @@ Adds browser-local scientific figures, threshold-aware engineering dashboards, i
 ## Version 2.8.0 — Experiment Automation and Reproducible Workflow Studio
 
 Adds structured protocols, dependency-aware experiment pipelines, schedule and resource-conflict planning, dataset/configuration manifests, automatic checkpoints, reproducibility comparison, deviation records, and exportable experiment bundles.
+
+## Version 2.9.0 — Technical Documentation and Product Dossier Studio
+
+Adds versioned technical-document generation, product dossiers, requirements-to-test traceability, revision and engineering-change control, verification-evidence registers, manufacturing and release-readiness gates, reproducible documentation snapshots, Markdown/HTML/JSON exports, and paired local documentation-tool discovery.
+
+The documentation layer preserves project sources, revisions, evidence, limitations, risks, review states, and SHA-256 record hashes. Readiness scores and dossier exports are planning aids only; they do not establish certification, regulatory approval, conformity, product safety, manufacturing readiness, or professional sign-off.
