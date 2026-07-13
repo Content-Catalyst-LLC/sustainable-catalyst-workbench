@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-app = FastAPI(title="Sustainable Catalyst Workbench", version="3.6.0")
-version="3.6.0"
+app = FastAPI(title="Sustainable Catalyst Workbench", version="3.7.0")
+version="3.7.0"
 
 # Workbench v2.0.0 foundation routes.
 from app.v200 import router as v200_router
@@ -87,3 +87,8 @@ app.include_router(v350_router)
 # Workbench v3.6.0 Computational Intelligence and Predictive Analytics routes.
 from app.v360 import router as v360_router
 app.include_router(v360_router)
+
+
+# Workbench v3.7.0 Domain Laboratory Integration routes.
+from app.v370 import router as v370_router
+app.include_router(v370_router)

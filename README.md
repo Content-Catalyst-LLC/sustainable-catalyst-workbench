@@ -1,4 +1,4 @@
-# Sustainable Catalyst Workbench v3.6.0
+# Sustainable Catalyst Workbench v3.7.0
 
 **Embedded Studio Shortcode Display Repair**
 
@@ -25,3 +25,8 @@ Adds device inventory, capability discovery, local consent and allowlists, calib
 ## Workbench v3.6.0 — Computational Intelligence and Predictive Analytics
 
 Adds local-first dataset profiling, predictive evaluation, forecasting, drift and leakage diagnostics, subgroup performance audits, model cards, cross-language reproducibility contracts, and responsible-use experiment scaffolds.
+
+
+## Workbench v3.7.0 — Domain Laboratory Integration
+
+Adds shared domain profiles, calculation and experiment contracts, validation requirements, notebook synchronization, report templates, cross-language equivalence, portable bundles, and conflict-aware synchronization with Sustainable Catalyst Lab domains.

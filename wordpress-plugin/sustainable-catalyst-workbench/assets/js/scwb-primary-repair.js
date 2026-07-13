@@ -2,7 +2,7 @@
   'use strict';
 
   var SELECTOR = '[data-scwb-primary]';
-  var EXPECTED = ['unified','projects','library','handoffs','reviews','research','embedded','devices','electronics','robotics','instrumentation','simulation','intelligence','runtime','visualization','experiments','documentation','recovery'];
+  var EXPECTED = ['unified','projects','library','handoffs','reviews','research','embedded','devices','electronics','robotics','instrumentation','simulation','intelligence','laboratories','runtime','visualization','experiments','documentation','recovery'];
 
   function list(root, selector) {
     return Array.prototype.slice.call(root.querySelectorAll(selector));
@@ -30,7 +30,7 @@
     var mount = panel.querySelector('[data-scwb-module-mount]');
     if (!mount) return 'empty';
     var text = (mount.textContent || '').trim();
-    var interactive = mount.querySelector('button,input,select,textarea,canvas,svg,form,[role="button"],[data-scwb-v200],[data-scwb-v210],[data-scwb-v220],[data-scwb-v230],[data-scwb-v240],[data-scwb-v250],[data-scwb-v260],[data-scwb-v270],[data-scwb-v280],[data-scwb-v290],[data-scwb-v300],[data-scwb-v330],[data-scwb-v340],[data-scwb-v350],[data-scwb-v360]');
+    var interactive = mount.querySelector('button,input,select,textarea,canvas,svg,form,[role="button"],[data-scwb-v200],[data-scwb-v210],[data-scwb-v220],[data-scwb-v230],[data-scwb-v240],[data-scwb-v250],[data-scwb-v260],[data-scwb-v270],[data-scwb-v280],[data-scwb-v290],[data-scwb-v300],[data-scwb-v330],[data-scwb-v340],[data-scwb-v350],[data-scwb-v360],[data-scwb-v370]');
     if (!text && !interactive) return 'empty';
     if (mount.querySelector('[data-backend-status="offline"],.is-offline,[data-runner-status="offline"]')) return 'offline';
     return 'ready';

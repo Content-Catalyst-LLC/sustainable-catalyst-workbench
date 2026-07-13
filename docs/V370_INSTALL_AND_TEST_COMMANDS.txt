@@ -1,0 +1,7 @@
+Run the complete release suite:
+
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install pytest fastapi pydantic
+bash scripts/test_v370_release.sh
