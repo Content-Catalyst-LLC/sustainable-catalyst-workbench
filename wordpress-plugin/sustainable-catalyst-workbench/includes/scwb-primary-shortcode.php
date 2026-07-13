@@ -1,11 +1,11 @@
 <?php
-/** Canonical Workbench v3.1.0 primary shortcode and studio router. */
+/** Canonical Workbench v3.3.1 primary shortcode and studio router. */
 if (!defined('ABSPATH')) {
     exit;
 }
 
 final class SCWB_Primary_Shortcode_Repair {
-    const VERSION = '3.1.0';
+    const VERSION = '3.3.1';
 
     public static function boot() {
         add_action('init', array(__CLASS__, 'register_assets'), 4);
@@ -53,7 +53,7 @@ final class SCWB_Primary_Shortcode_Repair {
     private static function render_studio($studio, $project, $key) {
         if (!shortcode_exists($studio['shortcode'])) {
             return sprintf(
-                '<div class="scwb-primary__module-error" role="alert"><strong>%s is unavailable.</strong><p>The shortcode <code>[%s]</code> is not registered. Install the complete Workbench v3.1.0 plugin and clear all caches.</p></div>',
+                '<div class="scwb-primary__module-error" role="alert"><strong>%s is unavailable.</strong><p>The shortcode <code>[%s]</code> is not registered. Install the complete Workbench v3.3.1 plugin and clear all caches.</p></div>',
                 esc_html($studio['label']),
                 esc_html($studio['shortcode'])
             );
@@ -100,7 +100,7 @@ final class SCWB_Primary_Shortcode_Repair {
         $project = sanitize_key($atts['project']) ?: 'default';
         $studios = self::studios();
         if (!$studios) {
-            return '<div class="scwb-primary scwb-primary--error"><strong>Workbench registry is unavailable.</strong><p>Confirm that the complete v3.1.0 plugin is active.</p></div>';
+            return '<div class="scwb-primary scwb-primary--error"><strong>Workbench registry is unavailable.</strong><p>Confirm that the complete v3.3.1 plugin is active.</p></div>';
         }
 
         $availability = array();
@@ -109,7 +109,7 @@ final class SCWB_Primary_Shortcode_Repair {
         }
         $available_keys = array_keys(array_filter($availability));
         if (!$available_keys) {
-            return '<div class="scwb-primary scwb-primary--error"><strong>Workbench modules are unavailable.</strong><p>Install the complete v3.1.0 plugin rather than a partial add-on.</p></div>';
+            return '<div class="scwb-primary scwb-primary--error"><strong>Workbench modules are unavailable.</strong><p>Install the complete v3.3.1 plugin rather than a partial add-on.</p></div>';
         }
 
         $initial = sanitize_key($atts['studio']);
@@ -132,13 +132,13 @@ final class SCWB_Primary_Shortcode_Repair {
             data-scwb-initial="<?php echo esc_attr($initial); ?>"
             data-scwb-project="<?php echo esc_attr($project); ?>"
             data-scwb-remember="<?php echo $remember ? 'true' : 'false'; ?>"
-            data-scwb-version="3.1.0"
+            data-scwb-version="3.3.1"
             aria-busy="true"
         >
             <noscript><div class="scwb-primary__module-error"><strong>JavaScript is required for Workbench studio navigation.</strong></div></noscript>
             <header class="scwb-primary__header">
                 <div>
-                    <p class="scwb-primary__eyebrow">Sustainable Catalyst Workbench v3.1.0</p>
+                    <p class="scwb-primary__eyebrow">Sustainable Catalyst Workbench v3.3.1</p>
                     <h2><?php echo esc_html($atts['title']); ?></h2>
                     <p>Open a persistent project workspace, the unified hub, or a specialist studio. Projects can autosave locally and optionally synchronize to private WordPress records.</p>
                 </div>
@@ -201,7 +201,7 @@ final class SCWB_Primary_Shortcode_Repair {
                 <details class="scwb-primary__diagnostics">
                     <summary>Interface diagnostics</summary>
                     <div class="scwb-primary__diagnostics-grid">
-                        <div><strong>Primary shortcode</strong><span>Registered by v3.1.0</span></div>
+                        <div><strong>Primary shortcode</strong><span>Registered by v3.3.1</span></div>
                         <div><strong>Browser router</strong><span data-scwb-primary-js-status>Initializing</span></div>
                         <div><strong>Project</strong><span><?php echo esc_html($project); ?></span></div>
                         <div><strong>Available studios</strong><span><?php echo esc_html($available_count . ' of ' . $total_count); ?></span></div>

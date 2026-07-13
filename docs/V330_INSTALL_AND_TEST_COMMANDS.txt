@@ -1,0 +1,10 @@
+Install the complete WordPress plugin ZIP and replace the previous Workbench plugin.
+
+Primary shortcode:
+[sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
+
+Focused shortcode:
+[sc_workbench_platform_handoffs project="default"]
+
+Run tests:
+bash scripts/test_v330_release.sh

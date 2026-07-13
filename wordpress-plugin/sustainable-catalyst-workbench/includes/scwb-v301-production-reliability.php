@@ -20,6 +20,8 @@ final class SCWB_V301_Production_Reliability {
         return array(
             'unified' => array('label' => 'Unified Project Hub', 'shortcode' => 'sc_workbench_unified', 'description' => 'Shared projects, studio registry, health, handoffs, packages, and reset safeguards.'),
             'projects' => array('label' => 'Persistent Projects', 'shortcode' => 'sc_workbench_persistent_workspace', 'description' => 'Create, switch, autosave, version, export, and optionally synchronize private Workbench projects.'),
+            'library' => array('label' => 'Library & Articles', 'shortcode' => 'sc_workbench_library_integration', 'description' => 'Article links, formulas, calculator embeds, citations, Research Librarian routes, and draft return.'),
+            'handoffs' => array('label' => 'Platform Handoffs', 'shortcode' => 'sc_workbench_platform_handoffs', 'description' => 'Shared evidence, cross-application packets, compatibility reports, receipts, links, and portable bundles.'),
             'research' => array('label' => 'Research Lab', 'shortcode' => 'sc_workbench_lab_canvas', 'description' => 'Canvas, notebook, documentation, and project records.'),
             'embedded' => array('label' => 'Embedded Devices', 'shortcode' => 'sc_workbench_embedded_device_studio', 'description' => 'Raspberry Pi, TinyML, sensors, calibration, and device logs.'),
             'electronics' => array('label' => 'Electronics & FPGA', 'shortcode' => 'sc_workbench_fpga_studio', 'description' => 'HDL, constraints, schematics, BOMs, PCB planning, and validation.'),

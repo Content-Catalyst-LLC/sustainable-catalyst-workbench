@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 3.1.0
+ * Version: 3.3.1
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '3.1.0');
+define('SCWB_VERSION', '3.3.1');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -69,6 +69,17 @@ require_once __DIR__ . '/includes/scwb-v302-project-migration-recovery.php';
 // Workbench v3.1.0 — Persistent Project Workspace.
 if (!defined('SCWB_V310_PLUGIN_FILE')) { define('SCWB_V310_PLUGIN_FILE', __FILE__); }
 require_once __DIR__ . '/includes/scwb-v310-persistent-project-workspace.php';
+
+
+// Workbench v3.2.0 — Knowledge Library and Article Integration.
+if (!defined('SCWB_V320_PLUGIN_FILE')) { define('SCWB_V320_PLUGIN_FILE', __FILE__); }
+require_once __DIR__ . '/includes/scwb-v320-knowledge-library-integration.php';
+
+
+// Workbench v3.3.0 — Platform Handoffs and Shared Evidence.
+// Workbench v3.3.1 — Embedded Studio Shortcode Display Repair.
+if (!defined('SCWB_V330_PLUGIN_FILE')) { define('SCWB_V330_PLUGIN_FILE', __FILE__); }
+require_once __DIR__ . '/includes/scwb-v330-platform-handoffs.php';
 
 // Canonical primary shortcode and unified studio selector.
 require_once __DIR__ . '/includes/scwb-primary-shortcode.php';

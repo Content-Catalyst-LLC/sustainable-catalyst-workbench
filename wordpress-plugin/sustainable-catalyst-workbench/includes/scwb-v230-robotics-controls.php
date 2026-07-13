@@ -33,7 +33,7 @@ final class SCWB_V230_Robotics_Controls {
     }
 
     public static function append_suite($output, $tag, $attr, $match) {
-        if (!in_array($tag, array('sc_workbench_hardware_studio', 'sc_workbench_embedded_device_studio'), true) || false !== strpos($output, 'data-scwb-v230-suite')) {
+        if (!in_array($tag, array('sc_workbench_hardware_studio'), true) || false !== strpos($output, 'data-scwb-v230-suite')) {
             return $output;
         }
         $project = isset($attr['project']) ? $attr['project'] : 'default';

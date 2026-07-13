@@ -33,7 +33,7 @@ final class SCWB_V240_Instrumentation {
     }
 
     public static function append_suite($output, $tag, $attr, $match) {
-        $parents = array('sc_workbench_hardware_studio', 'sc_workbench_embedded_device_studio', 'sc_workbench_robotics_studio');
+        $parents = array('sc_workbench_hardware_studio', 'sc_workbench_robotics_studio');
         if (!in_array($tag, $parents, true) || false !== strpos($output, 'data-scwb-v240-suite')) {
             return $output;
         }

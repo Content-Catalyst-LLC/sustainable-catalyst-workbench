@@ -36,6 +36,7 @@ $expected = array(
     'sc_workbench_diagnostics',
     'sc_workbench_unified',
     'sc_workbench_persistent_workspace',
+    'sc_workbench_library_integration',
     'sc_workbench_lab_canvas',
     'sc_workbench_embedded_device_studio',
     'sc_workbench_fpga_studio',
@@ -61,4 +62,4 @@ if (!is_array($primary) || 'SCWB_Primary_Shortcode_Repair' !== $primary[0] || 'r
     exit(1);
 }
 
-echo 'Workbench v3.1.0 WordPress runtime activation passed for ' . count($expected) . " required shortcodes.\n";
+echo 'Workbench v3.2.0 WordPress runtime activation passed for ' . count($expected) . " required shortcodes.\n";

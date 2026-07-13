@@ -33,7 +33,7 @@ final class SCWB_V260_Multilanguage_Runtime {
     }
 
     public static function append_suite($output, $tag, $attr, $match) {
-        $parents = array('sc_workbench_simulation_studio', 'sc_workbench_code_studio', 'sc_workbench_embedded_device_studio');
+        $parents = array('sc_workbench_simulation_studio', 'sc_workbench_code_studio');
         if (!in_array($tag, $parents, true) || false !== strpos($output, 'data-scwb-v260-suite')) { return $output; }
         $project = isset($attr['project']) ? $attr['project'] : 'default';
         return $output . self::render_suite_launcher($project);
