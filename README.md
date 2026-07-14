@@ -1,8 +1,8 @@
-# Sustainable Catalyst Workbench v4.0.1
+# Sustainable Catalyst Workbench v4.0.2
 
 **Connected Scientific and Engineering Workbench**
 
-Workbench v4.0.1 stabilizes and unifies persistent projects, calculations, code, simulations,
+Workbench v4.0.2 hardens and unifies persistent projects, calculations, code, simulations,
 devices, instruments, experiments, evidence, reviews, documentation, Domain
 Laboratories, Site Intelligence, Decision Studio, Research Librarian, the
 Knowledge Library, and offline operation under one auditable project contract.
@@ -28,3 +28,8 @@ explicit human review and the controls established in earlier Workbench releases
 
 See `V400_RELEASE_NOTES.md`, `docs/V400_SECURITY_BOUNDARY.md`, and
 `docs/V400_EXTENSION_CONTRACT.md` for the release contract.
+
+
+## v4.0.2 hardening
+
+Project graphs, three-way synchronization, transaction journals, recovery checkpoints, receipts, interrupted-sync recovery, and stress evaluation are available without adding a new main studio.

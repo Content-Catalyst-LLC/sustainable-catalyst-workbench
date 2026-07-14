@@ -1,7 +1,7 @@
 {
   "schema": "sc-workbench-offline-package-manifest/1.0",
   "package": "sustainable-catalyst-workbench",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "platforms": [
     "macos",
     "linux",
@@ -19,7 +19,7 @@
     {
       "path": "offline/start_local_workbench.py",
       "size": 1440,
-      "sha256": "197718551a0be5b95b8fbb8fd3f14c8825d52a77f88ae58bfe5be149312575dd",
+      "sha256": "a90bbfa1ae95245c4285fecf51900d6b17687b07decca13f0577ddb35d35bb3f",
       "required": true
     },
     {
@@ -31,13 +31,13 @@
     {
       "path": "offline/web/index.html",
       "size": 1928,
-      "sha256": "07c8aedec77663df2fe5ccb09b4f85ca7d37ded25fe0700a3b86c42ff09cef5c",
+      "sha256": "0a6fa2b6ee33fb25118deca2e8c9351e9cc2365f18aa0b4ac7237bb39c60357a",
       "required": true
     },
     {
       "path": "offline/web/app.js",
       "size": 3247,
-      "sha256": "da6de8eb87c5d8cad6885a81aa57a0593cb62e4bf3138d810ea2a19c48cef355",
+      "sha256": "26983653cde8d9ef1bcf60b0b67e25f5845cd884b840f1fbec796e39ad4d49c5",
       "required": true
     },
     {
@@ -49,19 +49,19 @@
     {
       "path": "offline/web/manifest.webmanifest",
       "size": 300,
-      "sha256": "d5bac8010c6cc83230cef3b326fd065c83a341777699412298cf96b5229e4e47",
+      "sha256": "7305110e3f97839c05a603f855e94207618c2ef2dc4f7c65a620ef43235dc3e1",
       "required": true
     },
     {
       "path": "offline/web/service-worker.js",
       "size": 696,
-      "sha256": "ac8715941ee36214ae649b06e68f6c68aa9cf68dfa5cd28ea785bce9b757db38",
+      "sha256": "75c034a319ee1fe8d2f40b28fb68141e3d5d3daf0761807ee938ce410b2ebdad",
       "required": true
     },
     {
       "path": "installers/common/install_workbench_common.sh",
-      "size": 3049,
-      "sha256": "0705f1dd715f9631ed5a51b6822f7d46a5451a727462eab3d152ab8c901d4934",
+      "size": 3084,
+      "sha256": "aee0ea12151520a7d27bc78ff7d9a74f3e3a2d8835d92f5476b735e8c24c5332",
       "required": true
     },
     {
@@ -79,7 +79,7 @@
     {
       "path": "installers/linux/install_workbench_linux.sh",
       "size": 823,
-      "sha256": "8312e4523b1aca3fca73c6efbc3bdb94122712a2261cf27f57b92240ed3d14cf",
+      "sha256": "1faa0ccd2b9cfb37701e94399b08416ddd7c13e9cdbc535da5d0b71884212faa",
       "required": true
     },
     {
@@ -90,8 +90,8 @@
     },
     {
       "path": "backend/app/main.py",
-      "size": 3527,
-      "sha256": "1d6206a566e404a7f032c10b154364b64133b2709a928452f054e2d71f18c435",
+      "size": 3686,
+      "sha256": "e3317e8b99ba990f287f6eb54ded665602fc34e43c0726ebf81d2d06a61c449d",
       "required": true
     },
     {
@@ -141,7 +141,27 @@
       "size": 1640,
       "sha256": "9fe6e53a9f383413d7176ec8995b4314c7495d9f73f6c13c6213ca59ea824599",
       "required": true
+    },
+    {
+      "path": "backend/app/v402.py",
+      "size": 24268,
+      "sha256": "782e2a381107247b007c909eb12baed2c510756d15818a7485592acc0669c6ca",
+      "required": true
+    },
+    {
+      "path": "docs/V402_SECURITY_BOUNDARY.md",
+      "size": 596,
+      "sha256": "4b39f26c2f8595a9a8ef8d3454c7ad912b568794c5fa1bcb6009507f93d856ec",
+      "required": true
+    },
+    {
+      "path": "examples/v402-graph-sync-recovery-fixture.json",
+      "size": 1137,
+      "sha256": "d28a65129565ce90ede60a1ae303ca14ed6dc620ab8db0ddf8e0ce1eaf33409a",
+      "required": true
     }
   ],
-  "manifestHash": "9f0081805aec7d2b0c73dbce0879478da536b3ff1eac43f204a1b396a98cef9c"
+  "manifestHash": "6178a4fa1a7ac88b46f66cba09e97d378ff8aa4fe7b09c2462b7a039c1d429f8",
+  "projectGraphHardening": true,
+  "syncRecoveryHardening": true
 }

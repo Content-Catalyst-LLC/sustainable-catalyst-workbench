@@ -1,0 +1,73 @@
+{
+  "schema": "sc-workbench-v402-hardening-fixture/1.0",
+  "version": "4.0.2",
+  "projectId": "connected-demo",
+  "graph": {
+    "nodes": [
+      {
+        "id": "project"
+      },
+      {
+        "id": "dataset"
+      },
+      {
+        "id": "model"
+      },
+      {
+        "id": "review"
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "project",
+        "target": "dataset"
+      },
+      {
+        "id": "e2",
+        "source": "dataset",
+        "target": "model"
+      },
+      {
+        "id": "e3",
+        "source": "model",
+        "target": "review"
+      }
+    ]
+  },
+  "baseRecords": [
+    {
+      "id": "dataset",
+      "version": 1
+    },
+    {
+      "id": "model",
+      "version": 1
+    }
+  ],
+  "localRecords": [
+    {
+      "id": "dataset",
+      "version": 2
+    },
+    {
+      "id": "model",
+      "version": 1
+    }
+  ],
+  "remoteRecords": [
+    {
+      "id": "dataset",
+      "version": 1
+    },
+    {
+      "id": "model",
+      "version": 2
+    }
+  ],
+  "safety": {
+    "backupVerified": true,
+    "automaticExecutionAuthorized": false,
+    "automaticRollbackAuthorized": false
+  }
+}

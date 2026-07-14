@@ -1,0 +1,13 @@
+Sustainable Catalyst Workbench v4.0.2
+
+Run release checks:
+
+  bash scripts/test_v402_release.sh
+
+Primary shortcode:
+
+  [sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
+
+Hardening console:
+
+  [sc_workbench_graph_sync_recovery project="default"]

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Launch Sustainable Catalyst Workbench v4.0.1 on the local loopback interface."""
+"""Launch Sustainable Catalyst Workbench v4.0.2 on the local loopback interface."""
 from __future__ import annotations
 
 import argparse

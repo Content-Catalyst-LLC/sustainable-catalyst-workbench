@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var VERSION = '4.0.1';
+  var VERSION = '4.0.2';
   var STORE = 'scwb:offline:projects';
   var output = document.getElementById('output');
   var status = document.getElementById('service-status');
