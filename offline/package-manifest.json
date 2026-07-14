@@ -1,7 +1,7 @@
 {
   "schema": "sc-workbench-offline-package-manifest/1.0",
   "package": "sustainable-catalyst-workbench",
-  "version": "4.2.0",
+  "version": "4.3.0",
   "platforms": [
     "macos",
     "linux",
@@ -22,165 +22,165 @@
   "files": [
     {
       "path": "offline/start_local_workbench.py",
+      "required": true,
       "size": 1440,
-      "sha256": "a70d69102c5cd99f48c2610d96a2db7e082b8b9ca39ec354a71a9778d75cf7a1",
-      "required": true
+      "sha256": "192539475781e327b00fd41801740fde9254bb6824e220ed2a6892d7c74661b9"
     },
     {
       "path": "offline/requirements.txt",
+      "required": true,
       "size": 62,
-      "sha256": "d84c859a67c865264a8ce14ebb48698f1d4744736167fe70c9bf613b0b214653",
-      "required": true
+      "sha256": "d84c859a67c865264a8ce14ebb48698f1d4744736167fe70c9bf613b0b214653"
     },
     {
       "path": "offline/web/index.html",
+      "required": true,
       "size": 1928,
-      "sha256": "7a7b94c8691316854ddf3bf5cb4c9a90e006d74154ccbc3083a106d4d0d8fdb1",
-      "required": true
+      "sha256": "6c99f81424ed39d9a3445d2cc4b28a5de6ca46bf59c4adefb034b2288d549631"
     },
     {
       "path": "offline/web/app.js",
+      "required": true,
       "size": 3247,
-      "sha256": "a09546ca38b99b8853d74de44844418bb972046598c1fde9c75bff5113988263",
-      "required": true
+      "sha256": "86d6dbb03278f7ba6cb0d151b5aaae81be0ea13d3d4ec169465d1110a7e5607b"
     },
     {
       "path": "offline/web/styles.css",
+      "required": true,
       "size": 1300,
-      "sha256": "147cdaec162e3f47317586bf896caabdaeb2af7771b87ea7f4da577e6b5b85d1",
-      "required": true
+      "sha256": "147cdaec162e3f47317586bf896caabdaeb2af7771b87ea7f4da577e6b5b85d1"
     },
     {
       "path": "offline/web/manifest.webmanifest",
+      "required": true,
       "size": 300,
-      "sha256": "037ab88e9dfdbe87c71f65dbd2d211473b7c2013a7d36fb45d6e6ef2eb716a48",
-      "required": true
+      "sha256": "87cca820871fd1889521a76dded7d7814668c7ae07902dd1fe5eea3de24c13e2"
     },
     {
       "path": "offline/web/service-worker.js",
+      "required": true,
       "size": 696,
-      "sha256": "aa2dd930c0c630369bb6fa240426e40c8f2d47d4ce82df6eacd3539514f63fbb",
-      "required": true
+      "sha256": "ad38e4103c6473f935a76ccab1da384af969adf50e2686f91373888775eaac6b"
     },
     {
       "path": "installers/common/install_workbench_common.sh",
-      "size": 3154,
-      "sha256": "25da4794f41e3cf33a9d48997be808cd18d2c8a6e2808b05497b7ee7613e2a54",
-      "required": true
+      "required": true,
+      "size": 3189,
+      "sha256": "8f6c5f51dda0586f8a83c3681cd379c3b30996e8cced31915ebe9fa55f6d40ea"
     },
     {
       "path": "installers/common/uninstall_workbench.sh",
+      "required": true,
       "size": 460,
-      "sha256": "54d84d515f318dad1000dc261dedce0b8fb9513e77e2a1e328763d7d14480490",
-      "required": true
+      "sha256": "54d84d515f318dad1000dc261dedce0b8fb9513e77e2a1e328763d7d14480490"
     },
     {
       "path": "installers/macos/install_workbench_macos.command",
+      "required": true,
       "size": 405,
-      "sha256": "db55b73cdfacbe81b20170ef35158ba5eff55dc568573cb8a74061b5bba9df83",
-      "required": true
+      "sha256": "db55b73cdfacbe81b20170ef35158ba5eff55dc568573cb8a74061b5bba9df83"
     },
     {
       "path": "installers/linux/install_workbench_linux.sh",
+      "required": true,
       "size": 823,
-      "sha256": "43ad8f65948e89b176cbb083c9a8c23c5dfb3b1ccb1b9c0bc3677d4692c8c644",
-      "required": true
+      "sha256": "e02bc5260ba1595aee58686eed78714ef1f9f081037bbcf8df64c71ed338c04b"
     },
     {
       "path": "installers/raspberry-pi/install_workbench_raspberry_pi.sh",
+      "required": true,
       "size": 965,
-      "sha256": "a34b59ff841c44f6ef337bb3439b1acbe3e053dd64442c59c241f91a8e2a234f",
-      "required": true
+      "sha256": "a34b59ff841c44f6ef337bb3439b1acbe3e053dd64442c59c241f91a8e2a234f"
     },
     {
       "path": "backend/app/main.py",
-      "size": 4027,
-      "sha256": "daa2556da48db5a63391350666f23643c96a6fdbf42c2812fb96bd43efd5763f",
-      "required": true
+      "required": true,
+      "size": 4187,
+      "sha256": "e030d8f592cca81aab0e44de32713aaa555eea72ab86d1fbe47257061fcee039"
     },
     {
       "path": "backend/app/v380.py",
+      "required": true,
       "size": 20818,
-      "sha256": "bb42d848bb8ae47810f864378c7e6c97d3106c2ad4d952622b044b403ad0e4b7",
-      "required": true
+      "sha256": "bb42d848bb8ae47810f864378c7e6c97d3106c2ad4d952622b044b403ad0e4b7"
     },
     {
       "path": "backend/app/v390.py",
+      "required": true,
       "size": 21331,
-      "sha256": "9271fde52e7dbea50a80e25c74309b9a4e88da44872d1e38141c886d03e0082e",
-      "required": true
+      "sha256": "9271fde52e7dbea50a80e25c74309b9a4e88da44872d1e38141c886d03e0082e"
     },
     {
       "path": "backend/app/v400.py",
+      "required": true,
       "size": 25648,
-      "sha256": "6378f6d1f28c211422083ef7ecfb66aca57a9a70a106a7a784139a25ff96daf6",
-      "required": true
+      "sha256": "6378f6d1f28c211422083ef7ecfb66aca57a9a70a106a7a784139a25ff96daf6"
     },
     {
       "path": "backend/app/v401.py",
+      "required": true,
       "size": 19317,
-      "sha256": "9eb4b3d2fc80650a3ee90452f8ac3cfb37279883b81c909eb64a895d9815d4e7",
-      "required": true
+      "sha256": "9eb4b3d2fc80650a3ee90452f8ac3cfb37279883b81c909eb64a895d9815d4e7"
     },
     {
       "path": "backend/app/v402.py",
+      "required": true,
       "size": 24268,
-      "sha256": "782e2a381107247b007c909eb12baed2c510756d15818a7485592acc0669c6ca",
-      "required": true
+      "sha256": "782e2a381107247b007c909eb12baed2c510756d15818a7485592acc0669c6ca"
     },
     {
       "path": "backend/app/v410.py",
+      "required": true,
       "size": 19781,
-      "sha256": "9a611d62611345ca553a947bcc074c5d9ac8314a4d8145e1c6bd053372b7e0b5",
-      "required": true
+      "sha256": "9a611d62611345ca553a947bcc074c5d9ac8314a4d8145e1c6bd053372b7e0b5"
     },
     {
       "path": "docs/V400_SECURITY_BOUNDARY.md",
+      "required": true,
       "size": 1042,
-      "sha256": "9ae169f0411da81a619f23fcd36d5b2726323546fc2ce7f631fa597b4a0dae49",
-      "required": true
+      "sha256": "9ae169f0411da81a619f23fcd36d5b2726323546fc2ce7f631fa597b4a0dae49"
     },
     {
       "path": "docs/V400_EXTENSION_CONTRACT.md",
+      "required": true,
       "size": 1054,
-      "sha256": "5f44148ada4d09c2c74809541e6a6c78385bc005bc7de5165be57f9ffae2b4cd",
-      "required": true
+      "sha256": "5f44148ada4d09c2c74809541e6a6c78385bc005bc7de5165be57f9ffae2b4cd"
     },
     {
       "path": "docs/V401_SECURITY_BOUNDARY.md",
+      "required": true,
       "size": 525,
-      "sha256": "5dfa20b1c0b134f717341444a7bc56bc1bb10f231f579a460d50ceaa53cca85e",
-      "required": true
+      "sha256": "5dfa20b1c0b134f717341444a7bc56bc1bb10f231f579a460d50ceaa53cca85e"
     },
     {
       "path": "examples/v401-connected-reliability-fixture.json",
+      "required": true,
       "size": 1640,
-      "sha256": "9fe6e53a9f383413d7176ec8995b4314c7495d9f73f6c13c6213ca59ea824599",
-      "required": true
+      "sha256": "9fe6e53a9f383413d7176ec8995b4314c7495d9f73f6c13c6213ca59ea824599"
     },
     {
       "path": "docs/V402_SECURITY_BOUNDARY.md",
+      "required": true,
       "size": 596,
-      "sha256": "4b39f26c2f8595a9a8ef8d3454c7ad912b568794c5fa1bcb6009507f93d856ec",
-      "required": true
+      "sha256": "4b39f26c2f8595a9a8ef8d3454c7ad912b568794c5fa1bcb6009507f93d856ec"
     },
     {
       "path": "examples/v402-graph-sync-recovery-fixture.json",
+      "required": true,
       "size": 1137,
-      "sha256": "d28a65129565ce90ede60a1ae303ca14ed6dc620ab8db0ddf8e0ce1eaf33409a",
-      "required": true
+      "sha256": "d28a65129565ce90ede60a1ae303ca14ed6dc620ab8db0ddf8e0ce1eaf33409a"
     },
     {
       "path": "docs/V410_SECURITY_BOUNDARY.md",
+      "required": true,
       "size": 703,
-      "sha256": "c466a3c56ae432be79151a459ec126524033b59a1c4c859229f2c42710770f97",
-      "required": true
+      "sha256": "c466a3c56ae432be79151a459ec126524033b59a1c4c859229f2c42710770f97"
     },
     {
       "path": "examples/v410-team-workspace-fixture.json",
+      "required": true,
       "size": 1052,
-      "sha256": "1aff8b892e47d673fd9857f1e57ed7547576181b431454da312bd8b6522dc5f7",
-      "required": true
+      "sha256": "1aff8b892e47d673fd9857f1e57ed7547576181b431454da312bd8b6522dc5f7"
     },
     {
       "path": "backend/app/v420.py",
@@ -199,9 +199,30 @@
       "required": true,
       "size": 995,
       "sha256": "53d08db0f7c8664dcf9b64e09e47d8bc0bc6045b135b20056f96431365afa721"
+    },
+    {
+      "path": "backend/app/v430.py",
+      "required": true,
+      "size": 21603,
+      "sha256": "bca8450f3851e38b8757401493012438a788a93d7b42b5fb43ffe291186d54a8"
+    },
+    {
+      "path": "docs/V430_SECURITY_BOUNDARY.md",
+      "required": true,
+      "size": 667,
+      "sha256": "70379f220408e9acf0fed12c7c574c73ae64c64619cdca6894b97b664648988e"
+    },
+    {
+      "path": "examples/v430-data-pipeline-fixture.json",
+      "required": true,
+      "size": 1281,
+      "sha256": "7ea4d4cd8d557db46175b6fd5131dc92688dee7a00fdd03f264b2d627693870a"
     }
   ],
-  "manifestHash": "0d0a4cb47a38a57c528387cb0c2577df524ca56419898b4be4172023f5e8fe99",
+  "manifestHash": "81161a113c1cd71fb4ae7d2dee5b2e7f15f081e3a25f927db12eda25cb37e73f",
   "guidedProjectTemplates": true,
-  "guidedProjectOfflinePlanning": true
+  "guidedProjectOfflinePlanning": true,
+  "liveDataConnectors": true,
+  "reproducibleDatasetPipelines": true,
+  "offlineDatasetSnapshots": true
 }

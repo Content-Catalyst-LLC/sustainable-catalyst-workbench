@@ -1,12 +1,8 @@
-# Sustainable Catalyst Workbench v4.2.0
+# Sustainable Catalyst Workbench v4.3.0
 
-**Workflow Templates and Guided Scientific/Engineering Project Creation**
+**Live Data Connectors and Reproducible Dataset Pipelines**
 
-Workbench v4.2.0 adds reusable, auditable project templates and guided setup for
-scientific investigations, engineering design, instrument validation, predictive
-analytics, sustainability systems assessments, and connected Lab-to-decision work.
-The workflow creates intake, requirements, milestones, validation gates, starter
-evidence placeholders, team role bindings, studio routes, and portable scaffolds.
+Workbench v4.3.0 adds source registries, connector health records, content-hashed dataset manifests, dependency-aware transformation pipelines, schema validation, freshness and cache controls, refresh planning, offline dataset snapshots, provenance, and portable reproducible dataset packages.
 
 Primary shortcode:
 
@@ -14,10 +10,10 @@ Primary shortcode:
 [sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
 ```
 
-Guided projects:
+Data Pipelines studio:
 
 ```text
-[sc_workbench_guided_projects project="default" template="scientific-investigation" domain="physics"]
+[sc_workbench_data_pipelines project="default" dataset="default" source="default"]
 ```
 
-See `V420_RELEASE_NOTES.md` and `docs/V420_SECURITY_BOUNDARY.md`.
+See `V430_RELEASE_NOTES.md` and `docs/V430_SECURITY_BOUNDARY.md`.

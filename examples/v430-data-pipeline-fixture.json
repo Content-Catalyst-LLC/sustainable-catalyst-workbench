@@ -1,0 +1,64 @@
+{
+  "schema": "sc-workbench-v430-fixture/1.0",
+  "version": "4.3.0",
+  "source": {
+    "sourceId": "public-indicators",
+    "title": "Public Indicators",
+    "connectorType": "https-json",
+    "url": "https://example.org/indicators.json",
+    "allowedHosts": [
+      "example.org"
+    ],
+    "license": "CC-BY-4.0"
+  },
+  "dataset": {
+    "datasetId": "city-indicators",
+    "title": "City Indicators",
+    "sourceIds": [
+      "public-indicators"
+    ],
+    "columns": [
+      {
+        "name": "city",
+        "type": "string"
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "unit": "index"
+      }
+    ]
+  },
+  "pipeline": {
+    "steps": [
+      {
+        "stepId": "select-fields",
+        "operation": "select",
+        "params": {
+          "fields": [
+            "city",
+            "value"
+          ]
+        },
+        "dependsOn": []
+      },
+      {
+        "stepId": "deduplicate",
+        "operation": "deduplicate",
+        "params": {
+          "keys": [
+            "city"
+          ]
+        },
+        "dependsOn": [
+          "select-fields"
+        ]
+      }
+    ]
+  },
+  "safety": {
+    "automaticNetworkFetchAuthorized": false,
+    "automaticCredentialStorageAuthorized": false,
+    "automaticPublicationAuthorized": false
+  }
+}

@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-app = FastAPI(title="Sustainable Catalyst Workbench", version="4.2.0")
-version="4.2.0"
+app = FastAPI(title="Sustainable Catalyst Workbench", version="4.3.0")
+version="4.3.0"
 
 # Workbench v2.0.0 foundation routes.
 from app.v200 import router as v200_router
@@ -127,3 +127,8 @@ app.include_router(v410_router)
 # Workbench v4.2.0 Workflow Templates and Guided Scientific/Engineering Project Creation routes.
 from app.v420 import router as v420_router
 app.include_router(v420_router)
+
+
+# Workbench v4.3.0 Live Data Connectors and Reproducible Dataset Pipelines routes.
+from app.v430 import router as v430_router
+app.include_router(v430_router)

@@ -1,0 +1,10 @@
+Sustainable Catalyst Workbench v4.3.0
+
+Run complete checks:
+  bash scripts/test_v430_release.sh
+
+Primary shortcode:
+  [sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
+
+Data Pipelines shortcode:
+  [sc_workbench_data_pipelines project="default" dataset="default"]
