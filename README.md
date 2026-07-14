@@ -1,8 +1,8 @@
-# Sustainable Catalyst Workbench v4.3.0
+# Sustainable Catalyst Workbench v4.4.0
 
-**Live Data Connectors and Reproducible Dataset Pipelines**
+**Automated Evaluation, Benchmarking, and Comparison Laboratory**
 
-Workbench v4.3.0 adds source registries, connector health records, content-hashed dataset manifests, dependency-aware transformation pipelines, schema validation, freshness and cache controls, refresh planning, offline dataset snapshots, provenance, and portable reproducible dataset packages.
+Workbench v4.4.0 adds benchmark catalogs, experiment matrices, repeated-trial statistics, baseline and candidate comparisons, regression detection, reproducibility audits, provisional leaderboards, human-controlled evaluation gates, and portable evaluation packages.
 
 Primary shortcode:
 
@@ -10,10 +10,10 @@ Primary shortcode:
 [sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
 ```
 
-Data Pipelines studio:
+Evaluation Lab studio:
 
 ```text
-[sc_workbench_data_pipelines project="default" dataset="default" source="default"]
+[sc_workbench_evaluation_lab project="default" benchmark="default"]
 ```
 
-See `V430_RELEASE_NOTES.md` and `docs/V430_SECURITY_BOUNDARY.md`.
+See `V440_RELEASE_NOTES.md` and `docs/V440_SECURITY_BOUNDARY.md`.

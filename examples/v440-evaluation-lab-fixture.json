@@ -1,0 +1,21 @@
+{
+  "schema": "sc-workbench-evaluation-fixture/1.0",
+  "version": "4.4.0",
+  "benchmark": {
+    "benchmarkId": "energy-forecast-accuracy",
+    "title": "Energy demand forecast accuracy",
+    "domain": "energy-engineering",
+    "metricName": "rmse",
+    "direction": "minimize",
+    "datasetHash": "fixture-dataset-hash",
+    "protocolHash": "fixture-protocol-hash"
+  },
+  "candidates": ["seasonal-baseline", "candidate-a"],
+  "parameterGrid": {"window": [12, 24]},
+  "seeds": [42, 43],
+  "requiredArtifacts": ["benchmark", "trial-summary", "reproducibility-audit", "regression-report"],
+  "automaticExperimentExecutionAuthorized": false,
+  "automaticLeaderboardPublicationAuthorized": false,
+  "automaticBaselineReplacementAuthorized": false,
+  "automaticReleaseApprovalAuthorized": false
+}

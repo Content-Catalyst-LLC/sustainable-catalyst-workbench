@@ -1,7 +1,7 @@
 {
   "schema": "sc-workbench-offline-package-manifest/1.0",
   "package": "sustainable-catalyst-workbench",
-  "version": "4.3.0",
+  "version": "4.4.0",
   "platforms": [
     "macos",
     "linux",
@@ -19,12 +19,24 @@
   "syncRecoveryHardening": true,
   "hostedTeamWorkspace": true,
   "offlineTeamExportOnly": true,
+  "guidedProjectTemplates": true,
+  "guidedProjectOfflinePlanning": true,
+  "liveDataConnectors": true,
+  "reproducibleDatasetPipelines": true,
+  "offlineDatasetSnapshots": true,
+  "automatedEvaluationLaboratory": true,
+  "benchmarkComparisonReports": true,
+  "offlineEvaluation": true,
+  "automaticExperimentExecutionAuthorized": false,
+  "automaticLeaderboardPublicationAuthorized": false,
+  "automaticBaselineReplacementAuthorized": false,
+  "automaticReleaseApprovalAuthorized": false,
   "files": [
     {
       "path": "offline/start_local_workbench.py",
       "required": true,
       "size": 1440,
-      "sha256": "192539475781e327b00fd41801740fde9254bb6824e220ed2a6892d7c74661b9"
+      "sha256": "2872c542b6a58fba5f872872b52b52e596e95f73a109287502b147c70d320f25"
     },
     {
       "path": "offline/requirements.txt",
@@ -35,14 +47,14 @@
     {
       "path": "offline/web/index.html",
       "required": true,
-      "size": 1928,
-      "sha256": "6c99f81424ed39d9a3445d2cc4b28a5de6ca46bf59c4adefb034b2288d549631"
+      "size": 1984,
+      "sha256": "caaf20366f5972271b007f503e519939d7c4d60c55ee1b814e2c76f024073008"
     },
     {
       "path": "offline/web/app.js",
       "required": true,
       "size": 3247,
-      "sha256": "86d6dbb03278f7ba6cb0d151b5aaae81be0ea13d3d4ec169465d1110a7e5607b"
+      "sha256": "7cd24363a610c364e1175095e122907f4cd9d0d82e7dd24f82ac8c7621856c81"
     },
     {
       "path": "offline/web/styles.css",
@@ -54,19 +66,19 @@
       "path": "offline/web/manifest.webmanifest",
       "required": true,
       "size": 300,
-      "sha256": "87cca820871fd1889521a76dded7d7814668c7ae07902dd1fe5eea3de24c13e2"
+      "sha256": "eeb733528d8500de677108a0b7f40ef5698e1a07326d42419e73c99728dabc37"
     },
     {
       "path": "offline/web/service-worker.js",
       "required": true,
       "size": 696,
-      "sha256": "ad38e4103c6473f935a76ccab1da384af969adf50e2686f91373888775eaac6b"
+      "sha256": "0885136d70c0b14a2ed16317de5a98ad85e653e4f2f9deaac8e0d434f46a29d4"
     },
     {
       "path": "installers/common/install_workbench_common.sh",
       "required": true,
-      "size": 3189,
-      "sha256": "8f6c5f51dda0586f8a83c3681cd379c3b30996e8cced31915ebe9fa55f6d40ea"
+      "size": 3291,
+      "sha256": "a9dbaac341464913eca382d1fe8c7005c46890a6f87a7c1762edc3638ea2b839"
     },
     {
       "path": "installers/common/uninstall_workbench.sh",
@@ -84,7 +96,7 @@
       "path": "installers/linux/install_workbench_linux.sh",
       "required": true,
       "size": 823,
-      "sha256": "e02bc5260ba1595aee58686eed78714ef1f9f081037bbcf8df64c71ed338c04b"
+      "sha256": "f27a08c185c44b8af366ceac06dad79372da5970f921cedf58668e59529ef1e4"
     },
     {
       "path": "installers/raspberry-pi/install_workbench_raspberry_pi.sh",
@@ -95,8 +107,8 @@
     {
       "path": "backend/app/main.py",
       "required": true,
-      "size": 4187,
-      "sha256": "e030d8f592cca81aab0e44de32713aaa555eea72ab86d1fbe47257061fcee039"
+      "size": 4353,
+      "sha256": "0e45890ccee6d38ac69131e722e63acb791455624f15110df107874a4cca8982"
     },
     {
       "path": "backend/app/v380.py",
@@ -217,12 +229,25 @@
       "required": true,
       "size": 1281,
       "sha256": "7ea4d4cd8d557db46175b6fd5131dc92688dee7a00fdd03f264b2d627693870a"
+    },
+    {
+      "path": "backend/app/v440.py",
+      "required": true,
+      "size": 24546,
+      "sha256": "28da21b42e56ab650388bf263cb7ec0b22af19ccfce3891412605b4e89d5cbfa"
+    },
+    {
+      "path": "docs/V440_SECURITY_BOUNDARY.md",
+      "required": true,
+      "size": 548,
+      "sha256": "9f5ff50eb3b303faa9ac02bc77f37e8c8ebc89b1749cb976416a0fc6bba35641"
+    },
+    {
+      "path": "examples/v440-evaluation-lab-fixture.json",
+      "required": true,
+      "size": 791,
+      "sha256": "cae6e6d3f7e03cdcf2b38e007f2dbe590701ccf7e8d3c8a5cfa9cf1959c3d2db"
     }
   ],
-  "manifestHash": "81161a113c1cd71fb4ae7d2dee5b2e7f15f081e3a25f927db12eda25cb37e73f",
-  "guidedProjectTemplates": true,
-  "guidedProjectOfflinePlanning": true,
-  "liveDataConnectors": true,
-  "reproducibleDatasetPipelines": true,
-  "offlineDatasetSnapshots": true
+  "manifestHash": "40517be6214d95557fbc090edf08fa688de9456ae5043e5011b1746e00460c59"
 }

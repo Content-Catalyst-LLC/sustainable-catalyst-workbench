@@ -1,0 +1,12 @@
+WORKBENCH v4.4.0 INSTALL AND TEST
+
+WordPress: upload sustainable-catalyst-workbench-plugin-v4.4.0.zip and replace the current plugin.
+
+Primary shortcode:
+[sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
+
+Evaluation Lab:
+[sc_workbench_evaluation_lab project="default" benchmark="default"]
+
+Release tests:
+bash scripts/test_v440_release.sh
