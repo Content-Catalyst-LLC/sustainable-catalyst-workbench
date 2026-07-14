@@ -1,4 +1,4 @@
-# Workbench v4.0.0 local application
+# Workbench v4.0.1 local application
 
 The local package runs the complete Connected Scientific and Engineering
 Workbench on a loopback-only FastAPI service and provides an offline browser

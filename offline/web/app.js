@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var VERSION = '4.0.0';
+  var VERSION = '4.0.1';
   var STORE = 'scwb:offline:projects';
   var output = document.getElementById('output');
   var status = document.getElementById('service-status');
@@ -14,7 +14,7 @@
 
   async function health() {
     try {
-      var response = await fetch('/v400/status', { cache: 'no-store' });
+      var response = await fetch('/v401/status', { cache: 'no-store' });
       var data = await response.json();
       status.textContent = data.ok ? 'Local service online · v' + data.version : 'Local service needs review';
       status.className = 'status online';

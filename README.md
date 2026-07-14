@@ -1,8 +1,8 @@
-# Sustainable Catalyst Workbench v4.0.0
+# Sustainable Catalyst Workbench v4.0.1
 
 **Connected Scientific and Engineering Workbench**
 
-Workbench v4.0.0 unifies persistent projects, calculations, code, simulations,
+Workbench v4.0.1 stabilizes and unifies persistent projects, calculations, code, simulations,
 devices, instruments, experiments, evidence, reviews, documentation, Domain
 Laboratories, Site Intelligence, Decision Studio, Research Librarian, the
 Knowledge Library, and offline operation under one auditable project contract.

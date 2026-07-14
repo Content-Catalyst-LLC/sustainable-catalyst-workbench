@@ -1,0 +1,11 @@
+WORKBENCH v4.0.1 INSTALL AND TEST
+
+WordPress:
+1. Upload sustainable-catalyst-workbench-plugin-v4.0.1.zip.
+2. Choose Replace current with uploaded.
+3. Clear WordPress, optimization, Cloudflare, and browser caches.
+4. Use [sc_workbench] for the full 22-studio Workbench.
+5. Use [sc_workbench_connected_reliability] for the reliability console.
+
+Repository test:
+bash scripts/test_v401_release.sh

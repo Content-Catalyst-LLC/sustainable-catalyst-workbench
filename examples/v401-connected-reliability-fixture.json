@@ -1,0 +1,98 @@
+{
+  "schema": "sc-workbench-connected-reliability-fixture/1.0",
+  "version": "4.0.1",
+  "project": {
+    "projectId": "fixture-connected-001",
+    "title": "Connected Climate and Infrastructure Evaluation"
+  },
+  "requiredStudios": [
+    "connected",
+    "projects",
+    "handoffs",
+    "simulation",
+    "laboratories",
+    "offline",
+    "hardening"
+  ],
+  "studios": [
+    {
+      "key": "connected",
+      "status": "ready"
+    },
+    {
+      "key": "projects",
+      "status": "ready"
+    },
+    {
+      "key": "handoffs",
+      "status": "ready"
+    },
+    {
+      "key": "simulation",
+      "status": "ready"
+    },
+    {
+      "key": "laboratories",
+      "status": "ready"
+    },
+    {
+      "key": "offline",
+      "status": "ready"
+    },
+    {
+      "key": "hardening",
+      "status": "ready"
+    }
+  ],
+  "integrations": [
+    {
+      "id": "workbench",
+      "required": true,
+      "status": "ready"
+    },
+    {
+      "id": "sustainable-catalyst-lab",
+      "required": true,
+      "status": "ready"
+    },
+    {
+      "id": "site-intelligence",
+      "required": false,
+      "status": "offline",
+      "fallback": "portable-handoff"
+    },
+    {
+      "id": "decision-studio",
+      "required": false,
+      "status": "ready"
+    },
+    {
+      "id": "research-librarian",
+      "required": false,
+      "status": "ready"
+    }
+  ],
+  "workflow": [
+    {
+      "id": "collect"
+    },
+    {
+      "id": "model"
+    },
+    {
+      "id": "review"
+    }
+  ],
+  "records": [
+    {
+      "id": "evidence-1"
+    },
+    {
+      "id": "calculation-1"
+    },
+    {
+      "id": "review-1"
+    }
+  ],
+  "humanReviewRequired": true
+}

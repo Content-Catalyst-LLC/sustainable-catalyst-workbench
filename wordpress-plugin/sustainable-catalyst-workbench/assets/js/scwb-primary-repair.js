@@ -30,7 +30,7 @@
     var mount = panel.querySelector('[data-scwb-module-mount]');
     if (!mount) return 'empty';
     var text = (mount.textContent || '').trim();
-    var interactive = mount.querySelector('button,input,select,textarea,canvas,svg,form,[role="button"],[data-scwb-v200],[data-scwb-v210],[data-scwb-v220],[data-scwb-v230],[data-scwb-v240],[data-scwb-v250],[data-scwb-v260],[data-scwb-v270],[data-scwb-v280],[data-scwb-v290],[data-scwb-v300],[data-scwb-v330],[data-scwb-v340],[data-scwb-v350],[data-scwb-v360],[data-scwb-v370],[data-scwb-v380],[data-scwb-v390],[data-scwb-v400]');
+    var interactive = mount.querySelector('button,input,select,textarea,canvas,svg,form,[role="button"],[data-scwb-v200],[data-scwb-v210],[data-scwb-v220],[data-scwb-v230],[data-scwb-v240],[data-scwb-v250],[data-scwb-v260],[data-scwb-v270],[data-scwb-v280],[data-scwb-v290],[data-scwb-v300],[data-scwb-v330],[data-scwb-v340],[data-scwb-v350],[data-scwb-v360],[data-scwb-v370],[data-scwb-v380],[data-scwb-v390],[data-scwb-v400],[data-scwb-v401]');
     if (!text && !interactive) return 'empty';
     if (mount.querySelector('[data-backend-status="offline"],.is-offline,[data-runner-status="offline"]')) return 'offline';
     return 'ready';
@@ -216,6 +216,6 @@
     audit: audit,
     init: init,
     expectedStudios: EXPECTED.slice(),
-    version: '4.0.0'
+    version: '4.0.1'
   };
 })();

@@ -1,7 +1,7 @@
 {
   "schema": "sc-workbench-offline-package-manifest/1.0",
   "package": "sustainable-catalyst-workbench",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "platforms": [
     "macos",
     "linux",
@@ -14,11 +14,12 @@
   "remoteShell": false,
   "automaticCloudUpload": false,
   "connectedEnvironment": true,
+  "connectedReliability": true,
   "files": [
     {
       "path": "offline/start_local_workbench.py",
       "size": 1440,
-      "sha256": "4b1277f766784a7595c81e54e09688aa398157ff4804adc3344d522c8a10809e",
+      "sha256": "197718551a0be5b95b8fbb8fd3f14c8825d52a77f88ae58bfe5be149312575dd",
       "required": true
     },
     {
@@ -30,13 +31,13 @@
     {
       "path": "offline/web/index.html",
       "size": 1928,
-      "sha256": "bd83c74886d8b524f2627b836affbe86f9976cf34d65bdefa902fcff15078ecb",
+      "sha256": "07c8aedec77663df2fe5ccb09b4f85ca7d37ded25fe0700a3b86c42ff09cef5c",
       "required": true
     },
     {
       "path": "offline/web/app.js",
       "size": 3247,
-      "sha256": "3ca5f6e4e9695cb2d00f66e6533f55432d3029eb17e91f1c83d2e7434335fa37",
+      "sha256": "da6de8eb87c5d8cad6885a81aa57a0593cb62e4bf3138d810ea2a19c48cef355",
       "required": true
     },
     {
@@ -48,19 +49,19 @@
     {
       "path": "offline/web/manifest.webmanifest",
       "size": 300,
-      "sha256": "6c8c732bc4b849c02133583870ecc11f1e39958f3c0cb30d75e5ed653ef61dfa",
+      "sha256": "d5bac8010c6cc83230cef3b326fd065c83a341777699412298cf96b5229e4e47",
       "required": true
     },
     {
       "path": "offline/web/service-worker.js",
       "size": 696,
-      "sha256": "db8d4d57e9dbebdf7be4cf1ee82d70e027b74443f8d77ad22500d0ebc03f1dc0",
+      "sha256": "ac8715941ee36214ae649b06e68f6c68aa9cf68dfa5cd28ea785bce9b757db38",
       "required": true
     },
     {
       "path": "installers/common/install_workbench_common.sh",
-      "size": 3014,
-      "sha256": "3b1ece66fb96360eedc04d38c3a325c9ee6cc8035db86e378ba134c22fb6031e",
+      "size": 3049,
+      "sha256": "0705f1dd715f9631ed5a51b6822f7d46a5451a727462eab3d152ab8c901d4934",
       "required": true
     },
     {
@@ -78,7 +79,7 @@
     {
       "path": "installers/linux/install_workbench_linux.sh",
       "size": 823,
-      "sha256": "d0f1001e94e0d247dccc5bd3b5e84b383747586db1f81cf9aa8fcf80e8e6f1b6",
+      "sha256": "8312e4523b1aca3fca73c6efbc3bdb94122712a2261cf27f57b92240ed3d14cf",
       "required": true
     },
     {
@@ -89,8 +90,8 @@
     },
     {
       "path": "backend/app/main.py",
-      "size": 3362,
-      "sha256": "d47c03ea7ee8f83c870baf620bba46fbd1c6b6e07369fbdac6fc38f4247561a3",
+      "size": 3527,
+      "sha256": "1d6206a566e404a7f032c10b154364b64133b2709a928452f054e2d71f18c435",
       "required": true
     },
     {
@@ -112,6 +113,12 @@
       "required": true
     },
     {
+      "path": "backend/app/v401.py",
+      "size": 19317,
+      "sha256": "9eb4b3d2fc80650a3ee90452f8ac3cfb37279883b81c909eb64a895d9815d4e7",
+      "required": true
+    },
+    {
       "path": "docs/V400_SECURITY_BOUNDARY.md",
       "size": 1042,
       "sha256": "9ae169f0411da81a619f23fcd36d5b2726323546fc2ce7f631fa597b4a0dae49",
@@ -122,7 +129,19 @@
       "size": 1054,
       "sha256": "5f44148ada4d09c2c74809541e6a6c78385bc005bc7de5165be57f9ffae2b4cd",
       "required": true
+    },
+    {
+      "path": "docs/V401_SECURITY_BOUNDARY.md",
+      "size": 525,
+      "sha256": "5dfa20b1c0b134f717341444a7bc56bc1bb10f231f579a460d50ceaa53cca85e",
+      "required": true
+    },
+    {
+      "path": "examples/v401-connected-reliability-fixture.json",
+      "size": 1640,
+      "sha256": "9fe6e53a9f383413d7176ec8995b4314c7495d9f73f6c13c6213ca59ea824599",
+      "required": true
     }
   ],
-  "manifestHash": "e189ee72a8d62e3e441e4c7f1fb920dab530e629070af2a4d13752bfda72c3d0"
+  "manifestHash": "9f0081805aec7d2b0c73dbce0879478da536b3ff1eac43f204a1b396a98cef9c"
 }

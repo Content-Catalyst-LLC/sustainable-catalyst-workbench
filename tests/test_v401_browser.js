@@ -1,0 +1,7 @@
+const fs=require('fs');const path=require('path');const vm=require('vm');const assert=require('assert');
+const document={readyState:'complete',documentElement:{},body:{textContent:'',querySelectorAll(){return[];}},querySelector(){return null;},querySelectorAll(){return[];},addEventListener(){},dispatchEvent(){}};
+const windowObject={setTimeout,clearTimeout,addEventListener(){}};
+const context={window:windowObject,document,console,Promise,Date,JSON,Array,String,Number,Object,Math,Error,CustomEvent:function(type,options){this.type=type;this.detail=options&&options.detail;},MutationObserver:undefined};Object.assign(windowObject,{window:windowObject,document});
+const source=fs.readFileSync(path.join(__dirname,'..','wordpress-plugin','sustainable-catalyst-workbench','assets','js','sc-workbench-v401.js'),'utf8');
+for(const marker of ["var VERSION = '4.0.1'",'expectedStudios: EXPECTED','automaticRepairAuthorized: false','automaticDeletionAuthorized: false','literal-shortcode'])assert(source.includes(marker),`Missing marker: ${marker}`);
+vm.runInNewContext(source,context,{filename:'sc-workbench-v401.js'});const api=windowObject.SCWBConnectedReliability;assert(api,'Reliability API not exported');assert.strictEqual(api.version,'4.0.1');assert.strictEqual(api.expectedStudios,22);assert.strictEqual(api.automaticRepairAuthorized,false);assert.strictEqual(api.automaticDeletionAuthorized,false);assert.strictEqual(api.fallbackPlan().order.length,3);console.log('Workbench v4.0.1 browser connected reliability regression passed.');
