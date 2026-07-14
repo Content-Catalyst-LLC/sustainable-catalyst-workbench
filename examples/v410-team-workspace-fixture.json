@@ -1,0 +1,49 @@
+{
+  "schema": "sc-workbench-team-workspace-fixture/1.0",
+  "version": "4.1.0",
+  "organization": {
+    "organizationId": "sustainable-catalyst",
+    "name": "Sustainable Catalyst",
+    "ownerUserIds": [
+      "owner-1"
+    ]
+  },
+  "team": {
+    "teamId": "research-engineering",
+    "members": [
+      {
+        "userId": "owner-1",
+        "role": "owner",
+        "status": "active"
+      },
+      {
+        "userId": "reviewer-1",
+        "role": "reviewer",
+        "status": "active"
+      }
+    ]
+  },
+  "project": {
+    "projectId": "connected-team-project",
+    "title": "Connected Team Project",
+    "visibility": "team",
+    "revision": 1
+  },
+  "accessChecks": [
+    {
+      "userId": "owner-1",
+      "action": "project:write",
+      "expected": true
+    },
+    {
+      "userId": "reviewer-1",
+      "action": "project:delete",
+      "expected": false
+    }
+  ],
+  "safety": {
+    "automaticInvitationAcceptanceAuthorized": false,
+    "automaticMembershipEscalationAuthorized": false,
+    "automaticProjectDeletionAuthorized": false
+  }
+}

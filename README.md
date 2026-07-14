@@ -1,11 +1,12 @@
-# Sustainable Catalyst Workbench v4.0.2
+# Sustainable Catalyst Workbench v4.1.0
 
-**Connected Scientific and Engineering Workbench**
+**Hosted Collaborative Workspace and Authenticated Team Projects**
 
-Workbench v4.0.2 hardens and unifies persistent projects, calculations, code, simulations,
-devices, instruments, experiments, evidence, reviews, documentation, Domain
-Laboratories, Site Intelligence, Decision Studio, Research Librarian, the
-Knowledge Library, and offline operation under one auditable project contract.
+Workbench v4.1.0 extends the connected scientific and engineering environment with
+private organizations, authenticated teams, role-based access, invitation plans,
+shared project spaces, collaborative revisions, activity records, and portable team
+exports. Browser-local and offline workflows remain available, and the baseline does
+not require a paid external database.
 
 Primary shortcode:
 
@@ -13,23 +14,10 @@ Primary shortcode:
 [sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
 ```
 
-Connected environment studio:
+Team workspace:
 
 ```text
-[sc_workbench_connected_environment project="default"]
+[sc_workbench_team_workspace project="default" team="default"]
 ```
 
-## Operating boundary
-
-The connected environment plans and records work. It does not authorize arbitrary
-commands, remote shells, automatic publication, autonomous device control, or
-professional certification. Destructive and high-stakes actions remain subject to
-explicit human review and the controls established in earlier Workbench releases.
-
-See `V400_RELEASE_NOTES.md`, `docs/V400_SECURITY_BOUNDARY.md`, and
-`docs/V400_EXTENSION_CONTRACT.md` for the release contract.
-
-
-## v4.0.2 hardening
-
-Project graphs, three-way synchronization, transaction journals, recovery checkpoints, receipts, interrupted-sync recovery, and stress evaluation are available without adding a new main studio.
+See `V410_RELEASE_NOTES.md` and `docs/V410_SECURITY_BOUNDARY.md`.

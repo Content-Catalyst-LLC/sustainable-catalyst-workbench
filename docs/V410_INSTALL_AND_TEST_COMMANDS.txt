@@ -1,0 +1,7 @@
+bash scripts/test_v410_release.sh
+
+Primary shortcode:
+[sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
+
+Team workspace shortcode:
+[sc_workbench_team_workspace project="default" team="default"]

@@ -1,7 +1,7 @@
 {
   "schema": "sc-workbench-offline-package-manifest/1.0",
   "package": "sustainable-catalyst-workbench",
-  "version": "4.0.2",
+  "version": "4.1.0",
   "platforms": [
     "macos",
     "linux",
@@ -15,11 +15,15 @@
   "automaticCloudUpload": false,
   "connectedEnvironment": true,
   "connectedReliability": true,
+  "projectGraphHardening": true,
+  "syncRecoveryHardening": true,
+  "hostedTeamWorkspace": true,
+  "offlineTeamExportOnly": true,
   "files": [
     {
       "path": "offline/start_local_workbench.py",
       "size": 1440,
-      "sha256": "a90bbfa1ae95245c4285fecf51900d6b17687b07decca13f0577ddb35d35bb3f",
+      "sha256": "38b5bebce9c53689cc661d8e4110b0ace58468d40ed056ba67ba03024ac76ce7",
       "required": true
     },
     {
@@ -31,13 +35,13 @@
     {
       "path": "offline/web/index.html",
       "size": 1928,
-      "sha256": "0a6fa2b6ee33fb25118deca2e8c9351e9cc2365f18aa0b4ac7237bb39c60357a",
+      "sha256": "7c1fb231a3089ac11011b8c712fd9f4ac3541517102a8fc72d239439591bf8f5",
       "required": true
     },
     {
       "path": "offline/web/app.js",
       "size": 3247,
-      "sha256": "26983653cde8d9ef1bcf60b0b67e25f5845cd884b840f1fbec796e39ad4d49c5",
+      "sha256": "427dca2b90e4031956da1ee351e4316e4f70ed3684b8fc046953191eada2abc5",
       "required": true
     },
     {
@@ -49,19 +53,19 @@
     {
       "path": "offline/web/manifest.webmanifest",
       "size": 300,
-      "sha256": "7305110e3f97839c05a603f855e94207618c2ef2dc4f7c65a620ef43235dc3e1",
+      "sha256": "f16eec3261674cf5ec47333418a5f90da44be684865fbdae51274735d22a3fbb",
       "required": true
     },
     {
       "path": "offline/web/service-worker.js",
       "size": 696,
-      "sha256": "75c034a319ee1fe8d2f40b28fb68141e3d5d3daf0761807ee938ce410b2ebdad",
+      "sha256": "9b337ccabf46311f557b9928edca58316b1a0901a4f31cfb33c5f69d276ff426",
       "required": true
     },
     {
       "path": "installers/common/install_workbench_common.sh",
-      "size": 3084,
-      "sha256": "aee0ea12151520a7d27bc78ff7d9a74f3e3a2d8835d92f5476b735e8c24c5332",
+      "size": 3119,
+      "sha256": "70e302148df2bce4977ff1a7cec5065d7d48a1a432cc1e1c4b2e2ddcbe892a3d",
       "required": true
     },
     {
@@ -79,7 +83,7 @@
     {
       "path": "installers/linux/install_workbench_linux.sh",
       "size": 823,
-      "sha256": "1faa0ccd2b9cfb37701e94399b08416ddd7c13e9cdbc535da5d0b71884212faa",
+      "sha256": "2b34debc2ff022211835942945ea03280102e6bef2a94656029a470c52e2cea1",
       "required": true
     },
     {
@@ -90,8 +94,8 @@
     },
     {
       "path": "backend/app/main.py",
-      "size": 3686,
-      "sha256": "e3317e8b99ba990f287f6eb54ded665602fc34e43c0726ebf81d2d06a61c449d",
+      "size": 3853,
+      "sha256": "d6869af6288c09b97fd548a883f3f6c5aff9f973be8a2e8337ca95fe526e86b0",
       "required": true
     },
     {
@@ -119,6 +123,18 @@
       "required": true
     },
     {
+      "path": "backend/app/v402.py",
+      "size": 24268,
+      "sha256": "782e2a381107247b007c909eb12baed2c510756d15818a7485592acc0669c6ca",
+      "required": true
+    },
+    {
+      "path": "backend/app/v410.py",
+      "size": 19781,
+      "sha256": "9a611d62611345ca553a947bcc074c5d9ac8314a4d8145e1c6bd053372b7e0b5",
+      "required": true
+    },
+    {
       "path": "docs/V400_SECURITY_BOUNDARY.md",
       "size": 1042,
       "sha256": "9ae169f0411da81a619f23fcd36d5b2726323546fc2ce7f631fa597b4a0dae49",
@@ -143,12 +159,6 @@
       "required": true
     },
     {
-      "path": "backend/app/v402.py",
-      "size": 24268,
-      "sha256": "782e2a381107247b007c909eb12baed2c510756d15818a7485592acc0669c6ca",
-      "required": true
-    },
-    {
       "path": "docs/V402_SECURITY_BOUNDARY.md",
       "size": 596,
       "sha256": "4b39f26c2f8595a9a8ef8d3454c7ad912b568794c5fa1bcb6009507f93d856ec",
@@ -159,9 +169,19 @@
       "size": 1137,
       "sha256": "d28a65129565ce90ede60a1ae303ca14ed6dc620ab8db0ddf8e0ce1eaf33409a",
       "required": true
+    },
+    {
+      "path": "docs/V410_SECURITY_BOUNDARY.md",
+      "size": 703,
+      "sha256": "c466a3c56ae432be79151a459ec126524033b59a1c4c859229f2c42710770f97",
+      "required": true
+    },
+    {
+      "path": "examples/v410-team-workspace-fixture.json",
+      "size": 1052,
+      "sha256": "1aff8b892e47d673fd9857f1e57ed7547576181b431454da312bd8b6522dc5f7",
+      "required": true
     }
   ],
-  "manifestHash": "6178a4fa1a7ac88b46f66cba09e97d378ff8aa4fe7b09c2462b7a039c1d429f8",
-  "projectGraphHardening": true,
-  "syncRecoveryHardening": true
+  "manifestHash": "7afb6b4a29d52baa170883aecae945b934a44d2a4d99ac304df78cde62c49cd4"
 }
