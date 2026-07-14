@@ -1,7 +1,7 @@
 {
   "schema": "sc-workbench-offline-package-manifest/1.0",
   "package": "sustainable-catalyst-workbench",
-  "version": "4.5.0",
+  "version": "5.0.0",
   "platforms": [
     "macos",
     "linux",
@@ -35,8 +35,8 @@
     {
       "path": "backend/app/main.py",
       "required": true,
-      "size": 4522,
-      "sha256": "655011afe63c2f1c3689b6dcbf5c263aa72fa102caee4be247c55f56bd63e245"
+      "size": 4692,
+      "sha256": "b11cab3d5aa0a40e04b4d7d2d01c8eff2c67f9d20fe743b55e148139b3b6cc4d"
     },
     {
       "path": "backend/app/v380.py",
@@ -99,6 +99,12 @@
       "sha256": "2f0b1a629e2ad9ab9a84180dc7b4063a43c23f63418160383eb4731f2408aa3d"
     },
     {
+      "path": "backend/app/v500.py",
+      "required": true,
+      "size": 27473,
+      "sha256": "1f668b4c24d8edf4a9f967edd540cab30da433dea2117148438f86db602712f4"
+    },
+    {
       "path": "docs/V400_EXTENSION_CONTRACT.md",
       "required": true,
       "size": 1054,
@@ -159,6 +165,18 @@
       "sha256": "91cc5234a057d1e654abddb2089f81b19473ab87db709e636ae810272842a2d9"
     },
     {
+      "path": "docs/V500_INTEGRATED_PLATFORM.md",
+      "required": true,
+      "size": 960,
+      "sha256": "d904db8a0df0f144190f0445cb866cd917aa5ceed93d2cba0d5dfb08ec57f792"
+    },
+    {
+      "path": "docs/V500_SECURITY_BOUNDARY.md",
+      "required": true,
+      "size": 562,
+      "sha256": "4a9ca311681f11b265b99b910d1652bbee5ca2df1ea93535efe2d1427332d901"
+    },
+    {
       "path": "examples/v401-connected-reliability-fixture.json",
       "required": true,
       "size": 1640,
@@ -201,10 +219,16 @@
       "sha256": "a411a8f096a34eee98a6754fdc1ba9526e2c8671870fad56452ba7bfd603d6b1"
     },
     {
+      "path": "examples/v500-integrated-platform-fixture.json",
+      "required": true,
+      "size": 1565,
+      "sha256": "46763338ba6251d16eadc21dd16c10ea01d5dfeb6b93ce560912767dccd2361f"
+    },
+    {
       "path": "installers/common/install_workbench_common.sh",
       "required": true,
-      "size": 3326,
-      "sha256": "d5257832d3f5c3f70ad5336e1786046baf0573bb651f8ea585de5b57fbd65d3e"
+      "size": 3361,
+      "sha256": "05d8289230fef724eae6279b490561f08d68c242c974163216ead32b0aad79cf"
     },
     {
       "path": "installers/common/uninstall_workbench.sh",
@@ -216,7 +240,7 @@
       "path": "installers/linux/install_workbench_linux.sh",
       "required": true,
       "size": 823,
-      "sha256": "65a6b961f0d8e02d70526d04106b271f44e0d4131b613811861c99e19479f4e8"
+      "sha256": "0cdb7d918c8b2239d43f929be925afcc37538753cb8130b54067a2c660ae69cf"
     },
     {
       "path": "installers/macos/install_workbench_macos.command",
@@ -240,31 +264,31 @@
       "path": "offline/start_local_workbench.py",
       "required": true,
       "size": 1440,
-      "sha256": "d61c8f3d3253fed62118834a927ebe0be5c4f72d417b7593d4ad85a9195139ec"
+      "sha256": "508ef41f5a700fac0753cb719a5372d6d1528bbbf21d67ab66f5ea9ed3b4a3b6"
     },
     {
       "path": "offline/web/app.js",
       "required": true,
       "size": 3247,
-      "sha256": "ecc8fd371f734d7ae120d6580b9076c165789864d92e11d4035a31ad4e29dfe2"
+      "sha256": "577a285a310a2c2d40e42e04107970d9898d35865985d23f7998aa959a612c52"
     },
     {
       "path": "offline/web/index.html",
       "required": true,
       "size": 1984,
-      "sha256": "9a973f2d2148fc37f2c60ade0040a7d9dd38cb53daf54d43ed26a79dba7dbf64"
+      "sha256": "6a599fbacce2d91c2e6e3e957574d7765bd3a1e7573992143db19bd7c36a86c1"
     },
     {
       "path": "offline/web/manifest.webmanifest",
       "required": true,
       "size": 300,
-      "sha256": "3b9fed4f1dac134065219efe6035a8311d68b7371df593c1d1fd75f3757359a2"
+      "sha256": "334c7cf0c7f5176d2e6a2ebf25877411cb41e4525dbf71bd27f58f24f4c94235"
     },
     {
       "path": "offline/web/service-worker.js",
       "required": true,
       "size": 696,
-      "sha256": "c50ee67c1e546c2313abde316fdea55b257eb29610c05e8c4dca8a90646d8256"
+      "sha256": "794418643a18b25802fe520f0d7553788ebf183f8cc909e76cc312c002100f21"
     },
     {
       "path": "offline/web/styles.css",
@@ -273,7 +297,6 @@
       "sha256": "147cdaec162e3f47317586bf896caabdaeb2af7771b87ea7f4da577e6b5b85d1"
     }
   ],
-  "manifestHash": "259fd82908301d1c8888d5a49e3e0dfb9f07701623f47fa1a31247a24e140cd1",
   "extensionSDK": true,
   "privateExtensionRegistry": true,
   "offlineExtensionDevelopment": true,
@@ -282,5 +305,20 @@
   "automaticPrivilegeEscalationAuthorized": false,
   "arbitraryCodeExecutionAuthorized": false,
   "remoteShellAuthorized": false,
-  "automaticExtensionPublicationAuthorized": false
+  "automaticExtensionPublicationAuthorized": false,
+  "integratedResearchEngineeringPlatform": true,
+  "canonicalPlatformProjects": true,
+  "crossSurfaceWorkflows": true,
+  "platformIntegrityAudits": true,
+  "humanControlledGovernanceGates": true,
+  "verifiedDeploymentPlanning": true,
+  "portableIntegratedPackages": true,
+  "automaticWorkflowExecutionAuthorized": false,
+  "automaticPublicationAuthorized": false,
+  "automaticCertificationAuthorized": false,
+  "automaticDeviceExecutionAuthorized": false,
+  "automaticDestructiveSynchronizationAuthorized": false,
+  "automaticHighStakesDecisionAuthorized": false,
+  "arbitraryCommandExecutionAuthorized": false,
+  "manifestHash": "e4820d6c1c069e4f6d89f3bd7fac523ebd8de7d9adafa474bd7abb4227b2e3e5"
 }

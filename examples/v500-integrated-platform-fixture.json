@@ -1,0 +1,91 @@
+{
+  "schema": "sc-workbench-v500-fixture/1.0",
+  "version": "5.0.0",
+  "project": {
+    "title": "Community energy resilience assessment",
+    "domains": [
+      "energy-engineering",
+      "urban-resilience"
+    ],
+    "highStakes": false
+  },
+  "surfaces": [
+    {
+      "id": "workbench",
+      "state": "ready"
+    },
+    {
+      "id": "lab",
+      "state": "ready"
+    },
+    {
+      "id": "site-intelligence",
+      "state": "ready"
+    },
+    {
+      "id": "decision-studio",
+      "state": "ready"
+    },
+    {
+      "id": "research-librarian",
+      "state": "ready"
+    },
+    {
+      "id": "knowledge-library",
+      "state": "ready"
+    },
+    {
+      "id": "wordpress",
+      "state": "ready"
+    },
+    {
+      "id": "offline",
+      "state": "ready"
+    }
+  ],
+  "workflow": [
+    {
+      "id": "frame",
+      "surface": "research-librarian",
+      "dependsOn": []
+    },
+    {
+      "id": "source",
+      "surface": "knowledge-library",
+      "dependsOn": [
+        "frame"
+      ]
+    },
+    {
+      "id": "data",
+      "surface": "site-intelligence",
+      "dependsOn": [
+        "source"
+      ]
+    },
+    {
+      "id": "model",
+      "surface": "workbench",
+      "dependsOn": [
+        "data"
+      ]
+    },
+    {
+      "id": "validate",
+      "surface": "lab",
+      "dependsOn": [
+        "model"
+      ],
+      "approvalRequired": true
+    },
+    {
+      "id": "brief",
+      "surface": "decision-studio",
+      "dependsOn": [
+        "validate"
+      ],
+      "approvalRequired": true
+    }
+  ],
+  "automaticPublicationAuthorized": false
+}
