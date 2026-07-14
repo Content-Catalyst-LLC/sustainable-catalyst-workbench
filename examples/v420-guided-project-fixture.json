@@ -1,0 +1,36 @@
+{
+  "schema": "sc-workbench-guided-project-fixture/1.0",
+  "version": "4.2.0",
+  "templateId": "engineering-design",
+  "intake": {
+    "projectId": "solar-microgrid-controller",
+    "title": "Solar Microgrid Controller",
+    "domain": "electrical-embedded",
+    "projectType": "engineering",
+    "objective": "Design and verify a controller for a small educational microgrid.",
+    "privateByDefault": true,
+    "highStakes": false
+  },
+  "requirements": [
+    {
+      "requirementId": "safe-state",
+      "title": "Enter a documented safe state after detected sensor failure",
+      "priority": "must",
+      "verificationMethod": "hardware-in-loop"
+    }
+  ],
+  "teamBindings": [
+    {
+      "userId": "owner",
+      "role": "project-owner"
+    },
+    {
+      "userId": "reviewer",
+      "role": "reviewer"
+    }
+  ],
+  "automaticExecutionAuthorized": false,
+  "automaticDeviceControlAuthorized": false,
+  "automaticPublicationAuthorized": false,
+  "automaticCertificationAuthorized": false
+}

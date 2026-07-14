@@ -1,12 +1,12 @@
-# Sustainable Catalyst Workbench v4.1.0
+# Sustainable Catalyst Workbench v4.2.0
 
-**Hosted Collaborative Workspace and Authenticated Team Projects**
+**Workflow Templates and Guided Scientific/Engineering Project Creation**
 
-Workbench v4.1.0 extends the connected scientific and engineering environment with
-private organizations, authenticated teams, role-based access, invitation plans,
-shared project spaces, collaborative revisions, activity records, and portable team
-exports. Browser-local and offline workflows remain available, and the baseline does
-not require a paid external database.
+Workbench v4.2.0 adds reusable, auditable project templates and guided setup for
+scientific investigations, engineering design, instrument validation, predictive
+analytics, sustainability systems assessments, and connected Lab-to-decision work.
+The workflow creates intake, requirements, milestones, validation gates, starter
+evidence placeholders, team role bindings, studio routes, and portable scaffolds.
 
 Primary shortcode:
 
@@ -14,10 +14,10 @@ Primary shortcode:
 [sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
 ```
 
-Team workspace:
+Guided projects:
 
 ```text
-[sc_workbench_team_workspace project="default" team="default"]
+[sc_workbench_guided_projects project="default" template="scientific-investigation" domain="physics"]
 ```
 
-See `V410_RELEASE_NOTES.md` and `docs/V410_SECURITY_BOUNDARY.md`.
+See `V420_RELEASE_NOTES.md` and `docs/V420_SECURITY_BOUNDARY.md`.

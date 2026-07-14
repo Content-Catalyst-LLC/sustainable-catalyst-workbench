@@ -1,0 +1,17 @@
+Sustainable Catalyst Workbench v4.2.0
+
+Run release validation:
+
+  bash scripts/test_v420_release.sh
+
+Run the local service:
+
+  python3 offline/start_local_workbench.py --no-browser
+
+Primary shortcode:
+
+  [sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
+
+Guided projects shortcode:
+
+  [sc_workbench_guided_projects project="default" template="engineering-design" domain="mechanical-thermal"]

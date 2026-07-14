@@ -1,11 +1,11 @@
 <?php
-/** Canonical Workbench v4.1.0 primary shortcode and studio router. */
+/** Canonical Workbench v4.2.0 primary shortcode and studio router. */
 if (!defined('ABSPATH')) {
     exit;
 }
 
 final class SCWB_Primary_Shortcode_Repair {
-    const VERSION = '4.1.0';
+    const VERSION = '4.2.0';
 
     public static function boot() {
         add_action('init', array(__CLASS__, 'register_assets'), 4);
@@ -53,7 +53,7 @@ final class SCWB_Primary_Shortcode_Repair {
     private static function render_studio($studio, $project, $key) {
         if (!shortcode_exists($studio['shortcode'])) {
             return sprintf(
-                '<div class="scwb-primary__module-error" role="alert"><strong>%s is unavailable.</strong><p>The shortcode <code>[%s]</code> is not registered. Install the complete Workbench v4.1.0 plugin and clear all caches.</p></div>',
+                '<div class="scwb-primary__module-error" role="alert"><strong>%s is unavailable.</strong><p>The shortcode <code>[%s]</code> is not registered. Install the complete Workbench v4.2.0 plugin and clear all caches.</p></div>',
                 esc_html($studio['label']),
                 esc_html($studio['shortcode'])
             );
@@ -132,13 +132,13 @@ final class SCWB_Primary_Shortcode_Repair {
             data-scwb-initial="<?php echo esc_attr($initial); ?>"
             data-scwb-project="<?php echo esc_attr($project); ?>"
             data-scwb-remember="<?php echo $remember ? 'true' : 'false'; ?>"
-            data-scwb-version="4.1.0"
+            data-scwb-version="4.2.0"
             aria-busy="true"
         >
             <noscript><div class="scwb-primary__module-error"><strong>JavaScript is required for Workbench studio navigation.</strong></div></noscript>
             <header class="scwb-primary__header">
                 <div>
-                    <p class="scwb-primary__eyebrow">Sustainable Catalyst Workbench v4.1.0</p>
+                    <p class="scwb-primary__eyebrow">Sustainable Catalyst Workbench v4.2.0</p>
                     <h2><?php echo esc_html($atts['title']); ?></h2>
                     <p>Open a persistent project workspace, the unified hub, or a specialist studio. Projects can autosave locally and optionally synchronize to private WordPress records.</p>
                 </div>
