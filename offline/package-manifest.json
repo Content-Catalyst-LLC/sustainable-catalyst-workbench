@@ -1,7 +1,7 @@
 {
   "schema": "sc-workbench-offline-package-manifest/1.0",
   "package": "sustainable-catalyst-workbench",
-  "version": "4.4.0",
+  "version": "4.5.0",
   "platforms": [
     "macos",
     "linux",
@@ -33,82 +33,10 @@
   "automaticReleaseApprovalAuthorized": false,
   "files": [
     {
-      "path": "offline/start_local_workbench.py",
-      "required": true,
-      "size": 1440,
-      "sha256": "2872c542b6a58fba5f872872b52b52e596e95f73a109287502b147c70d320f25"
-    },
-    {
-      "path": "offline/requirements.txt",
-      "required": true,
-      "size": 62,
-      "sha256": "d84c859a67c865264a8ce14ebb48698f1d4744736167fe70c9bf613b0b214653"
-    },
-    {
-      "path": "offline/web/index.html",
-      "required": true,
-      "size": 1984,
-      "sha256": "caaf20366f5972271b007f503e519939d7c4d60c55ee1b814e2c76f024073008"
-    },
-    {
-      "path": "offline/web/app.js",
-      "required": true,
-      "size": 3247,
-      "sha256": "7cd24363a610c364e1175095e122907f4cd9d0d82e7dd24f82ac8c7621856c81"
-    },
-    {
-      "path": "offline/web/styles.css",
-      "required": true,
-      "size": 1300,
-      "sha256": "147cdaec162e3f47317586bf896caabdaeb2af7771b87ea7f4da577e6b5b85d1"
-    },
-    {
-      "path": "offline/web/manifest.webmanifest",
-      "required": true,
-      "size": 300,
-      "sha256": "eeb733528d8500de677108a0b7f40ef5698e1a07326d42419e73c99728dabc37"
-    },
-    {
-      "path": "offline/web/service-worker.js",
-      "required": true,
-      "size": 696,
-      "sha256": "0885136d70c0b14a2ed16317de5a98ad85e653e4f2f9deaac8e0d434f46a29d4"
-    },
-    {
-      "path": "installers/common/install_workbench_common.sh",
-      "required": true,
-      "size": 3291,
-      "sha256": "a9dbaac341464913eca382d1fe8c7005c46890a6f87a7c1762edc3638ea2b839"
-    },
-    {
-      "path": "installers/common/uninstall_workbench.sh",
-      "required": true,
-      "size": 460,
-      "sha256": "54d84d515f318dad1000dc261dedce0b8fb9513e77e2a1e328763d7d14480490"
-    },
-    {
-      "path": "installers/macos/install_workbench_macos.command",
-      "required": true,
-      "size": 405,
-      "sha256": "db55b73cdfacbe81b20170ef35158ba5eff55dc568573cb8a74061b5bba9df83"
-    },
-    {
-      "path": "installers/linux/install_workbench_linux.sh",
-      "required": true,
-      "size": 823,
-      "sha256": "f27a08c185c44b8af366ceac06dad79372da5970f921cedf58668e59529ef1e4"
-    },
-    {
-      "path": "installers/raspberry-pi/install_workbench_raspberry_pi.sh",
-      "required": true,
-      "size": 965,
-      "sha256": "a34b59ff841c44f6ef337bb3439b1acbe3e053dd64442c59c241f91a8e2a234f"
-    },
-    {
       "path": "backend/app/main.py",
       "required": true,
-      "size": 4353,
-      "sha256": "0e45890ccee6d38ac69131e722e63acb791455624f15110df107874a4cca8982"
+      "size": 4522,
+      "sha256": "655011afe63c2f1c3689b6dcbf5c263aa72fa102caee4be247c55f56bd63e245"
     },
     {
       "path": "backend/app/v380.py",
@@ -147,70 +75,10 @@
       "sha256": "9a611d62611345ca553a947bcc074c5d9ac8314a4d8145e1c6bd053372b7e0b5"
     },
     {
-      "path": "docs/V400_SECURITY_BOUNDARY.md",
-      "required": true,
-      "size": 1042,
-      "sha256": "9ae169f0411da81a619f23fcd36d5b2726323546fc2ce7f631fa597b4a0dae49"
-    },
-    {
-      "path": "docs/V400_EXTENSION_CONTRACT.md",
-      "required": true,
-      "size": 1054,
-      "sha256": "5f44148ada4d09c2c74809541e6a6c78385bc005bc7de5165be57f9ffae2b4cd"
-    },
-    {
-      "path": "docs/V401_SECURITY_BOUNDARY.md",
-      "required": true,
-      "size": 525,
-      "sha256": "5dfa20b1c0b134f717341444a7bc56bc1bb10f231f579a460d50ceaa53cca85e"
-    },
-    {
-      "path": "examples/v401-connected-reliability-fixture.json",
-      "required": true,
-      "size": 1640,
-      "sha256": "9fe6e53a9f383413d7176ec8995b4314c7495d9f73f6c13c6213ca59ea824599"
-    },
-    {
-      "path": "docs/V402_SECURITY_BOUNDARY.md",
-      "required": true,
-      "size": 596,
-      "sha256": "4b39f26c2f8595a9a8ef8d3454c7ad912b568794c5fa1bcb6009507f93d856ec"
-    },
-    {
-      "path": "examples/v402-graph-sync-recovery-fixture.json",
-      "required": true,
-      "size": 1137,
-      "sha256": "d28a65129565ce90ede60a1ae303ca14ed6dc620ab8db0ddf8e0ce1eaf33409a"
-    },
-    {
-      "path": "docs/V410_SECURITY_BOUNDARY.md",
-      "required": true,
-      "size": 703,
-      "sha256": "c466a3c56ae432be79151a459ec126524033b59a1c4c859229f2c42710770f97"
-    },
-    {
-      "path": "examples/v410-team-workspace-fixture.json",
-      "required": true,
-      "size": 1052,
-      "sha256": "1aff8b892e47d673fd9857f1e57ed7547576181b431454da312bd8b6522dc5f7"
-    },
-    {
       "path": "backend/app/v420.py",
       "required": true,
       "size": 36421,
       "sha256": "dedd5d1632ccf506711c895155abee6f044c394397c37e72a25ae626651e325c"
-    },
-    {
-      "path": "docs/V420_SECURITY_BOUNDARY.md",
-      "required": true,
-      "size": 603,
-      "sha256": "7d8140fdbb67362f47fc1738f552c378e4ada5918e25e986a27c766edeba7f28"
-    },
-    {
-      "path": "examples/v420-guided-project-fixture.json",
-      "required": true,
-      "size": 995,
-      "sha256": "53d08db0f7c8664dcf9b64e09e47d8bc0bc6045b135b20056f96431365afa721"
     },
     {
       "path": "backend/app/v430.py",
@@ -219,22 +87,58 @@
       "sha256": "bca8450f3851e38b8757401493012438a788a93d7b42b5fb43ffe291186d54a8"
     },
     {
-      "path": "docs/V430_SECURITY_BOUNDARY.md",
-      "required": true,
-      "size": 667,
-      "sha256": "70379f220408e9acf0fed12c7c574c73ae64c64619cdca6894b97b664648988e"
-    },
-    {
-      "path": "examples/v430-data-pipeline-fixture.json",
-      "required": true,
-      "size": 1281,
-      "sha256": "7ea4d4cd8d557db46175b6fd5131dc92688dee7a00fdd03f264b2d627693870a"
-    },
-    {
       "path": "backend/app/v440.py",
       "required": true,
       "size": 24546,
       "sha256": "28da21b42e56ab650388bf263cb7ec0b22af19ccfce3891412605b4e89d5cbfa"
+    },
+    {
+      "path": "backend/app/v450.py",
+      "required": true,
+      "size": 29297,
+      "sha256": "2f0b1a629e2ad9ab9a84180dc7b4063a43c23f63418160383eb4731f2408aa3d"
+    },
+    {
+      "path": "docs/V400_EXTENSION_CONTRACT.md",
+      "required": true,
+      "size": 1054,
+      "sha256": "5f44148ada4d09c2c74809541e6a6c78385bc005bc7de5165be57f9ffae2b4cd"
+    },
+    {
+      "path": "docs/V400_SECURITY_BOUNDARY.md",
+      "required": true,
+      "size": 1042,
+      "sha256": "9ae169f0411da81a619f23fcd36d5b2726323546fc2ce7f631fa597b4a0dae49"
+    },
+    {
+      "path": "docs/V401_SECURITY_BOUNDARY.md",
+      "required": true,
+      "size": 525,
+      "sha256": "5dfa20b1c0b134f717341444a7bc56bc1bb10f231f579a460d50ceaa53cca85e"
+    },
+    {
+      "path": "docs/V402_SECURITY_BOUNDARY.md",
+      "required": true,
+      "size": 596,
+      "sha256": "4b39f26c2f8595a9a8ef8d3454c7ad912b568794c5fa1bcb6009507f93d856ec"
+    },
+    {
+      "path": "docs/V410_SECURITY_BOUNDARY.md",
+      "required": true,
+      "size": 703,
+      "sha256": "c466a3c56ae432be79151a459ec126524033b59a1c4c859229f2c42710770f97"
+    },
+    {
+      "path": "docs/V420_SECURITY_BOUNDARY.md",
+      "required": true,
+      "size": 603,
+      "sha256": "7d8140fdbb67362f47fc1738f552c378e4ada5918e25e986a27c766edeba7f28"
+    },
+    {
+      "path": "docs/V430_SECURITY_BOUNDARY.md",
+      "required": true,
+      "size": 667,
+      "sha256": "70379f220408e9acf0fed12c7c574c73ae64c64619cdca6894b97b664648988e"
     },
     {
       "path": "docs/V440_SECURITY_BOUNDARY.md",
@@ -243,11 +147,140 @@
       "sha256": "9f5ff50eb3b303faa9ac02bc77f37e8c8ebc89b1749cb976416a0fc6bba35641"
     },
     {
+      "path": "docs/V450_EXTENSION_SDK.md",
+      "required": true,
+      "size": 1168,
+      "sha256": "8e8eb07c7b8fd84fd4c3ab96e851942165524801fe044bdd8787ccf27b1c46e1"
+    },
+    {
+      "path": "docs/V450_SECURITY_BOUNDARY.md",
+      "required": true,
+      "size": 806,
+      "sha256": "91cc5234a057d1e654abddb2089f81b19473ab87db709e636ae810272842a2d9"
+    },
+    {
+      "path": "examples/v401-connected-reliability-fixture.json",
+      "required": true,
+      "size": 1640,
+      "sha256": "9fe6e53a9f383413d7176ec8995b4314c7495d9f73f6c13c6213ca59ea824599"
+    },
+    {
+      "path": "examples/v402-graph-sync-recovery-fixture.json",
+      "required": true,
+      "size": 1137,
+      "sha256": "d28a65129565ce90ede60a1ae303ca14ed6dc620ab8db0ddf8e0ce1eaf33409a"
+    },
+    {
+      "path": "examples/v410-team-workspace-fixture.json",
+      "required": true,
+      "size": 1052,
+      "sha256": "1aff8b892e47d673fd9857f1e57ed7547576181b431454da312bd8b6522dc5f7"
+    },
+    {
+      "path": "examples/v420-guided-project-fixture.json",
+      "required": true,
+      "size": 995,
+      "sha256": "53d08db0f7c8664dcf9b64e09e47d8bc0bc6045b135b20056f96431365afa721"
+    },
+    {
+      "path": "examples/v430-data-pipeline-fixture.json",
+      "required": true,
+      "size": 1281,
+      "sha256": "7ea4d4cd8d557db46175b6fd5131dc92688dee7a00fdd03f264b2d627693870a"
+    },
+    {
       "path": "examples/v440-evaluation-lab-fixture.json",
       "required": true,
       "size": 791,
       "sha256": "cae6e6d3f7e03cdcf2b38e007f2dbe590701ccf7e8d3c8a5cfa9cf1959c3d2db"
+    },
+    {
+      "path": "examples/v450-extension-sdk-fixture.json",
+      "required": true,
+      "size": 862,
+      "sha256": "a411a8f096a34eee98a6754fdc1ba9526e2c8671870fad56452ba7bfd603d6b1"
+    },
+    {
+      "path": "installers/common/install_workbench_common.sh",
+      "required": true,
+      "size": 3326,
+      "sha256": "d5257832d3f5c3f70ad5336e1786046baf0573bb651f8ea585de5b57fbd65d3e"
+    },
+    {
+      "path": "installers/common/uninstall_workbench.sh",
+      "required": true,
+      "size": 460,
+      "sha256": "54d84d515f318dad1000dc261dedce0b8fb9513e77e2a1e328763d7d14480490"
+    },
+    {
+      "path": "installers/linux/install_workbench_linux.sh",
+      "required": true,
+      "size": 823,
+      "sha256": "65a6b961f0d8e02d70526d04106b271f44e0d4131b613811861c99e19479f4e8"
+    },
+    {
+      "path": "installers/macos/install_workbench_macos.command",
+      "required": true,
+      "size": 405,
+      "sha256": "db55b73cdfacbe81b20170ef35158ba5eff55dc568573cb8a74061b5bba9df83"
+    },
+    {
+      "path": "installers/raspberry-pi/install_workbench_raspberry_pi.sh",
+      "required": true,
+      "size": 965,
+      "sha256": "a34b59ff841c44f6ef337bb3439b1acbe3e053dd64442c59c241f91a8e2a234f"
+    },
+    {
+      "path": "offline/requirements.txt",
+      "required": true,
+      "size": 62,
+      "sha256": "d84c859a67c865264a8ce14ebb48698f1d4744736167fe70c9bf613b0b214653"
+    },
+    {
+      "path": "offline/start_local_workbench.py",
+      "required": true,
+      "size": 1440,
+      "sha256": "d61c8f3d3253fed62118834a927ebe0be5c4f72d417b7593d4ad85a9195139ec"
+    },
+    {
+      "path": "offline/web/app.js",
+      "required": true,
+      "size": 3247,
+      "sha256": "ecc8fd371f734d7ae120d6580b9076c165789864d92e11d4035a31ad4e29dfe2"
+    },
+    {
+      "path": "offline/web/index.html",
+      "required": true,
+      "size": 1984,
+      "sha256": "9a973f2d2148fc37f2c60ade0040a7d9dd38cb53daf54d43ed26a79dba7dbf64"
+    },
+    {
+      "path": "offline/web/manifest.webmanifest",
+      "required": true,
+      "size": 300,
+      "sha256": "3b9fed4f1dac134065219efe6035a8311d68b7371df593c1d1fd75f3757359a2"
+    },
+    {
+      "path": "offline/web/service-worker.js",
+      "required": true,
+      "size": 696,
+      "sha256": "c50ee67c1e546c2313abde316fdea55b257eb29610c05e8c4dca8a90646d8256"
+    },
+    {
+      "path": "offline/web/styles.css",
+      "required": true,
+      "size": 1300,
+      "sha256": "147cdaec162e3f47317586bf896caabdaeb2af7771b87ea7f4da577e6b5b85d1"
     }
   ],
-  "manifestHash": "40517be6214d95557fbc090edf08fa688de9456ae5043e5011b1746e00460c59"
+  "manifestHash": "259fd82908301d1c8888d5a49e3e0dfb9f07701623f47fa1a31247a24e140cd1",
+  "extensionSDK": true,
+  "privateExtensionRegistry": true,
+  "offlineExtensionDevelopment": true,
+  "automaticExtensionInstallationAuthorized": false,
+  "automaticExtensionActivationAuthorized": false,
+  "automaticPrivilegeEscalationAuthorized": false,
+  "arbitraryCodeExecutionAuthorized": false,
+  "remoteShellAuthorized": false,
+  "automaticExtensionPublicationAuthorized": false
 }

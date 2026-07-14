@@ -1,8 +1,8 @@
-# Sustainable Catalyst Workbench v4.4.0
+# Sustainable Catalyst Workbench v4.5.0
 
-**Automated Evaluation, Benchmarking, and Comparison Laboratory**
+**Extension SDK, Plugin Registry, and Third-Party Module Framework**
 
-Workbench v4.4.0 adds benchmark catalogs, experiment matrices, repeated-trial statistics, baseline and candidate comparisons, regression detection, reproducibility audits, provisional leaderboards, human-controlled evaluation gates, and portable evaluation packages.
+Workbench v4.5.0 adds capability-scoped extension manifests, semantic compatibility checks, private registry records, lifecycle plans, hook contracts, SDK scaffolds, security audits, reproducible packages, and explicit human-controlled installation and activation boundaries.
 
 Primary shortcode:
 
@@ -10,10 +10,10 @@ Primary shortcode:
 [sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
 ```
 
-Evaluation Lab studio:
+Extension SDK studio:
 
 ```text
-[sc_workbench_evaluation_lab project="default" benchmark="default"]
+[sc_workbench_extension_sdk project="default" extension="default"]
 ```
 
-See `V440_RELEASE_NOTES.md` and `docs/V440_SECURITY_BOUNDARY.md`.
+See `V450_RELEASE_NOTES.md`, `docs/V450_EXTENSION_SDK.md`, and `docs/V450_SECURITY_BOUNDARY.md`.

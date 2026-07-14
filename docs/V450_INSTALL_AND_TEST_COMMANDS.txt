@@ -1,0 +1,5 @@
+python3 -m pytest -q tests/test_v450_foundation.py
+php tests/test_v450_plugin_activation.php
+php tests/test_v450_wordpress_runtime.php
+node tests/test_v450_browser.js
+bash scripts/test_v450_release.sh

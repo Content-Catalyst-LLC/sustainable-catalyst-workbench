@@ -1,0 +1,36 @@
+{
+  "schema": "sc-workbench-extension-fixture/1.0",
+  "version": "4.5.0",
+  "manifest": {
+    "extensionId": "sustainable-catalyst-example-panel",
+    "name": "Example Analysis Panel",
+    "version": "0.1.0",
+    "publisher": "Sustainable Catalyst Developer",
+    "coreCompatibility": {
+      "minimum": "4.5.0",
+      "maximum": "4.x"
+    },
+    "capabilities": [
+      "project.read",
+      "ui.panel"
+    ],
+    "hooks": [
+      "workbench.ready",
+      "project.opened"
+    ]
+  },
+  "compatibility": {
+    "compatible": true,
+    "coreVersion": "4.5.0"
+  },
+  "security": {
+    "sandboxRequired": true,
+    "arbitraryCodeExecutionAuthorized": false,
+    "remoteShellAuthorized": false
+  },
+  "lifecycle": {
+    "requiresExplicitApproval": true,
+    "automaticExtensionInstallationAuthorized": false,
+    "automaticExtensionActivationAuthorized": false
+  }
+}
