@@ -1,7 +1,7 @@
 {
   "schema": "sc-workbench-offline-package-manifest/1.0",
   "package": "sustainable-catalyst-workbench",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "platforms": [
     "macos",
     "linux",
@@ -35,8 +35,8 @@
     {
       "path": "backend/app/main.py",
       "required": true,
-      "size": 4692,
-      "sha256": "b11cab3d5aa0a40e04b4d7d2d01c8eff2c67f9d20fe743b55e148139b3b6cc4d"
+      "size": 5419,
+      "sha256": "e7d40b09537a324700f81a6c9e2f4d759dba5e6af8d98898a8bc858353be513a"
     },
     {
       "path": "backend/app/v380.py",
@@ -103,6 +103,12 @@
       "required": true,
       "size": 27473,
       "sha256": "1f668b4c24d8edf4a9f967edd540cab30da433dea2117148438f86db602712f4"
+    },
+    {
+      "path": "backend/app/v510.py",
+      "required": true,
+      "size": 14389,
+      "sha256": "8413e105dd2a2885a0126bc9bedd5cb4d8d621b55e2b8a6523f0a7d59f6ba3f1"
     },
     {
       "path": "docs/V400_EXTENSION_CONTRACT.md",
@@ -177,6 +183,18 @@
       "sha256": "4a9ca311681f11b265b99b910d1652bbee5ca2df1ea93535efe2d1427332d901"
     },
     {
+      "path": "docs/V510_SECURITY_BOUNDARY.md",
+      "required": true,
+      "size": 777,
+      "sha256": "04446a91cacd2a407e6657d99f71704944be726db45f2eab5e4190abdab96cda"
+    },
+    {
+      "path": "docs/V510_UNIVERSAL_MATHEMATICS.md",
+      "required": true,
+      "size": 2028,
+      "sha256": "735741c001798bce2b4f3b2d36433ddd4eed7315fa830b5c05b3e1b7259c92d1"
+    },
+    {
       "path": "examples/v401-connected-reliability-fixture.json",
       "required": true,
       "size": 1640,
@@ -223,6 +241,12 @@
       "required": true,
       "size": 1565,
       "sha256": "46763338ba6251d16eadc21dd16c10ea01d5dfeb6b93ce560912767dccd2361f"
+    },
+    {
+      "path": "examples/v510-mathematics-fixture.json",
+      "required": true,
+      "size": 639,
+      "sha256": "3ed90c94c72b42f95404de1fa634deabb35a69283937f6516c21308b27deeb95"
     },
     {
       "path": "installers/common/install_workbench_common.sh",
@@ -295,6 +319,24 @@
       "required": true,
       "size": 1300,
       "sha256": "147cdaec162e3f47317586bf896caabdaeb2af7771b87ea7f4da577e6b5b85d1"
+    },
+    {
+      "path": "wordpress-plugin/sustainable-catalyst-workbench/assets/css/sc-workbench-v510.css",
+      "required": true,
+      "size": 4104,
+      "sha256": "7edfcad360cb0733aa1b9f809c38cf691636c9983ed7f124afc89faba1517d65"
+    },
+    {
+      "path": "wordpress-plugin/sustainable-catalyst-workbench/assets/js/sc-workbench-v510.js",
+      "required": true,
+      "size": 4885,
+      "sha256": "48873bdfa0ffb5b8e2aced52e5593c2b103e7e1eb890877b2773daf14890c752"
+    },
+    {
+      "path": "wordpress-plugin/sustainable-catalyst-workbench/includes/scwb-v510-mathematics.php",
+      "required": true,
+      "size": 10587,
+      "sha256": "8bf41f7f8eb8a8387baff1d4560f6820f6cfafe30d3a1900490c810c44aa1f32"
     }
   ],
   "extensionSDK": true,
@@ -320,5 +362,11 @@
   "automaticDestructiveSynchronizationAuthorized": false,
   "automaticHighStakesDecisionAuthorized": false,
   "arbitraryCommandExecutionAuthorized": false,
-  "manifestHash": "e4820d6c1c069e4f6d89f3bd7fac523ebd8de7d9adafa474bd7abb4227b2e3e5"
+  "universalMathematicsEngine": true,
+  "restrictedAstMathParser": true,
+  "symbolicCAS": true,
+  "canonicalMathObjects": true,
+  "pythonEvalAuthorized": false,
+  "mathematicsArbitraryCodeExecutionAuthorized": false,
+  "manifestHash": "c5d6dcf2f6ca61fa19e42d9fea27e97f4092ffe9ca6487ba71a76c31b53eff95"
 }

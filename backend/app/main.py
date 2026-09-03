@@ -1,6 +1,26 @@
+import os
 from fastapi import FastAPI
-app = FastAPI(title="Sustainable Catalyst Workbench", version="5.0.0")
-version="5.0.0"
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI(title="Sustainable Catalyst Workbench", version="5.1.0")
+version="5.1.0"
+
+def _allowed_origins():
+    configured = [item.strip() for item in os.getenv("SCWB_ALLOWED_ORIGINS", "").split(",") if item.strip()]
+    return configured or [
+        "https://sustainablecatalyst.com",
+        "https://www.sustainablecatalyst.com",
+        "http://localhost",
+        "http://127.0.0.1",
+    ]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=_allowed_origins(),
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type", "Accept"],
+)
 
 # Workbench v2.0.0 foundation routes.
 from app.v200 import router as v200_router
@@ -147,3 +167,8 @@ app.include_router(v450_router)
 # Workbench v5.0.0 Sustainable Catalyst Integrated Research and Engineering Platform routes.
 from app.v500 import router as v500_router
 app.include_router(v500_router)
+
+
+# Workbench v5.1.0 Universal Mathematics & CAS Engine Foundation routes.
+from app.v510 import router as v510_router
+app.include_router(v510_router)

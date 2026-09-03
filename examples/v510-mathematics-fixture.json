@@ -1,0 +1,11 @@
+{
+  "schema": "sc-workbench-v510-fixture/1.0",
+  "version": "5.1.0",
+  "examples": [
+    {"operation": "factor", "expression": "x^2 + 4*x - 12", "expected": "(x - 2)*(x + 6)"},
+    {"operation": "solve", "equations": ["x^2 + 4*x - 12 = 0"], "variables": ["x"], "expectedSolutions": ["-6", "2"]},
+    {"operation": "differentiate", "expression": "sin(x)*exp(x)", "variable": "x"},
+    {"operation": "integrate", "expression": "x^2", "variable": "x", "lower": "0", "upper": "3", "expected": "9"},
+    {"operation": "substitute", "expression": "a*x^2+b*x+c", "substitutions": {"a": "2", "b": "3", "c": "1", "x": "4"}, "expected": "45"}
+  ]
+}

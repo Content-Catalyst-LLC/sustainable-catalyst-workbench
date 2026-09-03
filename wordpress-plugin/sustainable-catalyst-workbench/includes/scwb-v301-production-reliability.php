@@ -18,6 +18,7 @@ final class SCWB_V301_Production_Reliability {
 
     public static function studio_catalog() {
         return array(
+            'mathematics' => array('label' => 'Mathematics', 'shortcode' => 'sc_workbench_mathematics', 'description' => 'Exact symbolic mathematics, CAS operations, equation solving, calculus, arbitrary-precision evaluation, and canonical reusable math objects.'),
             'platform' => array('label' => 'Integrated Platform', 'shortcode' => 'sc_workbench_integrated_platform', 'description' => 'One canonical Sustainable Catalyst project, portfolio, workflow, integrity, governance, deployment, dossier, and portable package system across all public, private, and offline surfaces.'),
             'connected' => array('label' => 'Connected Environment', 'shortcode' => 'sc_workbench_connected_environment', 'description' => 'One auditable project environment connecting Workbench, Lab, Site Intelligence, Decision Studio, Research Librarian, the Knowledge Library, and offline operation.'),
             'unified' => array('label' => 'Unified Project Hub', 'shortcode' => 'sc_workbench_unified', 'description' => 'Shared projects, studio registry, health, handoffs, packages, and reset safeguards.'),

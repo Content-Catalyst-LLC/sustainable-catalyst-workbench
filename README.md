@@ -1,8 +1,8 @@
-# Sustainable Catalyst Workbench v5.0.0
+# Sustainable Catalyst Workbench v5.1.0
 
-**Extension SDK, Plugin Registry, and Third-Party Module Framework**
+**Universal Mathematics & CAS Engine Foundation**
 
-Workbench v5.0.0 adds capability-scoped extension manifests, semantic compatibility checks, private registry records, lifecycle plans, hook contracts, SDK scaffolds, security audits, reproducible packages, and explicit human-controlled installation and activation boundaries.
+Workbench v5.1.0 begins the calculator-gap closure with a secure symbolic mathematics core built on SymPy. It adds exact arithmetic, algebra/CAS operations, equation and system solving, differentiation, integration, limits, series, substitution, arbitrary-precision evaluation, canonical math objects, and a dedicated Mathematics Studio.
 
 Primary shortcode:
 
@@ -10,14 +10,13 @@ Primary shortcode:
 [sc_workbench topic="workbench" title="Sustainable Catalyst Workbench" display="full"]
 ```
 
-Extension SDK studio:
+Mathematics Studio:
 
 ```text
-[sc_workbench_extension_sdk project="default" extension="default"]
+[sc_workbench_mathematics project="default" title="Universal Mathematics"]
 ```
 
-See `V450_RELEASE_NOTES.md`, `docs/V450_EXTENSION_SDK.md`, and `docs/V450_SECURITY_BOUNDARY.md`.
-
+See `V510_RELEASE_NOTES.md`, `docs/V510_UNIVERSAL_MATHEMATICS.md`, and `docs/V510_SECURITY_BOUNDARY.md`.
 
 ## v5.0.0 Integrated Platform
 

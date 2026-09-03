@@ -1,0 +1,24 @@
+(function(){
+'use strict';
+var VERSION='5.1.0';
+function q(root,sel){return root.querySelector(sel);}function qa(root,sel){return Array.prototype.slice.call(root.querySelectorAll(sel));}
+function value(root,name){var el=q(root,'[data-scwb-v510-field="'+name+'"]');return el?String(el.value||'').trim():'';}
+function number(root,name,fallback){var n=Number(value(root,name));return Number.isFinite(n)?n:fallback;}
+function backend(){var configured=(window.SCWBV510Config&&window.SCWBV510Config.backendUrl)||'';return String(configured).replace(/\/$/,'');}
+function endpoint(path){var base=backend();return (base||window.location.origin)+'/v510/'+path;}
+function message(root,text,state){var el=q(root,'[data-scwb-v510-message]');if(el)el.textContent=text;var status=q(root,'[data-scwb-v510-status]');if(status&&state){status.dataset.state=state;}}
+function render(root,data){var result=data&&data.result?data.result:data;var output=q(root,'[data-scwb-v510-output]');if(output)output.textContent=JSON.stringify(data,null,2);var exact=q(root,'[data-scwb-v510-exact]'),decimal=q(root,'[data-scwb-v510-decimal]'),latex=q(root,'[data-scwb-v510-latex]');
+  if(result&&result.exactText!==undefined){if(exact)exact.textContent=result.exactText;if(decimal)decimal.textContent=result.decimalText||'—';if(latex)latex.textContent=result.latex||'—';}
+  else if(result&&result.solutions!==undefined){if(exact)exact.textContent=JSON.stringify(result.solutions);if(decimal)decimal.textContent=result.solutionCount+' solution set(s)';if(latex)latex.textContent='See structured result';}
+}
+async function request(root,path,payload){message(root,'Computing…','working');try{var r=await fetch(endpoint(path),{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)});var data=await r.json().catch(function(){return{};});if(!r.ok)throw new Error((data&&data.detail)||('HTTP '+r.status));render(root,data);message(root,'Complete.','ready');return data;}catch(err){render(root,{ok:false,error:String(err&&err.message||err),backend:endpoint('status')});message(root,'CAS backend unavailable: '+String(err&&err.message||err),'error');return null;}}
+function payloadFor(root,action){var precision=number(root,'precision',15);if(['simplify','expand','factor','evaluate'].indexOf(action)>=0)return ['compute',{operation:action,expression:value(root,'expression'),precision:precision}];
+ if(action==='solve')return ['solve',{equations:value(root,'equations').split(/\n+/).map(function(x){return x.trim();}).filter(Boolean),variables:value(root,'variables').split(',').map(function(x){return x.trim();}).filter(Boolean),precision:precision}];
+ if(['differentiate','integrate','limit','series'].indexOf(action)>=0){var payload={operation:action,expression:value(root,'calculus_expression'),variable:value(root,'variable')||'x',order:number(root,'order',1),point:value(root,'point')||'0',seriesOrder:number(root,'series_order',6),precision:precision};var lower=value(root,'lower'),upper=value(root,'upper');if(lower!=='')payload.lower=lower;if(upper!=='')payload.upper=upper;return ['calculus',payload];}
+ if(action==='parse')return ['parse',{expression:value(root,'object_expression'),precision:precision}];return null;}
+function init(root){qa(root,'[data-scwb-v510-tab]').forEach(function(btn){btn.addEventListener('click',function(){var key=btn.dataset.scwbV510Tab;qa(root,'[data-scwb-v510-tab]').forEach(function(x){var active=x===btn;x.classList.toggle('is-active',active);x.setAttribute('aria-selected',active?'true':'false');});qa(root,'[data-scwb-v510-view]').forEach(function(view){var active=view.dataset.scwbV510View===key;view.hidden=!active;view.classList.toggle('is-active',active);});});});
+ qa(root,'[data-scwb-v510-action]').forEach(function(btn){btn.addEventListener('click',function(){var spec=payloadFor(root,btn.dataset.scwbV510Action);if(spec)request(root,spec[0],spec[1]);});});
+ fetch(endpoint('status'),{headers:{'Accept':'application/json'}}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}).then(function(data){var status=q(root,'[data-scwb-v510-status]');if(status){status.textContent='CAS online · SymPy '+(data.engineVersion||'')+' · '+VERSION;status.dataset.state='ready';}message(root,'CAS backend ready.','ready');}).catch(function(){var status=q(root,'[data-scwb-v510-status]');if(status){status.textContent=backend()?'CAS backend offline':'Configure Workbench backend URL';status.dataset.state='error';}message(root,backend()?'Backend connection failed.':'Set SCWB_WORKBENCH_BACKEND_URL or use a same-origin /v510 proxy.','error');});
+}
+function boot(){qa(document,'[data-scwb-v510]').forEach(init);}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();window.SCWBMathematics={version:VERSION,endpoint:endpoint,payloadFor:payloadFor};
+})();
