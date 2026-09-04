@@ -1,4 +1,8 @@
-# Sustainable Catalyst Workbench v5.5.0
+# Sustainable Catalyst Workbench v5.6.0
+
+## v5.6.0 — Numerical Methods & Scientific Computing
+
+Workbench v5.6.0 adds bounded numerical root finding, integration and finite-difference differentiation, interpolation, initial-value ODE solvers, linear algebra, least squares, and bounded multivariable optimization. Numerical methods expose tolerances and diagnostics and preserve canonical reproducible result objects. The backend runtime advances to v5.6.0 and must be redeployed.
 
 ## v5.5.0 — Dynamic Geometry & Interactive Mathematics
 

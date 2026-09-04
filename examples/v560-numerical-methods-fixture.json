@@ -1,0 +1,8 @@
+{
+  "root": {"expression": "x^3-x-2", "variable": "x", "method": "brentq", "bracket": [1, 2]},
+  "integrate": {"expression": "sin(x)", "variable": "x", "lower": 0, "upper": 3.141592653589793, "method": "adaptive"},
+  "interpolate": {"xValues": [0, 1, 2, 3, 4], "yValues": [0, 1, 0, 1, 0], "method": "pchip"},
+  "ode": {"equations": ["-0.35*y"], "stateNames": ["y"], "initialValues": [1], "tMin": 0, "tMax": 12, "method": "RK45"},
+  "linearAlgebra": {"operation": "solve", "matrix": [[3, 2], [1, 2]], "vector": [5, 5]},
+  "optimize": {"expression": "(x-2)^2 + (y+1)^2", "variables": ["x", "y"], "initial": [0, 0], "bounds": [[-5, 5], [-5, 5]], "goal": "minimize"}
+}

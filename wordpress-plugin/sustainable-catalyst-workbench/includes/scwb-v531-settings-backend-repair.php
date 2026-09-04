@@ -158,6 +158,7 @@ final class SCWB_V531_Settings_Backend_Repair {
             'creative' => self::endpoint_probe($base, '/v530/status'),
             'advancedGraph' => self::endpoint_probe($base, '/v540/status'),
             'dynamicGeometry' => self::endpoint_probe($base, '/v550/status'),
+            'numericalComputing' => self::endpoint_probe($base, '/v560/status'),
         );
         $all_ok = true;
         foreach ($checks as $check) { if (empty($check['ok'])) { $all_ok = false; break; } }
@@ -241,6 +242,7 @@ final class SCWB_V531_Settings_Backend_Repair {
                         <div><span>BLACKBOARD + CREATIVE</span><b data-scwb-v531-check="creative">—</b></div>
                         <div><span>ADVANCED GRAPH</span><b data-scwb-v531-check="advancedGraph">—</b></div>
                         <div><span>DYNAMIC GEOMETRY</span><b data-scwb-v531-check="dynamicGeometry">—</b></div>
+                        <div><span>NUMERICAL COMPUTING</span><b data-scwb-v531-check="numericalComputing">—</b></div>
                     </div>
                 </div>
             </section>
@@ -249,7 +251,7 @@ final class SCWB_V531_Settings_Backend_Repair {
                 <div class="scwb-v531-admin__card-head"><div><p>EXECUTION</p><h2>Boundaries</h2></div></div>
                 <div class="scwb-v531-admin__boundary-grid">
                     <div><span>Browser interaction</span><b class="is-ready">Enabled</b><small>Graphing, controls, visualization, local interface state</small></div>
-                    <div><span>Server computation</span><b class="is-ready">Configured by backend</b><small>CAS, advanced graph analysis, dynamic geometry, Blackboard, creative mathematics</small></div>
+                    <div><span>Server computation</span><b class="is-ready">Configured by backend</b><small>CAS, advanced graph analysis, dynamic geometry, numerical methods, Blackboard, creative mathematics</small></div>
                     <div><span>Workbench Runner</span><b>Separate pairing</b><small>Approved local runtimes and engineering tools only</small></div>
                     <div><span>Physical device programming</span><b class="is-guarded">Manual approval</b><small>Public Prototype Bench remains export-only</small></div>
                 </div>
