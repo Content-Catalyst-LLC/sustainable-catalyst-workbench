@@ -1,4 +1,9 @@
-# Sustainable Catalyst Workbench v5.3.0
+# Sustainable Catalyst Workbench v5.3.1
+
+## v5.3.1 — Settings & Backend Connection Repair
+
+Workbench v5.3.1 adds a clear **Workbench → Settings** admin surface for backend configuration and connection testing, while refining the homepage Computational Instrument into a sleeker, denser showcase. The certified FastAPI backend remains v5.3.0 and does not require redeployment for this WordPress-side patch.
+
 
 ## Interactive Graph Mathematics
 

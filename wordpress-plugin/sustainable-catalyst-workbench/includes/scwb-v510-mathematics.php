@@ -43,6 +43,9 @@ final class SCWB_V510_Mathematics {
     }
 
     public static function backend_url($override = '') {
+        if (class_exists('SCWB_V531_Settings_Backend_Repair')) {
+            return SCWB_V531_Settings_Backend_Repair::backend_url($override);
+        }
         $candidate = trim((string) $override);
         if (!$candidate && defined('SCWB_WORKBENCH_BACKEND_URL')) {
             $candidate = trim((string) SCWB_WORKBENCH_BACKEND_URL);

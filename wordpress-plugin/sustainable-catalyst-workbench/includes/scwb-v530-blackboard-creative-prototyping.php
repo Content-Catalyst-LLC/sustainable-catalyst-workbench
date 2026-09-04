@@ -20,6 +20,9 @@ final class SCWB_V530_Blackboard_Creative_Prototyping {
     }
 
     public static function backend_url($override = '') {
+        if (class_exists('SCWB_V531_Settings_Backend_Repair')) {
+            return SCWB_V531_Settings_Backend_Repair::backend_url($override);
+        }
         $candidate = trim((string) $override);
         if (!$candidate && defined('SCWB_WORKBENCH_BACKEND_URL')) {
             $candidate = trim((string) SCWB_WORKBENCH_BACKEND_URL);
@@ -36,6 +39,7 @@ final class SCWB_V530_Blackboard_Creative_Prototyping {
         wp_enqueue_script('scwb-v530');
         wp_localize_script('scwb-v530', 'SCWBV530Config', array(
             'version' => self::VERSION,
+            'interfaceVersion' => defined('SCWB_VERSION') ? SCWB_VERSION : self::VERSION,
             'backendUrl' => self::backend_url($backend),
         ));
     }
@@ -180,14 +184,27 @@ final class SCWB_V530_Blackboard_Creative_Prototyping {
     <?php }
 
     private static function render_homepage() { ?>
-        <section class="scwb-v530-home" data-scwb-v530-home>
-            <div class="scwb-v530-home__top"><div><p>SUSTAINABLE CATALYST WORKBENCH</p><h3>Computational instrument</h3></div><span data-scwb-v530-home-status><i></i> v5.3 online</span></div>
-            <div class="scwb-v530-home__stage">
-                <div class="scwb-v530-home__blackboard"><span>BLACKBOARD</span><code data-scwb-v530-home-input>sin(2*pi*440*t)</code><strong data-scwb-v530-home-output>→ symbolic waveform</strong></div>
-                <div class="scwb-v530-home__visual"><canvas width="660" height="250" data-scwb-v530-home-canvas aria-label="Workbench capability visualization"></canvas><div data-scwb-v530-home-label>MATHEMATICS → SOUND</div></div>
-                <div class="scwb-v530-home__rail"><div><span>CAS</span><b>ONLINE</b></div><div><span>GRAPH</span><b>2D / 3D</b></div><div><span>CREATIVE</span><b>FORM / SOUND</b></div><div><span>PROTOTYPE</span><b>MCU / FPGA</b></div></div>
+        <section class="scwb-v530-home scwb-v531-home" data-scwb-v530-home>
+            <div class="scwb-v530-home__top scwb-v531-home__top">
+                <div><p>WORKBENCH / COMPUTATIONAL INSTRUMENT</p><h3>Mathematics into form, sound, and systems.</h3></div>
+                <span data-scwb-v530-home-status><i></i> v5.3.1 · checking backend</span>
             </div>
-            <div class="scwb-v530-home__footer"><p>Equation → graph → sound → form → physical system</p><a href="/workbench/">Open Workbench →</a></div>
+            <div class="scwb-v531-home__body">
+                <div class="scwb-v530-home__blackboard scwb-v531-home__equation">
+                    <span>LIVE TRANSFORMATION</span>
+                    <code data-scwb-v530-home-input>sin(2*pi*440*t)</code>
+                    <strong data-scwb-v530-home-output>→ A4 · waveform · harmonics</strong>
+                    <div class="scwb-v531-home__chain"><b>ƒ(x)</b><i>→</i><b>GRAPH</b><i>→</i><b>Hz</b><i>→</i><b>FORM</b><i>→</i><b>DEVICE</b></div>
+                </div>
+                <div class="scwb-v530-home__visual scwb-v531-home__visual">
+                    <div class="scwb-v531-home__mode" data-scwb-v530-home-label>MATHEMATICS → SOUND</div>
+                    <canvas width="760" height="300" data-scwb-v530-home-canvas aria-label="Workbench capability visualization"></canvas>
+                </div>
+            </div>
+            <div class="scwb-v531-home__capabilities" aria-label="Workbench capabilities">
+                <span><b>CAS</b> symbolic</span><span><b>GRAPH</b> 2D · 3D</span><span><b>SOUND</b> harmonics</span><span><b>FORM</b> parametric</span><span><b>PROTOTYPE</b> MCU · FPGA</span>
+            </div>
+            <div class="scwb-v530-home__footer scwb-v531-home__footer"><p>Equation → graph → sound → form → physical system</p><a href="/workbench/">Open Workbench →</a></div>
         </section>
     <?php }
 

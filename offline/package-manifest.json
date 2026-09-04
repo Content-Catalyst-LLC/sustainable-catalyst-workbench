@@ -1,7 +1,7 @@
 {
   "schema": "sc-workbench-offline-package-manifest/1.0",
   "package": "sustainable-catalyst-workbench",
-  "version": "5.3.0",
+  "version": "5.3.1",
   "platforms": [
     "macos",
     "linux",
@@ -329,14 +329,14 @@
     {
       "path": "wordpress-plugin/sustainable-catalyst-workbench/assets/js/sc-workbench-v510.js",
       "required": true,
-      "size": 4885,
-      "sha256": "48873bdfa0ffb5b8e2aced52e5593c2b103e7e1eb890877b2773daf14890c752"
+      "size": 4893,
+      "sha256": "4f54f71866340466b4aadf4d4ea9022e7ff6105aafcce8f6b533c353d9527400"
     },
     {
       "path": "wordpress-plugin/sustainable-catalyst-workbench/includes/scwb-v510-mathematics.php",
       "required": true,
-      "size": 10619,
-      "sha256": "c690997f47a45c9c1d03ea6e0278a27f9ee6d7eb5c839d880dfb2525dacc6586"
+      "size": 10772,
+      "sha256": "3302644f663f0c2a869ac0efab58894cae71cbeddce9510f187da282768937c8"
     },
     {
       "path": "backend/app/v520.py",
@@ -365,14 +365,14 @@
     {
       "path": "wordpress-plugin/sustainable-catalyst-workbench/assets/js/sc-workbench-v520.js",
       "required": true,
-      "size": 15092,
-      "sha256": "d5b53c617761ad533a8d9933fe4b786a8aef7224f32ff7b9b6c0fde53c18690d"
+      "size": 15096,
+      "sha256": "4cb97451db40c87f369c5ecc2eff18f59a8e0fd99d5a4ef9aac1c5d200c45acf"
     },
     {
       "path": "wordpress-plugin/sustainable-catalyst-workbench/includes/scwb-v520-graph-mathematics.php",
       "required": true,
-      "size": 11041,
-      "sha256": "2796a8baae1f84a419a9d3c319ee63cbd1d0bdc0294e07e769451d46c3f105a0"
+      "size": 11194,
+      "sha256": "5abd548c8b9213f1724f2d2258e7d403a08c25199a2dc0192c605ca741e004e4"
     },
     {
       "path": "backend/app/v530.py",
@@ -401,20 +401,92 @@
     {
       "path": "wordpress-plugin/sustainable-catalyst-workbench/assets/css/sc-workbench-v530.css",
       "required": true,
-      "size": 12699,
-      "sha256": "5be4c85dfefdcc230e559b64d0d12ce6625306c1f3ec07f915f062d45c116b3b"
+      "size": 15721,
+      "sha256": "bc4f1f0ee079c4eb4edbcf1e5fe60fcaa97b8773df8217b435b9810eab7934f2"
     },
     {
       "path": "wordpress-plugin/sustainable-catalyst-workbench/assets/js/sc-workbench-v530.js",
       "required": true,
-      "size": 15722,
-      "sha256": "12c98284575a606ef5c9218bb400ff7b25f26bd09fb082a97718a05277172072"
+      "size": 16094,
+      "sha256": "e9e29d10ccc34b34f2b645fa4b5506d643345ccec981ed01fb45498a4a83a4d8"
     },
     {
       "path": "wordpress-plugin/sustainable-catalyst-workbench/includes/scwb-v530-blackboard-creative-prototyping.php",
       "required": true,
-      "size": 16194,
-      "sha256": "c559bdd7c910285427e32c65b8b0f6fec031463fb02e90b37e43754aa649d6c0"
+      "size": 17037,
+      "sha256": "8bfea5f510548c6aecdc2d8e312714a57ebb758a58ffff1d99280f8ff1999cb1"
+    },
+    {
+      "path": "wordpress-plugin/sustainable-catalyst-workbench/includes/scwb-v531-settings-backend-repair.php",
+      "required": true,
+      "size": 13284,
+      "sha256": "451bbe122d857181b0f3c64de9c56a189e751d4b106151249605bcff9af4874b"
+    },
+    {
+      "path": "wordpress-plugin/sustainable-catalyst-workbench/assets/css/sc-workbench-v531-admin.css",
+      "required": true,
+      "size": 4269,
+      "sha256": "be2fe54992c5dab2b153fdf2fa2da4fdf587fa8d22fbce98b625e6c2aaf81cb4"
+    },
+    {
+      "path": "wordpress-plugin/sustainable-catalyst-workbench/assets/js/sc-workbench-v531-admin.js",
+      "required": true,
+      "size": 2249,
+      "sha256": "350d14197dbc3809ffaab89b64a2bc93fc86fa9d450356cf324730aeb4b8dfd6"
+    },
+    {
+      "path": "docs/V531_SETTINGS_BACKEND_CONNECTION_REPAIR.md",
+      "required": true,
+      "size": 736,
+      "sha256": "c4cbf6ef384367a0ed9bc8eeb223b3609337e96a956440b198f4c1d3202caf93"
+    },
+    {
+      "path": "docs/V531_HOMEPAGE_INSTRUMENT_REFINEMENT.md",
+      "required": true,
+      "size": 626,
+      "sha256": "19fc8327b74c9e81dddc451e92ea890c60ca44bdb9a91d6bb42f1d932f188b15"
+    },
+    {
+      "path": "V531_RELEASE_NOTES.md",
+      "required": true,
+      "size": 1464,
+      "sha256": "c08e6db1019530c0367d2bea8deb7b5cd938e446e4bfb844c3e0333b50ef4b40"
+    },
+    {
+      "path": "NO_BACKEND_REDEPLOY_REQUIRED_v5.3.1.md",
+      "required": true,
+      "size": 304,
+      "sha256": "70a90920a8a9dd16d085ed8a2ee6835dc2b897774f76e56fc39de0caebd2bbe5"
+    },
+    {
+      "path": "scripts/test_v531_release.sh",
+      "required": true,
+      "size": 3118,
+      "sha256": "2597eb9768fa7fe46ce1b0b0718777663385d93c08699cefbd1b7a438f30bf46"
+    },
+    {
+      "path": "tests/test_v531_plugin_activation.php",
+      "required": true,
+      "size": 1709,
+      "sha256": "e23af9724cd05841134eaf3cdbbeb242cf0303d69cfa96d33094f98be0781186"
+    },
+    {
+      "path": "tests/test_v531_wordpress_runtime.php",
+      "required": true,
+      "size": 4020,
+      "sha256": "a85651eea067d2cc8650ef96d156f1191038c80efb6d1e635efef7301e7c6b1f"
+    },
+    {
+      "path": "tests/test_v531_browser.js",
+      "required": true,
+      "size": 797,
+      "sha256": "a8c3deaef24e7df1c0994fbb3d61ce5b8ed1dea22640ca25cd829c214e1cced4"
+    },
+    {
+      "path": "tests/test_v531_settings_static.py",
+      "required": true,
+      "size": 1022,
+      "sha256": "001ae1edc6e9777009a9ae84c618dc0ee4ebf6e1a7e163abd90b5e21dbb2ae7f"
     }
   ],
   "extensionSDK": true,
@@ -446,7 +518,6 @@
   "canonicalMathObjects": true,
   "pythonEvalAuthorized": false,
   "mathematicsArbitraryCodeExecutionAuthorized": false,
-  "manifestHash": "c5d6dcf2f6ca61fa19e42d9fea27e97f4092ffe9ca6487ba71a76c31b53eff95",
   "computationalBlackboard": true,
   "deterministicSymbolicTranslation": true,
   "creativeMathematics": true,
@@ -454,5 +525,10 @@
   "physicalPrototypeBench": true,
   "pynqScaffolding": true,
   "homepageComputationalInstrument": true,
-  "automaticDeviceProgrammingAuthorized": false
+  "automaticDeviceProgrammingAuthorized": false,
+  "settingsBackendConnectionRepair": true,
+  "wordpressAdminBackendConfiguration": true,
+  "backendConnectionTest": true,
+  "homepageComputationalInstrumentRefined": true,
+  "manifestHash": "f899deac2591c846a1fe228cac499e6391c061be3273652d693a64b32d22de2f"
 }
