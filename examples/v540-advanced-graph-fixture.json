@@ -1,0 +1,21 @@
+{
+  "series": [
+    {"expression": "x^3-3*x", "label": "f", "visible": true, "derivativeOrder": 1},
+    {"expression": "0.5*x+1", "label": "g", "visible": true, "derivativeOrder": 0}
+  ],
+  "xMin": -4,
+  "xMax": 4,
+  "yMin": -6,
+  "yMax": 6,
+  "samples": 401,
+  "parameters": {"a": 1, "b": 1, "c": 0},
+  "analyses": ["roots", "extrema", "intersections"],
+  "tangentAt": 1,
+  "includeNormal": true,
+  "region": {
+    "expression": "x^2-4",
+    "comparator": "lte",
+    "level": 0,
+    "label": "x^2 <= 4"
+  }
+}

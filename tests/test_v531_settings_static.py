@@ -12,7 +12,7 @@ def test_v531_settings_and_homepage_markers():
     assert 'scwb-v531-home__capabilities' in home
     assert 'Equation → graph → sound → form → physical system' in home
 
-def test_backend_runtime_unchanged_for_patch():
+def test_v531_backend_compatibility_line_remains_available():
     main=(ROOT/'backend'/'app'/'main.py').read_text()
-    assert 'version="5.3.0"' in main
     assert 'from app.v530 import router as v530_router' in main
+    assert (ROOT/'backend'/'app'/'v530.py').exists()

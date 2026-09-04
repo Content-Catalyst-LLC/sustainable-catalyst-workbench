@@ -1,4 +1,9 @@
-# Sustainable Catalyst Workbench v5.3.3
+# Sustainable Catalyst Workbench v5.4.0
+
+## v5.4.0 — Advanced Graph Mathematics II
+
+Workbench v5.4.0 adds multi-expression graph objects, domain-restricted piecewise construction, derivative overlays, roots/extrema/intersections, tangent and normal construction, discontinuity and asymptote analysis, inequality regions, value tables, and direct zoom/pan/trace interaction. The backend runtime advances to v5.4.0 and must be redeployed.
+
 
 ## v5.3.3 — Homepage & Workbench Experience Integration Hardening
 

@@ -156,6 +156,7 @@ final class SCWB_V531_Settings_Backend_Repair {
             'cas' => self::endpoint_probe($base, '/v510/status'),
             'graph' => self::endpoint_probe($base, '/v520/status'),
             'creative' => self::endpoint_probe($base, '/v530/status'),
+            'advancedGraph' => self::endpoint_probe($base, '/v540/status'),
         );
         $all_ok = true;
         foreach ($checks as $check) { if (empty($check['ok'])) { $all_ok = false; break; } }
@@ -204,7 +205,7 @@ final class SCWB_V531_Settings_Backend_Repair {
                     <h1>Settings</h1>
                     <span>Backend connection, execution boundaries, and runtime status in one place.</span>
                 </div>
-                <div class="scwb-v531-admin__version">PLUGIN v<?php echo esc_html(self::VERSION); ?></div>
+                <div class="scwb-v531-admin__version">PLUGIN v<?php echo esc_html(defined('SCWB_VERSION') ? SCWB_VERSION : self::VERSION); ?></div>
             </div>
 
             <?php settings_errors(); ?>
@@ -237,6 +238,7 @@ final class SCWB_V531_Settings_Backend_Repair {
                         <div><span>CAS</span><b data-scwb-v531-check="cas">—</b></div>
                         <div><span>GRAPH</span><b data-scwb-v531-check="graph">—</b></div>
                         <div><span>BLACKBOARD + CREATIVE</span><b data-scwb-v531-check="creative">—</b></div>
+                        <div><span>ADVANCED GRAPH</span><b data-scwb-v531-check="advancedGraph">—</b></div>
                     </div>
                 </div>
             </section>
@@ -245,7 +247,7 @@ final class SCWB_V531_Settings_Backend_Repair {
                 <div class="scwb-v531-admin__card-head"><div><p>EXECUTION</p><h2>Boundaries</h2></div></div>
                 <div class="scwb-v531-admin__boundary-grid">
                     <div><span>Browser interaction</span><b class="is-ready">Enabled</b><small>Graphing, controls, visualization, local interface state</small></div>
-                    <div><span>Server computation</span><b class="is-ready">Configured by backend</b><small>CAS, graph analysis, Blackboard, creative mathematics</small></div>
+                    <div><span>Server computation</span><b class="is-ready">Configured by backend</b><small>CAS, advanced graph analysis, Blackboard, creative mathematics</small></div>
                     <div><span>Workbench Runner</span><b>Separate pairing</b><small>Approved local runtimes and engineering tools only</small></div>
                     <div><span>Physical device programming</span><b class="is-guarded">Manual approval</b><small>Public Prototype Bench remains export-only</small></div>
                 </div>

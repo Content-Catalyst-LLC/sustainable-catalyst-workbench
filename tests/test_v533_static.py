@@ -26,6 +26,7 @@ def test_v533_homepage_integration_contract():
     assert 'overflow-y: hidden' in css
 
 
-def test_v533_backend_runtime_unchanged():
-    assert 'version="5.3.0"' in (ROOT / 'backend' / 'app' / 'main.py').read_text()
-    assert 'sustainable-catalyst-workbench:5.3.0' in (ROOT / 'compose.yml').read_text()
+def test_v533_backend_compatibility_line_remains_available():
+    main=(ROOT / 'backend' / 'app' / 'main.py').read_text()
+    assert 'from app.v530 import router as v530_router' in main
+    assert 'sustainable-catalyst-workbench:' in (ROOT / 'compose.yml').read_text()
