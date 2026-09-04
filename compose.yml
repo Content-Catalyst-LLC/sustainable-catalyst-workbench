@@ -3,7 +3,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    image: sustainable-catalyst-workbench:5.2.0
+    image: sustainable-catalyst-workbench:5.3.0
     container_name: sc-workbench
     restart: unless-stopped
     environment:

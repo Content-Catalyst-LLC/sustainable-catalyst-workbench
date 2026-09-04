@@ -1,6 +1,11 @@
-# Sustainable Catalyst Workbench v5.2.0
+# Sustainable Catalyst Workbench v5.3.0
 
 ## Interactive Graph Mathematics
+
+
+## v5.3.0 — Computational Blackboard, Creative Mathematics & Physical Prototyping
+
+Workbench v5.3 adds deterministic blackboard translation, creative mathematics, music/acoustics mathematics, a physical prototype bench for Arduino/ESP32/Raspberry Pi/PYNQ/Verilog/VHDL, a distinct homepage computational instrument, and an advanced dark presentation for Graph Mathematics.
 
 Workbench v5.2.0 turns the v5.1 restricted CAS into a linked graphing environment. It adds Cartesian, parametric, polar, implicit/contour, vector-field, and 3D surface graph objects; live parameters; derivative and definite-integral overlays; roots, extrema, and intersections; and a dedicated Graph Mathematics studio.
 

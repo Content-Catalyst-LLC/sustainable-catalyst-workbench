@@ -103,6 +103,15 @@ final class SCWB_V520_Graph_Mathematics {
                 <button type="button" role="tab" data-scwb-v520-tab="vector" class="<?php echo 'vector'===$panel?'is-active':''; ?>" aria-selected="<?php echo 'vector'===$panel?'true':'false'; ?>">Vector Field</button>
                 <button type="button" role="tab" data-scwb-v520-tab="surface" class="<?php echo 'surface'===$panel?'is-active':''; ?>" aria-selected="<?php echo 'surface'===$panel?'true':'false'; ?>">3D Surface</button>
             </nav>
+            <div class="scwb-v520__processes" aria-label="Advanced graph process presets">
+                <span>ADVANCED PROCESSES</span>
+                <button type="button" data-scwb-v520-preset="oscillator">Damped oscillator</button>
+                <button type="button" data-scwb-v520-preset="lissajous">Parametric orbit</button>
+                <button type="button" data-scwb-v520-preset="rose">Polar symmetry</button>
+                <button type="button" data-scwb-v520-preset="implicit">Implicit field</button>
+                <button type="button" data-scwb-v520-preset="vortex">Vector vortex</button>
+                <button type="button" data-scwb-v520-preset="surface">3D wave surface</button>
+            </div>
             <div class="scwb-v520__layout">
                 <aside class="scwb-v520__controls">
                     <section data-scwb-v520-view="graph" <?php echo 'graph'===$panel?'':'hidden'; ?>>
