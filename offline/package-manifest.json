@@ -1,7 +1,7 @@
 {
   "schema": "sc-workbench-offline-package-manifest/1.0",
   "package": "sustainable-catalyst-workbench",
-  "version": "5.3.1",
+  "version": "5.3.2",
   "platforms": [
     "macos",
     "linux",
@@ -360,19 +360,19 @@
       "path": "wordpress-plugin/sustainable-catalyst-workbench/assets/css/sc-workbench-v520.css",
       "required": true,
       "size": 6116,
-      "sha256": "4e3777c5fa39f7df3f118bc727390e2685113d66c3a095e7b7ffb1ec9c1ddc43"
+      "sha256": "8a486fa7107a676e3063116ce2a02b5f196ac20d7c5cc6447b92f6b7b4581230"
     },
     {
       "path": "wordpress-plugin/sustainable-catalyst-workbench/assets/js/sc-workbench-v520.js",
       "required": true,
       "size": 15096,
-      "sha256": "4cb97451db40c87f369c5ecc2eff18f59a8e0fd99d5a4ef9aac1c5d200c45acf"
+      "sha256": "ba0fc3a00729ba52295714dc6a2e46f4d01eeeafd2069c1780764a21314f4bd8"
     },
     {
       "path": "wordpress-plugin/sustainable-catalyst-workbench/includes/scwb-v520-graph-mathematics.php",
       "required": true,
       "size": 11194,
-      "sha256": "5abd548c8b9213f1724f2d2258e7d403a08c25199a2dc0192c605ca741e004e4"
+      "sha256": "5148fbf3d6595ef35eb09cabe1db55eae2763f0ff5a4a5bc9fb2a3bc59b41e6d"
     },
     {
       "path": "backend/app/v530.py",
@@ -487,6 +487,58 @@
       "required": true,
       "size": 1022,
       "sha256": "001ae1edc6e9777009a9ae84c618dc0ee4ebf6e1a7e163abd90b5e21dbb2ae7f"
+    },
+    {
+      "path": "V532_RELEASE_NOTES.md",
+      "sha256": "893fc23fb9bfdd8f3e78aa5480c2e0da60deb911c2d7910eafcb253abaa3bb0f"
+    },
+    {
+      "path": "NO_BACKEND_REDEPLOY_REQUIRED_v5.3.2.md",
+      "sha256": "3039770ea7079e4b4d13699214338555140e6e142d6b1d8f8e2dc784bca58bd0"
+    },
+    {
+      "path": "docs/V532_COMPACT_SHOWCASE_ADVANCED_GRAPH.md",
+      "sha256": "a29fdc78a2d864e4bdbcf3019deab000f8f1e548412a82959123f1bb559f8ce3"
+    },
+    {
+      "path": "docs/V532_WORKBENCH_EXPERIENCE_REDESIGN.md",
+      "sha256": "2bd410620764b0ddcc57d5872b57a1a29ab1c215805f67eb29fa1fc91654e3c8"
+    },
+    {
+      "path": "docs/V532_SECURITY_BOUNDARY.md",
+      "sha256": "9c5d6208447564a403963aef207de7bdece5afefd618e5e72db9cf2acc8424cf"
+    },
+    {
+      "path": "scripts/test_v532_release.sh",
+      "sha256": "4a3034d6677bac6aa2a99c038fffecda580f1e5f42a3debbdb22d86f40d6a328"
+    },
+    {
+      "path": "tests/test_v532_static.py",
+      "sha256": "a99212e4be51f541f29964049cb6f0f539447165937a19bad2e135116e869613"
+    },
+    {
+      "path": "tests/test_v532_browser.js",
+      "sha256": "aab417cdd0ce3a13af32f59c2321003e8459e07e22f6e9accc0181aa9c137aa1"
+    },
+    {
+      "path": "tests/test_v532_plugin_activation.php",
+      "sha256": "35863bf108ccc875d6d26fffe49d5d7f5b863ee9115b535c60e6372c672d6c39"
+    },
+    {
+      "path": "tests/test_v532_wordpress_runtime.php",
+      "sha256": "f953cc60a70c6ca8700c9f734480872fc9277055989b774ebe68b9be912f6b36"
+    },
+    {
+      "path": "wordpress-plugin/sustainable-catalyst-workbench/includes/scwb-v532-compact-showcase-experience.php",
+      "sha256": "87f5c8540ed1df955d9d087aad9d346d3bbd9dc9828e3d7dfcbfb6c26f9c32b7"
+    },
+    {
+      "path": "wordpress-plugin/sustainable-catalyst-workbench/assets/css/sc-workbench-v532.css",
+      "sha256": "e210092f638cfa8b2c53e85959eee7e9294c2eecfeda7b3ce0fa58c327a5d1f3"
+    },
+    {
+      "path": "wordpress-plugin/sustainable-catalyst-workbench/assets/js/sc-workbench-v532.js",
+      "sha256": "3970d2eebda3e5494b5da6f0439c7d2efcb4aa49b27242244d9953a7984844ee"
     }
   ],
   "extensionSDK": true,

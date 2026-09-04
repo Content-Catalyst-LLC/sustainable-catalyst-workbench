@@ -140,7 +140,8 @@ final class SCWB_V520_Graph_Mathematics {
                     <div class="scwb-v520__readout"><strong>Linked graph object</strong><span data-scwb-v520-message aria-live="polite">Ready.</span><code data-scwb-v520-hash>—</code></div>
                 </aside>
                 <div class="scwb-v520__stage">
-                    <div class="scwb-v520__canvas-wrap"><canvas width="900" height="560" data-scwb-v520-canvas aria-label="Interactive mathematics graph"></canvas></div>
+                    <div class="scwb-v520__stage-tools" aria-label="Graph presentation controls"><span>ADVANCED GRAPH VIEW</span><div><button type="button" data-scwb-v520-stage-action="reset">Reset view</button><button type="button" data-scwb-v520-stage-action="fullscreen">Fullscreen</button></div></div>
+                    <div class="scwb-v520__canvas-wrap" data-scwb-v520-canvas-wrap><canvas width="900" height="560" data-scwb-v520-canvas aria-label="Interactive mathematics graph"></canvas><div class="scwb-v520__trace" data-scwb-v520-trace hidden></div></div>
                     <div class="scwb-v520__legend" data-scwb-v520-legend><span>Function</span></div>
                     <div class="scwb-v520__analysis" data-scwb-v520-analysis hidden></div>
                 </div>

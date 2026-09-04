@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 5.3.1
+ * Version: 5.3.2
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '5.3.1');
+define('SCWB_VERSION', '5.3.2');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -165,6 +165,10 @@ require_once __DIR__ . '/includes/scwb-v530-blackboard-creative-prototyping.php'
 // Workbench v5.3.1 — Settings & Backend Connection Repair.
 if (!defined('SCWB_V531_PLUGIN_FILE')) { define('SCWB_V531_PLUGIN_FILE', __FILE__); }
 require_once __DIR__ . '/includes/scwb-v531-settings-backend-repair.php';
+
+// Workbench v5.3.2 — Compact Computational Showcase, Advanced Graph Presentation & Workbench Experience Redesign.
+if (!defined('SCWB_V532_PLUGIN_FILE')) { define('SCWB_V532_PLUGIN_FILE', __FILE__); }
+require_once __DIR__ . '/includes/scwb-v532-compact-showcase-experience.php';
 
 // Canonical primary shortcode and unified studio selector.
 require_once __DIR__ . '/includes/scwb-primary-shortcode.php';

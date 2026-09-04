@@ -1,9 +1,8 @@
-# Sustainable Catalyst Workbench v5.3.1
+# Sustainable Catalyst Workbench v5.3.2
 
-## v5.3.1 — Settings & Backend Connection Repair
+## v5.3.2 — Compact Computational Showcase, Advanced Graph Presentation & Workbench Experience Redesign
 
-Workbench v5.3.1 adds a clear **Workbench → Settings** admin surface for backend configuration and connection testing, while refining the homepage Computational Instrument into a sleeker, denser showcase. The certified FastAPI backend remains v5.3.0 and does not require redeployment for this WordPress-side patch.
-
+Workbench v5.3.2 turns the homepage Computational Instrument into a compact rotating showcase, upgrades the Graph Mathematics presentation with higher-density scientific rendering and direct interaction, and adds a new `[sc_workbench_experience]` surface for rebuilding the public `/workbench/` page around live computation rather than a long capability catalog. The certified FastAPI backend remains v5.3.0; no backend redeploy is required for this interface release.
 
 ## Interactive Graph Mathematics
 
