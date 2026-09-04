@@ -216,6 +216,6 @@
     audit: audit,
     init: init,
     expectedStudios: EXPECTED.slice(),
-    version: '5.1.0'
+    version: '5.2.0'
   };
 })();

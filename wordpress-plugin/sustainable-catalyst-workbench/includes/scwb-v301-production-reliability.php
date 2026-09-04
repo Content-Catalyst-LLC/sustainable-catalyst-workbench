@@ -18,6 +18,7 @@ final class SCWB_V301_Production_Reliability {
 
     public static function studio_catalog() {
         return array(
+            'graph-mathematics' => array('label' => 'Graph Mathematics', 'shortcode' => 'sc_workbench_graph_mathematics', 'description' => 'Interactive Cartesian, parametric, polar, implicit, vector-field, and 3D graph mathematics with linked parameters, calculus overlays, roots, extrema, and intersections.'),
             'mathematics' => array('label' => 'Mathematics', 'shortcode' => 'sc_workbench_mathematics', 'description' => 'Exact symbolic mathematics, CAS operations, equation solving, calculus, arbitrary-precision evaluation, and canonical reusable math objects.'),
             'platform' => array('label' => 'Integrated Platform', 'shortcode' => 'sc_workbench_integrated_platform', 'description' => 'One canonical Sustainable Catalyst project, portfolio, workflow, integrity, governance, deployment, dossier, and portable package system across all public, private, and offline surfaces.'),
             'connected' => array('label' => 'Connected Environment', 'shortcode' => 'sc_workbench_connected_environment', 'description' => 'One auditable project environment connecting Workbench, Lab, Site Intelligence, Decision Studio, Research Librarian, the Knowledge Library, and offline operation.'),

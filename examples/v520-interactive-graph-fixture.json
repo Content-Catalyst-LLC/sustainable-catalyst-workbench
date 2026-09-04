@@ -1,0 +1,8 @@
+{
+  "cartesian": {"mode":"cartesian","expression":"a*sin(x)","parameters":{"a":2},"xMin":-6.283185307,"xMax":6.283185307,"yMin":-3,"yMax":3,"derivativeOverlay":true},
+  "parametric": {"mode":"parametric","expression":"2*cos(t)","expressionY":"sin(t)","tMin":0,"tMax":6.283185307},
+  "polar": {"mode":"polar","expression":"2*cos(3*theta)","tMin":0,"tMax":6.283185307},
+  "implicit": {"mode":"implicit","expression":"x^2+y^2=9","xMin":-4,"xMax":4,"yMin":-4,"yMax":4,"gridSize":45},
+  "vectorField": {"uExpression":"-y","vExpression":"x","xMin":-5,"xMax":5,"yMin":-5,"yMax":5},
+  "surface": {"expression":"sin(sqrt(x^2+y^2))","xMin":-6,"xMax":6,"yMin":-6,"yMax":6,"gridSize":31}
+}

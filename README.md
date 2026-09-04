@@ -1,4 +1,26 @@
-# Sustainable Catalyst Workbench v5.1.0
+# Sustainable Catalyst Workbench v5.2.0
+
+## Interactive Graph Mathematics
+
+Workbench v5.2.0 turns the v5.1 restricted CAS into a linked graphing environment. It adds Cartesian, parametric, polar, implicit/contour, vector-field, and 3D surface graph objects; live parameters; derivative and definite-integral overlays; roots, extrema, and intersections; and a dedicated Graph Mathematics studio.
+
+The graph engine inherits the v5.1 restricted AST parser. User expressions do not authorize arbitrary Python, shell access, automatic publication, or remote command execution.
+
+### Canonical endpoints
+
+- `GET /v520/status`
+- `POST /v520/graph`
+- `POST /v520/analyze`
+- `POST /v520/vector-field`
+- `POST /v520/surface`
+
+### WordPress
+
+- `[sc_workbench_graph_mathematics]`
+- `[sc_workbench_vector_field]`
+- `[sc_workbench_surface_graph]`
+
+## v5.1.0 Universal Mathematics & CAS Engine Foundation
 
 **Universal Mathematics & CAS Engine Foundation**
 

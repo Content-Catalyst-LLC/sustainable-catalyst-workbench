@@ -1,7 +1,7 @@
 {
   "schema": "sc-workbench-offline-package-manifest/1.0",
   "package": "sustainable-catalyst-workbench",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "platforms": [
     "macos",
     "linux",
@@ -35,8 +35,8 @@
     {
       "path": "backend/app/main.py",
       "required": true,
-      "size": 5419,
-      "sha256": "e7d40b09537a324700f81a6c9e2f4d759dba5e6af8d98898a8bc858353be513a"
+      "size": 5553,
+      "sha256": "7d965d21e11dbec3e74afba291f56eb4911d7b97e5db58f0a12f879e0dfa99dd"
     },
     {
       "path": "backend/app/v380.py",
@@ -335,8 +335,44 @@
     {
       "path": "wordpress-plugin/sustainable-catalyst-workbench/includes/scwb-v510-mathematics.php",
       "required": true,
-      "size": 10587,
-      "sha256": "8bf41f7f8eb8a8387baff1d4560f6820f6cfafe30d3a1900490c810c44aa1f32"
+      "size": 10619,
+      "sha256": "c690997f47a45c9c1d03ea6e0278a27f9ee6d7eb5c839d880dfb2525dacc6586"
+    },
+    {
+      "path": "backend/app/v520.py",
+      "required": true,
+      "size": 21239,
+      "sha256": "519873ee423d7d87f306f2d21af069c521323d275ba028d887ae1550b532e1e3"
+    },
+    {
+      "path": "docs/V520_INTERACTIVE_GRAPH_MATHEMATICS.md",
+      "required": true,
+      "size": 1230,
+      "sha256": "00861b93306d0f61b0a84f831300173cce9dade57ffa72f42b6d59c793f92b4b"
+    },
+    {
+      "path": "docs/V520_SECURITY_BOUNDARY.md",
+      "required": true,
+      "size": 646,
+      "sha256": "fff4fb238cb708e17e41d247382abb183c0ce90fbac7e188c7a5d3689b834870"
+    },
+    {
+      "path": "wordpress-plugin/sustainable-catalyst-workbench/assets/css/sc-workbench-v520.css",
+      "required": true,
+      "size": 4789,
+      "sha256": "a97128f058acf3832a9c8a2de6c21c752717bcd3d122466019cc3e48d45a6b24"
+    },
+    {
+      "path": "wordpress-plugin/sustainable-catalyst-workbench/assets/js/sc-workbench-v520.js",
+      "required": true,
+      "size": 13277,
+      "sha256": "a793d89f63b06032836ffc92fd04ff355f79d9296e69b8e7c8090b029ce8c7be"
+    },
+    {
+      "path": "wordpress-plugin/sustainable-catalyst-workbench/includes/scwb-v520-graph-mathematics.php",
+      "required": true,
+      "size": 10312,
+      "sha256": "cc91a3e3c3c918d0542dbb63f6c6e362e5abedf11071c68b42108ec797c27c9f"
     }
   ],
   "extensionSDK": true,
