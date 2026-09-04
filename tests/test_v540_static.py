@@ -7,10 +7,10 @@ PLUGIN = ROOT / 'wordpress-plugin' / 'sustainable-catalyst-workbench'
 def test_v540_backend_route_and_runtime_identity():
     main = (ROOT / 'backend' / 'app' / 'main.py').read_text()
     compose = (ROOT / 'compose.yml').read_text()
-    assert 'version="5.4.0"' in main
+    assert 'version="5.4.0"' in main or 'version="5.5.0"' in main
     assert 'from app.v540 import router as v540_router' in main
     assert 'app.include_router(v540_router)' in main
-    assert 'sustainable-catalyst-workbench:5.4.0' in compose
+    assert 'sustainable-catalyst-workbench:5.4.0' in compose or 'sustainable-catalyst-workbench:5.5.0' in compose
 
 
 def test_v540_wordpress_advanced_graph_contract():
@@ -18,7 +18,7 @@ def test_v540_wordpress_advanced_graph_contract():
     php = (PLUGIN / 'includes' / 'scwb-v540-advanced-graph-mathematics.php').read_text()
     js = (PLUGIN / 'assets' / 'js' / 'sc-workbench-v540.js').read_text()
     css = (PLUGIN / 'assets' / 'css' / 'sc-workbench-v540.css').read_text()
-    assert 'Version: 5.4.0' in main
+    assert 'Version: 5.4.0' in main or 'Version: 5.5.0' in main
     assert 'SCWB_V540_PLUGIN_FILE' in main
     assert "const VERSION = '5.4.0'" in php
     for marker in [

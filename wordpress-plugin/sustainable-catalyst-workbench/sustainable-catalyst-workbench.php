@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 5.4.0
+ * Version: 5.5.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '5.4.0');
+define('SCWB_VERSION', '5.5.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -177,6 +177,10 @@ require_once __DIR__ . '/includes/scwb-v533-integration-hardening.php';
 // Workbench v5.4.0 — Advanced Graph Mathematics II.
 if (!defined('SCWB_V540_PLUGIN_FILE')) { define('SCWB_V540_PLUGIN_FILE', __FILE__); }
 require_once __DIR__ . '/includes/scwb-v540-advanced-graph-mathematics.php';
+
+// Workbench v5.5.0 — Dynamic Geometry & Interactive Mathematics.
+if (!defined('SCWB_V550_PLUGIN_FILE')) { define('SCWB_V550_PLUGIN_FILE', __FILE__); }
+require_once __DIR__ . '/includes/scwb-v550-dynamic-geometry.php';
 
 // Canonical primary shortcode and unified studio selector.
 require_once __DIR__ . '/includes/scwb-primary-shortcode.php';

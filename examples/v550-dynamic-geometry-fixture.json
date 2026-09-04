@@ -1,0 +1,16 @@
+{
+  "points": [
+    {"id": "A", "x": -3, "y": -2, "label": "A", "draggable": true, "fixed": false},
+    {"id": "B", "x": 3, "y": -1, "label": "B", "draggable": true, "fixed": false},
+    {"id": "C", "x": 0, "y": 3, "label": "C", "draggable": true, "fixed": false}
+  ],
+  "objects": [
+    {"id": "triangle", "type": "polygon", "pointIds": ["A", "B", "C"], "label": "ABC", "visible": true}
+  ],
+  "constraints": [
+    {"type": "horizontal", "pointIds": ["A", "B"]}
+  ],
+  "solveConstraints": true,
+  "tolerance": 1e-7,
+  "iterations": 30
+}

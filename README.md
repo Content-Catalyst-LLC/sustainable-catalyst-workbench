@@ -1,4 +1,8 @@
-# Sustainable Catalyst Workbench v5.4.0
+# Sustainable Catalyst Workbench v5.5.0
+
+## v5.5.0 — Dynamic Geometry & Interactive Mathematics
+
+Workbench v5.5.0 makes mathematics directly manipulable. It adds draggable geometry, bounded constraints, live measurements, algebra ↔ geometry linkage, affine/matrix transformations, conic families, expression-linked loci, and canonical reproducible geometry objects. The backend runtime advances to v5.5.0 and must be redeployed.
 
 ## v5.4.0 — Advanced Graph Mathematics II
 
