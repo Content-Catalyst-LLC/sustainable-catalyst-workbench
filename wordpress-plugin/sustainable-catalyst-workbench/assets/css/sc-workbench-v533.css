@@ -1,0 +1,106 @@
+/* Workbench v5.3.3 — homepage and Workbench experience integration hardening. */
+
+/* Homepage placement contract. Works with the explicit homepage wrapper introduced
+   during v5.3.2 integration and also with a bare shortcode directly under cc-home-v4. */
+.cch-workbench-showcase {
+  width: 100%;
+  margin: clamp(28px, 4vw, 48px) 0;
+  padding: 0;
+}
+.cch-workbench-showcase__inner {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+}
+.cc-home-v4 > .scwb-v533-home {
+  width: min(1180px, calc(100% - 40px));
+  margin: clamp(28px, 4vw, 48px) auto;
+}
+.cch-workbench-showcase__inner > .scwb-v533-home,
+.scwb-v533-home {
+  min-height: 0 !important;
+}
+.cch-workbench-showcase__inner > .scwb-v533-home {
+  width: 100%;
+  margin: 0 !important;
+}
+
+/* Keep the homepage instrument compact even if older theme rules try to expand it. */
+.scwb-v533-home .scwb-v532-home__header {
+  min-height: 50px;
+  padding-top: 9px;
+  padding-bottom: 9px;
+}
+.scwb-v533-home .scwb-v532-home__stage {
+  height: 175px;
+}
+.scwb-v533-home .scwb-v532-home__readout {
+  padding: 15px 17px;
+}
+.scwb-v533-home .scwb-v532-home__visual {
+  padding: 5px 8px;
+}
+.scwb-v533-home .scwb-v532-home__visual canvas {
+  height: 165px;
+}
+.scwb-v533-home .scwb-v532-home__rail button {
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+.scwb-v533-home .scwb-v532-home__footer {
+  min-height: 38px;
+}
+.scwb-v533-home .scwb-v532-home__open {
+  white-space: nowrap;
+  font-weight: 850;
+}
+
+/* The rotating rail may move horizontally but must never create vertical layout shift. */
+.scwb-v533-home .scwb-v532-home__rail {
+  overscroll-behavior-inline: contain;
+  scroll-behavior: smooth;
+  overflow-y: hidden;
+}
+
+/* Experience page integration: avoid inherited theme margins around the full instrument. */
+.scwb-v533-experience {
+  width: 100%;
+  margin-inline: auto;
+}
+
+.scwb-v533-missing {
+  display: grid;
+  gap: 5px;
+  padding: 18px;
+  border: 1px solid #59393d;
+  background: #160b0c;
+  color: #ffb4b9;
+}
+
+@media (max-width: 900px) {
+  .cch-workbench-showcase__inner,
+  .cc-home-v4 > .scwb-v533-home {
+    width: min(100% - 28px, 1180px);
+  }
+}
+
+@media (max-width: 720px) {
+  .cch-workbench-showcase {
+    margin: 24px 0;
+  }
+  .cch-workbench-showcase__inner,
+  .cc-home-v4 > .scwb-v533-home {
+    width: calc(100% - 22px);
+  }
+  .scwb-v533-home .scwb-v532-home__stage {
+    height: auto;
+  }
+  .scwb-v533-home .scwb-v532-home__readout {
+    min-height: 92px;
+  }
+  .scwb-v533-home .scwb-v532-home__visual {
+    height: 150px;
+  }
+  .scwb-v533-home .scwb-v532-home__visual canvas {
+    height: 140px;
+  }
+}

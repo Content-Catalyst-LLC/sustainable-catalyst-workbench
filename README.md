@@ -1,4 +1,8 @@
-# Sustainable Catalyst Workbench v5.3.2
+# Sustainable Catalyst Workbench v5.3.3
+
+## v5.3.3 — Homepage & Workbench Experience Integration Hardening
+
+Workbench v5.3.3 locks down the compact homepage Computational Instrument and the redesigned public Workbench experience. It removes the carousel's vertical `scrollIntoView()` side effect, constrains feature movement to the horizontal rail, adds a front-page guard against accidentally rendering the tall legacy v5.3.0 showcase, integrates the compact homepage placement contract into the plugin CSS, and synchronizes the visible interface release identity to v5.3.3. The certified FastAPI backend remains v5.3.0; no backend redeploy is required.
 
 ## v5.3.2 — Compact Computational Showcase, Advanced Graph Presentation & Workbench Experience Redesign
 
