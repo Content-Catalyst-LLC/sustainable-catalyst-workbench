@@ -10,7 +10,7 @@ def test_v550_backend_route_runtime_and_container_identity():
     backend = (ROOT / 'backend' / 'app' / 'v550.py').read_text()
     assert 'from app.v550 import router as v550_router' in main
     assert 'app.include_router(v550_router)' in main
-    assert 'sustainable-catalyst-workbench:5.5.0' in compose or 'sustainable-catalyst-workbench:5.6.0' in compose
+    assert 'sustainable-catalyst-workbench:5.5.0' in compose or 'sustainable-catalyst-workbench:5.6.0' in compose or 'sustainable-catalyst-workbench:5.7.0' in compose
     assert 'VERSION = "5.5.0"' in backend
     for marker in ['draggable-points', 'affine-transformations', 'expression-linked-loci', 'canonical-geometry-objects']:
         assert marker in backend

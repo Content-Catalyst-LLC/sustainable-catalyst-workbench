@@ -1,4 +1,8 @@
-# Sustainable Catalyst Workbench v5.6.0
+# Sustainable Catalyst Workbench v5.7.0
+
+## v5.7.0 — Signals, Systems & Control Mathematics
+
+Workbench v5.7.0 adds FFT spectrum and harmonic analysis, bounded digital filter design, transfer-function and Bode analysis, pole/zero and root-locus inspection, state-space controllability/observability analysis, discrete convolution, and PID closed-loop simulation with performance metrics. The backend runtime advances to v5.7.0 and must be redeployed.
 
 ## v5.6.0 — Numerical Methods & Scientific Computing
 

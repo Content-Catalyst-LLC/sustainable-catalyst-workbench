@@ -8,10 +8,10 @@ def test_v560_backend_route_runtime_and_container_identity():
     main = (ROOT / 'backend' / 'app' / 'main.py').read_text()
     compose = (ROOT / 'compose.yml').read_text()
     backend = (ROOT / 'backend' / 'app' / 'v560.py').read_text()
-    assert 'version="5.6.0"' in main
+    assert 'version="5.6.0"' in main or 'version="5.7.0"' in main
     assert 'from app.v560 import router as v560_router' in main
     assert 'app.include_router(v560_router)' in main
-    assert 'sustainable-catalyst-workbench:5.6.0' in compose
+    assert 'sustainable-catalyst-workbench:5.6.0' in compose or 'sustainable-catalyst-workbench:5.7.0' in compose
     assert 'VERSION = "5.6.0"' in backend
     for marker in ['numerical-root-finding', 'adaptive-quadrature', 'initial-value-ode-solving', 'bounded-multivariable-optimization', 'canonical-numerical-objects']:
         assert marker in backend
@@ -22,14 +22,14 @@ def test_v560_wordpress_contract_and_studio_registration():
     php = (PLUGIN / 'includes' / 'scwb-v560-numerical-scientific-computing.php').read_text()
     catalog = (PLUGIN / 'includes' / 'scwb-v301-production-reliability.php').read_text()
     primary = (PLUGIN / 'includes' / 'scwb-primary-shortcode.php').read_text()
-    assert 'Version: 5.6.0' in main
-    assert "define('SCWB_VERSION', '5.6.0')" in main
+    assert 'Version: 5.6.0' in main or 'Version: 5.7.0' in main
+    assert "define('SCWB_VERSION', '5.6.0')" in main or "define('SCWB_VERSION', '5.7.0')" in main
     assert 'SCWB_V560_PLUGIN_FILE' in main
     assert "const VERSION = '5.6.0'" in php
     assert 'sc_workbench_numerical_methods' in php
     assert "'numerical' => array" in catalog
     assert 'sc_workbench_numerical_methods' in catalog
-    assert "const VERSION = '5.6.0'" in primary
+    assert "const VERSION = '5.6.0'" in primary or "const VERSION = '5.7.0'" in primary
 
 
 def test_v560_browser_numerical_runtime_contract():

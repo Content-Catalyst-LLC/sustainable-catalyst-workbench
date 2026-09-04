@@ -1,0 +1,37 @@
+{
+  "schema": "sc-workbench-v570-fixture/1.0",
+  "version": "5.7.0",
+  "spectrum": {
+    "sampleRateHz": 1000,
+    "window": "hann",
+    "detrend": "constant",
+    "description": "50 Hz fundamental with a smaller 100 Hz harmonic"
+  },
+  "filter": {
+    "family": "butterworth",
+    "response": "lowpass",
+    "order": 4,
+    "sampleRateHz": 1000,
+    "cutoffHz": [100]
+  },
+  "transferFunction": {
+    "numerator": [1],
+    "denominator": [1, 1],
+    "frequencyMinHz": 0.01,
+    "frequencyMaxHz": 100
+  },
+  "stateSpace": {
+    "A": [[0, 1], [-2, -3]],
+    "B": [0, 1],
+    "C": [1, 0],
+    "D": 0
+  },
+  "pid": {
+    "plantNumerator": [1],
+    "plantDenominator": [1, 1],
+    "kp": 2,
+    "ki": 1,
+    "kd": 0.1,
+    "setpoint": 1
+  }
+}
