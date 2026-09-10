@@ -1,3 +1,7 @@
+# Sustainable Catalyst Workbench v6.0.1
+
+Current patch release: **Unified Experience, Runtime Identity & Interface Hardening**. v6.0.1 keeps the complete 39-studio capability surface while replacing the long brochure-like studio index with grouped search/filter navigation, browser-local favorites and recents, internal navigation scrolling, a native v6 public experience, one release identity across WordPress/FastAPI/Docker, and graph redraw hardening based on ResizeObserver and studio-visibility events. The backend runtime advances to v6.0.1 and must be redeployed.
+
 # Sustainable Catalyst Workbench v6.0.0
 
 Current capability release: **Unified Computational Workbench**. v6.0.0 links specialist mathematics and engineering results into canonical computational projects with shared variables, linked objects, provenance, append-only history, portable exports, and explicit cross-platform handoffs. The backend runtime advances to v6.0.0 and must be redeployed.

@@ -162,7 +162,7 @@ final class SCWB_V531_Settings_Backend_Repair {
             'signalsControl' => self::endpoint_probe($base, '/v570/status'),
             'electronicsEmbedded' => self::endpoint_probe($base, '/v580/status'),
             'digitalLogic' => self::endpoint_probe($base, '/v590/status'),
-            'unifiedComputational' => self::endpoint_probe($base, '/v600/status'),
+            'unifiedComputational' => self::endpoint_probe($base, '/v601/status'),
         );
         $all_ok = true;
         foreach ($checks as $check) { if (empty($check['ok'])) { $all_ok = false; break; } }
@@ -250,7 +250,7 @@ final class SCWB_V531_Settings_Backend_Repair {
                         <div><span>SIGNALS + CONTROL</span><b data-scwb-v531-check="signalsControl">—</b></div>
                         <div><span>ELECTRONICS + EMBEDDED</span><b data-scwb-v531-check="electronicsEmbedded">—</b></div>
                         <div><span>FPGA + DIGITAL LOGIC</span><b data-scwb-v531-check="digitalLogic">—</b></div>
-                        <div><span>UNIFIED COMPUTATIONAL</span><b data-scwb-v531-check="unifiedComputational">—</b></div>
+                        <div><span>UNIFIED EXPERIENCE</span><b data-scwb-v531-check="unifiedComputational">—</b></div>
                     </div>
                 </div>
             </section>

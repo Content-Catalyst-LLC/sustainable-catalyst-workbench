@@ -1,9 +1,9 @@
 <?php
-/** Workbench v6.0.0 — Unified Computational Workbench. */
+/** Workbench v6.0.1 patch identity — Unified Computational Workbench. */
 if (!defined('ABSPATH')) { exit; }
 
 final class SCWB_V600_Unified_Computational_Workbench {
-    const VERSION = '6.0.0';
+    const VERSION = '6.0.1';
 
     public static function boot() {
         add_action('init', array(__CLASS__, 'register_assets'), 8);
@@ -34,7 +34,7 @@ final class SCWB_V600_Unified_Computational_Workbench {
             'version' => self::VERSION,
             'backendUrl' => self::backend_url($backend),
             'routes' => array(
-                'status' => '/v600/status',
+                'status' => '/v601/status',
                 'projectBuild' => '/v600/project/build',
                 'variablesResolve' => '/v600/variables/resolve',
                 'linksValidate' => '/v600/links/validate',
@@ -79,7 +79,7 @@ final class SCWB_V600_Unified_Computational_Workbench {
             'schema' => 'sc-workbench-unified-computational-interface-status/1.0',
             'version' => self::VERSION,
             'backendConfigured' => '' !== self::backend_url(),
-            'backendVersionRequired' => '6.0.0',
+            'backendVersionRequired' => '6.0.1',
             'canonicalComputationalProjects' => true,
             'sharedVariables' => true,
             'linkedObjects' => true,
@@ -92,9 +92,9 @@ final class SCWB_V600_Unified_Computational_Workbench {
     }
 
     private static function promote_public_markup($html, $surface) {
-        $html = str_replace('data-version="5.9.0"', 'data-version="6.0.0"', $html);
-        $html = str_replace('SUSTAINABLE CATALYST WORKBENCH · v5.9.0', 'SUSTAINABLE CATALYST WORKBENCH · v6.0.0', $html);
-        $html = str_replace('v5.9.0 ·', 'v6.0.0 ·', $html);
+        $html = str_replace('data-version="5.9.0"', 'data-version="6.0.1"', $html);
+        $html = str_replace('SUSTAINABLE CATALYST WORKBENCH · v5.9.0', 'SUSTAINABLE CATALYST WORKBENCH · v6.0.1', $html);
+        $html = str_replace('v5.9.0 ·', 'v6.0.1 ·', $html);
         if ('homepage' === $surface) {
             $html = str_replace('scwb-v590-home', 'scwb-v590-home scwb-v600-home', $html);
         } else {
@@ -136,10 +136,10 @@ final class SCWB_V600_Unified_Computational_Workbench {
         $project = sanitize_key(isset($atts['project']) ? $atts['project'] : 'default') ?: 'default';
         $instance = 'scwb-v600-' . wp_generate_uuid4();
         ob_start(); ?>
-        <section id="<?php echo esc_attr($instance); ?>" class="scwb-v600" data-scwb-v600 data-project="<?php echo esc_attr($project); ?>" data-version="6.0.0">
+        <section id="<?php echo esc_attr($instance); ?>" class="scwb-v600" data-scwb-v600 data-project="<?php echo esc_attr($project); ?>" data-version="6.0.1">
             <header class="scwb-v600__header">
                 <div>
-                    <p class="scwb-v600__eyebrow">Sustainable Catalyst Workbench · Unified Computational Projects · v6.0.0</p>
+                    <p class="scwb-v600__eyebrow">Sustainable Catalyst Workbench · Unified Computational Projects · v6.0.1</p>
                     <h2><?php echo esc_html(isset($atts['title']) ? $atts['title'] : 'Unified Computational Workbench'); ?></h2>
                     <p>Keep mathematics, graphs, geometry, numerical results, control models, electronics plans, and digital-logic artifacts in one linked computational project with shared variables and auditable provenance.</p>
                 </div>
@@ -206,7 +206,7 @@ final class SCWB_V600_Unified_Computational_Workbench {
                 </div>
             </div>
 
-            <footer class="scwb-v600__boundary"><strong>Unified project orchestration, not autonomous execution.</strong><span>v6.0.0 links inspectable Workbench objects and prepares portable records. It does not automatically execute generated code, publish results, program hardware, certify models, or perform destructive synchronization.</span></footer>
+            <footer class="scwb-v600__boundary"><strong>Unified project orchestration, not autonomous execution.</strong><span>v6.0.1 links inspectable Workbench objects and prepares portable records. It does not automatically execute generated code, publish results, program hardware, certify models, or perform destructive synchronization.</span></footer>
         </section>
         <?php return ob_get_clean();
     }

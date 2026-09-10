@@ -42,7 +42,7 @@ def sample_project():
 
 def test_status_reports_unified_project_capabilities_and_boundaries():
     s = status_record()
-    assert s['ok'] is True and s['version'] == '6.0.0'
+    assert s['ok'] is True and s['version'] == '6.0.1'
     for capability in ['canonical-computational-projects','shared-project-variables','linked-computational-objects','computational-provenance','append-only-project-history','portable-computational-exports','cross-platform-handoff-packets']:
         assert capability in s['capabilities']
     assert s['automaticExecutionAuthorized'] is False

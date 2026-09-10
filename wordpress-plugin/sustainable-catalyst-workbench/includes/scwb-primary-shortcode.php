@@ -1,11 +1,11 @@
 <?php
-/** Canonical Workbench v6.0.0 primary shortcode and studio router. */
+/** Canonical Workbench v6.0.1 primary shortcode and studio router. */
 if (!defined('ABSPATH')) {
     exit;
 }
 
 final class SCWB_Primary_Shortcode_Repair {
-    const VERSION = '6.0.0';
+    const VERSION = '6.0.1';
 
     public static function boot() {
         add_action('init', array(__CLASS__, 'register_assets'), 4);
@@ -53,7 +53,7 @@ final class SCWB_Primary_Shortcode_Repair {
     private static function render_studio($studio, $project, $key) {
         if (!shortcode_exists($studio['shortcode'])) {
             return sprintf(
-                '<div class="scwb-primary__module-error" role="alert"><strong>%s is unavailable.</strong><p>The shortcode <code>[%s]</code> is not registered. Install the complete Workbench v6.0.0 plugin and clear all caches.</p></div>',
+                '<div class="scwb-primary__module-error" role="alert"><strong>%s is unavailable.</strong><p>The shortcode <code>[%s]</code> is not registered. Install the complete Workbench v6.0.1 plugin and clear all caches.</p></div>',
                 esc_html($studio['label']),
                 esc_html($studio['shortcode'])
             );
@@ -81,6 +81,24 @@ final class SCWB_Primary_Shortcode_Repair {
         return '<div class="scwb-primary__module-mount" data-scwb-module-mount data-scwb-module-state="ready">' . $output . '</div>';
     }
 
+    private static function studio_group($key) {
+        $groups = array(
+            'project' => array('computational-project','platform','connected','unified','projects','teams','guided','handoffs'),
+            'math' => array('blackboard','mathematics','graph-mathematics','geometry','numerical','music-mathematics','creative-mathematics'),
+            'model' => array('signals','simulation','robotics','intelligence','evaluation','laboratories'),
+            'engineer' => array('electronics','digital-logic','prototype-bench','embedded','devices','fpga-electronics','instrumentation','runtime'),
+            'data' => array('data','visualization','experiments','research','library'),
+            'record' => array('documentation','reviews','extensions','offline','hardening','recovery'),
+        );
+        foreach ($groups as $group => $keys) { if (in_array($key, $keys, true)) { return $group; } }
+        return 'other';
+    }
+
+    private static function group_label($group) {
+        $labels = array('all'=>'All studios','project'=>'Project','math'=>'Math','model'=>'Model','engineer'=>'Engineer','data'=>'Data','record'=>'Record','favorites'=>'Favorites','recent'=>'Recent');
+        return isset($labels[$group]) ? $labels[$group] : ucfirst($group);
+    }
+
     public static function render($atts = array()) {
         self::enqueue_assets();
         $atts = shortcode_atts(array(
@@ -100,7 +118,7 @@ final class SCWB_Primary_Shortcode_Repair {
         $project = sanitize_key($atts['project']) ?: 'default';
         $studios = self::studios();
         if (!$studios) {
-            return '<div class="scwb-primary scwb-primary--error"><strong>Workbench registry is unavailable.</strong><p>Confirm that the complete v6.0.0 plugin is active.</p></div>';
+            return '<div class="scwb-primary scwb-primary--error"><strong>Workbench registry is unavailable.</strong><p>Confirm that the complete v6.0.1 plugin is active.</p></div>';
         }
 
         $availability = array();
@@ -109,7 +127,7 @@ final class SCWB_Primary_Shortcode_Repair {
         }
         $available_keys = array_keys(array_filter($availability));
         if (!$available_keys) {
-            return '<div class="scwb-primary scwb-primary--error"><strong>Workbench modules are unavailable.</strong><p>Install the complete v6.0.0 plugin rather than a partial add-on.</p></div>';
+            return '<div class="scwb-primary scwb-primary--error"><strong>Workbench modules are unavailable.</strong><p>Install the complete v6.0.1 plugin rather than a partial add-on.</p></div>';
         }
 
         $initial = sanitize_key($atts['studio']);
@@ -132,13 +150,13 @@ final class SCWB_Primary_Shortcode_Repair {
             data-scwb-initial="<?php echo esc_attr($initial); ?>"
             data-scwb-project="<?php echo esc_attr($project); ?>"
             data-scwb-remember="<?php echo $remember ? 'true' : 'false'; ?>"
-            data-scwb-version="6.0.0"
+            data-scwb-version="6.0.1"
             aria-busy="true"
         >
             <noscript><div class="scwb-primary__module-error"><strong>JavaScript is required for Workbench studio navigation.</strong></div></noscript>
             <header class="scwb-primary__header">
                 <div>
-                    <p class="scwb-primary__eyebrow">Sustainable Catalyst Workbench v6.0.0</p>
+                    <p class="scwb-primary__eyebrow">Sustainable Catalyst Workbench v6.0.1</p>
                     <h2><?php echo esc_html($atts['title']); ?></h2>
                     <p>Open a persistent project workspace, the unified hub, or a specialist studio. Projects can autosave locally and optionally synchronize to private WordPress records.</p>
                 </div>
@@ -149,6 +167,16 @@ final class SCWB_Primary_Shortcode_Repair {
 
             <div class="scwb-primary__activation" data-scwb-activation role="status" aria-live="polite"><span class="scwb-primary__spinner" aria-hidden="true"></span><span>Activating Workbench studios…</span></div>
 
+            <div class="scwb-primary__commandbar" aria-label="Workbench studio controls">
+                <label class="scwb-primary__search"><span class="screen-reader-text">Search Workbench studios</span><input type="search" placeholder="Search 39 studios…" autocomplete="off" data-scwb-studio-search></label>
+                <div class="scwb-primary__groups" role="group" aria-label="Studio groups">
+                    <?php foreach (array('all','project','math','model','engineer','data','record','favorites','recent') as $group) : ?>
+                        <button type="button" class="scwb-primary__group<?php echo 'all' === $group ? ' is-active' : ''; ?>" data-scwb-studio-filter="<?php echo esc_attr($group); ?>"><?php echo esc_html(self::group_label($group)); ?></button>
+                    <?php endforeach; ?>
+                </div>
+                <div class="scwb-primary__active-readout"><span>ACTIVE</span><b data-scwb-active-label><?php echo esc_html($studios[$initial]['label']); ?></b></div>
+            </div>
+
             <div class="scwb-primary__layout">
                 <nav class="scwb-primary__nav" aria-label="Workbench studios" role="tablist" aria-orientation="vertical">
                     <?php foreach ($studios as $key => $studio) :
@@ -157,20 +185,26 @@ final class SCWB_Primary_Shortcode_Repair {
                         $tab_id = $instance . '-tab-' . $key;
                         $panel_id = $instance . '-panel-' . $key;
                     ?>
-                        <button
-                            id="<?php echo esc_attr($tab_id); ?>"
-                            type="button"
-                            class="scwb-primary__tab<?php echo $active ? ' is-active' : ''; ?><?php echo !$available ? ' is-unavailable' : ''; ?>"
-                            role="tab"
-                            aria-selected="<?php echo $active ? 'true' : 'false'; ?>"
-                            aria-controls="<?php echo esc_attr($panel_id); ?>"
-                            tabindex="<?php echo $active ? '0' : '-1'; ?>"
-                            data-scwb-primary-tab="<?php echo esc_attr($key); ?>"
-                            <?php disabled(!$available); ?>
-                        >
-                            <span class="scwb-primary__tab-title"><strong><?php echo esc_html($studio['label']); ?></strong><em><?php echo $available ? 'Ready' : 'Unavailable'; ?></em></span>
-                            <span><?php echo esc_html($studio['description']); ?></span>
-                        </button>
+                        <div class="scwb-primary__tab-row" data-scwb-tab-row data-scwb-studio-group="<?php echo esc_attr(self::studio_group($key)); ?>" data-scwb-studio-key="<?php echo esc_attr($key); ?>">
+                            <button
+                                id="<?php echo esc_attr($tab_id); ?>"
+                                type="button"
+                                class="scwb-primary__tab<?php echo $active ? ' is-active' : ''; ?><?php echo !$available ? ' is-unavailable' : ''; ?>"
+                                role="tab"
+                                aria-selected="<?php echo $active ? 'true' : 'false'; ?>"
+                                aria-controls="<?php echo esc_attr($panel_id); ?>"
+                                tabindex="<?php echo $active ? '0' : '-1'; ?>"
+                                data-scwb-primary-tab="<?php echo esc_attr($key); ?>"
+                                data-scwb-studio-group="<?php echo esc_attr(self::studio_group($key)); ?>"
+                                data-scwb-studio-label="<?php echo esc_attr($studio['label']); ?>"
+                                <?php disabled(!$available); ?>
+                            >
+                                <span class="scwb-primary__tab-title"><strong><?php echo esc_html($studio['label']); ?></strong><em><?php echo $available ? 'Ready' : 'Unavailable'; ?></em></span>
+                                <span><?php echo esc_html($studio['description']); ?></span>
+                                <span class="scwb-primary__tab-tools"><span><?php echo esc_html(strtoupper(self::studio_group($key))); ?></span></span>
+                            </button>
+                            <button type="button" class="scwb-primary__favorite" aria-label="Toggle <?php echo esc_attr($studio['label']); ?> favorite" aria-pressed="false" data-scwb-favorite="<?php echo esc_attr($key); ?>">☆</button>
+                        </div>
                     <?php endforeach; ?>
                 </nav>
 
@@ -201,7 +235,7 @@ final class SCWB_Primary_Shortcode_Repair {
                 <details class="scwb-primary__diagnostics">
                     <summary>Interface diagnostics</summary>
                     <div class="scwb-primary__diagnostics-grid">
-                        <div><strong>Primary shortcode</strong><span>Registered by v6.0.0</span></div>
+                        <div><strong>Primary shortcode</strong><span>Registered by v6.0.1</span></div>
                         <div><strong>Browser router</strong><span data-scwb-primary-js-status>Initializing</span></div>
                         <div><strong>Project</strong><span><?php echo esc_html($project); ?></span></div>
                         <div><strong>Available studios</strong><span><?php echo esc_html($available_count . ' of ' . $total_count); ?></span></div>

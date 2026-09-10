@@ -6,10 +6,10 @@ and legacy Workbench studios through shared variables, object dependencies,
 provenance, revision history, portable exports, and explicit cross-platform
 handoff packets.
 
-The v6.0.0 API is deliberately deterministic and non-executing. It does not
+The v6.0.x API is deliberately deterministic and non-executing. It does not
 open files, invoke shells, run generated code, program devices, publish content,
 or perform destructive synchronization. Existing specialist v5.x endpoints
-remain responsible for bounded computation; v6.0.0 composes their result
+remain responsible for bounded computation; v6.0.x composes their result
 objects into an auditable project graph.
 """
 from __future__ import annotations
@@ -24,7 +24,7 @@ from pydantic import BaseModel, Field, field_validator, model_validator
 
 from app.v510 import content_hash
 
-VERSION = "6.0.0"
+VERSION = "6.0.1"
 PROJECT_SCHEMA = "sc-workbench-computational-project/1.0"
 VARIABLE_SCHEMA = "sc-workbench-shared-variable-set/1.0"
 LINK_SCHEMA = "sc-workbench-linked-object-graph/1.0"
@@ -83,7 +83,7 @@ def _slug(value: str, fallback: str = "item") -> str:
 
 def _bounded_payload(value: Any, depth: int = 0) -> Any:
     if depth > MAX_PAYLOAD_DEPTH:
-        raise ValueError("Payload nesting exceeds the v6.0.0 project limit.")
+        raise ValueError("Payload nesting exceeds the v6.0.x project limit.")
     if value is None or isinstance(value, (bool, int, float)):
         return value
     if isinstance(value, str):

@@ -77,3 +77,133 @@
   .scwb-primary__nav { grid-template-columns: 1fr; }
   .scwb-primary__header, .scwb-primary__workspace { padding: 16px; }
 }
+
+/* Workbench v6.0.1 — dense application shell, grouped navigation, and viewport hardening. */
+.scwb-primary[data-scwb-version="6.0.1"] {
+  --scwb-ink: #111616;
+  --scwb-muted: #697474;
+  --scwb-line: #d9dfdf;
+  --scwb-soft: #f5f7f7;
+  --scwb-accent: #9e1026;
+  border-radius: 0;
+  box-shadow: 0 12px 34px rgba(0,0,0,.06);
+}
+.scwb-primary[data-scwb-version="6.0.1"] .scwb-primary__header {
+  padding: 20px 22px 16px;
+  background: #fff;
+  border-top: 4px solid #111;
+}
+.scwb-primary[data-scwb-version="6.0.1"] .scwb-primary__header h2 {
+  font-size: clamp(1.45rem,2.4vw,2rem);
+}
+.scwb-primary[data-scwb-version="6.0.1"] .scwb-primary__activation {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-height:34px;
+  padding:7px 22px;
+  border-bottom:1px solid var(--scwb-line);
+  background:#fbfcfc;
+  color:#586363;
+  font-size:.74rem;
+  font-weight:700;
+}
+.scwb-primary[data-scwb-version="6.0.1"] .scwb-primary__activation.is-complete span:first-child { color:#087b3f; }
+.scwb-primary__commandbar {
+  display:grid;
+  grid-template-columns:minmax(190px,260px) minmax(0,1fr) auto;
+  gap:10px;
+  align-items:center;
+  padding:10px 12px;
+  border-bottom:1px solid var(--scwb-line);
+  background:#111616;
+}
+.scwb-primary__search input {
+  width:100%;
+  min-height:36px;
+  padding:8px 10px;
+  border:1px solid #3a4444;
+  border-radius:0;
+  background:#070a0a;
+  color:#f4f8f8;
+  font:600 .78rem/1.2 Montserrat,Arial,sans-serif;
+}
+.scwb-primary__search input::placeholder { color:#889393; }
+.scwb-primary__groups { display:flex; gap:5px; min-width:0; overflow-x:auto; scrollbar-width:thin; }
+.scwb-primary__group {
+  flex:0 0 auto;
+  min-height:34px;
+  padding:7px 10px;
+  border:1px solid #374141;
+  background:#161c1c;
+  color:#c7d0d0;
+  cursor:pointer;
+  font:800 .67rem/1 Spartan,Montserrat,sans-serif;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+.scwb-primary__group:hover,.scwb-primary__group:focus-visible,.scwb-primary__group.is-active { border-color:#ff0000; color:#fff; outline:none; }
+.scwb-primary__group.is-active { background:#2a0a0f; }
+.scwb-primary__active-readout { min-width:145px; text-align:right; color:#fff; }
+.scwb-primary__active-readout span { display:block; color:#859090; font-size:.58rem; font-weight:800; letter-spacing:.14em; }
+.scwb-primary__active-readout b { display:block; max-width:210px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:.73rem; }
+.scwb-primary[data-scwb-version="6.0.1"] .scwb-primary__layout {
+  grid-template-columns:minmax(250px,310px) minmax(0,1fr);
+  align-items:start;
+  min-height:0;
+}
+.scwb-primary[data-scwb-version="6.0.1"] .scwb-primary__nav {
+  max-height:min(72vh,720px);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  padding:8px;
+  background:#f1f4f4;
+  scrollbar-width:thin;
+}
+.scwb-primary__tab-row { display:grid; grid-template-columns:minmax(0,1fr) 34px; gap:4px; margin:0 0 4px; }
+.scwb-primary__tab-row[hidden] { display:none !important; }
+.scwb-primary[data-scwb-version="6.0.1"] .scwb-primary__tab { margin:0; padding:10px 11px; border-radius:0; background:#fff; border-color:#e0e5e5; }
+.scwb-primary[data-scwb-version="6.0.1"] .scwb-primary__tab:hover,.scwb-primary[data-scwb-version="6.0.1"] .scwb-primary__tab:focus-visible { border-color:#9aa5a5; }
+.scwb-primary[data-scwb-version="6.0.1"] .scwb-primary__tab.is-active { background:#111616; border-color:#111616; box-shadow:inset 3px 0 0 #ff0000; }
+.scwb-primary[data-scwb-version="6.0.1"] .scwb-primary__tab-title { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.scwb-primary[data-scwb-version="6.0.1"] .scwb-primary__tab-title strong { margin:0; }
+.scwb-primary[data-scwb-version="6.0.1"] .scwb-primary__tab-title em { flex:0 0 auto; color:#758080; font-size:.58rem; font-style:normal; text-transform:uppercase; }
+.scwb-primary[data-scwb-version="6.0.1"] .scwb-primary__tab.is-active .scwb-primary__tab-title em { color:#7dffba; }
+.scwb-primary__tab-tools { margin-top:4px; }
+.scwb-primary__tab-tools > span { color:#9b202d !important; font-size:.57rem !important; font-weight:900; letter-spacing:.09em; }
+.scwb-primary__tab.is-active .scwb-primary__tab-tools > span { color:#ff8c98 !important; }
+.scwb-primary__favorite {
+  width:34px;
+  min-width:34px;
+  border:1px solid #dde2e2;
+  background:#fff;
+  color:#929b9b;
+  cursor:pointer;
+  font-size:1rem;
+}
+.scwb-primary__favorite:hover,.scwb-primary__favorite:focus-visible,.scwb-primary__favorite.is-active { border-color:#b3192e; color:#b3192e; outline:none; }
+.scwb-primary[data-scwb-version="6.0.1"] .scwb-primary__workspace {
+  min-width:0;
+  padding:12px;
+  overflow:visible;
+  contain:layout style;
+}
+.scwb-primary[data-scwb-version="6.0.1"] .scwb-primary__panel { min-width:0; overflow:visible; }
+.scwb-primary[data-scwb-version="6.0.1"] .scwb-primary__module-mount { min-width:0; overflow:visible; }
+.scwb-primary__diagnostics { border-top:1px solid var(--scwb-line); padding:10px 14px; background:#fafbfb; font-size:.76rem; }
+.scwb-primary__diagnostics summary { cursor:pointer; font-weight:800; }
+.scwb-primary__diagnostics-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin-top:10px; }
+.scwb-primary__diagnostics-grid div { padding:8px; border:1px solid #e0e5e5; background:#fff; }
+.scwb-primary__diagnostics-grid strong,.scwb-primary__diagnostics-grid span { display:block; }
+.scwb-primary__diagnostics-grid span { color:#697474; margin-top:3px; }
+@media(max-width:980px){
+  .scwb-primary__commandbar{grid-template-columns:1fr}.scwb-primary__active-readout{text-align:left}.scwb-primary__active-readout b{max-width:none}
+  .scwb-primary[data-scwb-version="6.0.1"] .scwb-primary__layout{grid-template-columns:1fr}
+  .scwb-primary[data-scwb-version="6.0.1"] .scwb-primary__nav{max-height:330px;border-right:0;border-bottom:1px solid var(--scwb-line);display:block}
+  .scwb-primary__diagnostics-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .scwb-primary[data-scwb-version="6.0.1"] .scwb-primary__header{padding:16px}
+  .scwb-primary[data-scwb-version="6.0.1"] .scwb-primary__workspace{padding:8px}
+  .scwb-primary__groups{padding-bottom:3px}.scwb-primary__diagnostics-grid{grid-template-columns:1fr}
+}

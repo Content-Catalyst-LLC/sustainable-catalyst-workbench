@@ -1,0 +1,10 @@
+{
+  "ok": true,
+  "schema": "sc-workbench-unified-experience-status/1.0",
+  "version": "6.0.1",
+  "inheritsComputationalProjectContract": "/v600",
+  "homepageInstrumentOnWorkbenchPage": false,
+  "automaticCodeExecutionAuthorized": false,
+  "remoteShellAuthorized": false,
+  "automaticDeviceProgrammingAuthorized": false
+}
