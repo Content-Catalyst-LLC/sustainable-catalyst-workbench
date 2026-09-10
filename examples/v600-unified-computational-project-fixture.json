@@ -1,0 +1,15 @@
+{
+  "projectId": "integrated-study",
+  "title": "Integrated computational study",
+  "variables": [
+    {"name": "a", "value": 2, "valueType": "number"},
+    {"name": "frequency_hz", "value": 1000, "valueType": "number", "units": "Hz"}
+  ],
+  "objects": [
+    {"objectId": "math-model", "kind": "symbolic-expression", "studio": "mathematics", "payload": {"expression": "a*x^2"}, "variableInputs": ["a"]},
+    {"objectId": "graph-view", "kind": "graph", "studio": "graph-mathematics", "payload": {"expression": "a*x^2"}, "variableInputs": ["a"], "dependencyObjectIds": ["math-model"]}
+  ],
+  "links": [
+    {"fromObjectId": "math-model", "toObjectId": "graph-view", "relation": "feeds", "variableNames": ["a"]}
+  ]
+}

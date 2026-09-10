@@ -1,3 +1,7 @@
+# Sustainable Catalyst Workbench v6.0.0
+
+Current capability release: **Unified Computational Workbench**. v6.0.0 links specialist mathematics and engineering results into canonical computational projects with shared variables, linked objects, provenance, append-only history, portable exports, and explicit cross-platform handoffs. The backend runtime advances to v6.0.0 and must be redeployed.
+
 # Sustainable Catalyst Workbench v5.9.0
 
 Current capability release: **FPGA, PYNQ & Digital Logic Workbench**. v5.9.0 adds restricted Boolean logic, truth tables, minimization, Karnaugh maps, deterministic FSM validation, digital timing waveforms, pre-synthesis resource estimates, Verilog/VHDL and testbench scaffolds, and PYNQ overlay planning. The backend runtime advances to v5.9.0 and must be redeployed.

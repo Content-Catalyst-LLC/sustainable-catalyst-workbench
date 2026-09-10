@@ -18,6 +18,7 @@ final class SCWB_V301_Production_Reliability {
 
     public static function studio_catalog() {
         return array(
+            'computational-project' => array('label' => 'Unified Computational Project', 'shortcode' => 'sc_workbench_computational_project', 'description' => 'One canonical project linking shared variables, mathematics, graphs, geometry, numerical results, signals/control, electronics, FPGA/digital logic, provenance, history, exports, and cross-platform handoffs.'),
             'blackboard' => array('label' => 'Computational Blackboard', 'shortcode' => 'sc_workbench_blackboard', 'description' => 'Automatic deterministic math translation from natural or symbolic input into governed CAS objects, exact results, notation, and linked graph analysis.'),
             'music-mathematics' => array('label' => 'Music & Mathematics', 'shortcode' => 'sc_workbench_music_mathematics', 'description' => 'Note/frequency conversion, intervals, cents, wavelength, harmonics, waveforms, and acoustics relationships connecting mathematics to sound.'),
             'creative-mathematics' => array('label' => 'Mathematics & Form', 'shortcode' => 'sc_workbench_creative_mathematics', 'description' => 'Lissajous, polar, harmonic, and parametric form generation for studying symmetry, phase, ratio, periodicity, and mathematical visual structure.'),

@@ -162,6 +162,7 @@ final class SCWB_V531_Settings_Backend_Repair {
             'signalsControl' => self::endpoint_probe($base, '/v570/status'),
             'electronicsEmbedded' => self::endpoint_probe($base, '/v580/status'),
             'digitalLogic' => self::endpoint_probe($base, '/v590/status'),
+            'unifiedComputational' => self::endpoint_probe($base, '/v600/status'),
         );
         $all_ok = true;
         foreach ($checks as $check) { if (empty($check['ok'])) { $all_ok = false; break; } }
@@ -249,6 +250,7 @@ final class SCWB_V531_Settings_Backend_Repair {
                         <div><span>SIGNALS + CONTROL</span><b data-scwb-v531-check="signalsControl">—</b></div>
                         <div><span>ELECTRONICS + EMBEDDED</span><b data-scwb-v531-check="electronicsEmbedded">—</b></div>
                         <div><span>FPGA + DIGITAL LOGIC</span><b data-scwb-v531-check="digitalLogic">—</b></div>
+                        <div><span>UNIFIED COMPUTATIONAL</span><b data-scwb-v531-check="unifiedComputational">—</b></div>
                     </div>
                 </div>
             </section>
@@ -257,7 +259,7 @@ final class SCWB_V531_Settings_Backend_Repair {
                 <div class="scwb-v531-admin__card-head"><div><p>EXECUTION</p><h2>Boundaries</h2></div></div>
                 <div class="scwb-v531-admin__boundary-grid">
                     <div><span>Browser interaction</span><b class="is-ready">Enabled</b><small>Graphing, controls, visualization, local interface state</small></div>
-                    <div><span>Server computation</span><b class="is-ready">Configured by backend</b><small>CAS, advanced graph analysis, dynamic geometry, numerical methods, signals/control mathematics, electronics/embedded planning, FPGA/digital-logic analysis, Blackboard, creative mathematics</small></div>
+                    <div><span>Server computation</span><b class="is-ready">Configured by backend</b><small>CAS, advanced graph analysis, dynamic geometry, numerical methods, signals/control mathematics, electronics/embedded planning, FPGA/digital-logic analysis, unified computational projects, Blackboard, creative mathematics</small></div>
                     <div><span>Workbench Runner</span><b>Separate pairing</b><small>Approved local runtimes and engineering tools only</small></div>
                     <div><span>Physical device programming</span><b class="is-guarded">Manual approval</b><small>Public Prototype Bench remains export-only</small></div>
                 </div>

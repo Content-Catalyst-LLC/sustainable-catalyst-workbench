@@ -8,10 +8,10 @@ def test_v590_backend_route_runtime_and_container_identity():
     main = (ROOT / 'backend' / 'app' / 'main.py').read_text()
     compose = (ROOT / 'compose.yml').read_text()
     backend = (ROOT / 'backend' / 'app' / 'v590.py').read_text()
-    assert 'version="5.9.0"' in main
+    assert 'version="5.9.0"' in main or 'version="6.0.0"' in main
     assert 'from app.v590 import router as v590_router' in main
     assert 'app.include_router(v590_router)' in main
-    assert 'sustainable-catalyst-workbench:5.9.0' in compose
+    assert 'sustainable-catalyst-workbench:5.9.0' in compose or 'sustainable-catalyst-workbench:6.0.0' in compose
     assert 'VERSION = "5.9.0"' in backend
     for marker in ['truth-tables','boolean-minimization','karnaugh-maps','finite-state-machine-validation','digital-timing-waveforms','verilog-scaffolds','pynq-overlay-scaffolds','canonical-digital-logic-objects']:
         assert marker in backend
@@ -22,15 +22,15 @@ def test_v590_wordpress_contract_and_studio_registration():
     php = (PLUGIN / 'includes' / 'scwb-v590-fpga-pynq-digital-logic.php').read_text()
     catalog = (PLUGIN / 'includes' / 'scwb-v301-production-reliability.php').read_text()
     primary = (PLUGIN / 'includes' / 'scwb-primary-shortcode.php').read_text()
-    assert 'Version: 5.9.0' in main
-    assert "define('SCWB_VERSION', '5.9.0')" in main
+    assert 'Version: 5.9.0' in main or 'Version: 6.0.0' in main
+    assert "define('SCWB_VERSION', '5.9.0')" in main or "define('SCWB_VERSION', '6.0.0')" in main
     assert 'SCWB_V590_PLUGIN_FILE' in main
     assert "const VERSION = '5.9.0'" in php
     assert 'sc_workbench_digital_logic' in php
     assert "'digital-logic' => array" in catalog
     assert 'sc_workbench_digital_logic' in catalog
-    assert "const VERSION = '5.9.0'" in primary
-    assert 'data-scwb-version="5.9.0"' in primary
+    assert "const VERSION = '5.9.0'" in primary or "const VERSION = '6.0.0'" in primary
+    assert 'data-scwb-version="5.9.0"' in primary or 'data-scwb-version="6.0.0"' in primary
 
 
 def test_v590_browser_runtime_contract_and_viewport_safety():

@@ -1,0 +1,27 @@
+Sustainable Catalyst Workbench v6.0.0 — Unified Computational Workbench
+Release validation: PASS
+
+Python / repository tests: 469 passed
+WordPress activation audits: v6.0.0 through v5.4.0 PASS
+WordPress runtime regressions: v6.0.0 through v5.0.0 PASS
+Browser runtime regressions: v6.0.0 through v5.0.0 PASS
+PHP syntax: PASS
+JavaScript syntax: PASS
+Python compile: PASS
+Assembled FastAPI route registration: PASS
+Canonical computational-project smoke: PASS
+Shared-variable resolution smoke: PASS
+Linked-object graph validation smoke: PASS
+Cross-platform handoff smoke: PASS
+Secret-pattern scan: PASS
+
+Execution boundary:
+- no Python eval/exec
+- no remote shell or subprocess execution
+- no autonomous publication or certification
+- no automatic hardware programming
+- no destructive synchronization
+- specialist computation remains in bounded Workbench engines
+
+Backend deployment required: YES
+Canonical backend image: sustainable-catalyst-workbench:6.0.0
