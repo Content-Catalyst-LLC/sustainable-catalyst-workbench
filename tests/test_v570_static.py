@@ -8,10 +8,10 @@ def test_v570_backend_route_runtime_and_container_identity():
     main = (ROOT / 'backend' / 'app' / 'main.py').read_text()
     compose = (ROOT / 'compose.yml').read_text()
     backend = (ROOT / 'backend' / 'app' / 'v570.py').read_text()
-    assert 'version="5.7.0"' in main
+    assert 'version="5.7.0"' in main or 'version="5.8.0"' in main
     assert 'from app.v570 import router as v570_router' in main
     assert 'app.include_router(v570_router)' in main
-    assert 'sustainable-catalyst-workbench:5.7.0' in compose
+    assert 'sustainable-catalyst-workbench:5.7.0' in compose or 'sustainable-catalyst-workbench:5.8.0' in compose
     assert 'VERSION = "5.7.0"' in backend
     for marker in ['fft-spectrum-analysis', 'digital-filter-design', 'root-locus', 'state-space-analysis', 'pid-closed-loop-simulation', 'canonical-signals-control-objects']:
         assert marker in backend
@@ -22,15 +22,15 @@ def test_v570_wordpress_contract_and_studio_registration():
     php = (PLUGIN / 'includes' / 'scwb-v570-signals-systems-control-mathematics.php').read_text()
     catalog = (PLUGIN / 'includes' / 'scwb-v301-production-reliability.php').read_text()
     primary = (PLUGIN / 'includes' / 'scwb-primary-shortcode.php').read_text()
-    assert 'Version: 5.7.0' in main
-    assert "define('SCWB_VERSION', '5.7.0')" in main
+    assert 'Version: 5.7.0' in main or 'Version: 5.8.0' in main
+    assert "define('SCWB_VERSION', '5.7.0')" in main or "define('SCWB_VERSION', '5.8.0')" in main
     assert 'SCWB_V570_PLUGIN_FILE' in main
     assert "const VERSION = '5.7.0'" in php
     assert 'sc_workbench_signals_systems_controls' in php
     assert "'signals' => array" in catalog
     assert 'sc_workbench_signals_systems_controls' in catalog
-    assert "const VERSION = '5.7.0'" in primary
-    assert 'data-scwb-version="5.7.0"' in primary
+    assert "const VERSION = '5.7.0'" in primary or "const VERSION = '5.8.0'" in primary
+    assert 'data-scwb-version="5.7.0"' in primary or 'data-scwb-version="5.8.0"' in primary
 
 
 def test_v570_browser_runtime_contract_and_viewport_safety():

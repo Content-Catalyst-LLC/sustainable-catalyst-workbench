@@ -1,3 +1,7 @@
+# Sustainable Catalyst Workbench v5.8.0
+
+Current capability release: **Electronics & Embedded Systems Studio**. v5.8.0 adds bounded circuit/RLC analysis, ADC/DAC quantization, PWM/timer and sampling planning, digital-bus estimates, sensor transfer models, GPIO allocation, and export-only MCU/FPGA scaffolds.
+
 # Sustainable Catalyst Workbench v5.7.0
 
 ## v5.7.0 — Signals, Systems & Control Mathematics

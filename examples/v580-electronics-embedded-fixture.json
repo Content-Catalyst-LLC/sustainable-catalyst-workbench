@@ -1,0 +1,27 @@
+{
+  "resistorNetwork": {
+    "topology": "series",
+    "resistancesOhm": [100, 220, 330],
+    "sourceVoltageV": 5
+  },
+  "adcDac": {
+    "bits": 12,
+    "referenceVoltageV": 3.3,
+    "inputVoltageV": 1.65,
+    "dacCode": 2048
+  },
+  "pwmTimer": {
+    "clockHz": 16000000,
+    "desiredFrequencyHz": 1000,
+    "dutyCyclePercent": 50,
+    "counterBits": 16,
+    "alignment": "edge",
+    "availablePrescalers": [1, 8, 64, 256, 1024]
+  },
+  "prototypeScaffold": {
+    "target": "arduino",
+    "projectName": "catalyst_prototype",
+    "interface": "pwm",
+    "sampleRateHz": 1000
+  }
+}
