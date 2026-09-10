@@ -1,3 +1,7 @@
+# Sustainable Catalyst Workbench v5.9.0
+
+Current capability release: **FPGA, PYNQ & Digital Logic Workbench**. v5.9.0 adds restricted Boolean logic, truth tables, minimization, Karnaugh maps, deterministic FSM validation, digital timing waveforms, pre-synthesis resource estimates, Verilog/VHDL and testbench scaffolds, and PYNQ overlay planning. The backend runtime advances to v5.9.0 and must be redeployed.
+
 # Sustainable Catalyst Workbench v5.8.0
 
 Current capability release: **Electronics & Embedded Systems Studio**. v5.8.0 adds bounded circuit/RLC analysis, ADC/DAC quantization, PWM/timer and sampling planning, digital-bus estimates, sensor transfer models, GPIO allocation, and export-only MCU/FPGA scaffolds.

@@ -1,0 +1,22 @@
+{
+  "expression": "(A & B) | (!A & C)",
+  "karnaughExpression": "(!A & B) | (A & !B)",
+  "fsm": {
+    "states": ["IDLE", "RUN", "DONE"],
+    "initialState": "IDLE",
+    "encoding": "binary",
+    "transitions": [
+      {"fromState": "IDLE", "input": "start", "toState": "RUN", "output": "0"},
+      {"fromState": "RUN", "input": "done", "toState": "DONE", "output": "1"},
+      {"fromState": "DONE", "input": "reset", "toState": "IDLE", "output": "0"}
+    ]
+  },
+  "timing": {
+    "expression": "A ^ B",
+    "samplePeriodNs": 10,
+    "signals": [
+      {"name": "A", "values": [0, 0, 1, 1]},
+      {"name": "B", "values": [0, 1, 0, 1]}
+    ]
+  }
+}

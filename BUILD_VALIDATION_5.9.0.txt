@@ -1,0 +1,30 @@
+Sustainable Catalyst Workbench v5.9.0 — FPGA, PYNQ & Digital Logic Workbench
+Release validation: PASS
+
+Python / repository tests: 449 passed
+WordPress activation audits: v5.9.0 through v5.4.0 PASS
+WordPress runtime regressions: v5.9.0 through v5.0.0 PASS
+Browser runtime regressions: v5.9.0 through v5.0.0 PASS
+PHP syntax: PASS
+JavaScript syntax: PASS
+Python compile: PASS
+Assembled FastAPI route registration: PASS
+Restricted Boolean truth table smoke: PASS
+Boolean minimization smoke: PASS
+Karnaugh map smoke: PASS
+FSM validation smoke: PASS
+Digital timing waveform smoke: PASS
+HDL scaffold smoke: PASS
+PYNQ overlay scaffold boundary smoke: PASS
+Secret-pattern scan: PASS
+
+Execution boundary:
+- no Python eval/exec
+- no remote shell
+- no synthesis execution
+- no automatic physical pin resolution
+- no bitstream generation
+- no bitstream programming
+- no JTAG access
+- no PYNQ overlay loading
+- no physical device execution

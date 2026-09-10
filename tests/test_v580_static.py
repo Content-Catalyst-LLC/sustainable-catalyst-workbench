@@ -8,10 +8,10 @@ def test_v580_backend_route_runtime_and_container_identity():
     main = (ROOT / 'backend' / 'app' / 'main.py').read_text()
     compose = (ROOT / 'compose.yml').read_text()
     backend = (ROOT / 'backend' / 'app' / 'v580.py').read_text()
-    assert 'version="5.8.0"' in main
+    assert 'version="5.8.0"' in main or 'version="5.9.0"' in main
     assert 'from app.v580 import router as v580_router' in main
     assert 'app.include_router(v580_router)' in main
-    assert 'sustainable-catalyst-workbench:5.8.0' in compose
+    assert 'sustainable-catalyst-workbench:5.8.0' in compose or 'sustainable-catalyst-workbench:5.9.0' in compose
     assert 'VERSION = "5.8.0"' in backend
     for marker in ['resistor-network-analysis','rlc-impedance-analysis','adc-dac-quantization','pwm-timer-planning','sampling-nyquist-analysis','i2c-spi-uart-planning','sensor-transfer-models','gpio-allocation-planning','export-only-embedded-scaffolds','canonical-electronics-embedded-objects']:
         assert marker in backend
@@ -22,15 +22,15 @@ def test_v580_wordpress_contract_and_studio_registration():
     php = (PLUGIN / 'includes' / 'scwb-v580-electronics-embedded-systems.php').read_text()
     catalog = (PLUGIN / 'includes' / 'scwb-v301-production-reliability.php').read_text()
     primary = (PLUGIN / 'includes' / 'scwb-primary-shortcode.php').read_text()
-    assert 'Version: 5.8.0' in main
-    assert "define('SCWB_VERSION', '5.8.0')" in main
+    assert 'Version: 5.8.0' in main or 'Version: 5.9.0' in main
+    assert "define('SCWB_VERSION', '5.8.0')" in main or "define('SCWB_VERSION', '5.9.0')" in main
     assert 'SCWB_V580_PLUGIN_FILE' in main
     assert "const VERSION = '5.8.0'" in php
     assert 'sc_workbench_electronics_embedded' in php
     assert "'electronics' => array" in catalog
     assert 'sc_workbench_electronics_embedded' in catalog
-    assert "const VERSION = '5.8.0'" in primary
-    assert 'data-scwb-version="5.8.0"' in primary
+    assert "const VERSION = '5.8.0'" in primary or "const VERSION = '5.9.0'" in primary
+    assert 'data-scwb-version="5.8.0"' in primary or 'data-scwb-version="5.9.0"' in primary
 
 
 def test_v580_browser_runtime_contract_and_viewport_safety():

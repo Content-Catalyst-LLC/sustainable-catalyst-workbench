@@ -2,8 +2,8 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI(title="Sustainable Catalyst Workbench", version="5.8.0")
-version="5.8.0"
+app = FastAPI(title="Sustainable Catalyst Workbench", version="5.9.0")
+version="5.9.0"
 
 def _allowed_origins():
     configured = [item.strip() for item in os.getenv("SCWB_ALLOWED_ORIGINS", "").split(",") if item.strip()]
@@ -206,3 +206,8 @@ app.include_router(v570_router)
 # Workbench v5.8.0 Electronics & Embedded Systems Studio routes.
 from app.v580 import router as v580_router
 app.include_router(v580_router)
+
+
+# Workbench v5.9.0 FPGA, PYNQ & Digital Logic Workbench routes.
+from app.v590 import router as v590_router
+app.include_router(v590_router)
