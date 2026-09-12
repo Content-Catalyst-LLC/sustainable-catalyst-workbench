@@ -6,14 +6,14 @@ from typing import Any
 
 from fastapi import APIRouter, HTTPException
 
-CONSUMER_VERSION = '6.1.0'
+CONSUMER_VERSION = '6.2.0'
 TARGET_KEY = 'workbench'
 PRODUCT = 'Workbench'
 CONSUMER_CONTRACT = 'sc-energy-runtime-workbench-handoff/1.0'
 HANDOFF_SCHEMA = "sc-energy-runtime-handoff/1.0"
 RECEIPT_SCHEMA = "sc-energy-runtime-consumer-receipt/1.0"
 EXPECTED_SECTIONS = ['identity', 'numeric_registry', 'energy_balance', 'economics', 'bioenergy_and_carbon', 'provenance', 'review']
-BOUNDARY = 'Handoff acceptance does not run calculations or authorize hidden defaults, factor substitution, or source-boundary changes.'
+BOUNDARY = 'Handoff acceptance does not run calculations. Energy calculations require an explicit call to /v1/energy-runtime/execute and never authorize hidden defaults, factor substitution, or source-boundary changes.'
 
 router = APIRouter(prefix="/v1/energy-runtime", tags=["energy-runtime-consumer"])
 
@@ -86,6 +86,7 @@ def framework() -> dict[str, Any]:
             "payload_section_validation": True,
             "deterministic_receipt": True,
             "provenance_preservation": True,
+            "explicit_execution_endpoint_available": True,
             "automatic_execution": False,
             "persistence": False,
             "credential_forwarding": False,
