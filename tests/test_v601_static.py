@@ -8,20 +8,20 @@ def test_v601_backend_identity_route_and_container():
     main = (ROOT / 'backend' / 'app' / 'main.py').read_text()
     backend = (ROOT / 'backend' / 'app' / 'v601.py').read_text()
     compose = (ROOT / 'compose.yml').read_text()
-    assert 'version="6.0.1"' in main
+    assert 'version="6.0.1"' in main or 'version="6.1.0"' in main
     assert 'from app.v601 import router as v601_router' in main
     assert 'app.include_router(v601_router)' in main
     assert 'VERSION = "6.0.1"' in backend
     assert 'prefix="/v601"' in backend
-    assert 'sustainable-catalyst-workbench:6.0.1' in compose
+    assert 'sustainable-catalyst-workbench:6.0.1' in compose or 'sustainable-catalyst-workbench:6.1.0' in compose
 
 
 def test_v601_wordpress_identity_and_native_experience():
     main = (PLUGIN / 'sustainable-catalyst-workbench.php').read_text()
     primary = (PLUGIN / 'includes' / 'scwb-primary-shortcode.php').read_text()
     experience = (PLUGIN / 'includes' / 'scwb-v601-unified-experience-hardening.php').read_text()
-    assert 'Version: 6.0.1' in main
-    assert "define('SCWB_VERSION', '6.0.1')" in main
+    assert 'Version: 6.0.1' in main or 'Version: 6.1.0' in main
+    assert "define('SCWB_VERSION', '6.0.1')" in main or "define('SCWB_VERSION', '6.1.0')" in main
     assert 'scwb-v601-unified-experience-hardening.php' in main
     assert "const VERSION = '6.0.1'" in primary
     assert 'data-scwb-version="6.0.1"' in primary

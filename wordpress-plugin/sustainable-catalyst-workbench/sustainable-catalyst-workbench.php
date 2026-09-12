@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 6.0.1
+ * Version: 6.1.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '6.0.1');
+define('SCWB_VERSION', '6.1.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {

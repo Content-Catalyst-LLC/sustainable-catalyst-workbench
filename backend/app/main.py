@@ -2,8 +2,8 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI(title="Sustainable Catalyst Workbench", version="6.0.1")
-version="6.0.1"
+app = FastAPI(title="Sustainable Catalyst Workbench", version="6.1.0")
+version="6.1.0"
 
 def _allowed_origins():
     configured = [item.strip() for item in os.getenv("SCWB_ALLOWED_ORIGINS", "").split(",") if item.strip()]
@@ -221,3 +221,8 @@ app.include_router(v600_router)
 # Workbench v6.0.1 Unified Experience, Runtime Identity & Interface Hardening routes.
 from app.v601 import router as v601_router
 app.include_router(v601_router)
+
+
+# Energy Systems Intelligence v1.2.0 target-side runtime consumer.
+from .energy_runtime_consumer import router as energy_runtime_consumer_router
+app.include_router(energy_runtime_consumer_router)
