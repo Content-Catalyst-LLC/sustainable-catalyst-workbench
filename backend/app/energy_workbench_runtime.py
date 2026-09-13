@@ -13,8 +13,8 @@ except ImportError:  # validation environments may not install optional scientif
 
 from .energy_runtime_consumer import _unwrap, _validate, CONSUMER_CONTRACT, HANDOFF_SCHEMA
 
-RUNTIME_VERSION = "6.2.0"
-ENERGY_SYSTEMS_VERSION = "1.3.0"
+RUNTIME_VERSION = "6.3.0"
+ENERGY_SYSTEMS_VERSION = "1.6.0"
 EXECUTION_SCHEMA = "sc-energy-workbench-execution-result/1.0"
 RESULT_PACKET_SCHEMA = "sc-energy-workbench-result-packet/1.0"
 PLAN_SCHEMA = "sc-energy-workbench-execution-plan/1.0"
@@ -22,7 +22,7 @@ REQUEST_SCHEMA = "sc-energy-workbench-calculation-request/1.0"
 BOUNDARY = (
     "Workbench executes only explicit caller-supplied arithmetic. It does not infer missing inputs, "
     "select technology assumptions, rank alternatives, recommend a winner, claim avoided emissions, "
-    "create carbon credits, fetch market prices, or persist the study automatically."
+    "create carbon credits, fetch market prices, infer storage performance or outage rates, declare real-world grid reliability, predict outages, or persist the study automatically."
 )
 
 router = APIRouter(prefix="/v1/energy-runtime", tags=["energy-workbench-runtime"])
@@ -38,7 +38,7 @@ _EXACT_ENERGY_TO_JOULE = {
     "gwh": Decimal("3600000000000"), "gigawatt_hour": Decimal("3600000000000"), "gigawatt-hour": Decimal("3600000000000"),
 }
 
-SECTIONS = ("numeric_registry", "energy_balance", "economics", "bioenergy_and_carbon")
+SECTIONS = ("numeric_registry", "energy_balance", "economics", "bioenergy_and_carbon", "grid_storage_reliability")
 
 OPERATION_SPECS: dict[str, dict[str, Any]] = {
     "unit-conversion": {
@@ -124,6 +124,48 @@ OPERATION_SPECS: dict[str, dict[str, Any]] = {
         "required": ("feedstock_mass_tonnes", "oil_yield_mass_pct", "oil_energy_content_kwh_per_tonne", "downstream_conversion_efficiency_pct"),
         "formula": "useful_energy = feedstock_mass × oil_yield × oil_energy_content × downstream_efficiency",
         "contract": "bioenergy-explicit-input-calculation-contract",
+    },
+    "storage-round-trip": {
+        "section": "grid_storage_reliability",
+        "required": ("charged_energy_kwh", "charge_efficiency_pct", "discharge_efficiency_pct"),
+        "formula": "delivered = charged × charge_efficiency × discharge_efficiency",
+        "contract": "energy-storage-explicit-input-contract",
+    },
+    "storage-soc-trajectory": {
+        "section": "grid_storage_reliability",
+        "required": ("energy_capacity_kwh", "initial_soc_kwh", "minimum_soc_kwh", "maximum_charge_kw", "maximum_discharge_kw", "charge_efficiency_pct", "discharge_efficiency_pct", "timestep_hours", "net_surplus_kw_series"),
+        "formula": "SOC[t+1] = bounded SOC[t] + charged_internal_energy − discharged_internal_energy",
+        "contract": "energy-storage-state-of-charge-contract",
+    },
+    "reserve-margin": {
+        "section": "grid_storage_reliability",
+        "required": ("dependable_capacity_kw", "peak_demand_kw"),
+        "formula": "reserve_margin_pct = (dependable_capacity − peak_demand) / peak_demand × 100",
+        "contract": "energy-reliability-explicit-input-contract",
+    },
+    "peak-demand-coverage": {
+        "section": "grid_storage_reliability",
+        "required": ("available_generation_kw", "storage_discharge_kw", "peak_demand_kw"),
+        "formula": "coverage = available_generation + storage_discharge − peak_demand",
+        "contract": "energy-reliability-explicit-input-contract",
+    },
+    "loss-of-load-events": {
+        "section": "grid_storage_reliability",
+        "required": ("demand_kw_series", "available_capacity_kw_series", "timestep_hours"),
+        "formula": "count contiguous time steps where demand exceeds available capacity",
+        "contract": "energy-reliability-timeseries-contract",
+    },
+    "energy-not-served": {
+        "section": "grid_storage_reliability",
+        "required": ("demand_kw_series", "available_capacity_kw_series", "timestep_hours"),
+        "formula": "ENS = Σ max(demand − available_capacity, 0) × timestep",
+        "contract": "energy-reliability-timeseries-contract",
+    },
+    "adequacy-timeseries": {
+        "section": "grid_storage_reliability",
+        "required": ("demand_kw_series", "available_capacity_kw_series", "timestep_hours"),
+        "formula": "bounded adequacy summary from explicit demand/capacity series",
+        "contract": "energy-adequacy-timeseries-contract",
     },
 }
 
@@ -263,6 +305,12 @@ def framework() -> dict[str, Any]:
             "energy_balance_arithmetic": True,
             "energy_economic_arithmetic": True,
             "bioenergy_carbon_arithmetic": True,
+            "grid_storage_reliability_arithmetic": True,
+            "storage_state_of_charge_trajectory": True,
+            "loss_of_load_event_counting": True,
+            "energy_not_served_calculation": True,
+            "real_grid_reliability_declaration": False,
+            "outage_prediction": False,
             "deterministic_result_ids": True,
             "provenance_preservation": True,
             "automatic_execution_on_consume": False,
@@ -439,6 +487,124 @@ def _biomass_oil(inputs: dict[str, Any]) -> dict[str, Any]:
     return {"oil_product_mass_tonnes":_text(oil_mass),"gross_product_energy_kwh":_text(gross),"useful_energy_kwh":_text(useful)}
 
 
+def _series(values: Any, *, label: str) -> list[Decimal]:
+    if not isinstance(values, list) or not values:
+        raise ValueError(f"{label} must be a non-empty array")
+    if len(values) > 100000:
+        raise ValueError(f"{label} may contain at most 100000 values")
+    return [_decimal(v, label=f"{label}[{i}]", nonnegative=False) for i, v in enumerate(values)]
+
+
+def _matched_demand_capacity(inputs: dict[str, Any]) -> tuple[list[Decimal], list[Decimal], Decimal]:
+    demand = _series(inputs["demand_kw_series"], label="demand_kw_series")
+    capacity = _series(inputs["available_capacity_kw_series"], label="available_capacity_kw_series")
+    if len(demand) != len(capacity):
+        raise ValueError("demand_kw_series and available_capacity_kw_series must have the same length")
+    if any(v < 0 for v in demand) or any(v < 0 for v in capacity):
+        raise ValueError("demand and available-capacity series values must be zero or greater")
+    dt = _decimal(inputs["timestep_hours"], label="timestep_hours", positive=True)
+    return demand, capacity, dt
+
+
+def _storage_round_trip(inputs: dict[str, Any]) -> dict[str, Any]:
+    charged = _decimal(inputs["charged_energy_kwh"], label="charged_energy_kwh", nonnegative=True)
+    charge_eff = _pct(inputs["charge_efficiency_pct"], label="charge_efficiency_pct")
+    discharge_eff = _pct(inputs["discharge_efficiency_pct"], label="discharge_efficiency_pct")
+    stored = charged * charge_eff / Decimal("100")
+    delivered = stored * discharge_eff / Decimal("100")
+    rte = charge_eff * discharge_eff / Decimal("100")
+    return {
+        "charged_energy_kwh": _text(charged),
+        "stored_energy_after_charge_kwh": _text(stored),
+        "delivered_energy_kwh": _text(delivered),
+        "round_trip_efficiency_pct": _text(rte),
+        "total_loss_kwh": _text(charged-delivered),
+    }
+
+
+def _storage_soc(inputs: dict[str, Any]) -> dict[str, Any]:
+    cap = _decimal(inputs["energy_capacity_kwh"], label="energy_capacity_kwh", positive=True)
+    soc = _decimal(inputs["initial_soc_kwh"], label="initial_soc_kwh", nonnegative=True)
+    min_soc = _decimal(inputs["minimum_soc_kwh"], label="minimum_soc_kwh", nonnegative=True)
+    max_charge = _decimal(inputs["maximum_charge_kw"], label="maximum_charge_kw", nonnegative=True)
+    max_discharge = _decimal(inputs["maximum_discharge_kw"], label="maximum_discharge_kw", nonnegative=True)
+    ce = _pct(inputs["charge_efficiency_pct"], label="charge_efficiency_pct") / Decimal("100")
+    de = _pct(inputs["discharge_efficiency_pct"], label="discharge_efficiency_pct") / Decimal("100")
+    dt = _decimal(inputs["timestep_hours"], label="timestep_hours", positive=True)
+    series = _series(inputs["net_surplus_kw_series"], label="net_surplus_kw_series")
+    if min_soc > cap: raise ValueError("minimum_soc_kwh cannot exceed energy_capacity_kwh")
+    if soc < min_soc or soc > cap: raise ValueError("initial_soc_kwh must lie between minimum_soc_kwh and energy_capacity_kwh")
+    if ce <= 0 or de <= 0: raise ValueError("charge and discharge efficiencies must be greater than zero")
+    steps=[]; curtailed=Decimal("0"); unmet=Decimal("0"); delivered_total=Decimal("0"); charge_input_total=Decimal("0")
+    for i, net_kw in enumerate(series):
+        start=soc; charged_input=Decimal("0"); delivered=Decimal("0"); curtail=Decimal("0"); shortfall=Decimal("0")
+        if net_kw >= 0:
+            requested_kw=min(net_kw,max_charge)
+            room=cap-soc
+            max_input_by_room=room/(ce*dt) if room>0 else Decimal("0")
+            actual_kw=min(requested_kw,max_input_by_room)
+            charged_input=actual_kw*dt
+            soc += charged_input*ce
+            curtail=(net_kw-actual_kw)*dt
+            curtailed += curtail; charge_input_total += charged_input
+        else:
+            deficit_kw=-net_kw
+            available_internal=max(soc-min_soc,Decimal("0"))
+            max_delivered_by_soc=available_internal*de/dt
+            actual_kw=min(deficit_kw,max_discharge,max_delivered_by_soc)
+            delivered=actual_kw*dt
+            soc -= delivered/de
+            shortfall=(deficit_kw-actual_kw)*dt
+            unmet += shortfall; delivered_total += delivered
+        steps.append({"index":i,"net_surplus_kw":_text(net_kw),"starting_soc_kwh":_text(start),"ending_soc_kwh":_text(soc),"charge_input_kwh":_text(charged_input),"discharge_delivered_kwh":_text(delivered),"curtailed_surplus_kwh":_text(curtail),"unmet_deficit_kwh":_text(shortfall)})
+    return {"ending_soc_kwh":_text(soc),"charge_input_kwh":_text(charge_input_total),"discharge_delivered_kwh":_text(delivered_total),"curtailed_surplus_kwh":_text(curtailed),"unmet_deficit_kwh":_text(unmet),"steps":steps}
+
+
+def _reserve_margin(inputs: dict[str, Any]) -> dict[str, Any]:
+    cap=_decimal(inputs["dependable_capacity_kw"],label="dependable_capacity_kw",nonnegative=True)
+    demand=_decimal(inputs["peak_demand_kw"],label="peak_demand_kw",positive=True)
+    margin=cap-demand
+    return {"reserve_capacity_kw":_text(margin),"reserve_margin_pct":_text(margin/demand*Decimal("100")),"dependable_capacity_kw":_text(cap),"peak_demand_kw":_text(demand)}
+
+
+def _peak_coverage(inputs: dict[str, Any]) -> dict[str, Any]:
+    gen=_decimal(inputs["available_generation_kw"],label="available_generation_kw",nonnegative=True)
+    storage=_decimal(inputs["storage_discharge_kw"],label="storage_discharge_kw",nonnegative=True)
+    demand=_decimal(inputs["peak_demand_kw"],label="peak_demand_kw",positive=True)
+    available=gen+storage; headroom=available-demand
+    return {"available_capacity_kw":_text(available),"headroom_kw":_text(headroom),"coverage_pct":_text(available/demand*Decimal("100")),"peak_covered":available>=demand}
+
+
+def _loss_of_load(inputs: dict[str, Any]) -> dict[str, Any]:
+    demand,cap,dt=_matched_demand_capacity(inputs)
+    flags=[d>c for d,c in zip(demand,cap)]
+    events=0; in_event=False; lengths=[]; current=0
+    for flag in flags:
+        if flag:
+            if not in_event: events+=1; in_event=True; current=0
+            current+=1
+        elif in_event:
+            lengths.append(current); in_event=False
+    if in_event: lengths.append(current)
+    intervals=sum(1 for f in flags if f)
+    return {"loss_of_load_intervals":intervals,"loss_of_load_events":events,"loss_of_load_hours":_text(Decimal(intervals)*dt),"event_durations_hours":[_text(Decimal(n)*dt) for n in lengths]}
+
+
+def _energy_not_served(inputs: dict[str, Any]) -> dict[str, Any]:
+    demand,cap,dt=_matched_demand_capacity(inputs)
+    shortfalls=[max(d-c,Decimal("0")) for d,c in zip(demand,cap)]
+    ens=sum((x*dt for x in shortfalls),Decimal("0"))
+    return {"energy_not_served_kwh":_text(ens),"maximum_shortfall_kw":_text(max(shortfalls) if shortfalls else Decimal("0")),"shortfall_kw_series":[_text(x) for x in shortfalls]}
+
+
+def _adequacy_timeseries(inputs: dict[str, Any]) -> dict[str, Any]:
+    lol=_loss_of_load(inputs); ens=_energy_not_served(inputs)
+    demand,cap,dt=_matched_demand_capacity(inputs)
+    served=sum((min(d,c)*dt for d,c in zip(demand,cap)),Decimal("0")); total=sum((d*dt for d in demand),Decimal("0"))
+    served_pct=served/total*Decimal("100") if total>0 else Decimal("100")
+    return {**lol,**ens,"total_demand_kwh":_text(total),"served_energy_kwh":_text(served),"served_energy_pct":_text(served_pct),"reliability_declaration_performed":False,"outage_prediction_performed":False}
+
+
 EXECUTORS: dict[str, Callable[[dict[str, Any]], dict[str, Any]]] = {
     "unit-conversion": _unit_conversion,
     "conversion-chain": _conversion_chain,
@@ -454,6 +620,13 @@ EXECUTORS: dict[str, Callable[[dict[str, Any]], dict[str, Any]]] = {
     "anaerobic-digestion-energy": _ad,
     "biochar-carbon": _biochar,
     "biomass-to-oil-energy": _biomass_oil,
+    "storage-round-trip": _storage_round_trip,
+    "storage-soc-trajectory": _storage_soc,
+    "reserve-margin": _reserve_margin,
+    "peak-demand-coverage": _peak_coverage,
+    "loss-of-load-events": _loss_of_load,
+    "energy-not-served": _energy_not_served,
+    "adequacy-timeseries": _adequacy_timeseries,
 }
 
 
