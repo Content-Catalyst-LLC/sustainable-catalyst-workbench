@@ -1,0 +1,16 @@
+# Workbench v6.6.0 Build Validation
+
+Release: Unified Research Project & Session Bridge
+
+- Focused backend integration/compatibility suite: 35 passed.
+- Release/static suite: 9 passed.
+- Repository-wide Python suite: 534 passed.
+- Python compilation: PASS.
+- WordPress PHP syntax validation: PASS when PHP is available.
+- ASGI route probes: PASS.
+- Core 3.0 field mapping inspected against the uploaded Platform Core 3.0 source.
+- Workbench database migration: none.
+
+Validated contracts:
+- `sc.research.unified-runtime-contract.v1`
+- `sc.research.unified-research-scientific-investigation-runtime.v1`

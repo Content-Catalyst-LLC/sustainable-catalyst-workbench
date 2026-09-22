@@ -1,3 +1,7 @@
+# Sustainable Catalyst Workbench v6.6.0
+
+Current release: **Workbench v6.6.0 — Unified Research Project & Session Bridge**. v6.6.0 binds canonical Workbench computational projects into Platform Core 3.0 unified research runtime sessions using a two-phase lifecycle: Workbench first prepares the Core session request, Core returns the authoritative session ID, and Workbench then prepares product/object/execution/visual/validation/package/handoff bindings against that ID. Workbench remains the specialist computation authority and does not automatically persist Core state.
+
 # Sustainable Catalyst Workbench v6.5.0
 
 Current release: **Workbench v6.5.0 — Unified Runtime Contract Adapter**. v6.5.0 builds on the v6.4 Core connectivity foundation by implementing deterministic adapters for `sc.research.unified-runtime-contract.v1`: contract validation, Workbench product-binding declarations, canonical project/object reference mapping, inbound Core exchange-envelope consumption, and outbound Core-compatible exchange/invocation/result request construction. Core still does not directly execute Workbench specialist code, and v6.5 does not automatically persist or dispatch to Core.

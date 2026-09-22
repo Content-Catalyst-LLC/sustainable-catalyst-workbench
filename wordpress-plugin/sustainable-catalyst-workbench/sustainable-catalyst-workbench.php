@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 6.5.0
+ * Version: 6.6.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '6.5.0');
+define('SCWB_VERSION', '6.6.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -230,3 +230,6 @@ require_once __DIR__ . '/includes/scwb-v640-platform-core-connectivity.php';
 // Workbench v6.5.0 — Unified Runtime Contract Adapter.
 if (!defined('SCWB_V650_PLUGIN_FILE')) { define('SCWB_V650_PLUGIN_FILE', __FILE__); }
 require_once __DIR__ . '/includes/scwb-v650-unified-runtime-contract-adapter.php';
+
+// Workbench v6.6.0 — Unified Research Project & Session Bridge.
+require_once __DIR__ . '/includes/scwb-v660-unified-research-session-bridge.php';
