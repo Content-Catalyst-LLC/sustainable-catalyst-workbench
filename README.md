@@ -1,3 +1,7 @@
+# Sustainable Catalyst Workbench v6.7.0
+
+Current release: **Workbench v6.7.0 — Computation, Analysis & Execution Lineage Bridge**. v6.7.0 maps externally executed Workbench computation into Platform Core's `sc.research.computation-analysis-execution-lineage.v1` contract. Workbench prepares Core execution registration, exact input/parameter/assumption/environment/ordered-step/output/dependency/verification lineage requests, unified-session execution bindings, revisions, and immutable snapshot requests. Platform Core remains a provenance and lineage registry; specialist computation remains Workbench-owned.
+
 # Sustainable Catalyst Workbench v6.6.0
 
 Current release: **Workbench v6.6.0 — Unified Research Project & Session Bridge**. v6.6.0 binds canonical Workbench computational projects into Platform Core 3.0 unified research runtime sessions using a two-phase lifecycle: Workbench first prepares the Core session request, Core returns the authoritative session ID, and Workbench then prepares product/object/execution/visual/validation/package/handoff bindings against that ID. Workbench remains the specialist computation authority and does not automatically persist Core state.

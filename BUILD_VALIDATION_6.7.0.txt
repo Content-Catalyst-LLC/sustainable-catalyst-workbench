@@ -1,0 +1,18 @@
+# Workbench v6.7.0 Build Validation
+
+Release: Computation, Analysis & Execution Lineage Bridge
+
+- Focused backend integration/compatibility suite: 50 passed.
+- Release/static suite: 14 passed.
+- Repository-wide Python suite: 554 passed.
+- Python compilation: PASS.
+- WordPress PHP syntax validation: PASS when PHP is available.
+- ASGI endpoint probes: PASS.
+- Core v2.87 computation-lineage field mapping inspected against the uploaded Platform Core source.
+- Core 3.0 unified-runtime execution-binding integration inspected against the uploaded Platform Core source.
+- Workbench database migration: none.
+
+Validated contracts:
+- `sc.research.unified-runtime-contract.v1`
+- `sc.research.unified-research-scientific-investigation-runtime.v1`
+- `sc.research.computation-analysis-execution-lineage.v1`
