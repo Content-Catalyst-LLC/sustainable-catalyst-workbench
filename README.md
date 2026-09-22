@@ -1,10 +1,6 @@
-# Sustainable Catalyst Workbench v6.2.0
+# Sustainable Catalyst Workbench v6.4.0
 
-Current capability release: **Energy Workbench Runtime**. v6.2.0 preserves the complete Workbench surface and adds Energy Systems Intelligence v1.3.0 explicit-input execution for fourteen calculations spanning energy units, balances, generation, scenario economics, and bioenergy/carbon arithmetic. `/consume` remains non-executing; calculations require an explicit `/execute` request. Results are deterministic, provenance-preserving, ephemeral, non-ranking, and non-recommending.
-
-# Sustainable Catalyst Workbench v6.0.1
-
-Current patch release: **Unified Experience, Runtime Identity & Interface Hardening**. v6.0.1 keeps the complete 39-studio capability surface while replacing the long brochure-like studio index with grouped search/filter navigation, browser-local favorites and recents, internal navigation scrolling, a native v6 public experience, one release identity across WordPress/FastAPI/Docker, and graph redraw hardening based on ResizeObserver and studio-visibility events. The backend runtime advances to v6.0.1 and must be redeployed.
+Current release: **Workbench v6.4.0 — Platform Core Connectivity Foundation**. v6.4.0 adds Core-compatible `/health`, `/runtime`, `/capabilities`, and `/integration/core/status` surfaces; request identity propagation; optional shared service-token validation for Core integration routes; canonical 6.4.0 backend/plugin/container identity; and Docker health checks. Existing computational and Energy Systems contracts remain compatible.
 
 # Sustainable Catalyst Workbench v6.0.0
 

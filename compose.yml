@@ -3,13 +3,27 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    image: sustainable-catalyst-workbench:6.2.0
+    image: sustainable-catalyst-workbench:6.4.0
     container_name: sc-workbench
     restart: unless-stopped
     environment:
       PORT: "8088"
+      SCWB_ALLOWED_ORIGINS: "${SCWB_ALLOWED_ORIGINS:-}"
+      SCWB_CORE_URL: "${SCWB_CORE_URL:-}"
+      SCWB_CORE_API_KEY: "${SCWB_CORE_API_KEY:-}"
+      SCWB_CORE_ENABLED: "${SCWB_CORE_ENABLED:-false}"
+      SCWB_CORE_REQUIRED: "${SCWB_CORE_REQUIRED:-false}"
+      SCWB_CORE_EXPECTED_VERSION_PREFIX: "${SCWB_CORE_EXPECTED_VERSION_PREFIX:-3.}"
+      SCWB_SERVICE_TOKEN: "${SCWB_SERVICE_TOKEN:-}"
+      SCWB_REQUIRE_SERVICE_TOKEN: "${SCWB_REQUIRE_SERVICE_TOKEN:-false}"
     ports:
       - "127.0.0.1:8088:8088"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import json,urllib.request; d=json.load(urllib.request.urlopen('http://127.0.0.1:8088/health',timeout=4)); assert d.get('ok') and d.get('version')=='6.4.0'"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     networks:
       - sc-internal
 

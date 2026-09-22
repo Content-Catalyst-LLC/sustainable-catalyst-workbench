@@ -1,9 +1,11 @@
 import os
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from app.release import APP_VERSION
 
-app = FastAPI(title="Sustainable Catalyst Workbench", version="6.3.0")
-version="6.3.0"
+app = FastAPI(title="Sustainable Catalyst Workbench", version=APP_VERSION)
+# Static release identity marker: version="6.4.0"
+version=APP_VERSION
 
 def _allowed_origins():
     configured = [item.strip() for item in os.getenv("SCWB_ALLOWED_ORIGINS", "").split(",") if item.strip()]
@@ -19,8 +21,18 @@ app.add_middleware(
     allow_origins=_allowed_origins(),
     allow_credentials=False,
     allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["Content-Type", "Accept"],
+    allow_headers=["Content-Type", "Accept", "X-Request-ID", "X-SC-Service-Token", "X-SC-Gateway-Service", "X-SC-Core-Version"],
 )
+
+@app.middleware("http")
+async def workbench_request_identity(request: Request, call_next):
+    """Preserve Core request identity without exposing credentials."""
+    request_id = request.headers.get("x-request-id", "").strip()
+    response = await call_next(request)
+    if request_id:
+        response.headers["X-Request-ID"] = request_id
+    response.headers["X-SC-Workbench-Version"] = APP_VERSION
+    return response
 
 # Workbench v2.0.0 foundation routes.
 from app.v200 import router as v200_router
@@ -240,3 +252,8 @@ app.include_router(energy_workbench_runtime_router)
 # Workbench v6.3.0 — Grid, Storage & Reliability Analysis routes.
 from app.v630 import router as v630_router
 app.include_router(v630_router)
+
+
+# Workbench v6.4.0 — Platform Core Connectivity Foundation routes.
+from app.v640 import router as v640_router
+app.include_router(v640_router)

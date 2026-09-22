@@ -35,11 +35,11 @@ def req(operation, inputs, **extra):
     return {"schema": "sc-energy-workbench-calculation-request/1.0", "operation": operation, "inputs": inputs, **extra}
 
 
-def test_framework_exposes_fourteen_guarded_operations():
+def test_framework_exposes_current_guarded_operations():
     x = framework()
-    assert x["workbench_version"] == "6.2.0"
-    assert x["energy_systems_version"] == "1.3.0"
-    assert len(x["operations"]) == 14
+    assert x["workbench_version"] == "6.3.0"
+    assert x["energy_systems_version"] == "1.6.0"
+    assert len(x["operations"]) == 21
     assert x["capabilities"]["explicit_input_execution"] is True
     assert x["capabilities"]["automatic_execution_on_consume"] is False
     assert x["capabilities"]["automatic_persistence"] is False

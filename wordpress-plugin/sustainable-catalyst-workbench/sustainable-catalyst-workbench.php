@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 6.3.0
+ * Version: 6.4.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '6.3.0');
+define('SCWB_VERSION', '6.4.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -220,3 +220,8 @@ require_once __DIR__ . '/includes/scwb-v620-energy-workbench-runtime.php';
 // Workbench v6.3.0 — Grid, Storage & Reliability Analysis.
 if (!defined('SCWB_V630_PLUGIN_FILE')) { define('SCWB_V630_PLUGIN_FILE', __FILE__); }
 require_once __DIR__ . '/includes/scwb-v630-grid-storage-reliability.php';
+
+
+// Workbench v6.4.0 — Platform Core Connectivity Foundation.
+if (!defined('SCWB_V640_PLUGIN_FILE')) { define('SCWB_V640_PLUGIN_FILE', __FILE__); }
+require_once __DIR__ . '/includes/scwb-v640-platform-core-connectivity.php';

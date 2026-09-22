@@ -1,0 +1,60 @@
+SUSTAINABLE CATALYST WORKBENCH v6.4.0 — TERMINAL COMMANDS
+===========================================================
+
+A. APPLY RELEASE TO YOUR LOCAL GITHUB REPOSITORY
+
+cd ~/Downloads
+rm -rf sc-workbench-v6.4.0-patch
+unzip -q sustainable-catalyst-workbench-v6.4.0-tiny-patch.zip -d sc-workbench-v6.4.0-patch
+cd sc-workbench-v6.4.0-patch
+chmod +x apply_and_push_workbench_v6_4_0_macos.sh
+./apply_and_push_workbench_v6_4_0_macos.sh "$HOME/Downloads/sustainable-catalyst-workbench"
+
+B. BACKEND DEPLOYMENT TO CONTABO
+
+cd ~/Downloads
+scp sustainable-catalyst-workbench-backend-v6.4.0.zip \
+  catalystadmin@94.72.113.77:/tmp/
+
+ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes catalystadmin@94.72.113.77
+
+cd /opt/sustainable-catalyst/workbench
+unzip -p /tmp/sustainable-catalyst-workbench-backend-v6.4.0.zip \
+  '*/deploy/contabo/upgrade_workbench_backend_v6_4_0_contabo.sh' \
+  > /tmp/upgrade_workbench_backend_v6_4_0_contabo.sh
+chmod +x /tmp/upgrade_workbench_backend_v6_4_0_contabo.sh
+/tmp/upgrade_workbench_backend_v6_4_0_contabo.sh \
+  /tmp/sustainable-catalyst-workbench-backend-v6.4.0.zip
+
+C. VERIFY BACKEND
+
+curl -fsS https://workbench-api.sustainablecatalyst.com/health | python3 -m json.tool
+curl -fsS https://workbench-api.sustainablecatalyst.com/runtime | python3 -m json.tool
+curl -fsS https://workbench-api.sustainablecatalyst.com/capabilities | python3 -m json.tool
+curl -fsS https://workbench-api.sustainablecatalyst.com/v640/status | python3 -m json.tool
+
+D. PLATFORM CORE SERVICE REGISTRY PAIRING
+
+# Configure these in Platform Core's deployment environment, using the actual
+# internal Workbench URL reachable from the Core container/network.
+SC_CORE_WORKBENCH_URL=http://sc-workbench:8088
+SC_CORE_WORKBENCH_ENABLED=true
+SC_CORE_WORKBENCH_REQUIRED=true
+SC_CORE_WORKBENCH_HEALTH_PATH=/health
+SC_CORE_WORKBENCH_EXPECTED_VERSION_PREFIX=6.4.
+SC_CORE_WORKBENCH_TOKEN_REQUIRED=true
+SC_CORE_WORKBENCH_SERVICE_TOKEN=<shared-secret>
+
+# Configure Workbench with the same shared secret:
+SCWB_CORE_ENABLED=true
+SCWB_CORE_REQUIRED=true
+SCWB_CORE_EXPECTED_VERSION_PREFIX=3.
+SCWB_REQUIRE_SERVICE_TOKEN=true
+SCWB_SERVICE_TOKEN=<shared-secret>
+
+E. WORDPRESS
+
+Upload and replace with:
+sustainable-catalyst-workbench-v6.4.0-wordpress.zip
+
+Expected plugin version: 6.4.0
