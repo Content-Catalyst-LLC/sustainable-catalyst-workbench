@@ -10,6 +10,9 @@ Validation summary
 - Python compilation passed for v6.4 through v6.11 integration modules and main.py.
 - v6.11 TestClient assembly passed.
 - WordPress plugin identity updated to 6.11.0.
+- WordPress bootstrap includes use the canonical __DIR__ pattern for v6.10 and v6.11.
+- Release gate rejects any SCWB_DIR reference in the main Workbench plugin bootstrap.
+- PHP syntax check passed after bootstrap repair.
 - Docker/Compose backend identity updated to 6.11.0.
 - No Workbench database migration required.
 

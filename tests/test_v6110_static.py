@@ -17,6 +17,9 @@ def test_forensic_guardrails_present():
 def test_wordpress_identity_and_include():
     main=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/sustainable-catalyst-workbench.php').read_text()
     assert 'Version: 6.11.0' in main and "define('SCWB_VERSION', '6.11.0')" in main and 'scwb-v6110-forensic-quantitative-reconstruction.php' in main
+    assert "require_once __DIR__ . '/includes/scwb-v6100-predictive-intelligence-runtime.php';" in main
+    assert "require_once __DIR__ . '/includes/scwb-v6110-forensic-quantitative-reconstruction.php';" in main
+    assert 'SCWB_DIR' not in main
 
 def test_release_artifacts_declared():
     for rel in ('RELEASE_NOTES_6.11.0_FORENSIC_QUANTITATIVE_RECONSTRUCTION_RUNTIME.md','docs/V6110_FORENSIC_QUANTITATIVE_RECONSTRUCTION_RUNTIME.md','docs/V6110_CORE_FORENSIC_FIELD_MAP.md','workbench-v6.11.0.env.example'):

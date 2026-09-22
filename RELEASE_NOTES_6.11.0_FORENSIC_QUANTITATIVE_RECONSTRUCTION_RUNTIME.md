@@ -16,3 +16,9 @@ Adds the specialist numerical execution layer for Platform Core Open Forensics q
 Workbench computes explicit quantitative results. Platform Core remains authoritative for evidence, provenance, chain of custody, claims, hypotheses, investigation state, and research semantics. Neither layer is authorized by this release to turn numerical fit into truth, guilt, responsibility, a ranked hypothesis list, or a forensic verdict.
 
 No Workbench database migration is required.
+
+## WordPress bootstrap hardening
+- Repairs the inherited v6.10 predictive-runtime bootstrap include to use `__DIR__` instead of the undefined `SCWB_DIR` constant.
+- Registers the v6.11 forensic runtime include with the same canonical `__DIR__` pattern.
+- Adds a release-gate assertion that fails if `SCWB_DIR` appears in the main Workbench plugin bootstrap, preventing this activation regression from returning in successor builds.
+

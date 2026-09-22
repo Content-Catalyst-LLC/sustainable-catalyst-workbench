@@ -3,12 +3,14 @@ Sustainable Catalyst Workbench v6.11.0 — Terminal Commands
 
 1) APPLY, VALIDATE, COMMIT, PUSH, TAG FROM MAC
 
+R2 packaging repair: canonical __DIR__ WordPress bootstrap; SCWB_DIR regression guard.
+
 cd ~/Downloads
 
 rm -rf sc-workbench-v6.11.0-patch
 
 unzip -q \
-  sustainable-catalyst-workbench-v6.11.0-tiny-patch.zip \
+  sustainable-catalyst-workbench-v6.11.0-tiny-patch-r2.zip \
   -d sc-workbench-v6.11.0-patch
 
 cd sc-workbench-v6.11.0-patch

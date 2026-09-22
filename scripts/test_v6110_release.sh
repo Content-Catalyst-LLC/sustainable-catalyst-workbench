@@ -10,6 +10,9 @@ grep -q 'from app.v6110 import router as v6110_router' "$ROOT/backend/app/main.p
 grep -q 'Version: 6.11.0' "$PLUGIN/sustainable-catalyst-workbench.php"
 grep -q "define('SCWB_VERSION', '6.11.0')" "$PLUGIN/sustainable-catalyst-workbench.php"
 grep -q 'scwb-v6110-forensic-quantitative-reconstruction.php' "$PLUGIN/sustainable-catalyst-workbench.php"
+grep -Fq "require_once __DIR__ . '/includes/scwb-v6100-predictive-intelligence-runtime.php';" "$PLUGIN/sustainable-catalyst-workbench.php"
+grep -Fq "require_once __DIR__ . '/includes/scwb-v6110-forensic-quantitative-reconstruction.php';" "$PLUGIN/sustainable-catalyst-workbench.php"
+if grep -q 'SCWB_DIR' "$PLUGIN/sustainable-catalyst-workbench.php"; then echo 'FAIL: undefined SCWB_DIR bootstrap reference detected' >&2; exit 1; fi
 grep -q 'sustainable-catalyst-workbench:6.11.0' "$ROOT/compose.yml"
 grep -q 'sc.open-forensics.quantitative-reconstruction.v1' "$ROOT/backend/app/v6110.py"
 grep -q 'sc.forensic-quantitative-handoff.v1' "$ROOT/backend/app/v6110.py"

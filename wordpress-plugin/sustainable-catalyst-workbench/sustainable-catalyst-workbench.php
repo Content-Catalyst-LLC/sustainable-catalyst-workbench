@@ -245,6 +245,6 @@ require_once __DIR__ . '/includes/scwb-v680-scenario-uncertainty-runtime.php';
 require_once __DIR__ . '/includes/scwb-v690-core-visual-reasoning-runtime.php';
 
 // Workbench v6.10.0 — Predictive Intelligence Runtime Integration.
-require_once SCWB_DIR . 'includes/scwb-v6100-predictive-intelligence-runtime.php';
+require_once __DIR__ . '/includes/scwb-v6100-predictive-intelligence-runtime.php';
 
-require_once SCWB_DIR . 'includes/scwb-v6110-forensic-quantitative-reconstruction.php';
+require_once __DIR__ . '/includes/scwb-v6110-forensic-quantitative-reconstruction.php';
