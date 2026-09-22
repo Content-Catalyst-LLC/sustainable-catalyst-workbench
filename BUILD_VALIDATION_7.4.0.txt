@@ -1,0 +1,19 @@
+Sustainable Catalyst Workbench v7.4.0 — Build Validation
+
+Release: Numerical Methods & Solver Runtime
+
+Validated gates:
+- 175/175 backend + Platform Core integration tests passed.
+- 64/64 release/static tests passed.
+- 729/729 complete Workbench repository tests passed.
+- WordPress main plugin PHP syntax passed.
+- v7.4 WordPress include PHP syntax passed.
+- Main WordPress bootstrap contains no SCWB_DIR reference.
+- Numerical solver manifest/status/root execution checks passed.
+
+Runtime boundaries:
+- allow-listed numerical methods only
+- no arbitrary Python/shell/dynamic imports
+- no automatic solver fallback
+- no automatic Platform Core dispatch/persistence
+- convergence diagnostics do not certify scientific validity or mathematical proof

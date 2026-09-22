@@ -178,6 +178,11 @@ def capabilities_record() -> dict[str, Any]:
             "unit-aware-parameter-and-variable-layer",
             "workspace-execution-binding-planning",
             "platform-core-workspace-lineage-planning",
+            "numerical-methods-solver-runtime",
+            "canonical-numerical-problem-specifications",
+            "solver-convergence-residual-diagnostics",
+            "numerical-convergence-study-runtime",
+            "platform-core-numerical-solver-lineage-planning",
         ],
         "coreIntegration": {
             "connectivityFoundation": True,
@@ -198,6 +203,8 @@ def capabilities_record() -> dict[str, Any]:
             "datasetVariableParameterWorkspace": True,
             "workspaceExecutionBindingPlanning": True,
             "workspaceLineagePlanning": True,
+            "numericalMethodsSolverRuntime": True,
+            "numericalSolverLineagePlanning": True,
         },
         "nextContract": CORE_RUNTIME_CONTRACT,
     }

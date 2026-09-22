@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 7.3.0
+ * Version: 7.4.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '7.3.0');
+define('SCWB_VERSION', '7.4.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -272,3 +272,6 @@ require_once __DIR__ . '/includes/scwb-v720-scientific-runtime-orchestrator.php'
 
 // Workbench v7.3.0 — Dataset, Variable & Parameter Workspace.
 require_once __DIR__ . '/includes/scwb-v730-data-variable-parameter-workspace.php';
+
+// Workbench v7.4.0 — Numerical Methods & Solver Runtime.
+require_once __DIR__ . '/includes/scwb-v740-numerical-methods-solver-runtime.php';

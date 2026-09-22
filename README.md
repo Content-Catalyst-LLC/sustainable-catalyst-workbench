@@ -113,3 +113,7 @@ See `V510_RELEASE_NOTES.md`, `docs/V510_UNIVERSAL_MATHEMATICS.md`, and `docs/V51
 ## v5.0.0 Integrated Platform
 
 The Integrated Platform studio coordinates canonical projects, surface registries, portfolios, workflows, integrity audits, governance gates, deployment plans, dossiers, and portable packages across the Sustainable Catalyst ecosystem.
+
+## Workbench v7.4.0 — Numerical Methods & Solver Runtime
+
+v7.4.0 adds a canonical numerical solver layer over the bounded v5.6 numerical engine and the v7.0–v7.3 execution/object/orchestration/data-workspace stack. It provides explicit solver selection, normalized convergence/residual/error diagnostics, refinement studies, workspace-to-solver binding plans, execution-object provenance, and two-phase Platform Core computation-lineage planning.
