@@ -148,6 +148,8 @@ def capabilities_record() -> dict[str, Any]:
             "platform-core-execution-session-bindings",
             "platform-core-scenario-uncertainty-compute-runtime",
             "monte-carlo-lhs-sobol-morris-runtime",
+            "platform-core-visual-reasoning-runtime-adapter",
+            "renderer-neutral-visual-research-manifests",
         ],
         "coreIntegration": {
             "connectivityFoundation": True,
@@ -155,7 +157,7 @@ def capabilities_record() -> dict[str, Any]:
             "unifiedResearchSessionBinding": True,
             "executionLineageBridge": True,
             "scenarioUncertaintyRuntime": True,
-            "visualReasoningRuntimeAdapter": False,
+            "visualReasoningRuntimeAdapter": True,
             "predictiveIntelligenceRuntime": False,
             "forensicQuantitativeReconstructionRuntime": False,
         },

@@ -1,0 +1,20 @@
+Sustainable Catalyst Workbench v6.9.0 — Build Validation
+
+Release: Core Visual Reasoning Runtime Adapter
+
+Validation targets:
+- canonical release identity = 6.9.0
+- Core visual object/scene/composition/grammar/unified/cross-product contracts mapped
+- result adapters produce deterministic renderer-neutral manifests
+- Core-issued visual IDs required between registration phases
+- v6.7 execution lineage and v6.8 scenario/uncertainty provenance preserved
+- no automatic Core dispatch/persistence
+- no renderer execution or automatic truth promotion
+- WordPress status bridge included
+- backend deployment verifier exercises result adaptation + Core request-plan assembly
+
+Observed validation:
+- full repository suite: 593 passed
+- focused backend/Core integration gate: 81 passed
+- release/static gate: 22 passed
+- endpoint assembly probe: PASS
