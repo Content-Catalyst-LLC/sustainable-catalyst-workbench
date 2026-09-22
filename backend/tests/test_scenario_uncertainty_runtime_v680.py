@@ -31,7 +31,7 @@ def core_manifest(**overrides):
 
 def test_manifest_declares_exact_core_surfaces_and_boundaries():
     m=scenario_uncertainty_manifest()
-    assert m['version']=='6.11.0'
+    assert m['version']=='6.12.0'
     assert m['coreScenarioInputManifestSchema']=='scenario-compute-input-manifest-v1'
     assert m['corePaths']['scenarioAttempts']=='/v1/scenario-compute/requests/{request_id}/attempts'
     assert m['corePaths']['uncertaintySampling']=='/v1/uncertainty-compute/sampling/design'
@@ -147,9 +147,9 @@ def test_service_token_policy_applies_to_v680(monkeypatch):
     monkeypatch.setenv('SCWB_REQUIRE_SERVICE_TOKEN','true'); monkeypatch.setenv('SCWB_SERVICE_TOKEN','secret-680')
     c=client(); assert c.get('/integration/core/scenario-uncertainty/manifest').status_code==401
     ok=c.get('/integration/core/scenario-uncertainty/manifest',headers={'X-SC-Service-Token':'secret-680'})
-    assert ok.status_code==200 and ok.json()['version']=='6.11.0'
+    assert ok.status_code==200 and ok.json()['version']=='6.12.0'
 
 def test_v680_status_and_capabilities():
-    c=client(); s=c.get('/v680/status').json(); assert s['ok'] is True and s['version']=='6.11.0' and s['sobol'] is True
-    caps=c.get('/capabilities').json(); assert caps['version']=='6.11.0'; assert caps['coreIntegration']['scenarioUncertaintyRuntime'] is True
+    c=client(); s=c.get('/v680/status').json(); assert s['ok'] is True and s['version']=='6.12.0' and s['sobol'] is True
+    caps=c.get('/capabilities').json(); assert caps['version']=='6.12.0'; assert caps['coreIntegration']['scenarioUncertaintyRuntime'] is True
     assert 'platform-core-scenario-uncertainty-compute-runtime' in caps['capabilities']

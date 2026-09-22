@@ -1,0 +1,27 @@
+Sustainable Catalyst Workbench v6.12.0
+Research State, Reproduction & Snapshot Integration
+
+CERTIFIED VALIDATION
+- New v6.12 + v6.4–v6.11 Core integration backend gate: 120 passed
+- v6.4–v6.12 release/static gate: 36 passed
+- Complete repository regression suite: 646 passed
+- WordPress main plugin PHP syntax: PASS
+- WordPress v6.10 module PHP syntax: PASS
+- WordPress v6.11 module PHP syntax: PASS
+- WordPress v6.12 module PHP syntax: PASS
+- SCWB_DIR main-bootstrap regression guard: PASS (no reference permitted)
+- No Workbench database migration required
+
+Core contracts verified in source mapping:
+- sc.research.project-state-versioning-reproducibility.v1
+- sc.research.reproducible-package.v1
+- sc.research.cross-product-context-handoff.v1
+
+Safety / authority boundaries:
+- automatic Core dispatch: false
+- automatic Core persistence: false
+- automatic state restore: false
+- automatic execution replay: false
+- reproducibility certification by Workbench/Core bridge: false
+- scientific result validation by bridge: false
+- truth determination: false
