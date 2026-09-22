@@ -1,0 +1,29 @@
+Sustainable Catalyst Workbench v6.11.0 — Build Validation
+===========================================================
+
+Release: Forensic Quantitative Reconstruction Runtime
+
+Validation summary
+- 105 focused backend / Platform Core integration tests passed.
+- 31 focused release/static tests passed.
+- 626 / 626 full Workbench repository tests passed.
+- Python compilation passed for v6.4 through v6.11 integration modules and main.py.
+- v6.11 TestClient assembly passed.
+- WordPress plugin identity updated to 6.11.0.
+- Docker/Compose backend identity updated to 6.11.0.
+- No Workbench database migration required.
+
+Forensic guardrails
+- no automatic Core dispatch or persistence
+- no arbitrary Core code execution
+- no hypothesis ranking/winner selection
+- no probability/posterior assignment to forensic hypotheses
+- no truth, guilt, responsibility, authenticity, or verdict determination
+
+Contracts
+- sc.open-forensics.quantitative-reconstruction.v1
+- sc.forensic-quantitative-handoff.v1
+- sc.open-forensics.quantitative-reproduction-package.v1
+- sc.open-forensics.forensic-timeline.v1
+- sc.open-forensics.spatial-temporal-evidence.v1
+- sc.open-forensics.competing-hypothesis-matrix.v1

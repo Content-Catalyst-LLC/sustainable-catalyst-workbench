@@ -1,0 +1,69 @@
+Sustainable Catalyst Workbench v6.11.0 — Terminal Commands
+===========================================================
+
+1) APPLY, VALIDATE, COMMIT, PUSH, TAG FROM MAC
+
+cd ~/Downloads
+
+rm -rf sc-workbench-v6.11.0-patch
+
+unzip -q \
+  sustainable-catalyst-workbench-v6.11.0-tiny-patch.zip \
+  -d sc-workbench-v6.11.0-patch
+
+cd sc-workbench-v6.11.0-patch
+
+chmod +x apply_and_push_workbench_v6_11_0_macos.sh
+
+./apply_and_push_workbench_v6_11_0_macos.sh \
+  "$HOME/Downloads/sustainable-catalyst-workbench"
+
+
+2) COPY BACKEND PACKAGE TO CONTABO AND CONNECT
+
+cd ~/Downloads
+
+scp \
+  -i ~/.ssh/id_ed25519 \
+  -o IdentitiesOnly=yes \
+  sustainable-catalyst-workbench-backend-v6.11.0.zip \
+  catalystadmin@94.72.113.77:/tmp/
+
+ssh \
+  -i ~/.ssh/id_ed25519 \
+  -o IdentitiesOnly=yes \
+  catalystadmin@94.72.113.77
+
+
+3) RUN ON CONTABO
+
+cd /opt/sustainable-catalyst/workbench
+
+unzip -p \
+  /tmp/sustainable-catalyst-workbench-backend-v6.11.0.zip \
+  '*/deploy/contabo/upgrade_workbench_backend_v6_11_0_contabo.sh' \
+  > /tmp/upgrade_workbench_backend_v6_11_0_contabo.sh
+
+chmod +x /tmp/upgrade_workbench_backend_v6_11_0_contabo.sh
+
+/tmp/upgrade_workbench_backend_v6_11_0_contabo.sh \
+  /tmp/sustainable-catalyst-workbench-backend-v6.11.0.zip
+
+
+4) PUBLIC VERIFICATION
+
+curl -fsS \
+  https://workbench-api.sustainablecatalyst.com/health \
+  | python3 -m json.tool
+
+curl -fsS \
+  https://workbench-api.sustainablecatalyst.com/v6110/status \
+  | python3 -m json.tool
+
+curl -fsS \
+  https://workbench-api.sustainablecatalyst.com/integration/core/forensic-quantitative/manifest \
+  | python3 -m json.tool
+
+If SCWB_REQUIRE_SERVICE_TOKEN=true, add:
+  -H "X-SC-Service-Token: $SCWB_SERVICE_TOKEN"
+to the protected manifest request.

@@ -152,6 +152,8 @@ def capabilities_record() -> dict[str, Any]:
             "renderer-neutral-visual-research-manifests",
             "platform-core-predictive-intelligence-runtime",
             "predictive-forecast-backtest-calibration-runtime",
+            "platform-core-forensic-quantitative-reconstruction-runtime",
+            "forensic-trajectory-temporal-uncertainty-runtime",
         ],
         "coreIntegration": {
             "connectivityFoundation": True,
@@ -161,7 +163,7 @@ def capabilities_record() -> dict[str, Any]:
             "scenarioUncertaintyRuntime": True,
             "visualReasoningRuntimeAdapter": True,
             "predictiveIntelligenceRuntime": True,
-            "forensicQuantitativeReconstructionRuntime": False,
+            "forensicQuantitativeReconstructionRuntime": True,
         },
         "nextContract": CORE_RUNTIME_CONTRACT,
     }
