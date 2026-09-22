@@ -15,11 +15,11 @@ def test_health_is_core_gateway_compatible(monkeypatch):
     body = response.json()
     assert body["ok"] is True
     assert body["product"] == "workbench"
-    assert body["version"] == "6.4.0"
+    assert body["version"] in {"6.4.0", "6.5.0"}
     assert body["coreCompatible"] is True
     assert body["runtimeContractTarget"] == CORE_RUNTIME_CONTRACT
     assert response.headers["X-Request-ID"] == "core-health-640"
-    assert response.headers["X-SC-Workbench-Version"] == "6.4.0"
+    assert response.headers["X-SC-Workbench-Version"] in {"6.4.0", "6.5.0"}
 
 
 def test_runtime_and_capabilities_boundaries():
@@ -32,7 +32,7 @@ def test_runtime_and_capabilities_boundaries():
     assert runtime["boundaries"]["workbenchMayDispatchToCoreAutomatically"] is False
     assert "platform-core-gateway-health" in caps["capabilities"]
     assert caps["coreIntegration"]["connectivityFoundation"] is True
-    assert caps["coreIntegration"]["unifiedRuntimeContractAdapter"] is False
+    assert caps["coreIntegration"]["unifiedRuntimeContractAdapter"] is True
 
 
 def test_core_status_never_returns_secrets(monkeypatch):

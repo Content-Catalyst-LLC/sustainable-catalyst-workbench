@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.release import APP_VERSION
 
 app = FastAPI(title="Sustainable Catalyst Workbench", version=APP_VERSION)
-# Static release identity marker: version="6.4.0"
+# Static release identity marker: version="6.5.0"
 version=APP_VERSION
 
 def _allowed_origins():
@@ -257,3 +257,8 @@ app.include_router(v630_router)
 # Workbench v6.4.0 — Platform Core Connectivity Foundation routes.
 from app.v640 import router as v640_router
 app.include_router(v640_router)
+
+
+# Workbench v6.5.0 — Unified Runtime Contract Adapter routes.
+from app.v650 import router as v650_router
+app.include_router(v650_router)

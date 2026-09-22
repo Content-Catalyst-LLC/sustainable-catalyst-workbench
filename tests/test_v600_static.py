@@ -8,10 +8,10 @@ def test_v600_backend_route_runtime_and_container_identity():
     main = (ROOT / 'backend' / 'app' / 'main.py').read_text()
     compose = (ROOT / 'compose.yml').read_text()
     backend = (ROOT / 'backend' / 'app' / 'v600.py').read_text()
-    assert 'version="6.0.1"' in main or 'version="6.1.0"' in main or 'version="6.2.0"' in main or 'version="6.4.0"' in main
+    assert 'version="6.0.1"' in main or 'version="6.1.0"' in main or 'version="6.2.0"' in main or 'version="6.4.0"' in main or 'version="6.5.0"' in main
     assert 'from app.v600 import router as v600_router' in main
     assert 'app.include_router(v600_router)' in main
-    assert 'sustainable-catalyst-workbench:6.0.1' in compose or 'sustainable-catalyst-workbench:6.1.0' in compose or 'sustainable-catalyst-workbench:6.2.0' in compose or 'sustainable-catalyst-workbench:6.4.0' in compose
+    assert 'sustainable-catalyst-workbench:6.0.1' in compose or 'sustainable-catalyst-workbench:6.1.0' in compose or 'sustainable-catalyst-workbench:6.2.0' in compose or 'sustainable-catalyst-workbench:6.4.0' in compose or 'sustainable-catalyst-workbench:6.5.0' in compose
     assert 'VERSION = "6.0.1"' in backend
     for marker in ['canonical-computational-projects','shared-project-variables','linked-computational-objects','computational-provenance','append-only-project-history','portable-computational-exports','cross-platform-handoff-packets']:
         assert marker in backend
@@ -22,8 +22,8 @@ def test_v600_wordpress_contract_and_studio_registration():
     php = (PLUGIN / 'includes' / 'scwb-v600-unified-computational-workbench.php').read_text()
     catalog = (PLUGIN / 'includes' / 'scwb-v301-production-reliability.php').read_text()
     primary = (PLUGIN / 'includes' / 'scwb-primary-shortcode.php').read_text()
-    assert 'Version: 6.0.1' in main or 'Version: 6.1.0' in main or 'Version: 6.2.0' in main or 'Version: 6.4.0' in main
-    assert "define('SCWB_VERSION', '6.0.1')" in main or "define('SCWB_VERSION', '6.1.0')" in main or "define('SCWB_VERSION', '6.2.0')" in main or "define('SCWB_VERSION', '6.4.0')" in main
+    assert 'Version: 6.0.1' in main or 'Version: 6.1.0' in main or 'Version: 6.2.0' in main or 'Version: 6.4.0' in main or 'Version: 6.5.0' in main
+    assert "define('SCWB_VERSION', '6.0.1')" in main or "define('SCWB_VERSION', '6.1.0')" in main or "define('SCWB_VERSION', '6.2.0')" in main or "define('SCWB_VERSION', '6.4.0')" in main or "define('SCWB_VERSION', '6.5.0')" in main
     assert 'SCWB_V600_PLUGIN_FILE' in main
     assert "const VERSION = '6.0.1'" in php
     assert 'sc_workbench_computational_project' in php

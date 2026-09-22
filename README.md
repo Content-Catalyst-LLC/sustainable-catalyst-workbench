@@ -1,6 +1,6 @@
-# Sustainable Catalyst Workbench v6.4.0
+# Sustainable Catalyst Workbench v6.5.0
 
-Current release: **Workbench v6.4.0 — Platform Core Connectivity Foundation**. v6.4.0 adds Core-compatible `/health`, `/runtime`, `/capabilities`, and `/integration/core/status` surfaces; request identity propagation; optional shared service-token validation for Core integration routes; canonical 6.4.0 backend/plugin/container identity; and Docker health checks. Existing computational and Energy Systems contracts remain compatible.
+Current release: **Workbench v6.5.0 — Unified Runtime Contract Adapter**. v6.5.0 builds on the v6.4 Core connectivity foundation by implementing deterministic adapters for `sc.research.unified-runtime-contract.v1`: contract validation, Workbench product-binding declarations, canonical project/object reference mapping, inbound Core exchange-envelope consumption, and outbound Core-compatible exchange/invocation/result request construction. Core still does not directly execute Workbench specialist code, and v6.5 does not automatically persist or dispatch to Core.
 
 # Sustainable Catalyst Workbench v6.0.0
 
