@@ -6,29 +6,22 @@ def test_release_identity_and_router_registration():
     assert 'APP_VERSION = "6.13.0"' in (ROOT/'backend/app/release.py').read_text()
     main = (ROOT/'backend/app/main.py').read_text()
     assert 'version="6.13.0"' in main
-    assert 'from app.v6120 import router as v6120_router' in main
+    assert 'from app.v6130 import router as v6130_router' in main
     compose = (ROOT/'compose.yml').read_text()
     assert 'sustainable-catalyst-workbench:6.13.0' in compose
     assert "d.get('version')=='6.13.0'" in compose
 
 
-def test_core_contracts_are_exact():
-    src = (ROOT/'backend/app/v6120.py').read_text()
-    for contract in (
-        'sc.research.project-state-versioning-reproducibility.v1',
-        'sc.research.reproducible-package.v1',
-        'sc.research.cross-product-context-handoff.v1',
-    ):
-        assert contract in src
-
-
-def test_state_restore_and_replay_guardrails_present():
-    src = (ROOT/'backend/app/v6120.py').read_text()
+def test_experience_contract_and_boundaries_present():
+    src = (ROOT/'backend/app/v6130.py').read_text()
     for marker in (
+        'sc-workbench-core-aware-experience/1.0',
+        'single-core-aware-context-view',
+        'core-id-presence-and-gap-detection',
+        'automaticCoreDispatchAuthorized',
+        'automaticCorePersistenceAuthorized',
         'automaticStateRestoreAuthorized',
         'automaticExecutionReplayAuthorized',
-        'coreInfersReproducibility',
-        'workbenchCertifiesReproducibility',
         'truthDeterminationAuthorized',
     ):
         assert marker in src
@@ -41,14 +34,15 @@ def test_wordpress_identity_safe_bootstrap_and_module_include():
     assert "require_once __DIR__ . '/includes/scwb-v6100-predictive-intelligence-runtime.php';" in main
     assert "require_once __DIR__ . '/includes/scwb-v6110-forensic-quantitative-reconstruction.php';" in main
     assert "require_once __DIR__ . '/includes/scwb-v6120-research-state-reproduction-snapshot.php';" in main
+    assert "require_once __DIR__ . '/includes/scwb-v6130-core-aware-experience.php';" in main
     assert 'SCWB_DIR' not in main
 
 
 def test_release_artifacts_declared():
     for rel in (
-        'RELEASE_NOTES_6.12.0_RESEARCH_STATE_REPRODUCTION_SNAPSHOT_INTEGRATION.md',
-        'docs/V6120_RESEARCH_STATE_REPRODUCTION_SNAPSHOT_INTEGRATION.md',
-        'docs/V6120_CORE_RESEARCH_STATE_FIELD_MAP.md',
-        'workbench-v6.12.0.env.example',
+        'RELEASE_NOTES_6.13.0_CORE_AWARE_WORKBENCH_EXPERIENCE.md',
+        'docs/V6130_CORE_AWARE_WORKBENCH_EXPERIENCE.md',
+        'docs/V6130_CORE_AWARE_EXPERIENCE_FIELD_MAP.md',
+        'workbench-v6.13.0.env.example',
     ):
         assert (ROOT/rel).exists(), rel

@@ -155,6 +155,8 @@ def capabilities_record() -> dict[str, Any]:
             "platform-core-forensic-quantitative-reconstruction-runtime",
             "forensic-trajectory-temporal-uncertainty-runtime",
             "platform-core-research-state-reproduction-snapshot-integration",
+            "platform-core-aware-workbench-experience",
+            "core-context-readiness-next-action-planning",
             "workbench-research-state-snapshot-resume-runtime",
         ],
         "coreIntegration": {
@@ -167,6 +169,7 @@ def capabilities_record() -> dict[str, Any]:
             "predictiveIntelligenceRuntime": True,
             "forensicQuantitativeReconstructionRuntime": True,
             "researchStateReproductionSnapshotIntegration": True,
+            "coreAwareWorkbenchExperience": True,
         },
         "nextContract": CORE_RUNTIME_CONTRACT,
     }

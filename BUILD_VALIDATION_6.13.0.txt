@@ -1,0 +1,19 @@
+Sustainable Catalyst Workbench v6.13.0 — Build Validation
+Release: Core-Aware Workbench Experience
+
+Certified validation:
+- Focused backend/Core-integration gate: 126 passed
+- Focused release/static gate: 40 passed
+- Full repository regression suite: 656 passed
+- PHP syntax: main Workbench plugin + v6.10/v6.11/v6.12/v6.13 includes PASS
+- Bootstrap regression guard: no SCWB_DIR reference permitted in main plugin bootstrap
+- Core-aware experience endpoint assembly: PASS
+- Database migration: none
+
+Key boundaries validated:
+- no automatic Core dispatch
+- no automatic Core persistence
+- no automatic state restore
+- no automatic execution replay
+- Core-issued IDs are never fabricated
+- no truth determination
