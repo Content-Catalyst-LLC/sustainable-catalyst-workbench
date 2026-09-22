@@ -1,0 +1,29 @@
+Sustainable Catalyst Workbench v7.9.0 — Scientific Workflow Graph
+Build validation
+
+Release identity: 7.9.0
+Canonical schema: sc-workbench-scientific-workflow-graph/1.0
+Platform Core contract: sc.research.workflow-orchestration.v1
+
+Validated surfaces:
+- Typed scientific workflow graph nodes
+- Deterministic DAG/topological validation
+- Explicit source-path -> target-path result bindings
+- Unified-operation, solver, simulation, engineering, design-space and V&V node families
+- Content-addressed graph planning and graph-run hashes
+- Execution-object lineage where underlying runtimes provide v7.1 objects
+- Graph-run integrity/tamper validation
+- Two-phase Platform Core workflow/stage/context/event planning
+- No hidden output substitution
+- No arbitrary code execution
+- No automatic Core dispatch or persistence
+
+Test results:
+- Backend/Core integration release gate: 220 passed
+- Release/static gate: 84 passed
+- Complete repository pytest suite: 794 passed
+- WordPress main plugin PHP syntax: PASS
+- v7.9 WordPress bridge PHP syntax: PASS
+- SCWB_DIR bootstrap regression gate: PASS (not present)
+
+No database migration is required for v7.9.0.

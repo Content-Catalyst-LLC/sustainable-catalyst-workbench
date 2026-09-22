@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 7.8.0
+ * Version: 7.9.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '7.8.0');
+define('SCWB_VERSION', '7.9.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -289,3 +289,6 @@ require_once __DIR__ . '/includes/scwb-v760-engineering-systems-runtime.php';
 require_once __DIR__ . '/includes/scwb-v770-optimization-design-space.php';
 // Workbench v7.8.0 — Model Validation & Verification Framework.
 require_once __DIR__ . '/includes/scwb-v780-model-validation-verification.php';
+
+// Workbench v7.9.0 — Scientific Workflow Graph.
+require_once __DIR__ . '/includes/scwb-v790-scientific-workflow-graph.php';
