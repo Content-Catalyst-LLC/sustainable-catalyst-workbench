@@ -1,3 +1,7 @@
+# Sustainable Catalyst Workbench v6.14.0
+
+Current release: **Workbench v6.14.0 — Platform Integration Certification**. v6.14.0 certifies the declared runtime-contract conformance of the Platform Core integration stack introduced in v6.4–v6.13. It builds deterministic local conformance evidence and caller-reviewed Core v2.97 certification registry plans for suites, products, cases, runs, results, exchange/trace/reproduction checks, evidence, revisions, and immutable snapshots. Certification is explicitly limited to platform/runtime contract conformance; it does not certify scientific validity or product quality, authorize or rank products, infer reproducibility, or determine truth.
+
 # Sustainable Catalyst Workbench v6.8.0
 
 Current release: **Workbench v6.8.0 — Scenario & Uncertainty Compute Runtime Integration**. v6.8.0 connects Platform Core scenario-compute and uncertainty-compute handoffs to Workbench's specialist numerical execution plane. It adds deterministic Monte Carlo/LHS sampling, Sobol/Morris design and post-processing, ensemble statistics, empirical exceedance probabilities, Core scenario-request consumption, deterministic affine scenario execution, Core callback planning, and v6.7 computation-lineage handoffs. Core remains authoritative for scenario definitions, uncertainty semantics, provenance, and research context; Workbench performs the numerical computation and does not automatically dispatch or persist to Core.

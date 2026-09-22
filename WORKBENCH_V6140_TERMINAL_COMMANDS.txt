@@ -1,0 +1,98 @@
+WORKBENCH v6.14.0 — TERMINAL COMMANDS
+
+1) MAC — APPLY, VALIDATE, COMMIT, PUSH, TAG
+
+cd ~/Downloads
+
+rm -rf sc-workbench-v6.14.0-patch
+
+unzip -q \
+  sustainable-catalyst-workbench-v6.14.0-tiny-patch.zip \
+  -d sc-workbench-v6.14.0-patch
+
+cd sc-workbench-v6.14.0-patch
+
+chmod +x apply_and_push_workbench_v6_14_0_macos.sh
+
+./apply_and_push_workbench_v6_14_0_macos.sh \
+  "$HOME/Downloads/sustainable-catalyst-workbench"
+
+Expected final line:
+PASS: Workbench v6.14.0 applied, validated, committed, pushed, and tagged.
+
+
+2) MAC — COPY BACKEND PACKAGE TO CONTABO
+
+cd ~/Downloads
+
+scp \
+  -i ~/.ssh/id_ed25519 \
+  -o IdentitiesOnly=yes \
+  sustainable-catalyst-workbench-backend-v6.14.0.zip \
+  catalystadmin@94.72.113.77:/tmp/
+
+ssh \
+  -i ~/.ssh/id_ed25519 \
+  -o IdentitiesOnly=yes \
+  catalystadmin@94.72.113.77
+
+
+3) CONTABO — DEPLOY BACKEND
+
+cd /opt/sustainable-catalyst/workbench
+
+unzip -p \
+  /tmp/sustainable-catalyst-workbench-backend-v6.14.0.zip \
+  '*/deploy/contabo/upgrade_workbench_backend_v6_14_0_contabo.sh' \
+  > /tmp/upgrade_workbench_backend_v6_14_0_contabo.sh
+
+chmod +x /tmp/upgrade_workbench_backend_v6_14_0_contabo.sh
+
+/tmp/upgrade_workbench_backend_v6_14_0_contabo.sh \
+  /tmp/sustainable-catalyst-workbench-backend-v6.14.0.zip
+
+Expected final line:
+PASS: Workbench v6.14.0 backend deployed and verified.
+
+
+4) PUBLIC VERIFY
+
+curl -fsS \
+  https://workbench-api.sustainablecatalyst.com/health \
+  | python3 -m json.tool
+
+curl -fsS \
+  https://workbench-api.sustainablecatalyst.com/v6140/status \
+  | python3 -m json.tool
+
+curl -fsS \
+  https://workbench-api.sustainablecatalyst.com/integration/core/certification/manifest \
+  | python3 -m json.tool
+
+curl -fsS \
+  https://workbench-api.sustainablecatalyst.com/integration/core/certification/report/local \
+  | python3 -m json.tool
+
+If SCWB_REQUIRE_SERVICE_TOKEN=true, add:
+  -H "X-SC-Service-Token: $SCWB_SERVICE_TOKEN"
+
+
+5) WORDPRESS — POST-UPLOAD BOOTSTRAP SAFETY CHECK
+
+cd ~/public_html
+
+grep -RIn "SCWB_DIR" \
+  wp-content/plugins/sustainable-catalyst-workbench \
+  --exclude='*.bak*' || true
+
+php -l \
+  wp-content/plugins/sustainable-catalyst-workbench/sustainable-catalyst-workbench.php
+
+curl -sS -o /dev/null \
+  -w "HTTP %{http_code}\n" \
+  https://sustainablecatalyst.com/
+
+Expected:
+- no SCWB_DIR matches in the main Workbench bootstrap
+- No syntax errors detected
+- HTTP 200

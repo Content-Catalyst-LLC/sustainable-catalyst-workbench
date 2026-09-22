@@ -1,0 +1,49 @@
+Sustainable Catalyst Workbench v6.14.0 — Platform Integration Certification
+Build validation record
+
+Release identity
+- APP_VERSION: 6.14.0
+- Core certification contract: sc.research.platform-integration-certification.v1
+- Certification scope: platform/runtime contract conformance evidence only
+- Workbench DB migration: none
+
+Validation
+- Focused backend/Core integration gate: 133 passed
+- Release/static gate: 44 passed
+- Full Workbench repository suite: 667 passed
+- v6.14 release script: PASS
+- PHP syntax: PASS for main Workbench bootstrap and v6.10-v6.14 WordPress integration modules
+- SCWB_DIR bootstrap regression guard: PASS (no SCWB_DIR reference in main plugin bootstrap)
+
+v6.14 certification capabilities
+- deterministic local conformance report across v6.4-v6.13 integration bridges
+- Core certification suite request planning
+- Workbench product registration planning
+- conformance case/run/result planning
+- exchange, trace and reproduction check planning
+- certification evidence planning
+- Core run-report and suite-bundle read-only consumption
+- revision and immutable certification snapshot planning
+
+Safety / authority boundaries
+- automatic Core dispatch: false
+- automatic Core persistence: false
+- scientific-validity certification: false
+- product-quality certification: false
+- product authorization: false
+- product ranking: false
+- missing-evidence inference: false
+- reproducibility inference: false
+- failed-case auto-resolution: false
+- truth determination: false
+
+Core ID requirements
+- suite_id must come from Core before dependent product/case/run planning
+- product_id must come from Core before run planning
+- case_id values must come from Core before case-result planning
+- run_id must come from Core before result/check/evidence planning
+
+Release engineering
+- Backend deploy script: deploy/contabo/upgrade_workbench_backend_v6_14_0_contabo.sh
+- macOS apply/push/tag installer: installers/apply_and_push_workbench_v6_14_0_macos.sh
+- release validator: scripts/test_v6140_release.sh
