@@ -164,6 +164,10 @@ def capabilities_record() -> dict[str, Any]:
             "canonical-unified-execution-envelope",
             "dependency-ordered-scientific-engineering-workflows",
             "platform-core-unified-execution-lineage-planning",
+            "unified-execution-object-model",
+            "content-addressed-execution-objects",
+            "execution-object-integrity-validation",
+            "platform-core-execution-object-binding-planning",
         ],
         "coreIntegration": {
             "connectivityFoundation": True,
@@ -178,6 +182,7 @@ def capabilities_record() -> dict[str, Any]:
             "coreAwareWorkbenchExperience": True,
             "platformIntegrationCertification": True,
             "unifiedScientificEngineeringExecutionRuntime": True,
+            "unifiedExecutionObjectModel": True,
         },
         "nextContract": CORE_RUNTIME_CONTRACT,
     }

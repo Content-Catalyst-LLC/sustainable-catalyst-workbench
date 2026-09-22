@@ -1,6 +1,6 @@
-# Sustainable Catalyst Workbench v7.0.0
+# Sustainable Catalyst Workbench v7.1.0
 
-Current release: **Workbench v7.0.0 — Unified Scientific & Engineering Execution Runtime**. v7.0.0 consolidates Workbench's bounded specialist scientific and engineering engines behind one canonical execution contract with deterministic execution identities, content-hashed inputs/results, dependency-ordered workflows, and Platform Core computation-lineage planning. Arbitrary code, automatic Core dispatch/persistence, hidden workflow substitution, scientific-validity certification, ranking, and truth determination remain outside this runtime.
+Current release: **Workbench v7.1.0 — Unified Execution Object Model**. v7.1.0 formalizes every unified Workbench execution and workflow as a portable, content-addressed execution object with deterministic identity, declared inputs, parameters, runtime/environment identity, dependency edges, outputs, provenance, integrity validation, explicit metadata-only revisions, and two-phase Platform Core binding plans. Specialist execution remains in Workbench; object persistence, replay, scientific-validity certification, ranking, and truth determination are not performed automatically.
 
 # Sustainable Catalyst Workbench v6.8.0
 
