@@ -150,6 +150,8 @@ def capabilities_record() -> dict[str, Any]:
             "monte-carlo-lhs-sobol-morris-runtime",
             "platform-core-visual-reasoning-runtime-adapter",
             "renderer-neutral-visual-research-manifests",
+            "platform-core-predictive-intelligence-runtime",
+            "predictive-forecast-backtest-calibration-runtime",
         ],
         "coreIntegration": {
             "connectivityFoundation": True,
@@ -158,7 +160,7 @@ def capabilities_record() -> dict[str, Any]:
             "executionLineageBridge": True,
             "scenarioUncertaintyRuntime": True,
             "visualReasoningRuntimeAdapter": True,
-            "predictiveIntelligenceRuntime": False,
+            "predictiveIntelligenceRuntime": True,
             "forensicQuantitativeReconstructionRuntime": False,
         },
         "nextContract": CORE_RUNTIME_CONTRACT,
