@@ -1,0 +1,18 @@
+Sustainable Catalyst Workbench v7.8.0 — Model Validation & Verification Framework
+
+Release validation:
+- 209/209 backend + Platform Core integration tests passed
+- 80/80 release/static tests passed
+- 779/779 complete Workbench repository tests passed
+- WordPress main plugin PHP syntax: PASS
+- v7.8 WordPress include PHP syntax: PASS
+- main WordPress bootstrap SCWB_DIR regression gate: PASS (not present)
+- benchmark/tolerance, dataset-comparison, convergence, report-integrity and Core verification-lineage smoke tests: PASS
+
+Boundaries verified:
+- declared V&V checks may pass/fail/incomplete only against declared evidence/tolerances
+- scientific validity is not certified
+- truth is not determined
+- fitness for purpose is not certified
+- engineering safety/code/regulatory compliance is not certified
+- no automatic Platform Core dispatch or persistence
