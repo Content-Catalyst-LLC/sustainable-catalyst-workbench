@@ -1,0 +1,34 @@
+Sustainable Catalyst Workbench v7.3.0 — Dataset, Variable & Parameter Workspace
+
+Release identity
+- APP_VERSION: 7.3.0
+- WordPress plugin: 7.3.0
+- Docker image: sustainable-catalyst-workbench:7.3.0
+- Database migration: none
+
+Validation
+- backend + Platform Core integration release gate: 167 passed
+- release/static gate: 60 passed
+- complete Python regression suite: 717 passed
+- WordPress bootstrap PHP syntax: pass
+- v7.3 WordPress include PHP syntax: pass
+- SCWB_DIR bootstrap regression scan: pass (no occurrence)
+
+v7.3 capabilities
+- content-addressed dataset objects
+- canonical typed variables
+- parameter sets with bounds and sensitivity roles
+- declared assumptions
+- unit validation/conversion with Pint when available and bounded fallback in validation environments
+- restricted SymPy-derived scalar values; no Python eval/exec
+- explicit workspace-to-v7.2 execution binding plans
+- exact Platform Core computation-lineage plans for datasets, parameters and assumptions
+
+Safety / authority boundaries
+- no arbitrary code execution
+- no hidden data fetching
+- no automatic execution
+- no automatic persistence
+- no automatic Platform Core dispatch/persistence
+- Core execution IDs must be issued by Core
+- no scientific validity, reproducibility, ranking or truth determination

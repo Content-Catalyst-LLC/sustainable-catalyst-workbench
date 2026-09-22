@@ -1,3 +1,7 @@
+# Sustainable Catalyst Workbench v7.3.0
+
+Current release: **Workbench v7.3.0 — Dataset, Variable & Parameter Workspace**. v7.3.0 adds a content-addressed, unit-aware research-input workspace above the v7.0 execution engine, v7.1 execution objects, and v7.2 runtime orchestrator. It defines bounded dataset objects, variables, parameter sets, assumptions, safe derived scalar values, explicit execution bindings, and two-phase Platform Core computation-lineage plans. It performs no arbitrary code execution, hidden data fetching, automatic persistence, automatic runtime dispatch, or automatic Core writes.
+
 # Sustainable Catalyst Workbench v7.2.0
 
 Current release: **Workbench v7.2.0 — Scientific Runtime Orchestrator**. v7.2.0 adds deterministic runtime routing above the v7.0 unified execution engine and v7.1 execution-object model. It selects bounded local adapters for symbolic mathematics, numerical computing, simulation, controls/signals, measurement, electronics/digital hardware, uncertainty, predictive analysis, forensic reconstruction, and energy execution; preserves content-addressed execution objects; supports dependency-aware orchestrated workflows; exposes plan-only R/Julia/ML adapter handoffs; and prepares two-phase Platform Core research-workflow records against `sc.research.workflow-orchestration.v1`. Arbitrary code, subprocess execution, automatic external dispatch, and automatic Core persistence remain prohibited.

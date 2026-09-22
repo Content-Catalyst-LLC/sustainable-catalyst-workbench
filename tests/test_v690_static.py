@@ -2,9 +2,9 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 
 def test_v690_release_identity_and_routes():
-    assert 'APP_VERSION = "7.2.0"' in (ROOT/'backend/app/release.py').read_text()
+    assert 'APP_VERSION = "7.3.0"' in (ROOT/'backend/app/release.py').read_text()
     main=(ROOT/'backend/app/main.py').read_text(); assert 'from app.v690 import router as v690_router' in main and 'app.include_router(v690_router)' in main
-    compose=(ROOT/'compose.yml').read_text(); assert 'sustainable-catalyst-workbench:7.2.0' in compose and "d.get('version')=='7.2.0'" in compose
+    compose=(ROOT/'compose.yml').read_text(); assert 'sustainable-catalyst-workbench:7.3.0' in compose and "d.get('version')=='7.3.0'" in compose
 
 def test_v690_core_visual_contracts_and_boundaries_present():
     t=(ROOT/'backend/app/v690.py').read_text()
@@ -14,7 +14,7 @@ def test_v690_core_visual_contracts_and_boundaries_present():
 
 def test_v690_wordpress_bridge_and_shortcode():
     p=ROOT/'wordpress-plugin/sustainable-catalyst-workbench'; main=(p/'sustainable-catalyst-workbench.php').read_text(); inc=(p/'includes/scwb-v690-core-visual-reasoning-runtime.php').read_text()
-    assert 'Version: 7.2.0' in main and "define('SCWB_VERSION', '7.2.0')" in main
+    assert 'Version: 7.3.0' in main and "define('SCWB_VERSION', '7.3.0')" in main
     assert 'scwb-v690-core-visual-reasoning-runtime.php' in main
     assert '/v690/status' in inc and 'sc_workbench_visual_reasoning_status' in inc
 

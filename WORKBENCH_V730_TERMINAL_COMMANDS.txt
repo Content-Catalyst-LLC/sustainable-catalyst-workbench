@@ -1,0 +1,29 @@
+# Workbench v7.3.0 Terminal Commands
+
+## Git / GitHub — macOS
+
+```bash
+cd ~/Downloads
+rm -rf sc-workbench-v7.3.0-patch
+unzip -q sustainable-catalyst-workbench-v7.3.0-tiny-patch.zip -d sc-workbench-v7.3.0-patch
+cd sc-workbench-v7.3.0-patch
+chmod +x apply_and_push_workbench_v7_3_0_macos.sh
+./apply_and_push_workbench_v7_3_0_macos.sh "$HOME/Downloads/sustainable-catalyst-workbench"
+```
+
+## Backend upload — macOS
+
+```bash
+cd ~/Downloads
+scp -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes sustainable-catalyst-workbench-backend-v7.3.0.zip catalystadmin@94.72.113.77:/tmp/
+ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes catalystadmin@94.72.113.77
+```
+
+## Backend deploy — Contabo
+
+```bash
+cd /opt/sustainable-catalyst/workbench
+unzip -p /tmp/sustainable-catalyst-workbench-backend-v7.3.0.zip '*/deploy/contabo/upgrade_workbench_backend_v7_3_0_contabo.sh' > /tmp/upgrade_workbench_backend_v7_3_0_contabo.sh
+chmod +x /tmp/upgrade_workbench_backend_v7_3_0_contabo.sh
+/tmp/upgrade_workbench_backend_v7_3_0_contabo.sh /tmp/sustainable-catalyst-workbench-backend-v7.3.0.zip
+```

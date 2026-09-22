@@ -3,20 +3,20 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 def test_v710_release_identity_router_compose():
-    assert 'APP_VERSION = "7.2.0"' in (ROOT/'backend/app/release.py').read_text()
+    assert 'APP_VERSION = "7.3.0"' in (ROOT/'backend/app/release.py').read_text()
     main=(ROOT/'backend/app/main.py').read_text()
-    assert 'version="7.2.0"' in main
+    assert 'version="7.3.0"' in main
     assert 'from app.v710 import router as v710_router' in main
     assert 'app.include_router(v710_router)' in main
     compose=(ROOT/'compose.yml').read_text()
-    assert 'sustainable-catalyst-workbench:7.2.0' in compose
-    assert "d.get('version')=='7.2.0'" in compose
+    assert 'sustainable-catalyst-workbench:7.3.0' in compose
+    assert "d.get('version')=='7.3.0'" in compose
 
 
 def test_v710_wordpress_identity_bootstrap_and_status_surface():
     main=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/sustainable-catalyst-workbench.php').read_text()
-    assert 'Version: 7.2.0' in main
-    assert "define('SCWB_VERSION', '7.2.0')" in main
+    assert 'Version: 7.3.0' in main
+    assert "define('SCWB_VERSION', '7.3.0')" in main
     assert "includes/scwb-v710-unified-execution-object-model.php" in main
     assert 'SCWB_DIR' not in main
     inc=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/includes/scwb-v710-unified-execution-object-model.php').read_text()

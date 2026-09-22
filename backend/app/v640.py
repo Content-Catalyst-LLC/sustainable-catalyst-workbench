@@ -173,6 +173,11 @@ def capabilities_record() -> dict[str, Any]:
             "bounded-runtime-adapter-registry",
             "external-runtime-handoff-planning",
             "platform-core-research-workflow-orchestration-planning",
+            "dataset-variable-parameter-workspace",
+            "content-addressed-research-input-objects",
+            "unit-aware-parameter-and-variable-layer",
+            "workspace-execution-binding-planning",
+            "platform-core-workspace-lineage-planning",
         ],
         "coreIntegration": {
             "connectivityFoundation": True,
@@ -190,6 +195,9 @@ def capabilities_record() -> dict[str, Any]:
             "unifiedExecutionObjectModel": True,
             "scientificRuntimeOrchestrator": True,
             "researchWorkflowOrchestrationPlanning": True,
+            "datasetVariableParameterWorkspace": True,
+            "workspaceExecutionBindingPlanning": True,
+            "workspaceLineagePlanning": True,
         },
         "nextContract": CORE_RUNTIME_CONTRACT,
     }
