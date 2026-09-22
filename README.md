@@ -117,3 +117,8 @@ The Integrated Platform studio coordinates canonical projects, surface registrie
 ## Workbench v7.4.0 — Numerical Methods & Solver Runtime
 
 v7.4.0 adds a canonical numerical solver layer over the bounded v5.6 numerical engine and the v7.0–v7.3 execution/object/orchestration/data-workspace stack. It provides explicit solver selection, normalized convergence/residual/error diagnostics, refinement studies, workspace-to-solver binding plans, execution-object provenance, and two-phase Platform Core computation-lineage planning.
+
+
+## Workbench v7.5.0 — Simulation & Dynamical Systems Runtime
+
+v7.5.0 promotes scalar dynamic, linear state-space, ODE/IVP, and bounded digital-twin simulation into a canonical runtime. It normalizes trajectories, event crossings, stability diagnostics, bounded parameter sweeps, v7.3 workspace bindings, v7.1 execution-object provenance, and two-phase Platform Core computation-lineage output planning.

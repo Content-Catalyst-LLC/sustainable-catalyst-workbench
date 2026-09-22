@@ -183,6 +183,11 @@ def capabilities_record() -> dict[str, Any]:
             "solver-convergence-residual-diagnostics",
             "numerical-convergence-study-runtime",
             "platform-core-numerical-solver-lineage-planning",
+            "simulation-dynamical-systems-runtime",
+            "canonical-dynamical-simulation-specifications",
+            "trajectory-event-stability-diagnostics",
+            "bounded-dynamical-parameter-sweeps",
+            "platform-core-simulation-lineage-planning",
         ],
         "coreIntegration": {
             "connectivityFoundation": True,
@@ -205,6 +210,8 @@ def capabilities_record() -> dict[str, Any]:
             "workspaceLineagePlanning": True,
             "numericalMethodsSolverRuntime": True,
             "numericalSolverLineagePlanning": True,
+            "simulationDynamicalSystemsRuntime": True,
+            "simulationLineagePlanning": True,
         },
         "nextContract": CORE_RUNTIME_CONTRACT,
     }

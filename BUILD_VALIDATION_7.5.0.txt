@@ -1,0 +1,21 @@
+Sustainable Catalyst Workbench v7.5.0 — Build Validation
+
+Release gate:
+- 184/184 backend + Platform Core integration tests passed
+- 68/68 release/static tests passed
+- 742/742 complete Workbench repository tests passed
+- WordPress main plugin PHP syntax clean
+- v7.5 WordPress include PHP syntax clean
+- SCWB_DIR bootstrap regression absent
+
+Architecture:
+- 4 canonical bounded simulation kinds
+- normalized trajectories and state histories
+- threshold event detection
+- explicit linear/state-model stability diagnostics
+- bounded parameter sweeps without automatic optimization
+- v7.3 workspace binding plans
+- v7.1 execution-object projection
+- Platform Core computation-lineage output planning
+
+No database migration.
