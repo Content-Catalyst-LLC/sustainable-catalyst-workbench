@@ -188,6 +188,10 @@ def capabilities_record() -> dict[str, Any]:
             "trajectory-event-stability-diagnostics",
             "bounded-dynamical-parameter-sweeps",
             "platform-core-simulation-lineage-planning",
+            "engineering-systems-runtime",
+            "canonical-bounded-engineering-analysis",
+            "cross-domain-engineering-system-bundles",
+            "platform-core-engineering-lineage-planning",
         ],
         "coreIntegration": {
             "connectivityFoundation": True,
@@ -212,6 +216,8 @@ def capabilities_record() -> dict[str, Any]:
             "numericalSolverLineagePlanning": True,
             "simulationDynamicalSystemsRuntime": True,
             "simulationLineagePlanning": True,
+            "engineeringSystemsRuntime": True,
+            "engineeringLineagePlanning": True,
         },
         "nextContract": CORE_RUNTIME_CONTRACT,
     }

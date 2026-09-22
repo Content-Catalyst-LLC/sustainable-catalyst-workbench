@@ -71,6 +71,9 @@ _FALLBACK_UNITS = {
     "kg": ("mass", 1.0), "g": ("mass", 0.001),
     "v": ("voltage", 1.0), "mv": ("voltage", 0.001), "a": ("current", 1.0), "ma": ("current", 0.001),
     "ohm": ("resistance", 1.0), "%": ("ratio", 0.01), "dimensionless": ("ratio", 1.0),
+    "n": ("force", 1.0), "kn": ("force", 1e3),
+    "pa": ("pressure", 1.0), "kpa": ("pressure", 1e3), "mpa": ("pressure", 1e6), "gpa": ("pressure", 1e9),
+    "m2": ("area", 1.0), "cm2": ("area", 1e-4), "mm2": ("area", 1e-6),
 }
 router = APIRouter(tags=["workbench-v730-data-variable-parameter-workspace"])
 

@@ -1,3 +1,7 @@
+# Sustainable Catalyst Workbench v7.6.0
+
+Current release: **Workbench v7.6.0 — Engineering Systems Runtime**. v7.6.0 consolidates bounded mechanical, thermal, fluid, civil/infrastructure, electrical, controls/mechatronics, and explicit-input energy analyses into one canonical engineering runtime. It adds engineering-system bundles, execution-object provenance, v7.3 workspace bindings, and two-phase Platform Core computation-lineage plans while explicitly withholding licensed engineering certification, code-compliance certification, physical-safety certification, automatic design selection, and automatic Core writes.
+
 # Sustainable Catalyst Workbench v7.3.0
 
 Current release: **Workbench v7.3.0 — Dataset, Variable & Parameter Workspace**. v7.3.0 adds a content-addressed, unit-aware research-input workspace above the v7.0 execution engine, v7.1 execution objects, and v7.2 runtime orchestrator. It defines bounded dataset objects, variables, parameter sets, assumptions, safe derived scalar values, explicit execution bindings, and two-phase Platform Core computation-lineage plans. It performs no arbitrary code execution, hidden data fetching, automatic persistence, automatic runtime dispatch, or automatic Core writes.

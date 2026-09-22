@@ -1,0 +1,23 @@
+Sustainable Catalyst Workbench v7.6.0 — Engineering Systems Runtime
+Build validation
+
+Backend + Platform Core integration release gate: 194 passed
+Release/static gate: 72 passed
+Complete repository Python suite: 756 passed
+WordPress main plugin PHP syntax: PASS
+WordPress v7.6 engineering include PHP syntax: PASS
+SCWB_DIR main-bootstrap regression gate: PASS (not present)
+
+Representative validated capabilities:
+- mechanical axial stress/strain and yield factor-of-safety calculation
+- simply-supported Euler-Bernoulli beam reactions/moment/deflection
+- steady conduction and convection heat transfer
+- Darcy-Weisbach pipe-flow pressure drop and Reynolds diagnostics
+- declared civil axial capacity/utilization without code-compliance claims
+- DC electrical calculation and bounded v2.3 actuator sizing reuse
+- deterministic engineering-system result bundles without hidden cross-domain coupling
+- v7.3 workspace binding planning including engineering force units
+- v7.1 execution-object projection and tamper-detecting content hashes
+- Platform Core computation-lineage output planning using Core-issued execution ids
+
+No database migration.

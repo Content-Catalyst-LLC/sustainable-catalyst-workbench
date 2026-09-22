@@ -42,13 +42,13 @@ def test_manifest_and_status_contracts():
     m = c.get('/integration/core/research-state/manifest')
     assert m.status_code == 200
     d = m.json()
-    assert d['version'] == '7.5.0'
+    assert d['version'] == '7.6.0'
     assert d['coreProjectStateContract'] == CORE_PROJECT_STATE_CONTRACT
     assert d['coreReproducibleResearchContract'] == CORE_REPRODUCIBLE_RESEARCH_CONTRACT
     assert d['coreContextHandoffContract'] == CORE_CONTEXT_HANDOFF_CONTRACT
     assert d['boundaries']['automaticStateRestoreAuthorized'] is False
     s = c.get('/v6120/status').json()
-    assert s['ok'] and s['version'] == '7.5.0'
+    assert s['ok'] and s['version'] == '7.6.0'
     assert s['deterministicWorkbenchStateCapture'] is True
     assert s['automaticExecutionReplay'] is False
 
@@ -190,7 +190,7 @@ def test_verification_compare_records_evidence_not_certification():
 
 def test_capability_registry_declares_v6120_integration():
     caps = c.get('/capabilities').json()
-    assert caps['version'] == '7.5.0'
+    assert caps['version'] == '7.6.0'
     assert caps['coreIntegration']['researchStateReproductionSnapshotIntegration'] is True
     assert 'platform-core-research-state-reproduction-snapshot-integration' in caps['capabilities']
 
@@ -200,4 +200,4 @@ def test_service_token_guard(monkeypatch):
     monkeypatch.setenv('SCWB_SERVICE_TOKEN', 'secret6120')
     assert c.get('/integration/core/research-state/manifest').status_code == 401
     ok = c.get('/integration/core/research-state/manifest', headers={'X-SC-Service-Token': 'secret6120'})
-    assert ok.status_code == 200 and ok.json()['version'] == '7.5.0'
+    assert ok.status_code == 200 and ok.json()['version'] == '7.6.0'
