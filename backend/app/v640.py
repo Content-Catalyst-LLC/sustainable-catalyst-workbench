@@ -160,6 +160,10 @@ def capabilities_record() -> dict[str, Any]:
             "workbench-declared-runtime-conformance-evidence",
             "core-context-readiness-next-action-planning",
             "workbench-research-state-snapshot-resume-runtime",
+            "unified-scientific-engineering-execution-runtime",
+            "canonical-unified-execution-envelope",
+            "dependency-ordered-scientific-engineering-workflows",
+            "platform-core-unified-execution-lineage-planning",
         ],
         "coreIntegration": {
             "connectivityFoundation": True,
@@ -173,6 +177,7 @@ def capabilities_record() -> dict[str, Any]:
             "researchStateReproductionSnapshotIntegration": True,
             "coreAwareWorkbenchExperience": True,
             "platformIntegrationCertification": True,
+            "unifiedScientificEngineeringExecutionRuntime": True,
         },
         "nextContract": CORE_RUNTIME_CONTRACT,
     }

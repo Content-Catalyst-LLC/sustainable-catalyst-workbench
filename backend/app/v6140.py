@@ -179,7 +179,7 @@ class RunPrepareInput(BaseModel):
     coreProductId: str = Field(min_length=1, max_length=1000)
     runKey: str = Field(default="workbench-v6-14-0-platform-integration", min_length=1, max_length=180)
     executedBy: str = Field(default="workbench-v6.14.0", min_length=1, max_length=500)
-    environmentRef: Optional[str] = Field(default="sc://workbench/runtime/6.14.0", max_length=1000)
+    environmentRef: Optional[str] = Field(default=f"sc://workbench/runtime/{VERSION}", max_length=1000)
     startedAt: Optional[str] = Field(default=None, max_length=80)
     completedAt: Optional[str] = Field(default=None, max_length=80)
     visibility: Literal["private", "internal", "public"] = "internal"

@@ -1,6 +1,6 @@
-# Sustainable Catalyst Workbench v6.14.0
+# Sustainable Catalyst Workbench v7.0.0
 
-Current release: **Workbench v6.14.0 — Platform Integration Certification**. v6.14.0 certifies the declared runtime-contract conformance of the Platform Core integration stack introduced in v6.4–v6.13. It builds deterministic local conformance evidence and caller-reviewed Core v2.97 certification registry plans for suites, products, cases, runs, results, exchange/trace/reproduction checks, evidence, revisions, and immutable snapshots. Certification is explicitly limited to platform/runtime contract conformance; it does not certify scientific validity or product quality, authorize or rank products, infer reproducibility, or determine truth.
+Current release: **Workbench v7.0.0 — Unified Scientific & Engineering Execution Runtime**. v7.0.0 consolidates Workbench's bounded specialist scientific and engineering engines behind one canonical execution contract with deterministic execution identities, content-hashed inputs/results, dependency-ordered workflows, and Platform Core computation-lineage planning. Arbitrary code, automatic Core dispatch/persistence, hidden workflow substitution, scientific-validity certification, ranking, and truth determination remain outside this runtime.
 
 # Sustainable Catalyst Workbench v6.8.0
 

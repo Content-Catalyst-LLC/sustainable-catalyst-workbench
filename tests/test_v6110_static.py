@@ -2,9 +2,9 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 
 def test_release_identity_and_registration():
-    assert 'APP_VERSION = "6.14.0"' in (ROOT/'backend/app/release.py').read_text()
+    assert 'APP_VERSION = "7.0.0"' in (ROOT/'backend/app/release.py').read_text()
     main=(ROOT/'backend/app/main.py').read_text(); assert 'from app.v6110 import router as v6110_router' in main
-    compose=(ROOT/'compose.yml').read_text(); assert 'sustainable-catalyst-workbench:6.14.0' in compose and "d.get('version')=='6.14.0'" in compose
+    compose=(ROOT/'compose.yml').read_text(); assert 'sustainable-catalyst-workbench:7.0.0' in compose and "d.get('version')=='7.0.0'" in compose
 
 def test_core_contracts_present():
     src=(ROOT/'backend/app/v6110.py').read_text()
@@ -16,7 +16,7 @@ def test_forensic_guardrails_present():
 
 def test_wordpress_identity_and_include():
     main=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/sustainable-catalyst-workbench.php').read_text()
-    assert 'Version: 6.14.0' in main and "define('SCWB_VERSION', '6.14.0')" in main and 'scwb-v6110-forensic-quantitative-reconstruction.php' in main
+    assert 'Version: 7.0.0' in main and "define('SCWB_VERSION', '7.0.0')" in main and 'scwb-v6110-forensic-quantitative-reconstruction.php' in main
     assert "require_once __DIR__ . '/includes/scwb-v6100-predictive-intelligence-runtime.php';" in main
     assert "require_once __DIR__ . '/includes/scwb-v6110-forensic-quantitative-reconstruction.php';" in main
     assert 'SCWB_DIR' not in main

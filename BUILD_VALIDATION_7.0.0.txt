@@ -1,0 +1,48 @@
+Sustainable Catalyst Workbench v7.0.0 build validation
+
+Release: Unified Scientific & Engineering Execution Runtime
+Version: 7.0.0
+
+CERTIFIED TEST RESULTS
+- 142/142 backend + Platform Core integration tests passed.
+- 48/48 release/static tests passed.
+- 680/680 complete Workbench repository tests passed.
+- scripts/test_v700_release.sh passed.
+- PHP syntax checks passed for the WordPress bootstrap and current integration modules.
+- SCWB_DIR bootstrap regression guard passed; no SCWB_DIR reference is permitted in the main WordPress bootstrap.
+
+UNIFIED EXECUTION RUNTIME
+- 66 allow-listed specialist operations registered.
+- 12 execution categories registered.
+- Canonical deterministic execution envelope active.
+- Deterministic Workbench execution IDs, request hashes, result hashes, provenance and lineage hints active.
+- Dependency-aware workflow execution active with cycle, duplicate-ID and unknown-dependency rejection.
+- Workflow execution does not implicitly substitute one step's output into another step's payload.
+- No arbitrary eval/exec/shell/dynamic callable execution surface is exposed.
+
+PLATFORM CORE INTEGRATION
+- Reuses sc.research.unified-runtime-contract.v1.
+- Reuses sc.research.unified-research-scientific-investigation-runtime.v1.
+- Reuses sc.research.computation-analysis-execution-lineage.v1.
+- Reuses sc.research.platform-integration-certification.v1.
+- Core lineage planning is two-phase and requires Core-issued execution IDs for dependent records.
+- No automatic Core dispatch or persistence is authorized by v7.0.0.
+- Platform Core remains non-executing; Workbench remains the specialist scientific/engineering compute authority.
+
+REPRESENTATIVE EXECUTION VALIDATION
+- Symbolic/math execution passed.
+- Numerical integration execution passed.
+- Electronics execution passed.
+- Uncertainty/ensemble execution passed.
+- Predictive forecasting execution passed.
+- Forensic trajectory reconstruction execution passed.
+- Dependency-ordered multi-step workflow execution passed.
+- Core execution-lineage first-phase registration plan passed.
+
+COMPATIBILITY
+- v6.4.0 through v6.14.0 Core integration tests remain passing under the 7.0.0 release identity.
+- v6.14.0 certification environment references are successor-version aware.
+- No database migration is required for v7.0.0.
+
+PACKAGING
+- Final package ZIP integrity, SHA-256 checksums and installer dry-run are performed during release packaging.
