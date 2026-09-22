@@ -66,7 +66,7 @@ class ExecutionObjectRevisionRequest(BaseModel):
     label: str = Field(default="", max_length=400)
     addTags: List[str] = Field(default_factory=list, max_length=100)
     metadataPatch: Dict[str, Any] = Field(default_factory=dict)
-    revisedBy: str = Field(default="workbench-v7.1.0", max_length=180)
+    revisedBy: str = Field(default=f"workbench-v{VERSION}", max_length=180)
 
 
 class CoreExecutionObjectBindingPlanRequest(BaseModel):
@@ -75,7 +75,7 @@ class CoreExecutionObjectBindingPlanRequest(BaseModel):
     coreRuntimeContractId: str = Field(default="", max_length=128)
     coreInvocationId: str = Field(default="", max_length=128)
     visibility: Literal["private", "internal", "public"] = "internal"
-    createdBy: str = Field(default="workbench-v7.1.0", max_length=180)
+    createdBy: str = Field(default=f"workbench-v{VERSION}", max_length=180)
 
 
 class ValidationRequest(BaseModel):

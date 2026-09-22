@@ -168,6 +168,11 @@ def capabilities_record() -> dict[str, Any]:
             "content-addressed-execution-objects",
             "execution-object-integrity-validation",
             "platform-core-execution-object-binding-planning",
+            "scientific-runtime-orchestrator",
+            "deterministic-runtime-routing",
+            "bounded-runtime-adapter-registry",
+            "external-runtime-handoff-planning",
+            "platform-core-research-workflow-orchestration-planning",
         ],
         "coreIntegration": {
             "connectivityFoundation": True,
@@ -183,6 +188,8 @@ def capabilities_record() -> dict[str, Any]:
             "platformIntegrationCertification": True,
             "unifiedScientificEngineeringExecutionRuntime": True,
             "unifiedExecutionObjectModel": True,
+            "scientificRuntimeOrchestrator": True,
+            "researchWorkflowOrchestrationPlanning": True,
         },
         "nextContract": CORE_RUNTIME_CONTRACT,
     }

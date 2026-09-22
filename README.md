@@ -1,3 +1,7 @@
+# Sustainable Catalyst Workbench v7.2.0
+
+Current release: **Workbench v7.2.0 — Scientific Runtime Orchestrator**. v7.2.0 adds deterministic runtime routing above the v7.0 unified execution engine and v7.1 execution-object model. It selects bounded local adapters for symbolic mathematics, numerical computing, simulation, controls/signals, measurement, electronics/digital hardware, uncertainty, predictive analysis, forensic reconstruction, and energy execution; preserves content-addressed execution objects; supports dependency-aware orchestrated workflows; exposes plan-only R/Julia/ML adapter handoffs; and prepares two-phase Platform Core research-workflow records against `sc.research.workflow-orchestration.v1`. Arbitrary code, subprocess execution, automatic external dispatch, and automatic Core persistence remain prohibited.
+
 # Sustainable Catalyst Workbench v7.1.0
 
 Current release: **Workbench v7.1.0 — Unified Execution Object Model**. v7.1.0 formalizes every unified Workbench execution and workflow as a portable, content-addressed execution object with deterministic identity, declared inputs, parameters, runtime/environment identity, dependency edges, outputs, provenance, integrity validation, explicit metadata-only revisions, and two-phase Platform Core binding plans. Specialist execution remains in Workbench; object persistence, replay, scientific-validity certification, ranking, and truth determination are not performed automatically.

@@ -284,7 +284,7 @@ class CoreLineagePlanRequest(BaseModel):
     coreSessionId: str = Field(default="", max_length=128)
     projectRef: str = Field(default="", max_length=1000)
     visibility: Literal["private", "internal", "public"] = "internal"
-    createdBy: str = Field(default="workbench-v7.1.0", max_length=180)
+    createdBy: str = Field(default=f"workbench-v{VERSION}", max_length=180)
 
 
 def _bounded_list(values: List[str], limit: int = 1000) -> List[str]:

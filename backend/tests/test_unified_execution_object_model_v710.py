@@ -27,14 +27,14 @@ def execute_object(c, expression='6*7'):
 def test_manifest_status_capabilities_and_current_identity():
     c=client()
     m=c.get('/execution/objects/manifest'); assert m.status_code==200
-    d=m.json(); assert d['version']=='7.1.0' and d['schema']==SCHEMA
+    d=m.json(); assert d['version']=='7.2.0' and d['schema']==SCHEMA
     assert d['objectSchema']==OBJECT_SCHEMA
     assert d['capabilities']['singleExecutionObjects'] is True
     assert d['capabilities']['workflowExecutionObjects'] is True
     assert d['boundaries']['automaticCorePersistenceAuthorized'] is False
-    s=c.get('/v710/status').json(); assert s['ok'] and s['version']=='7.1.0'
+    s=c.get('/v710/status').json(); assert s['ok'] and s['version']=='7.2.0'
     assert s['contentAddressedIntegrity'] is True and s['resultContentImmutableAcrossRevisions'] is True
-    caps=c.get('/capabilities').json(); assert caps['version']=='7.1.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='7.2.0'
     assert caps['coreIntegration']['unifiedExecutionObjectModel'] is True
     assert 'unified-execution-object-model' in caps['capabilities']
 
@@ -162,4 +162,4 @@ def test_core_route_token_boundary(monkeypatch):
     denied=c.post('/integration/core/execution-objects/binding/plan',json={'executionObject':obj})
     assert denied.status_code==401
     ok=c.post('/integration/core/execution-objects/binding/plan',headers={'X-SC-Service-Token':'secret710'},json={'executionObject':obj})
-    assert ok.status_code==200 and ok.json()['version']=='7.1.0'
+    assert ok.status_code==200 and ok.json()['version']=='7.2.0'

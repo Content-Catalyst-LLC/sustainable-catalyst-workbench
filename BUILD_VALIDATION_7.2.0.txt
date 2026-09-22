@@ -1,0 +1,46 @@
+Sustainable Catalyst Workbench v7.2.0 — Scientific Runtime Orchestrator
+Build validation record
+
+Release identity
+- APP_VERSION: 7.2.0
+- Release: Scientific Runtime Orchestrator
+- Orchestrator schema: sc-workbench-scientific-runtime-orchestrator/1.0
+- Core workflow contract: sc.research.workflow-orchestration.v1
+- Database migration: none
+
+Validated capabilities
+- Deterministic operation-to-runtime-adapter routing
+- 10 bounded local Workbench adapters
+- 3 plan-only external runtime adapters (R, Julia, ML)
+- Single execution orchestration preserving v7.0 result envelopes
+- v7.1 content-addressed execution-object projection
+- Dependency-aware workflow orchestration
+- Explicit external runtime handoff planning without execution
+- Two-phase Platform Core research-workflow planning
+- Core-issued workflow IDs required before stage/context/event records
+
+Safety boundaries
+- No arbitrary Python execution
+- No arbitrary R execution
+- No arbitrary Julia execution
+- No shell/subprocess execution
+- No dynamic imports or user-provided callables
+- No automatic external runtime dispatch
+- No automatic Platform Core dispatch or persistence
+- No scientific-validity certification
+- No truth determination or ranking
+
+Validation results
+- Focused backend/Core integration tests: 159 passed
+- Focused release/static tests: 56 passed
+- Full Workbench Python regression suite: 705 passed
+- WordPress main bootstrap PHP syntax: PASS
+- v7.2 WordPress include PHP syntax: PASS
+- SCWB_DIR bootstrap regression scan: PASS / no occurrence in main bootstrap
+
+Platform Core source verification
+- Platform Core v2.90 research workflow router prefix: /v1/research/workflows
+- Contract: sc.research.workflow-orchestration.v1
+- Core boundaries respected: Core does not execute specialist work or infer stage completion
+
+Packaging / installer dry-run certification is recorded separately after package assembly.
