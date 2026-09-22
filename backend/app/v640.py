@@ -192,6 +192,12 @@ def capabilities_record() -> dict[str, Any]:
             "canonical-bounded-engineering-analysis",
             "cross-domain-engineering-system-bundles",
             "platform-core-engineering-lineage-planning",
+            "optimization-design-space-runtime",
+            "bounded-design-variable-objective-constraint-spaces",
+            "pareto-frontier-and-full-factorial-exploration",
+            "constrained-weighted-sum-optimization",
+            "engineering-simulation-candidate-handoff-planning",
+            "platform-core-design-space-lineage-planning",
         ],
         "coreIntegration": {
             "connectivityFoundation": True,
@@ -218,6 +224,10 @@ def capabilities_record() -> dict[str, Any]:
             "simulationLineagePlanning": True,
             "engineeringSystemsRuntime": True,
             "engineeringLineagePlanning": True,
+            "optimizationDesignSpaceRuntime": True,
+            "designSpaceParetoExploration": True,
+            "designSpaceCandidateHandoffPlanning": True,
+            "designSpaceLineagePlanning": True,
         },
         "nextContract": CORE_RUNTIME_CONTRACT,
     }
