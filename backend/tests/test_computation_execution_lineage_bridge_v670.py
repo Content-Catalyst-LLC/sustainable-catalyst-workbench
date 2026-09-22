@@ -32,7 +32,7 @@ def client():
 
 def test_manifest_targets_exact_core_287_contract_and_boundary():
     m = lineage_manifest()
-    assert m["version"] == "6.7.0"
+    assert m["version"] == "6.8.0"
     assert m["coreComputationLineageContract"] == "sc.research.computation-analysis-execution-lineage.v1"
     assert m["corePaths"]["executions"] == "/v1/research/computation-lineage/executions"
     assert m["corePaths"]["unifiedSessionExecutionBindings"] == "/v1/research/unified-runtime/execution-bindings"
@@ -80,7 +80,7 @@ def sample_components():
         inputs=[InputItem(inputKey="dataset", inputType="dataset", objectRef="dataset:climate-v4", versionRef="v4", contentHash="sha256:111")],
         parameters=[ParameterItem(parameterKey="alpha", value={"number":0.05}, unit="1")],
         assumptions=[AssumptionItem(assumptionKey="steady", statementText="Steady-state assumption declared.", evidenceRefs=["source:1"])],
-        environments=[EnvironmentItem(environmentKey="env-1", runtimeVersion="6.7.0", packages=["numpy==2.x"], environmentHash="sha256:env")],
+        environments=[EnvironmentItem(environmentKey="env-1", runtimeVersion="6.8.0", packages=["numpy==2.x"], environmentHash="sha256:env")],
         steps=[
             StepItem(stepKey="solve", sequence=2, stepType="analyze", toolRef="workbench:numerical", inputRefs=["dataset:climate-v4"], outputRefs=["result:2"]),
             StepItem(stepKey="prepare", sequence=1, stepType="prepare", toolRef="workbench:data", outputRefs=["result:1"]),
@@ -181,17 +181,17 @@ def test_service_token_policy_applies_to_v670_routes(monkeypatch):
     c = client()
     assert c.get("/integration/core/computation-lineage/manifest").status_code == 401
     ok = c.get("/integration/core/computation-lineage/manifest", headers={"X-SC-Service-Token":"secret-670"})
-    assert ok.status_code == 200 and ok.json()["version"] == "6.7.0"
+    assert ok.status_code == 200 and ok.json()["version"] == "6.8.0"
 
 
 def test_v670_status_and_capabilities():
     c = client()
     status = c.get("/v670/status").json()
-    assert status["ok"] is True and status["version"] == "6.7.0"
+    assert status["ok"] is True and status["version"] == "6.8.0"
     assert status["coreComputationLineageContract"] == CORE_COMPUTATION_LINEAGE_CONTRACT
     assert status["twoPhaseExecutionLineage"] is True
     caps = c.get("/capabilities").json()
-    assert caps["version"] == "6.7.0"
+    assert caps["version"] == "6.8.0"
     assert caps["coreIntegration"]["executionLineageBridge"] is True
     assert "platform-core-computation-execution-lineage-bridge" in caps["capabilities"]
 

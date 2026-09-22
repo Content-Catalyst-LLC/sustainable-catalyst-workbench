@@ -1,0 +1,26 @@
+Sustainable Catalyst Workbench v6.8.0 — Build Validation
+
+Release: Scenario & Uncertainty Compute Runtime Integration
+Backend identity: 6.8.0
+Database migration: none
+Patch delta: 35 files
+
+Validated capabilities:
+- deterministic Monte Carlo/LHS sampling
+- Sobol/Morris design and analysis
+- ensemble statistics and empirical probability estimation
+- Core scenario request consumption
+- deterministic affine scenario execution
+- v6.7 computation-lineage handoff construction
+- Core scenario callback request planning without dispatch
+- service-token integration boundary
+- WordPress release identity
+
+Validation results:
+- 70 focused backend/Core-integration tests passed
+- 18 v6.4–v6.8 release/static tests passed
+- 84 complete backend tests passed
+- 578 complete repository tests passed
+- release endpoint assembly validator passed
+- macOS/Git installer dry run passed: sync -> apply -> validate -> commit -> push main -> create/push v6.8.0 tag
+- dry-run working tree clean after release

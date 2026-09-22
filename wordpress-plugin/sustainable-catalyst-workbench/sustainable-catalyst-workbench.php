@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 6.7.0
+ * Version: 6.8.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '6.7.0');
+define('SCWB_VERSION', '6.8.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -236,3 +236,7 @@ require_once __DIR__ . '/includes/scwb-v660-unified-research-session-bridge.php'
 
 // Workbench v6.7.0 — Computation, Analysis & Execution Lineage Bridge.
 require_once __DIR__ . '/includes/scwb-v670-computation-execution-lineage.php';
+
+
+// Workbench v6.8.0 — Scenario & Uncertainty Compute Runtime Integration.
+require_once __DIR__ . '/includes/scwb-v680-scenario-uncertainty-runtime.php';

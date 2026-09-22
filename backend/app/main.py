@@ -272,3 +272,8 @@ app.include_router(v660_router)
 # Workbench v6.7.0 — Computation, Analysis & Execution Lineage Bridge routes.
 from app.v670 import router as v670_router
 app.include_router(v670_router)
+
+
+# Workbench v6.8.0 — Scenario & Uncertainty Compute Runtime Integration routes.
+from app.v680 import router as v680_router
+app.include_router(v680_router)

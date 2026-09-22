@@ -1,3 +1,7 @@
+# Sustainable Catalyst Workbench v6.8.0
+
+Current release: **Workbench v6.8.0 — Scenario & Uncertainty Compute Runtime Integration**. v6.8.0 connects Platform Core scenario-compute and uncertainty-compute handoffs to Workbench's specialist numerical execution plane. It adds deterministic Monte Carlo/LHS sampling, Sobol/Morris design and post-processing, ensemble statistics, empirical exceedance probabilities, Core scenario-request consumption, deterministic affine scenario execution, Core callback planning, and v6.7 computation-lineage handoffs. Core remains authoritative for scenario definitions, uncertainty semantics, provenance, and research context; Workbench performs the numerical computation and does not automatically dispatch or persist to Core.
+
 # Sustainable Catalyst Workbench v6.7.0
 
 Current release: **Workbench v6.7.0 — Computation, Analysis & Execution Lineage Bridge**. v6.7.0 maps externally executed Workbench computation into Platform Core's `sc.research.computation-analysis-execution-lineage.v1` contract. Workbench prepares Core execution registration, exact input/parameter/assumption/environment/ordered-step/output/dependency/verification lineage requests, unified-session execution bindings, revisions, and immutable snapshot requests. Platform Core remains a provenance and lineage registry; specialist computation remains Workbench-owned.
