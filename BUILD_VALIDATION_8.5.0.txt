@@ -1,0 +1,13 @@
+Workbench v8.5.0 — Research Timeline & Run History
+
+Focused v8.5 feature/static suite: 13/13 PASS
+Backend + Platform Core integration release gate: 282/282 PASS
+Release/static compatibility gate: 120/120 PASS
+Complete Workbench repository: 892/892 PASS
+WordPress main + v8.5 include PHP syntax: PASS
+SCWB_DIR bootstrap regression: NOT PRESENT
+Derived timeline authoritative-store boundaries: PASS
+Execution run history: PASS
+Revision/transition lineage graph: PASS
+Neutral timeline comparison: PASS
+Two-phase Core timeline planning: PASS

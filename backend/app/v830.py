@@ -17,6 +17,7 @@ import fcntl
 import hashlib
 from contextlib import contextmanager
 from copy import deepcopy
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Literal, Optional
 
@@ -69,6 +70,10 @@ COMPONENT_ASSET_TYPES = {
     "source": "source",
     "other": "other",
 }
+
+
+def _now() -> str:
+    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
 def _safe(value: Any, limit: int = 1000) -> str:
@@ -290,6 +295,7 @@ def register_asset(req: RegisterAssetRequest) -> Dict[str, Any]:
             "asset": asset,
             "actor": req.actor,
             "reason": req.reason,
+            "registeredAt": _now(),
             "recordHash": "",
         }
         record["recordHash"] = _record_hash(record)
