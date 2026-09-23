@@ -1,3 +1,7 @@
+# Sustainable Catalyst Workbench v8.0.0
+
+Current release: **Workbench v8.0.0 — Unified Computational Research Environment**. v8.0.0 consolidates the completed v7 scientific and engineering stack into one content-addressed research environment with explicit research surfaces, project/session context, reproducible snapshot planning, and two-phase Platform Core bindings. Specialist computation remains in the bounded v7 runtimes; v8.0.0 does not introduce hidden interpreter state, automatic execution/replay, automatic Core writes, or scientific/engineering certification.
+
 # Sustainable Catalyst Workbench v7.6.0
 
 Current release: **Workbench v7.6.0 — Engineering Systems Runtime**. v7.6.0 consolidates bounded mechanical, thermal, fluid, civil/infrastructure, electrical, controls/mechatronics, and explicit-input energy analyses into one canonical engineering runtime. It adds engineering-system bundles, execution-object provenance, v7.3 workspace bindings, and two-phase Platform Core computation-lineage plans while explicitly withholding licensed engineering certification, code-compliance certification, physical-safety certification, automatic design selection, and automatic Core writes.

@@ -9,11 +9,11 @@ def client(): return TestClient(app)
 
 def test_manifest_catalog_status_and_capabilities():
     c=client(); m=c.get('/engineering/manifest'); assert m.status_code==200
-    d=m.json(); assert d['schema']==SCHEMA and d['version']=='7.12.0' and len(d['analysisKeys'])==9
+    d=m.json(); assert d['schema']==SCHEMA and d['version']=='8.0.0' and len(d['analysisKeys'])==9
     assert {'mechanical','thermal','fluids','civil-infrastructure','electrical','controls-mechatronics','energy-systems'}.issubset(set(d['domains']))
     cat=c.get('/engineering/catalog').json(); assert cat['analysisCount']==9
     s=c.get('/v760/status').json(); assert s['ok'] and s['engineeringSystemBundles'] and s['licensedEngineeringCertification'] is False
-    caps=c.get('/capabilities').json(); assert caps['version']=='7.12.0' and caps['coreIntegration']['engineeringSystemsRuntime'] is True
+    caps=c.get('/capabilities').json(); assert caps['version']=='8.0.0' and caps['coreIntegration']['engineeringSystemsRuntime'] is True
 
 
 def test_mechanical_axial_member_and_execution_object():

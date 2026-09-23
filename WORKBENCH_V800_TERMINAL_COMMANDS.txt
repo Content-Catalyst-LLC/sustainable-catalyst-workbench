@@ -1,0 +1,29 @@
+WORKBENCH v8.0.0 — TERMINAL COMMANDS
+
+MAC — APPLY / VALIDATE / GIT PUSH / TAG
+
+cd ~/Downloads
+rm -rf sc-workbench-v8.0.0-patch
+unzip -q sustainable-catalyst-workbench-v8.0.0-tiny-patch.zip -d sc-workbench-v8.0.0-patch
+cd sc-workbench-v8.0.0-patch
+chmod +x apply_and_push_workbench_v8_0_0_macos.sh
+./apply_and_push_workbench_v8_0_0_macos.sh "$HOME/Downloads/sustainable-catalyst-workbench"
+
+MAC — BACKEND UPLOAD
+
+cd ~/Downloads
+scp -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes sustainable-catalyst-workbench-backend-v8.0.0.zip catalystadmin@94.72.113.77:/tmp/
+ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes catalystadmin@94.72.113.77
+
+CONTABO — DEPLOY / VERIFY
+
+cd /opt/sustainable-catalyst/workbench
+unzip -p /tmp/sustainable-catalyst-workbench-backend-v8.0.0.zip '*/deploy/contabo/upgrade_workbench_backend_v8_0_0_contabo.sh' > /tmp/upgrade_workbench_backend_v8_0_0_contabo.sh
+chmod +x /tmp/upgrade_workbench_backend_v8_0_0_contabo.sh
+/tmp/upgrade_workbench_backend_v8_0_0_contabo.sh /tmp/sustainable-catalyst-workbench-backend-v8.0.0.zip
+
+PUBLIC VERIFY
+
+curl -fsS https://workbench-api.sustainablecatalyst.com/health | python3 -m json.tool
+curl -fsS https://workbench-api.sustainablecatalyst.com/v800/status | python3 -m json.tool
+curl -fsS https://workbench-api.sustainablecatalyst.com/research-environment/manifest | python3 -m json.tool

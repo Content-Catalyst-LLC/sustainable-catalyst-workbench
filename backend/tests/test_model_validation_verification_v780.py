@@ -8,9 +8,9 @@ def c(): return TestClient(app)
 
 def test_manifest_status_capabilities():
     cl=c(); m=cl.get('/validation/manifest'); assert m.status_code==200
-    d=m.json(); assert d['schema']==SCHEMA and d['version']=='7.12.0' and d['capabilities']['referenceBenchmarkEvaluation']
+    d=m.json(); assert d['schema']==SCHEMA and d['version']=='8.0.0' and d['capabilities']['referenceBenchmarkEvaluation']
     s=cl.get('/v780/status').json(); assert s['ok'] and s['datasetComparison'] and s['automaticModelAcceptance'] is False
-    caps=cl.get('/capabilities').json(); assert caps['version']=='7.12.0' and caps['coreIntegration']['modelValidationVerificationFramework'] is True
+    caps=cl.get('/capabilities').json(); assert caps['version']=='8.0.0' and caps['coreIntegration']['modelValidationVerificationFramework'] is True
 
 
 def test_scalar_benchmark_pass_fail_and_path_resolution():

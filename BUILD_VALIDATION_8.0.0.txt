@@ -1,0 +1,15 @@
+Sustainable Catalyst Workbench v8.0.0 — Unified Computational Research Environment
+
+Release validation
+- 244/244 backend + Platform Core integration tests passed
+- 100/100 release/static tests passed
+- 834/834 complete Workbench repository tests passed
+- WordPress PHP syntax: PASS
+- SCWB_DIR bootstrap regression: NOT PRESENT
+- Research-environment integrity/tamper validation: PASS
+- Required reference-only component hashing: PASS
+- Explicit surface/session plans remain non-executing: PASS
+- Reproducible snapshot plan targets v7.12 package runtime without automatic package build/replay: PASS
+- Platform Core unified research session planning remains two-phase and non-dispatching: PASS
+
+No database migration is required.
