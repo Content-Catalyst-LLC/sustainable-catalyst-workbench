@@ -1,0 +1,10 @@
+Workbench v8.3.0 — Research Asset & Artifact Registry
+
+Focused v8.3 tests: 11/11 PASS
+Backend + Platform Core integration release gate: 264/264 PASS
+Release/static gate: 112/112 PASS
+Complete repository: 866/866 PASS
+WordPress main PHP syntax: PASS
+WordPress v8.3 include PHP syntax: PASS
+SCWB_DIR bootstrap regression: NOT PRESENT
+Database migration: NONE

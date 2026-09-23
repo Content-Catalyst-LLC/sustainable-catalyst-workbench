@@ -1,5 +1,3 @@
-# Sustainable Catalyst Workbench v8.2.0
+# Sustainable Catalyst Workbench v8.3.0
 
-Current release: **Workbench v8.2.0 — Unified Research Project Workspace**. v8.2.0 adds a durable project-centric workspace over the v8 unified computational research environment: research question/objectives, active persisted environment, dashboard summaries, navigation across scientific surfaces, project activity history, optimistic project revisions, and two-phase Platform Core project/session planning. v8.1 remains authoritative for environment revisions, checkpoints, and recovery.
-
-See `RELEASE_NOTES_8.2.0_UNIFIED_RESEARCH_PROJECT_WORKSPACE.md` and `V820_UNIFIED_RESEARCH_PROJECT_WORKSPACE_MAP.md`.
+Current release: **Workbench v8.3.0 — Research Asset & Artifact Registry**. v8.3.0 adds a durable, project-scoped, content-addressed registry over the v8.2 Unified Research Project Workspace. It indexes research assets from the active integrity-validated v8.1 environment, supports explicit external artifact registration, append-only asset revisions, optimistic revision checks, metadata search/filtering, tamper validation, and two-phase Platform Core asset-binding plans. The registry stores metadata/references/hashes rather than duplicating scientific payloads; v8.2 remains project authority and v8.1 remains environment-history authority.
