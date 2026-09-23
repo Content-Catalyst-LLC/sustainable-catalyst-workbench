@@ -1,0 +1,17 @@
+Workbench v8.9.0 — Interactive Scientific Figure & Visualization Composer
+
+Focused v8.9 feature/static suite: 8/8 PASS
+Backend + Platform Core integration release gate: 319/319 PASS
+Release/static compatibility gate: 610/610 PASS
+Complete Workbench repository: 929/929 PASS
+WordPress main + v8.9 include PHP syntax: PASS
+SCWB_DIR bootstrap regression: NOT PRESENT
+Contabo local verification port: 127.0.0.1:8088 PASS
+Project-scoped completed-run source catalog: PASS
+Explicit metric/axis figure composition: PASS
+Deterministic multi-panel figure specification: PASS
+Linked-selection metadata: PASS
+Provenance manifest/source hashes: PASS
+JSON/CSV/SVG export planning contract: PASS
+Two-phase Platform Core figure planning: PASS
+Scientific boundaries (no automatic encoding/winner/validity/causality/significance inference): PASS

@@ -7,10 +7,10 @@ def client(): return TestClient(app)
 
 def test_manifest_catalog_status_and_capabilities():
     c=client(); m=c.get('/simulations/manifest'); assert m.status_code==200
-    d=m.json(); assert d['schema']==SCHEMA and d['version']=='8.8.0' and len(d['simulationKinds'])==4
+    d=m.json(); assert d['schema']==SCHEMA and d['version']=='8.9.0' and len(d['simulationKinds'])==4
     cat=c.get('/simulations/catalog').json(); assert cat['simulationCount']==4
     s=c.get('/v750/status').json(); assert s['ok'] and s['eventDetection'] and s['stabilityDiagnostics']
-    caps=c.get('/capabilities').json(); assert caps['version']=='8.8.0' and caps['coreIntegration']['simulationDynamicalSystemsRuntime'] is True
+    caps=c.get('/capabilities').json(); assert caps['version']=='8.9.0' and caps['coreIntegration']['simulationDynamicalSystemsRuntime'] is True
 
 def test_scalar_dynamic_trajectory_event_and_execution_object():
     c=client(); r=c.post('/simulations/run',json={'simulationKind':'scalar-dynamic','model':{'model_type':'first_order','solver':'rk4','initial_state':0,'input_value':10,'gain':1,'time_constant':2,'time_step':0.1,'duration':5},'events':[{'eventKey':'cross-5','stateKey':'state','threshold':5,'direction':'rising'}]})

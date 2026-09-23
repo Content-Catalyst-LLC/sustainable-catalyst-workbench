@@ -1,9 +1,9 @@
-# Sustainable Catalyst Workbench v8.7.0
+# Sustainable Catalyst Workbench v8.9.0
 
-Current release: **Workbench v8.7.0 — Linked Scientific Views & Cross-Filtering**.
+Current release: **Workbench v8.9.0 — Interactive Scientific Figure & Visualization Composer**.
 
-v8.7.0 coordinates the v8.6 Visual Research Canvas with synchronized asset, execution, timeline, lineage, and facet views. A declarative filter or explicit node selection propagates across those views while project, environment, asset, execution, timeline, provenance, and scientific-result records remain authoritative in their owning Workbench subsystems.
+v8.9.0 adds a provenance-preserving scientific figure composition layer over completed Workbench execution results and the v8.8 comparative-analysis metric model. Researchers explicitly select source runs, metrics, axes, marks, panel layout, titles, notes, and presentation theme; Workbench returns a deterministic renderer-neutral multi-panel figure specification plus provenance and export plans.
 
-The linked-view engine supports bounded filtering by object kind, authority, asset type/origin/tag, runtime/status, event type, text, ISO-8601 timeline range, and explicit node IDs, plus optional one-hop relationship expansion. Filters and selections are view state only: they do not rewrite scientific records, infer causality, grade evidence, or select a preferred result.
+The composer does not rewrite execution results, infer significance, select a preferred model, infer causality, or silently choose scientific encodings. Figure specifications are analytical presentation views whose source hashes and job identities remain visible.
 
-See `RELEASE_NOTES_8.7.0_LINKED_SCIENTIFIC_VIEWS_CROSS_FILTERING.md`, `V870_LINKED_SCIENTIFIC_VIEWS_MAP.md`, and `docs/V870_LINKED_SCIENTIFIC_VIEWS_CROSS_FILTERING.md` for the release contract and API map.
+See `RELEASE_NOTES_8.9.0_INTERACTIVE_SCIENTIFIC_FIGURE_VISUALIZATION_COMPOSER.md`, `V890_INTERACTIVE_SCIENTIFIC_FIGURE_VISUALIZATION_COMPOSER_MAP.md`, and `docs/V890_INTERACTIVE_SCIENTIFIC_FIGURE_VISUALIZATION_COMPOSER.md`.

@@ -2,10 +2,10 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 
 def test_v7100_identity_router_compose():
-    assert 'APP_VERSION = "8.8.0"' in (ROOT/'backend/app/release.py').read_text()
-    main=(ROOT/'backend/app/main.py').read_text(); assert 'version="8.8.0"' in main
+    assert 'APP_VERSION = "8.9.0"' in (ROOT/'backend/app/release.py').read_text()
+    main=(ROOT/'backend/app/main.py').read_text(); assert 'version="8.9.0"' in main
     assert 'from app.v7100 import router as v7100_router' in main and 'app.include_router(v7100_router)' in main
-    compose=(ROOT/'compose.yml').read_text(); assert 'sustainable-catalyst-workbench:8.8.0' in compose and "d.get('version')=='8.8.0'" in compose
+    compose=(ROOT/'compose.yml').read_text(); assert 'sustainable-catalyst-workbench:8.9.0' in compose and "d.get('version')=='8.9.0'" in compose
 
 def test_v7100_surfaces_boundaries():
     src=(ROOT/'backend/app/v7100.py').read_text()
@@ -16,7 +16,7 @@ def test_v7100_surfaces_boundaries():
 
 def test_v7100_wordpress():
     main=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/sustainable-catalyst-workbench.php').read_text()
-    assert 'Version: 8.8.0' in main and "define('SCWB_VERSION', '8.8.0')" in main and 'SCWB_DIR' not in main
+    assert 'Version: 8.9.0' in main and "define('SCWB_VERSION', '8.9.0')" in main and 'SCWB_DIR' not in main
     assert 'includes/scwb-v7100-interactive-computational-notebook.php' in main
     inc=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/includes/scwb-v7100-interactive-computational-notebook.php').read_text()
     assert '/v7100/status' in inc and 'sc_workbench_notebook_runtime_status' in inc and '/notebook-runtime/status' in inc
