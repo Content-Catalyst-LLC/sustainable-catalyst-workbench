@@ -21,8 +21,8 @@ def _project(monkeypatch,tmp_path):
 
 
 def test_manifest_status():
-    m=c.get('/research-assets/manifest').json(); assert m['ok'] and m['version']=='8.4.0' and m['capabilities']['projectScopedAssetRegistry'] is True
-    s=c.get('/v830/status').json(); assert s['ok'] and s['version']=='8.4.0' and s['projectStateAuthority']=='v8.2' and s['environmentStateAuthority']=='v8.1'
+    m=c.get('/research-assets/manifest').json(); assert m['ok'] and m['version']=='8.3.0' and m['capabilities']['projectScopedAssetRegistry'] is True
+    s=c.get('/v830/status').json(); assert s['ok'] and s['version']=='8.3.0' and s['projectStateAuthority']=='v8.2' and s['environmentStateAuthority']=='v8.1'
 
 
 def test_index_project_and_search(monkeypatch,tmp_path):
@@ -72,7 +72,7 @@ def test_core_plan_is_two_phase(monkeypatch,tmp_path):
 
 
 def test_capabilities_advertise_v830():
-    caps=c.get('/capabilities').json(); assert caps['version']=='8.4.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='8.3.0'
     ci=caps['coreIntegration']
     for key in ('researchAssetArtifactRegistry','researchAssetProjectIndexing','researchAssetSearch','researchAssetRevisionHistory','researchAssetCorePlanning'):
         assert ci[key] is True

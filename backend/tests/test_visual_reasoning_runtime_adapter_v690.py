@@ -31,14 +31,14 @@ def test_manifest_and_status():
     m = c.get("/integration/core/visual-reasoning/manifest")
     assert m.status_code == 200
     d = m.json()
-    assert d["version"] == "8.4.0"
+    assert d["version"] == "8.3.0"
     assert d["coreSceneContract"] == "sc.visual-runtime.scene.v1"
     assert d["coreGrammarContract"] == "sc.visual-runtime.grammar.v1"
     assert d["coreUnifiedVisualContract"] == "sc.visual-runtime.unified-reasoning.v1"
     assert d["boundaries"]["automaticCoreDispatchAuthorized"] is False
     assert d["boundaries"]["rendererExecutionByCore"] is False
     s = c.get("/v690/status").json()
-    assert s["ok"] is True and s["version"] == "8.4.0" and s["rendererNeutral"] is True
+    assert s["ok"] is True and s["version"] == "8.3.0" and s["rendererNeutral"] is True
 
 
 def test_capabilities_promote_visual_adapter():
