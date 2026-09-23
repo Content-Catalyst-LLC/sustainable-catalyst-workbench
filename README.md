@@ -1,3 +1,9 @@
-# Sustainable Catalyst Workbench v8.5.0
+# Sustainable Catalyst Workbench v8.6.0
 
-Current release: **Workbench v8.5.0 — Research Timeline & Run History**. v8.5.0 derives an integrity-checked, project-wide timeline from the authoritative v8.1 environment history, v8.2 project activity, v8.3 asset revisions, and v8.4 execution jobs. It provides explicit timestamp provenance, run-history inspection, revision/transition lineage graphs, neutral event comparison, and two-phase Platform Core timeline-event binding plans without becoming a competing source of truth or triggering scientific execution.
+Current release: **Workbench v8.6.0 — Visual Research Canvas**.
+
+v8.6.0 projects the authoritative Workbench v8 research environment into a linked visual workspace. Projects, active environments, research assets, execution jobs, and v8.5 timeline/lineage objects can be arranged on a persistent canvas while retaining their original `sourceRef`, content identity, provenance authority, and execution boundaries.
+
+The canvas persists view composition only: geometry, visibility, viewport/layer settings, and explicit researcher-authored visual links. It does not copy scientific payloads, rewrite results, infer causality, grade evidence, select winners, execute workloads, or automatically dispatch to Platform Core.
+
+See `RELEASE_NOTES_8.6.0_VISUAL_RESEARCH_CANVAS.md`, `V860_VISUAL_RESEARCH_CANVAS_MAP.md`, and `docs/V860_VISUAL_RESEARCH_CANVAS.md` for the release contract and API map.

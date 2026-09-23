@@ -53,7 +53,7 @@ def test_manifest_declares_core_contract_and_boundaries():
     m = adapter_manifest()
     assert m["ok"] is True
     assert m["schema"] == SCHEMA
-    assert m["version"] == "8.5.0"
+    assert m["version"] == "8.6.0"
     assert m["contract"] == CORE_RUNTIME_CONTRACT
     assert m["productRef"] == PRODUCT_REF
     assert "context:handoff" in m["supportedCapabilities"]
@@ -103,7 +103,7 @@ def test_product_binding_builds_exact_core_request_shape():
     data = result["productBinding"]
     assert data["contract_id"] == "contract-1"
     assert data["product_ref"] == PRODUCT_REF
-    assert data["product_version"] == "8.5.0"
+    assert data["product_version"] == "8.6.0"
     assert data["supported_capabilities"] == SUPPORTED_CAPABILITIES
     assert result["coreRequest"]["path"] == "/v1/research/runtime-contract/product-bindings"
     assert result["coreRequest"]["automaticDispatchAuthorized"] is False
@@ -186,7 +186,7 @@ def test_invocation_builder_uses_workbench_as_caller_and_runtime():
     ))
     data = result["invocation"]
     assert data["caller_ref"] == PRODUCT_REF
-    assert data["runtime_ref"] == "sc://workbench/runtime/8.5.0"
+    assert data["runtime_ref"] == "sc://workbench/runtime/8.6.0"
     assert result["coreRequest"]["path"] == "/v1/research/runtime-contract/invocations"
 
 
@@ -210,7 +210,7 @@ def test_service_token_policy_applies_to_new_adapter_routes(monkeypatch):
     assert c.get("/integration/core/runtime-contract/manifest").status_code == 401
     ok = c.get("/integration/core/runtime-contract/manifest", headers={"X-SC-Service-Token": "secret-650"})
     assert ok.status_code == 200
-    assert ok.json()["version"] == "8.5.0"
+    assert ok.json()["version"] == "8.6.0"
 
 
 def test_release_status_is_public_and_non_dispatching(monkeypatch):

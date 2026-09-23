@@ -1,0 +1,15 @@
+Workbench v8.6.0 — Visual Research Canvas
+
+Focused v8.6 feature/static suite: 11/11 PASS
+Backend complete regression gate: 303/303 PASS
+Static/release complete regression gate: 600/600 PASS
+Complete Workbench repository: 903/903 PASS
+WordPress main + v8.6 include PHP syntax: PASS
+SCWB_DIR bootstrap regression: NOT PRESENT
+Authoritative object projection boundary: PASS
+Persistent visual layout integrity + optimistic revision checks: PASS
+Researcher-authored link separation: PASS
+Timeline + lineage visual overlay: PASS
+Linked selection: PASS
+Two-phase Core view-composition planning: PASS
+No automatic scientific execution, interpretation, causal inference, winner selection, or Core dispatch: PASS
