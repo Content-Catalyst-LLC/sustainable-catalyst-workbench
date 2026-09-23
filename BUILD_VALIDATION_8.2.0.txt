@@ -1,0 +1,11 @@
+Sustainable Catalyst Workbench v8.2.0 — Build Validation
+
+Focused v8.2 backend/static: 11 passed
+Cross-version backend/Core integration: 257 passed
+Cross-version release/static: 108 passed
+Complete repository: 855 passed
+WordPress bootstrap: PHP syntax clean; SCWB_DIR absent
+Persistent data mount: preserved
+Database migration: none
+
+Final packaged-installer certification is recorded separately in INSTALLER_DRY_RUN_8.2.0.txt.

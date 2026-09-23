@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 8.1.0
+ * Version: 8.2.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '8.1.0');
+define('SCWB_VERSION', '8.2.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -307,3 +307,6 @@ require_once __DIR__ . '/includes/scwb-v800-unified-computational-research-envir
 
 // Workbench v8.1.0 — Research Environment Persistence & Recovery.
 require_once __DIR__ . '/includes/scwb-v810-research-environment-persistence-recovery.php';
+
+// Workbench v8.2.0 — Unified Research Project Workspace.
+require_once __DIR__ . '/includes/scwb-v820-unified-research-project-workspace.php';
