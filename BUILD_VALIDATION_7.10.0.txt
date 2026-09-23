@@ -1,0 +1,21 @@
+Sustainable Catalyst Workbench v7.10.0 — Interactive Computational Notebook Runtime
+
+Release gate:
+- 226/226 backend + Platform Core integration tests passed
+- 88/88 release/static tests passed
+- 804/804 complete Workbench repository tests passed
+- WordPress main plugin PHP syntax passed
+- v7.10 WordPress include PHP syntax passed
+- SCWB_DIR bootstrap regression absent
+- ZIP integrity checks passed
+
+Functional boundaries:
+- Typed notebook cells are active.
+- Executable cells use bounded Workbench runtimes; markdown is non-executable.
+- Cross-cell values require explicit dependencies and sourcePath -> targetPath bindings.
+- No hidden interpreter namespace or automatic output substitution is part of the notebook contract.
+- Notebook-run hashes and integrity validation are active.
+- Replay plans do not execute automatically and do not restore hidden state.
+- Projection to the v7.9 Scientific Workflow Graph is explicit and non-executing.
+- Platform Core planning targets sc.research.workflow-orchestration.v1 and remains two-phase/non-dispatching.
+- No database migration is required.
