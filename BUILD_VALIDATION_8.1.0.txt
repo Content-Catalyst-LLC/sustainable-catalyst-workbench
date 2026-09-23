@@ -1,0 +1,10 @@
+Sustainable Catalyst Workbench v8.1.0 — Research Environment Persistence & Recovery
+
+Backend + Platform Core integration gate: 250/250 passed
+Release/static gate: 104/104 passed
+Complete repository suite: 844/844 passed
+Focused v8.1 suite: 10/10 passed
+Database migration: none
+Persistent store: /data/research-environments (host ./data mount)
+Recovery policy: append-only; recovery creates a new revision
+Scientific execution/replay/Core dispatch from persistence layer: prohibited

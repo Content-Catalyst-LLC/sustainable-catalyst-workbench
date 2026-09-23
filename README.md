@@ -1,3 +1,7 @@
+# Sustainable Catalyst Workbench v8.1.0
+
+Current release: **Workbench v8.1.0 — Research Environment Persistence & Recovery**. v8.1.0 makes the v8 unified computational research environment durable with atomic file-backed saves, optimistic revision checks, append-only revision history, immutable checkpoints, integrity-validated recovery, and resumable state. Recovery creates a new revision rather than destructively rewriting history; scientific computation, notebook replay, workflow execution, and Platform Core dispatch remain explicit and separate.
+
 # Sustainable Catalyst Workbench v8.0.0
 
 Current release: **Workbench v8.0.0 — Unified Computational Research Environment**. v8.0.0 consolidates the completed v7 scientific and engineering stack into one content-addressed research environment with explicit research surfaces, project/session context, reproducible snapshot planning, and two-phase Platform Core bindings. Specialist computation remains in the bounded v7 runtimes; v8.0.0 does not introduce hidden interpreter state, automatic execution/replay, automatic Core writes, or scientific/engineering certification.

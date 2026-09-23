@@ -1,0 +1,20 @@
+Workbench v8.1.0 terminal commands
+
+GIT / GITHUB
+cd ~/Downloads
+rm -rf sc-workbench-v8.1.0-patch
+unzip -q sustainable-catalyst-workbench-v8.1.0-tiny-patch.zip -d sc-workbench-v8.1.0-patch
+cd sc-workbench-v8.1.0-patch
+chmod +x apply_and_push_workbench_v8_1_0_macos.sh
+./apply_and_push_workbench_v8_1_0_macos.sh "$HOME/Downloads/sustainable-catalyst-workbench"
+
+BACKEND — MAC
+cd ~/Downloads
+scp -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes sustainable-catalyst-workbench-backend-v8.1.0.zip catalystadmin@94.72.113.77:/tmp/
+ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes catalystadmin@94.72.113.77
+
+BACKEND — CONTABO
+cd /opt/sustainable-catalyst/workbench
+unzip -p /tmp/sustainable-catalyst-workbench-backend-v8.1.0.zip '*/deploy/contabo/upgrade_workbench_backend_v8_1_0_contabo.sh' > /tmp/upgrade_workbench_backend_v8_1_0_contabo.sh
+chmod +x /tmp/upgrade_workbench_backend_v8_1_0_contabo.sh
+/tmp/upgrade_workbench_backend_v8_1_0_contabo.sh /tmp/sustainable-catalyst-workbench-backend-v8.1.0.zip
