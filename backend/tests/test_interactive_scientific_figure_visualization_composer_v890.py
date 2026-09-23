@@ -38,13 +38,13 @@ def _metric(catalog, scope='result'):
 
 def test_manifest_status_capabilities():
     m = c.get('/figure-composer/manifest').json()
-    assert m['ok'] and m['version'] == '8.9.0'
+    assert m['ok'] and m['version'] == '8.10.0'
     assert m['capabilities']['multiPanelFigureComposition'] and m['capabilities']['provenanceManifest']
     assert m['boundaries']['automaticScientificEncodingSelectionAuthorized'] is False
     s = c.get('/v890/status').json()
     assert s['multiPanelFigureComposition'] and s['automaticScientificEncodingSelection'] is False
     caps = c.get('/capabilities').json()
-    assert caps['version'] == '8.9.0'
+    assert caps['version'] == '8.10.0'
     for key in ('interactiveScientificFigureComposer', 'scientificFigureMultiPanelComposition', 'scientificFigureMetricDataBinding', 'scientificFigureProvenanceManifest', 'scientificFigureLinkedSelection', 'scientificFigureExportPlanning', 'scientificFigureCorePlanning'):
         assert caps['coreIntegration'][key] is True
 
@@ -73,7 +73,7 @@ def test_source_catalog_and_multi_panel_composition(monkeypatch, tmp_path):
     r = c.post('/figure-composer/compose', json=payload)
     assert r.status_code == 200, r.text
     b = r.json()
-    assert b['version'] == '8.9.0' and b['layout']['panelCount'] == 2 and len(b['panels']) == 2
+    assert b['version'] == '8.10.0' and b['layout']['panelCount'] == 2 and len(b['panels']) == 2
     assert b['panels'][0]['mark'] == 'bar' and b['panels'][0]['scientificEncodingWasExplicitlyRequested'] is True
     assert b['linkedSelection']['jobIds'] == [jobs[1]] and b['linkedSelection']['selectionIsViewStateOnly'] is True
     assert len(b['provenance']['jobs']) == 3 and b['provenance']['sourceHashesPreserved'] is True
@@ -118,6 +118,6 @@ def test_core_plan_is_two_phase_and_visual_view_only(monkeypatch, tmp_path):
     })
     assert r.status_code == 200, r.text
     b = r.json()
-    assert b['version'] == '8.9.0' and b['figureBindingIsAnalyticalViewOnly'] is True
+    assert b['version'] == '8.10.0' and b['figureBindingIsAnalyticalViewOnly'] is True
     assert b['automaticCoreDispatchAuthorized'] is False and b['automaticScientificEncodingSelectionAuthorized'] is False
     assert any(x.get('phase') == 'scientific-figure-bind' for x in b['coreRequests'])

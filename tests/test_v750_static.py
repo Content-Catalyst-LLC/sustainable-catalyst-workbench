@@ -2,10 +2,10 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 
 def test_v750_release_identity_router_compose():
-    assert 'APP_VERSION = "8.9.0"' in (ROOT/'backend/app/release.py').read_text()
-    main=(ROOT/'backend/app/main.py').read_text(); assert 'version="8.9.0"' in main
+    assert 'APP_VERSION = "8.10.0"' in (ROOT/'backend/app/release.py').read_text()
+    main=(ROOT/'backend/app/main.py').read_text(); assert 'version="8.10.0"' in main
     assert 'from app.v750 import router as v750_router' in main and 'app.include_router(v750_router)' in main
-    compose=(ROOT/'compose.yml').read_text(); assert 'sustainable-catalyst-workbench:8.9.0' in compose and "d.get('version')=='8.9.0'" in compose
+    compose=(ROOT/'compose.yml').read_text(); assert 'sustainable-catalyst-workbench:8.10.0' in compose and "d.get('version')=='8.10.0'" in compose
 
 def test_v750_simulation_surfaces_and_boundaries():
     src=(ROOT/'backend/app/v750.py').read_text()
@@ -16,7 +16,7 @@ def test_v750_simulation_surfaces_and_boundaries():
 
 def test_v750_wordpress_identity_and_status_surface():
     main=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/sustainable-catalyst-workbench.php').read_text()
-    assert 'Version: 8.9.0' in main and "define('SCWB_VERSION', '8.9.0')" in main
+    assert 'Version: 8.10.0' in main and "define('SCWB_VERSION', '8.10.0')" in main
     assert 'includes/scwb-v750-simulation-dynamical-systems-runtime.php' in main and 'SCWB_DIR' not in main
     inc=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/includes/scwb-v750-simulation-dynamical-systems-runtime.php').read_text()
     assert '/v750/status' in inc and 'sc_workbench_simulation_runtime_status' in inc and '/simulation-runtime/status' in inc

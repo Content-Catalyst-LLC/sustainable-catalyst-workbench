@@ -7,3 +7,7 @@ v8.9.0 adds a provenance-preserving scientific figure composition layer over com
 The composer does not rewrite execution results, infer significance, select a preferred model, infer causality, or silently choose scientific encodings. Figure specifications are analytical presentation views whose source hashes and job identities remain visible.
 
 See `RELEASE_NOTES_8.9.0_INTERACTIVE_SCIENTIFIC_FIGURE_VISUALIZATION_COMPOSER.md`, `V890_INTERACTIVE_SCIENTIFIC_FIGURE_VISUALIZATION_COMPOSER_MAP.md`, and `docs/V890_INTERACTIVE_SCIENTIFIC_FIGURE_VISUALIZATION_COMPOSER.md`.
+
+
+## Workbench v8.10.0 — Reproducible Analysis Board
+Content-addressed analysis assembly and immutable snapshots over authoritative Workbench research objects.

@@ -29,9 +29,9 @@ def _seed(monkeypatch, tmp_path):
 
 def test_manifest_and_status():
     m=c.get('/research-timeline/manifest').json()
-    assert m['ok'] and m['version']=='8.9.0' and m['capabilities']['derivedProjectTimeline'] is True
+    assert m['ok'] and m['version']=='8.10.0' and m['capabilities']['derivedProjectTimeline'] is True
     assert m['boundaries']['timelineIsCompetingSourceOfTruth'] is False
-    s=c.get('/v850/status').json(); assert s['ok'] and s['version']=='8.9.0' and s['runHistory'] is True
+    s=c.get('/v850/status').json(); assert s['ok'] and s['version']=='8.10.0' and s['runHistory'] is True
 
 
 def test_timeline_aggregates_authoritative_sources(monkeypatch,tmp_path):
@@ -99,6 +99,6 @@ def test_core_plan_two_phase(monkeypatch,tmp_path):
 
 
 def test_capabilities_advertise_v850():
-    caps=c.get('/capabilities').json(); assert caps['version']=='8.9.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='8.10.0'
     for key in ('researchTimelineRunHistory','researchTimelineDerivedEvents','researchTimelineLineageGraph','researchTimelineComparison','researchTimelineCorePlanning'):
         assert caps['coreIntegration'][key] is True
