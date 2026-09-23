@@ -13,7 +13,7 @@ def workspace_payload():
     "links":[{"linkId":"time-link","sourceViewId":"trajectory","targetViewId":"uncertainty","relation":"time","sourceField":"x","targetField":"x"}]}}
 
 def test_manifest_status():
-    m=c.get('/visual-workspace/manifest').json(); assert m['ok'] and m['version']=='7.11.0' and m['coreContracts']['linkedViews']=='sc.visual-runtime.linked-views.v1'
+    m=c.get('/visual-workspace/manifest').json(); assert m['ok'] and m['version']=='7.12.0' and m['coreContracts']['linkedViews']=='sc.visual-runtime.linked-views.v1'
     s=c.get('/v7110/status').json(); assert s['ok'] and s['controlsExecuteAutomatically'] is False
 
 def test_build_validate_and_tamper():

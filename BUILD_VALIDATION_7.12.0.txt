@@ -1,0 +1,22 @@
+Sustainable Catalyst Workbench v7.12.0 — Build Validation
+
+Release: Reproducible Experiment & Engineering Package
+Canonical schema: sc-workbench-reproducible-experiment-engineering-package/1.0
+Package schema: sc-workbench-reproducible-package/1.0
+Platform Core contract: sc.research.reproducible-package.v1
+
+Validation results:
+- 237/237 backend + Platform Core integration tests: PASS
+- 96/96 release/static tests: PASS
+- 823/823 complete Workbench repository tests: PASS
+- WordPress main plugin PHP syntax: PASS
+- v7.12 WordPress include PHP syntax: PASS
+- SCWB_DIR bootstrap regression gate: PASS (not present)
+- Embedded component content-hash verification: PASS
+- Required external reference hash enforcement: PASS
+- Package and integrity-manifest tamper detection: PASS
+- Replay planning remains non-executing: PASS
+- Export planning remains non-writing: PASS
+- Platform Core reproducible-package planning remains two-phase/non-dispatching: PASS
+
+No database migration is required by v7.12.0.

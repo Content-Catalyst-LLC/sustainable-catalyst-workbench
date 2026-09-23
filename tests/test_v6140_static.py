@@ -3,13 +3,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_release_identity_router_and_compose():
-    assert 'APP_VERSION = "7.11.0"' in (ROOT/'backend/app/release.py').read_text()
+    assert 'APP_VERSION = "7.12.0"' in (ROOT/'backend/app/release.py').read_text()
     main = (ROOT/'backend/app/main.py').read_text()
-    assert 'version="7.11.0"' in main
+    assert 'version="7.12.0"' in main
     assert 'from app.v6140 import router as v6140_router' in main
     compose = (ROOT/'compose.yml').read_text()
-    assert 'sustainable-catalyst-workbench:7.11.0' in compose
-    assert "d.get('version')=='7.11.0'" in compose
+    assert 'sustainable-catalyst-workbench:7.12.0' in compose
+    assert "d.get('version')=='7.12.0'" in compose
 
 
 def test_core_certification_contract_and_boundaries_present():
@@ -31,8 +31,8 @@ def test_core_certification_contract_and_boundaries_present():
 
 def test_wordpress_identity_bootstrap_and_no_scwb_dir_regression():
     main = (ROOT/'wordpress-plugin/sustainable-catalyst-workbench/sustainable-catalyst-workbench.php').read_text()
-    assert 'Version: 7.11.0' in main
-    assert "define('SCWB_VERSION', '7.11.0')" in main
+    assert 'Version: 7.12.0' in main
+    assert "define('SCWB_VERSION', '7.12.0')" in main
     assert "require_once __DIR__ . '/includes/scwb-v6100-predictive-intelligence-runtime.php';" in main
     assert "require_once __DIR__ . '/includes/scwb-v6110-forensic-quantitative-reconstruction.php';" in main
     assert "require_once __DIR__ . '/includes/scwb-v6120-research-state-reproduction-snapshot.php';" in main
