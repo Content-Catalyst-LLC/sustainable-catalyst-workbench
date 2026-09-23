@@ -1,0 +1,19 @@
+Workbench v8.7.0 — Linked Scientific Views & Cross-Filtering
+
+Backend regression suite: 309/309 PASS
+Static/release compatibility suite: 604/604 PASS
+Complete Workbench repository: 913/913 PASS
+WordPress main + v8.6 + v8.7 include PHP syntax: PASS
+SCWB_DIR bootstrap regression: NOT PRESENT
+Six synchronized linked scientific views: PASS
+Declarative cross-filtering: PASS
+Facet counts: PASS
+Cross-view selection propagation: PASS
+Timeline range validation: PASS
+One-hop relationship expansion: PASS
+Two-phase Platform Core view-state planning: PASS
+Scientific-object mutation by filtering/selection: NOT AUTHORIZED
+Automatic scientific interpretation: NOT AUTHORIZED
+Automatic causal inference: NOT AUTHORIZED
+Automatic winner selection: NOT AUTHORIZED
+Automatic Platform Core dispatch/persistence: NOT AUTHORIZED

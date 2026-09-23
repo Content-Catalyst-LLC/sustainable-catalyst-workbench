@@ -26,11 +26,11 @@ def _env(monkeypatch, tmp_path, key="persist-1", title="Persistent Environment")
 def test_manifest_and_status(monkeypatch, tmp_path):
     monkeypatch.setenv("SCWB_RESEARCH_ENVIRONMENT_STORE", str(tmp_path / "store"))
     m = c.get("/research-environment/persistence/manifest").json()
-    assert m["ok"] and m["version"] == "8.6.0"
+    assert m["ok"] and m["version"] == "8.7.0"
     assert m["storage"]["appendOnlyRevisionHistory"] is True
     assert m["boundaries"]["recoveryCreatesNewRevision"] is True
     s = c.get("/v810/status").json()
-    assert s["ok"] and s["version"] == "8.6.0" and s["atomicFilePersistence"] is True
+    assert s["ok"] and s["version"] == "8.7.0" and s["atomicFilePersistence"] is True
 
 
 def test_save_load_revision_history(monkeypatch, tmp_path):
@@ -86,7 +86,7 @@ def test_revision_integrity_tamper_is_rejected(monkeypatch, tmp_path):
 
 def test_capabilities_advertise_v810():
     caps = c.get("/capabilities").json()
-    assert caps["version"] == "8.6.0"
+    assert caps["version"] == "8.7.0"
     ci = caps["coreIntegration"]
     assert ci["researchEnvironmentPersistenceRecovery"] is True
     assert ci["researchEnvironmentRevisionHistory"] is True

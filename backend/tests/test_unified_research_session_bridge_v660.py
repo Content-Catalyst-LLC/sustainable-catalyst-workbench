@@ -9,10 +9,10 @@ def client(): return TestClient(app)
 def sample_project(): return ProjectInput(projectId="session-bridge-demo",title="Session Bridge Demo",variables=[SharedVariable(name="mass",value=5.0,units="kg")],objects=[ComputationalObject(objectId="model-1",kind="model",studio="numerical-computing",variableInputs=["mass"],payload={"method":"bounded-demo"},sourceSchema="sc-test/model",sourceVersion="1.0")])
 
 def test_manifest_targets_exact_core_300_contract_and_guardrails():
- m=bridge_manifest(); assert m["version"]=="8.6.0" and m["schema"]==SCHEMA; assert m["runtimeContractRef"]==CORE_RUNTIME_CONTRACT; assert m["coreUnifiedRuntimeContract"]==CORE_UNIFIED_RUNTIME_CONTRACT; assert m["corePaths"]["sessions"]=="/v1/research/unified-runtime/sessions"; assert m["boundaries"]["coreSessionIdMustComeFromCore"] is True; assert m["boundaries"]["automaticCorePersistenceAuthorized"] is False
+ m=bridge_manifest(); assert m["version"]=="8.7.0" and m["schema"]==SCHEMA; assert m["runtimeContractRef"]==CORE_RUNTIME_CONTRACT; assert m["coreUnifiedRuntimeContract"]==CORE_UNIFIED_RUNTIME_CONTRACT; assert m["corePaths"]["sessions"]=="/v1/research/unified-runtime/sessions"; assert m["boundaries"]["coreSessionIdMustComeFromCore"] is True; assert m["boundaries"]["automaticCorePersistenceAuthorized"] is False
 
 def test_session_create_is_phase_one_and_matches_core_fields():
- x=build_session_create(SessionCreateRequest(project=sample_project())); d=x["sessionDraft"]; assert x["phase"]=="prepare-session"; assert d["project_ref"]=="sc://workbench/project/session-bridge-demo"; assert d["runtime_contract_ref"]==CORE_RUNTIME_CONTRACT; assert d["metadata"]["workbenchVersion"]=="8.6.0"; assert x["coreRequest"]["path"]=="/v1/research/unified-runtime/sessions"; assert x["coreRequest"]["automaticDispatchAuthorized"] is False
+ x=build_session_create(SessionCreateRequest(project=sample_project())); d=x["sessionDraft"]; assert x["phase"]=="prepare-session"; assert d["project_ref"]=="sc://workbench/project/session-bridge-demo"; assert d["runtime_contract_ref"]==CORE_RUNTIME_CONTRACT; assert d["metadata"]["workbenchVersion"]=="8.7.0"; assert x["coreRequest"]["path"]=="/v1/research/unified-runtime/sessions"; assert x["coreRequest"]["automaticDispatchAuthorized"] is False
 
 def test_session_create_preserves_explicit_core_project_ref():
  assert build_session_create(SessionCreateRequest(project=sample_project(),coreProjectRef="project:core:42"))["sessionDraft"]["project_ref"]=="project:core:42"
@@ -21,7 +21,7 @@ def test_project_bind_requires_real_core_session_id():
  r=client().post("/integration/core/unified-runtime/projects/bind",json={"coreSessionId":"","project":{"projectId":"x","title":"X"}}); assert r.status_code==422
 
 def test_project_session_binding_builds_product_project_object_and_variable_bindings():
- x=build_project_session_bindings(ProjectSessionBindRequest(coreSessionId="session-core-1",project=sample_project())); assert x["ok"] is True and x["coreSessionId"]=="session-core-1"; assert x["productBinding"]["product_ref"]==PRODUCT_REF and x["productBinding"]["product_version"]=="8.6.0"; types=[b["object_type"] for b in x["objectBindings"]]; assert "workbench.computational-project" in types and "workbench.computational-object" in types and "workbench.shared-variable-set" in types; assert x["bindingCount"]==len(x["objectBindings"])+1; assert all(req["data"]["session_id"]=="session-core-1" for req in x["coreRequests"])
+ x=build_project_session_bindings(ProjectSessionBindRequest(coreSessionId="session-core-1",project=sample_project())); assert x["ok"] is True and x["coreSessionId"]=="session-core-1"; assert x["productBinding"]["product_ref"]==PRODUCT_REF and x["productBinding"]["product_version"]=="8.7.0"; types=[b["object_type"] for b in x["objectBindings"]]; assert "workbench.computational-project" in types and "workbench.computational-object" in types and "workbench.shared-variable-set" in types; assert x["bindingCount"]==len(x["objectBindings"])+1; assert all(req["data"]["session_id"]=="session-core-1" for req in x["coreRequests"])
 
 def test_project_session_binding_can_omit_variable_set():
  x=build_project_session_bindings(ProjectSessionBindRequest(coreSessionId="s1",project=sample_project(),includeVariableSet=False)); assert "workbench.shared-variable-set" not in [b["object_type"] for b in x["objectBindings"]]
@@ -48,10 +48,10 @@ def test_core_bundle_consumer_rejects_wrong_runtime_contract():
  assert consume_core_bundle(CoreBundleConsumeRequest(bundle={"session":{"id":"s1","project_ref":"project:1","runtime_contract_ref":"wrong"}}))["ok"] is False
 
 def test_service_token_policy_applies_to_v660_routes(monkeypatch):
- monkeypatch.setenv("SCWB_REQUIRE_SERVICE_TOKEN","true"); monkeypatch.setenv("SCWB_SERVICE_TOKEN","secret-660"); c=client(); assert c.get("/integration/core/unified-runtime/manifest").status_code==401; ok=c.get("/integration/core/unified-runtime/manifest",headers={"X-SC-Service-Token":"secret-660"}); assert ok.status_code==200 and ok.json()["version"]=="8.6.0"
+ monkeypatch.setenv("SCWB_REQUIRE_SERVICE_TOKEN","true"); monkeypatch.setenv("SCWB_SERVICE_TOKEN","secret-660"); c=client(); assert c.get("/integration/core/unified-runtime/manifest").status_code==401; ok=c.get("/integration/core/unified-runtime/manifest",headers={"X-SC-Service-Token":"secret-660"}); assert ok.status_code==200 and ok.json()["version"]=="8.7.0"
 
 def test_v660_status_public_and_non_dispatching():
- b=client().get("/v660/status").json(); assert b["ok"] is True and b["version"]=="8.6.0"; assert b["twoPhaseSessionBinding"] is True; assert b["automaticCoreDispatch"] is False and b["automaticCorePersistence"] is False
+ b=client().get("/v660/status").json(); assert b["ok"] is True and b["version"]=="8.7.0"; assert b["twoPhaseSessionBinding"] is True; assert b["automaticCoreDispatch"] is False and b["automaticCorePersistence"] is False
 
 def test_capabilities_advertise_session_bridge():
- c=client().get("/capabilities").json(); assert c["version"]=="8.6.0"; assert c["coreIntegration"]["unifiedResearchSessionBinding"] is True; assert "platform-core-unified-research-session-bridge" in c["capabilities"]
+ c=client().get("/capabilities").json(); assert c["version"]=="8.7.0"; assert c["coreIntegration"]["unifiedResearchSessionBinding"] is True; assert "platform-core-unified-research-session-bridge" in c["capabilities"]

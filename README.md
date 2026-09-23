@@ -1,9 +1,9 @@
-# Sustainable Catalyst Workbench v8.6.0
+# Sustainable Catalyst Workbench v8.7.0
 
-Current release: **Workbench v8.6.0 — Visual Research Canvas**.
+Current release: **Workbench v8.7.0 — Linked Scientific Views & Cross-Filtering**.
 
-v8.6.0 projects the authoritative Workbench v8 research environment into a linked visual workspace. Projects, active environments, research assets, execution jobs, and v8.5 timeline/lineage objects can be arranged on a persistent canvas while retaining their original `sourceRef`, content identity, provenance authority, and execution boundaries.
+v8.7.0 coordinates the v8.6 Visual Research Canvas with synchronized asset, execution, timeline, lineage, and facet views. A declarative filter or explicit node selection propagates across those views while project, environment, asset, execution, timeline, provenance, and scientific-result records remain authoritative in their owning Workbench subsystems.
 
-The canvas persists view composition only: geometry, visibility, viewport/layer settings, and explicit researcher-authored visual links. It does not copy scientific payloads, rewrite results, infer causality, grade evidence, select winners, execute workloads, or automatically dispatch to Platform Core.
+The linked-view engine supports bounded filtering by object kind, authority, asset type/origin/tag, runtime/status, event type, text, ISO-8601 timeline range, and explicit node IDs, plus optional one-hop relationship expansion. Filters and selections are view state only: they do not rewrite scientific records, infer causality, grade evidence, or select a preferred result.
 
-See `RELEASE_NOTES_8.6.0_VISUAL_RESEARCH_CANVAS.md`, `V860_VISUAL_RESEARCH_CANVAS_MAP.md`, and `docs/V860_VISUAL_RESEARCH_CANVAS.md` for the release contract and API map.
+See `RELEASE_NOTES_8.7.0_LINKED_SCIENTIFIC_VIEWS_CROSS_FILTERING.md`, `V870_LINKED_SCIENTIFIC_VIEWS_MAP.md`, and `docs/V870_LINKED_SCIENTIFIC_VIEWS_CROSS_FILTERING.md` for the release contract and API map.
