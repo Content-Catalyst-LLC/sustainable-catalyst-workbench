@@ -3,9 +3,9 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 def test_v830_identity_router_compose():
-    assert 'APP_VERSION = "8.7.0"' in (ROOT/'backend/app/release.py').read_text()
-    main=(ROOT/'backend/app/main.py').read_text(); assert 'version="8.7.0"' in main and 'from app.v830 import router as v830_router' in main
-    compose=(ROOT/'compose.yml').read_text(); assert 'sustainable-catalyst-workbench:8.7.0' in compose and "d.get('version')=='8.7.0'" in compose and './data:/data' in compose
+    assert 'APP_VERSION = "8.8.0"' in (ROOT/'backend/app/release.py').read_text()
+    main=(ROOT/'backend/app/main.py').read_text(); assert 'version="8.8.0"' in main and 'from app.v830 import router as v830_router' in main
+    compose=(ROOT/'compose.yml').read_text(); assert 'sustainable-catalyst-workbench:8.8.0' in compose and "d.get('version')=='8.8.0'" in compose and './data:/data' in compose
 
 
 def test_v830_contract_routes_boundaries():
@@ -27,7 +27,7 @@ def test_v830_capabilities_docs():
 
 def test_v830_wordpress():
     main=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/sustainable-catalyst-workbench.php').read_text()
-    assert 'Version: 8.7.0' in main and "define('SCWB_VERSION', '8.7.0')" in main and 'SCWB_DIR' not in main
+    assert 'Version: 8.8.0' in main and "define('SCWB_VERSION', '8.8.0')" in main and 'SCWB_DIR' not in main
     assert 'includes/scwb-v830-research-asset-artifact-registry.php' in main
     inc=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/includes/scwb-v830-research-asset-artifact-registry.php').read_text()
     assert '/v830/status' in inc and 'sc_workbench_research_asset_registry_status' in inc and '/research-asset-registry/status' in inc
