@@ -1,0 +1,24 @@
+Sustainable Catalyst Workbench v8.12.0 — Unified Workbench Production Certification
+
+RELEASE GATE
+- Focused v8.12 feature/static tests: 8/8 PASS
+- Backend regression suite: 333/333 PASS
+- Static/release regression suite: 623/623 PASS
+- Total regression tests: 956/956 PASS
+- Packaged release gate: PASS
+- Installer checksum-aware rsync regression guard: PASS
+- PHP syntax / WordPress bootstrap checks: PASS
+- Deployment verifier local port: 127.0.0.1:8088
+
+CERTIFICATION DOMAINS
+- canonical release identity
+- persistent-store directory and write readiness
+- retained v8.0–v8.11 milestone capability registry
+- Platform Core configuration boundary audit
+- research publication/evidence handoff availability
+- WordPress package/bootstrap integrity
+- deployment invariants
+- public API readiness
+
+BOUNDARIES
+Production certification does not certify scientific correctness, evidence validity, causal claims, statistical significance, preferred models, or publication merit. No automatic remediation or Platform Core dispatch is authorized.
