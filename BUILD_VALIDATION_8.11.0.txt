@@ -1,0 +1,31 @@
+WORKBENCH v8.11.0 — BUILD VALIDATION
+
+Release: Research Publication & Evidence Handoff
+Baseline: Workbench v8.10.0 — Reproducible Analysis Board
+
+Focused v8.11 feature/static tests: 9/9 PASS
+Backend regression suite: 329/329 PASS
+Static/release regression suite: 618/618 PASS
+Total repository regression tests: 947/947 PASS
+Packaged release gate: PASS
+WordPress/PHP syntax: PASS
+SCWB_DIR bootstrap regression: NOT PRESENT
+Contabo verifier port: 127.0.0.1:8088
+
+Validated capabilities:
+- immutable v8.10 analysis-snapshot handoff
+- publication metadata assembly
+- researcher-authored narrative preservation
+- evidence manifest generation and explicit unresolved-reference reporting
+- source/figure/comparison provenance preservation
+- content-addressed immutable handoff packages
+- Platform Core / Knowledge Library / Research Lab / external publication planning
+- two-phase Platform Core binding with no automatic dispatch
+
+Validated boundaries:
+- no automatic publication
+- no automatic finding generation
+- no scientific-validity, causal, or significance inference
+- no automatic winner/model selection
+- no automatic evidence-conflict resolution
+- no source mutation or destination dispatch
