@@ -9,8 +9,8 @@ def forecast_payload(method='linear-trend'):
 
 def test_manifest_status_and_capabilities():
     m=c.get('/integration/core/predictive-intelligence/manifest'); assert m.status_code==200
-    d=m.json(); assert d['version']=='9.1.0'; assert d['corePredictiveModelContract']=='sc.predictive.model.v1'; assert d['coreVisualPredictiveContract']=='sc.visual-runtime.predictive-intelligence.v1'; assert d['boundaries']['coreExecutesPredictiveModels'] is False
-    s=c.get('/v6100/status').json(); assert s['ok'] and s['version']=='9.1.0' and s['probabilisticIntervals'] is True
+    d=m.json(); assert d['version']=='9.2.0'; assert d['corePredictiveModelContract']=='sc.predictive.model.v1'; assert d['coreVisualPredictiveContract']=='sc.visual-runtime.predictive-intelligence.v1'; assert d['boundaries']['coreExecutesPredictiveModels'] is False
+    s=c.get('/v6100/status').json(); assert s['ok'] and s['version']=='9.2.0' and s['probabilisticIntervals'] is True
     caps=c.get('/capabilities').json(); assert caps['coreIntegration']['predictiveIntelligenceRuntime'] is True; assert 'platform-core-predictive-intelligence-runtime' in caps['capabilities']
 
 def test_linear_trend_forecast_and_interval():
@@ -62,4 +62,4 @@ def test_visual_predictive_plan_waits_for_workspace_id_then_builds_overlays():
 def test_service_token_guard(monkeypatch):
     monkeypatch.setenv('SCWB_REQUIRE_SERVICE_TOKEN','true'); monkeypatch.setenv('SCWB_SERVICE_TOKEN','secret6100')
     assert c.get('/integration/core/predictive-intelligence/manifest').status_code==401
-    ok=c.get('/integration/core/predictive-intelligence/manifest',headers={'X-SC-Service-Token':'secret6100'}); assert ok.status_code==200 and ok.json()['version']=='9.1.0'
+    ok=c.get('/integration/core/predictive-intelligence/manifest',headers={'X-SC-Service-Token':'secret6100'}); assert ok.status_code==200 and ok.json()['version']=='9.2.0'

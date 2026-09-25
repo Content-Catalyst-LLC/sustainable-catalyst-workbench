@@ -12,9 +12,9 @@ def notebook():
     ]}
 
 def test_manifest_status_capabilities():
-    m=c.get('/notebooks/manifest'); assert m.status_code==200; d=m.json(); assert d['version']=='9.1.0' and d['capabilities']['typedNotebookCells']
+    m=c.get('/notebooks/manifest'); assert m.status_code==200; d=m.json(); assert d['version']=='9.2.0' and d['capabilities']['typedNotebookCells']
     s=c.get('/v7100/status').json(); assert s['ok'] and s['hiddenInterpreterState'] is False
-    caps=c.get('/capabilities').json(); assert caps['version']=='9.1.0' and caps['coreIntegration']['interactiveComputationalNotebookRuntime'] is True
+    caps=c.get('/capabilities').json(); assert caps['version']=='9.2.0' and caps['coreIntegration']['interactiveComputationalNotebookRuntime'] is True
 
 def test_run_explicit_binding_and_integrity():
     r=c.post('/notebooks/run',json={'notebook':notebook()}); assert r.status_code==200,r.text; d=r.json(); assert d['ok'] and d['completedExecutableCellCount']==2

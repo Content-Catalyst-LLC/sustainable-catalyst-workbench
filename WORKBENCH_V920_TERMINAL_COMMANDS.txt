@@ -1,0 +1,20 @@
+# Workbench v9.2.0 terminal commands
+
+## Git / Mac
+cd ~/Downloads
+rm -rf sc-workbench-v9.2.0-patch
+unzip -q sustainable-catalyst-workbench-v9.2.0-tiny-patch.zip -d sc-workbench-v9.2.0-patch
+cd sc-workbench-v9.2.0-patch
+chmod +x apply_and_push_workbench_v9_2_0_macos.sh
+./apply_and_push_workbench_v9_2_0_macos.sh "$HOME/Downloads/sustainable-catalyst-workbench"
+
+## Backend upload / Mac
+cd ~/Downloads
+scp -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes sustainable-catalyst-workbench-backend-v9.2.0.zip catalystadmin@94.72.113.77:/tmp/
+ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes catalystadmin@94.72.113.77
+
+## Backend deploy / Contabo
+cd /opt/sustainable-catalyst/workbench
+unzip -p /tmp/sustainable-catalyst-workbench-backend-v9.2.0.zip '*/deploy/contabo/upgrade_workbench_backend_v9_2_0_contabo.sh' > /tmp/upgrade_workbench_backend_v9_2_0_contabo.sh
+chmod +x /tmp/upgrade_workbench_backend_v9_2_0_contabo.sh
+/tmp/upgrade_workbench_backend_v9_2_0_contabo.sh /tmp/sustainable-catalyst-workbench-backend-v9.2.0.zip

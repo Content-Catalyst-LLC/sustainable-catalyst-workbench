@@ -9,8 +9,8 @@ def trajectory_payload():
 
 def test_manifest_status_and_capabilities():
     m=c.get('/integration/core/forensic-quantitative/manifest'); assert m.status_code==200
-    d=m.json(); assert d['version']=='9.1.0'; assert d['coreForensicQuantitativeContract']=='sc.open-forensics.quantitative-reconstruction.v1'; assert d['coreForensicHandoffContract']=='sc.forensic-quantitative-handoff.v1'; assert d['boundaries']['truthDeterminationAuthorized'] is False
-    s=c.get('/v6110/status').json(); assert s['ok'] and s['version']=='9.1.0' and s['trajectoryReconstruction'] is True and s['hypothesisRanking'] is False
+    d=m.json(); assert d['version']=='9.2.0'; assert d['coreForensicQuantitativeContract']=='sc.open-forensics.quantitative-reconstruction.v1'; assert d['coreForensicHandoffContract']=='sc.forensic-quantitative-handoff.v1'; assert d['boundaries']['truthDeterminationAuthorized'] is False
+    s=c.get('/v6110/status').json(); assert s['ok'] and s['version']=='9.2.0' and s['trajectoryReconstruction'] is True and s['hypothesisRanking'] is False
     caps=c.get('/capabilities').json(); assert caps['coreIntegration']['forensicQuantitativeReconstructionRuntime'] is True; assert 'platform-core-forensic-quantitative-reconstruction-runtime' in caps['capabilities']
 
 def test_consumes_core_quantitative_handoff_without_execution():
@@ -69,4 +69,4 @@ def test_lineage_plan_uses_forensic_reconstruction_execution_type():
 def test_service_token_guard(monkeypatch):
     monkeypatch.setenv('SCWB_REQUIRE_SERVICE_TOKEN','true'); monkeypatch.setenv('SCWB_SERVICE_TOKEN','secret6110')
     assert c.get('/integration/core/forensic-quantitative/manifest').status_code==401
-    ok=c.get('/integration/core/forensic-quantitative/manifest',headers={'X-SC-Service-Token':'secret6110'}); assert ok.status_code==200 and ok.json()['version']=='9.1.0'
+    ok=c.get('/integration/core/forensic-quantitative/manifest',headers={'X-SC-Service-Token':'secret6110'}); assert ok.status_code==200 and ok.json()['version']=='9.2.0'

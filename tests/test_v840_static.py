@@ -2,9 +2,9 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 
 def test_v840_identity_router_compose():
-    assert 'APP_VERSION = "9.1.0"' in (ROOT/'backend/app/release.py').read_text()
-    main=(ROOT/'backend/app/main.py').read_text(); assert 'version="9.1.0"' in main and 'from app.v840 import router as v840_router' in main
-    compose=(ROOT/'compose.yml').read_text(); assert 'sustainable-catalyst-workbench:9.1.0' in compose and "d.get('version')=='9.1.0'" in compose and './data:/data' in compose
+    assert 'APP_VERSION = "9.2.0"' in (ROOT/'backend/app/release.py').read_text()
+    main=(ROOT/'backend/app/main.py').read_text(); assert 'version="9.2.0"' in main and 'from app.v840 import router as v840_router' in main
+    compose=(ROOT/'compose.yml').read_text(); assert 'sustainable-catalyst-workbench:9.2.0' in compose and "d.get('version')=='9.2.0'" in compose and './data:/data' in compose
 
 def test_v840_contract_routes_boundaries():
     src=(ROOT/'backend/app/v840.py').read_text()
@@ -23,7 +23,7 @@ def test_v840_capabilities_docs():
 
 def test_v840_wordpress():
     main=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/sustainable-catalyst-workbench.php').read_text()
-    assert 'Version: 9.1.0' in main and "define('SCWB_VERSION', '9.1.0')" in main and 'SCWB_DIR' not in main
+    assert 'Version: 9.2.0' in main and "define('SCWB_VERSION', '9.2.0')" in main and 'SCWB_DIR' not in main
     assert 'includes/scwb-v840-interactive-execution-console.php' in main
     inc=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/includes/scwb-v840-interactive-execution-console.php').read_text()
     assert '/v840/status' in inc and 'sc_workbench_execution_console_status' in inc and '/execution-console/status' in inc
