@@ -1,0 +1,25 @@
+Sustainable Catalyst Workbench v9.0.0 — Build Validation
+
+Release: Unified Scientific Study Composer
+Canonical runtime version: 9.0.0
+
+Focused v9.0 feature/static tests: 10/10 PASS
+Backend regression suite: 339/339 PASS
+Static/release regression suite: 627/627 PASS
+Total regression tests: 966/966 PASS
+
+Validated capabilities:
+- top-level unified scientific study object
+- explicit six-stage readiness: question, protocol, inputs, execution, analysis, publication
+- project/asset/execution source binding
+- v8.10 immutable analysis-snapshot binding
+- v8.11 publication/evidence-package binding
+- researcher-authored findings
+- content-addressed study persistence and integrity validation
+- Platform Core plan-only study binding
+- WordPress study-composer surface
+- checksum-aware Mac installer
+- Python bytecode cache cleanup before release validation
+- Contabo deployment verification on 127.0.0.1:8088
+
+Scientific boundaries remain explicit: stage readiness is not scientific validity; no automatic hypothesis acceptance, finding generation, model preference, causal inference, significance inference, publication, or Core dispatch.

@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 8.12.0
+ * Version: 9.0.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '8.12.0');
+define('SCWB_VERSION', '9.0.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -341,3 +341,6 @@ require_once __DIR__ . '/includes/scwb-v8110-research-publication-evidence-hando
 
 // Workbench v8.12.0 — Unified Workbench Production Certification.
 require_once __DIR__ . '/includes/scwb-v8120-unified-production-certification.php';
+
+// Workbench v9.0.0 — Unified Scientific Study Composer.
+require_once __DIR__ . '/includes/scwb-v900-unified-scientific-study-composer.php';

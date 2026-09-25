@@ -3,9 +3,9 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 def test_v870_identity_router_compose():
-    assert 'APP_VERSION = "8.12.0"' in (ROOT/'backend/app/release.py').read_text()
-    main=(ROOT/'backend/app/main.py').read_text(); assert 'version="8.12.0"' in main and 'from app.v870 import router as v870_router' in main
-    compose=(ROOT/'compose.yml').read_text(); assert 'sustainable-catalyst-workbench:8.12.0' in compose and "d.get('version')=='8.12.0'" in compose and './data:/data' in compose
+    assert 'APP_VERSION = "9.0.0"' in (ROOT/'backend/app/release.py').read_text()
+    main=(ROOT/'backend/app/main.py').read_text(); assert 'version="9.0.0"' in main and 'from app.v870 import router as v870_router' in main
+    compose=(ROOT/'compose.yml').read_text(); assert 'sustainable-catalyst-workbench:9.0.0' in compose and "d.get('version')=='9.0.0'" in compose and './data:/data' in compose
 
 
 def test_v870_contract_routes_boundaries():
@@ -26,7 +26,7 @@ def test_v870_capabilities_docs():
 
 def test_v870_wordpress():
     main=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/sustainable-catalyst-workbench.php').read_text()
-    assert 'Version: 8.12.0' in main and "define('SCWB_VERSION', '8.12.0')" in main and 'SCWB_DIR' not in main
+    assert 'Version: 9.0.0' in main and "define('SCWB_VERSION', '9.0.0')" in main and 'SCWB_DIR' not in main
     assert 'includes/scwb-v870-linked-scientific-views.php' in main
     inc=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/includes/scwb-v870-linked-scientific-views.php').read_text()
     for literal in ('/v870/status','sc_workbench_linked_scientific_views','linked-scientific-views/query','linked-scientific-views/selection'):

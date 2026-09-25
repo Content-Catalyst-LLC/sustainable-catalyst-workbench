@@ -28,8 +28,8 @@ def _workspace(monkeypatch,tmp_path):
     return r.json()
 
 def test_manifest_and_status():
-    m=c.get('/research-projects/manifest').json(); assert m['ok'] and m['version']=='8.12.0' and m['capabilities']['projectCentricWorkspace'] is True
-    s=c.get('/v820/status').json(); assert s['ok'] and s['version']=='8.12.0' and s['environmentHistoryAuthority']=='v8.1'
+    m=c.get('/research-projects/manifest').json(); assert m['ok'] and m['version']=='9.0.0' and m['capabilities']['projectCentricWorkspace'] is True
+    s=c.get('/v820/status').json(); assert s['ok'] and s['version']=='9.0.0' and s['environmentHistoryAuthority']=='v8.1'
 
 def test_build_dashboard_from_persisted_environment(monkeypatch,tmp_path):
     ws=_workspace(monkeypatch,tmp_path)
@@ -78,7 +78,7 @@ def test_project_record_tamper_rejected(monkeypatch,tmp_path):
     r=c.get('/research-projects/project-v820'); assert r.status_code==422 and 'integrity' in r.text
 
 def test_capabilities_advertise_v820():
-    caps=c.get('/capabilities').json(); assert caps['version']=='8.12.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='9.0.0'
     ci=caps['coreIntegration']
     for key in ('unifiedResearchProjectWorkspace','researchProjectDashboardSummaries','researchProjectSurfaceNavigation','researchProjectActivityHistory','researchProjectCoreSessionPlanning'):
         assert ci[key] is True

@@ -19,9 +19,9 @@ def workspace_payload():
 
 def test_manifest_status_capabilities_current_identity():
     c=client(); m=c.get('/data-workspace/manifest'); assert m.status_code==200
-    d=m.json(); assert d['schema']==SCHEMA and d['version']=='8.12.0' and d['contentAddressedDatasets'] if 'contentAddressedDatasets' in d else d['capabilities']['contentAddressedDatasets']
-    s=c.get('/v730/status').json(); assert s['ok'] and s['version']=='8.12.0' and s['unitAware'] is True
-    caps=c.get('/capabilities').json(); assert caps['version']=='8.12.0'; assert caps['coreIntegration']['datasetVariableParameterWorkspace'] is True
+    d=m.json(); assert d['schema']==SCHEMA and d['version']=='9.0.0' and d['contentAddressedDatasets'] if 'contentAddressedDatasets' in d else d['capabilities']['contentAddressedDatasets']
+    s=c.get('/v730/status').json(); assert s['ok'] and s['version']=='9.0.0' and s['unitAware'] is True
+    caps=c.get('/capabilities').json(); assert caps['version']=='9.0.0'; assert caps['coreIntegration']['datasetVariableParameterWorkspace'] is True
 
 
 def test_workspace_build_is_content_addressed_and_derived_values_are_safe():
@@ -71,4 +71,4 @@ def test_core_lineage_plan_is_two_phase_exact_contract_and_non_dispatching():
 def test_core_route_token_boundary(monkeypatch):
     monkeypatch.setenv('SCWB_REQUIRE_SERVICE_TOKEN','true'); monkeypatch.setenv('SCWB_SERVICE_TOKEN','secret730')
     c=client(); ws=built(c); denied=c.post('/integration/core/data-workspace/lineage/plan',json={'workspace':ws}); assert denied.status_code==401
-    ok=c.post('/integration/core/data-workspace/lineage/plan',headers={'X-SC-Service-Token':'secret730'},json={'workspace':ws}); assert ok.status_code==200 and ok.json()['version']=='8.12.0'
+    ok=c.post('/integration/core/data-workspace/lineage/plan',headers={'X-SC-Service-Token':'secret730'},json={'workspace':ws}); assert ok.status_code==200 and ok.json()['version']=='9.0.0'

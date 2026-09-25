@@ -143,7 +143,7 @@ def run_certification(req: CertificationRequest) -> Dict[str, Any]:
     pub = publication_handoff_manifest()
     core = core_config() if req.includeCoreConfiguration else {}
     checks: List[Dict[str, Any]] = [
-        {"check": "release-identity", "passed": VERSION == "8.12.0", "observed": VERSION},
+        {"check": "release-identity", "passed": VERSION == APP_VERSION, "observed": VERSION},
         {"check": "product-identity", "passed": PRODUCT_KEY == "workbench", "observed": PRODUCT_KEY},
         {"check": "runtime-kind", "passed": RUNTIME_KIND == "scientific-engineering-compute", "observed": RUNTIME_KIND},
         {"check": "persistent-store-directory", "passed": bool(store.get("directory")), "observed": store.get("path")},

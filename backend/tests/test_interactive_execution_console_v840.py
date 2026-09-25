@@ -20,8 +20,8 @@ def _solver_job(monkeypatch,tmp_path,label='root'):
     return r.json()
 
 def test_manifest_status():
-    m=c.get('/execution-console/manifest').json(); assert m['ok'] and m['version']=='8.12.0' and m['capabilities']['durableProjectExecutionJobs'] is True
-    s=c.get('/v840/status').json(); assert s['ok'] and s['version']=='8.12.0' and s['hiddenBackgroundExecution'] is False
+    m=c.get('/execution-console/manifest').json(); assert m['ok'] and m['version']=='9.0.0' and m['capabilities']['durableProjectExecutionJobs'] is True
+    s=c.get('/v840/status').json(); assert s['ok'] and s['version']=='9.0.0' and s['hiddenBackgroundExecution'] is False
 
 def test_prepare_queue_run_inspect(monkeypatch,tmp_path):
     job=_solver_job(monkeypatch,tmp_path)
@@ -70,6 +70,6 @@ def test_core_plan_two_phase(monkeypatch,tmp_path):
     body=p.json(); assert body['jobCount']==1 and body['automaticCoreDispatchAuthorized'] is False and body['coreExecutesWorkbenchJobs'] is False
 
 def test_capabilities_advertise_v840():
-    caps=c.get('/capabilities').json(); assert caps['version']=='8.12.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='9.0.0'
     for key in ('interactiveExecutionConsole','executionConsoleDurableJobs','executionConsoleExplicitDispatch','executionConsoleJobComparison','executionConsoleCorePlanning'):
         assert caps['coreIntegration'][key] is True
