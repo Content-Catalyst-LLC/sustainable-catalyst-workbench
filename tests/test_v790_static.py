@@ -3,10 +3,10 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 def test_v790_identity_router_compose():
-    assert 'APP_VERSION = "9.0.0"' in (ROOT/'backend/app/release.py').read_text()
-    main=(ROOT/'backend/app/main.py').read_text(); assert 'version="9.0.0"' in main
+    assert 'APP_VERSION = "9.1.0"' in (ROOT/'backend/app/release.py').read_text()
+    main=(ROOT/'backend/app/main.py').read_text(); assert 'version="9.1.0"' in main
     assert 'from app.v790 import router as v790_router' in main and 'app.include_router(v790_router)' in main
-    compose=(ROOT/'compose.yml').read_text(); assert 'sustainable-catalyst-workbench:9.0.0' in compose and "d.get('version')=='9.0.0'" in compose
+    compose=(ROOT/'compose.yml').read_text(); assert 'sustainable-catalyst-workbench:9.1.0' in compose and "d.get('version')=='9.1.0'" in compose
 
 
 def test_v790_surfaces_and_boundaries():
@@ -20,7 +20,7 @@ def test_v790_surfaces_and_boundaries():
 
 def test_v790_wordpress():
     main=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/sustainable-catalyst-workbench.php').read_text()
-    assert 'Version: 9.0.0' in main and "define('SCWB_VERSION', '9.0.0')" in main and 'SCWB_DIR' not in main
+    assert 'Version: 9.1.0' in main and "define('SCWB_VERSION', '9.1.0')" in main and 'SCWB_DIR' not in main
     assert 'includes/scwb-v790-scientific-workflow-graph.php' in main
     inc=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/includes/scwb-v790-scientific-workflow-graph.php').read_text()
     assert '/v790/status' in inc and 'sc_workbench_workflow_graph_status' in inc and '/workflow-graph/status' in inc

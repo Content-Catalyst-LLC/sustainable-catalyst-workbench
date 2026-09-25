@@ -1,0 +1,24 @@
+Workbench v9.1.0 — Experimental Design & Research Protocol Builder
+
+Focused v9.1 tests: 13/13 PASS
+Backend regression suite: 349/349 PASS
+Static/release suite: 630/630 PASS
+Total regression tests: 979/979 PASS
+
+Validated capabilities:
+- formal research protocol object
+- hypotheses and variable-role registry
+- experimental arms
+- sampling plan
+- randomization/blinding plan
+- measurement plan
+- analysis plan
+- stopping criteria
+- preregistration/amendment metadata
+- content-addressed protocol persistence
+- explicit execution plan
+- explicit Platform Core binding plan
+- WordPress protocol-builder UI
+- checksum-aware installer/deployer
+- stale bytecode cleanup
+- backend verification on 127.0.0.1:8088
