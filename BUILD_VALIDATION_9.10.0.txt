@@ -1,0 +1,20 @@
+Sustainable Catalyst Workbench v9.10.0 — Platform-Wide Scientific Research Handoff
+
+Release validation:
+- Focused v9.10 backend/static gate: 14/14 PASS
+- Backend regression group 1: 212/212 PASS
+- Backend regression group 2: 242/242 PASS
+- Backend regression total: 454/454 PASS
+- Static/release regression: 676/676 PASS
+- Total regression: 1130/1130 PASS
+- Live FastAPI health/manifest/status/capability gate: PASS
+- PHP syntax check for v9.10 WordPress include: PASS
+
+Architectural boundaries:
+- automatic destination dispatch: disabled
+- automatic imported-object activation: disabled
+- scientific-validity inference: disabled
+- automatic evidence promotion/publication/decision recommendation: disabled
+- governed Platform Core object creation: disabled
+
+Exact installer/archive certification is recorded in INSTALLER_DRY_RUN_9.10.0.txt, TREE_EQUALITY_9.10.0.txt, and ARCHIVE_VALIDATION_9.10.0.txt.

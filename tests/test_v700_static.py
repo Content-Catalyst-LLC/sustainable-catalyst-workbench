@@ -3,20 +3,20 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_v700_release_identity_and_router():
-    assert 'APP_VERSION = "9.9.0"' in (ROOT/'backend/app/release.py').read_text()
+    assert 'APP_VERSION = "9.10.0"' in (ROOT/'backend/app/release.py').read_text()
     main = (ROOT/'backend/app/main.py').read_text()
-    assert 'version="9.9.0"' in main
+    assert 'version="9.10.0"' in main
     assert 'from app.v700 import router as v700_router' in main
     assert 'app.include_router(v700_router)' in main
     compose = (ROOT/'compose.yml').read_text()
-    assert 'sustainable-catalyst-workbench:9.9.0' in compose
-    assert "d.get('version')=='9.9.0'" in compose
+    assert 'sustainable-catalyst-workbench:9.10.0' in compose
+    assert "d.get('version')=='9.10.0'" in compose
 
 
 def test_v700_wordpress_identity_and_safe_bootstrap():
     main = (ROOT/'wordpress-plugin/sustainable-catalyst-workbench/sustainable-catalyst-workbench.php').read_text()
-    assert 'Version: 9.9.0' in main
-    assert "define('SCWB_VERSION', '9.9.0')" in main
+    assert 'Version: 9.10.0' in main
+    assert "define('SCWB_VERSION', '9.10.0')" in main
     assert "includes/scwb-v700-unified-execution-runtime.php" in main
     assert 'SCWB_DIR' not in main
     inc = (ROOT/'wordpress-plugin/sustainable-catalyst-workbench/includes/scwb-v700-unified-execution-runtime.php').read_text()

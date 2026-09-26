@@ -38,7 +38,7 @@ def build_package(p,analysis_hash=None):
 
 
 def test_manifest_and_status():
-    m=c.get('/research-package-exchange/manifest').json(); assert m['ok'] and m['version']=='9.9.0'
+    m=c.get('/research-package-exchange/manifest').json(); assert m['ok'] and m['version']=='9.10.0'
     assert m['capabilities']['realZipArchiveExport'] and m['capabilities']['nonMutatingImportValidation']
     assert m['boundaries']['automaticNativeObjectOverwrite'] is False
     s=c.get('/v990/status').json(); assert s['researchPackageExchangePortability'] and s['nativeStoreMutationOnStage'] is False
@@ -111,6 +111,6 @@ def test_unsafe_zip_path_rejected():
 
 
 def test_capability_flags():
-    caps=c.get('/capabilities').json(); assert caps['version']=='9.9.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='9.10.0'
     for k in ('researchPackageExchangePortability','researchPackageContentAddressedExport','researchPackageZipArchiveExport','researchPackageIntegrityVerification','researchPackageDependencyInventory','researchPackageCompatibilityAssessment','researchPackageImportStaging','researchPackageCorePlanning'):
         assert caps['coreIntegration'][k] is True

@@ -9,7 +9,7 @@ def test_status_manifest_and_local_report():
     s = c.get('/v6140/status')
     assert s.status_code == 200
     d = s.json()
-    assert d['version'] == '9.9.0'
+    assert d['version'] == '9.10.0'
     assert d['declaredConformance'] is True
     assert d['scientificValidityCertification'] is False
     m = c.get('/integration/core/certification/manifest')
@@ -36,7 +36,7 @@ def test_suite_product_cases_and_run_plans_match_core_shapes():
 
     product = c.post('/integration/core/certification/product/prepare', json={'coreSuiteId':'suite-1'}).json()
     assert product['request']['data']['suite_id'] == 'suite-1'
-    assert product['request']['data']['product_version'] == '9.9.0'
+    assert product['request']['data']['product_version'] == '9.10.0'
     assert 'workbench.computational-project' in product['request']['data']['declared_object_types']
 
     cases = c.post('/integration/core/certification/cases/prepare', json={'coreSuiteId':'suite-1'}).json()
@@ -46,7 +46,7 @@ def test_suite_product_cases_and_run_plans_match_core_shapes():
     run = c.post('/integration/core/certification/run/prepare', json={'coreSuiteId':'suite-1','coreProductId':'product-1'}).json()
     assert run['request']['data']['suite_id'] == 'suite-1'
     assert run['request']['data']['product_id'] == 'product-1'
-    assert run['request']['data']['environment_ref'] == 'sc://workbench/runtime/9.9.0'
+    assert run['request']['data']['environment_ref'] == 'sc://workbench/runtime/9.10.0'
 
 
 def test_result_plan_requires_core_case_ids_and_builds_after_ids_exist():
@@ -115,4 +115,4 @@ def test_service_token_guard(monkeypatch):
     monkeypatch.setenv('SCWB_SERVICE_TOKEN','secret6140')
     assert c.get('/integration/core/certification/manifest').status_code == 401
     ok = c.get('/integration/core/certification/manifest', headers={'X-SC-Service-Token':'secret6140'})
-    assert ok.status_code == 200 and ok.json()['version'] == '9.9.0'
+    assert ok.status_code == 200 and ok.json()['version'] == '9.10.0'

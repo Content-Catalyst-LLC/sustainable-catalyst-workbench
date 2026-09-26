@@ -1,0 +1,30 @@
+Workbench v9.10.0 archive validation
+
+Backend archive:
+- independent extraction: PASS
+- backend regression: 454/454 PASS
+- FastAPI boot: PASS
+- /health version 9.10.0 and readiness ready: PASS
+- /scientific-research-handoff/manifest: PASS
+- /v9100/status: PASS
+- deploy script package-root contract: PASS
+- local verifier endpoint 127.0.0.1:8088: PASS
+
+WordPress archive:
+- independent extraction: PASS
+- PHP lint: 97/97 PHP files PASS
+- plugin version identity 9.10.0: PASS
+- v9.10 shortcode/REST surface included: PASS
+
+ZIP integrity:
+- tiny patch: PASS
+- backend: PASS
+- WordPress: PASS
+- full source: PASS
+
+Scientific/governance boundary checks:
+- automatic destination dispatch disabled
+- automatic imported-object activation disabled
+- automatic scientific-validity inference disabled
+- automatic evidence promotion/publication/decision recommendation disabled
+- governed Platform Core object creation disabled

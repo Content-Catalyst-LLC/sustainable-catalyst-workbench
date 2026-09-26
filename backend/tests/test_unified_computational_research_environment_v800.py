@@ -20,11 +20,11 @@ def sample_env():
 
 
 def test_manifest_and_status():
-    m=c.get('/research-environment/manifest').json(); assert m['ok'] and m['version']=='9.9.0'
+    m=c.get('/research-environment/manifest').json(); assert m['ok'] and m['version']=='9.10.0'
     assert m['schema']=='sc-workbench-unified-computational-research-environment/1.0'
     assert m['coreContracts']['unifiedResearchSession']=='sc.research.unified-research-scientific-investigation-runtime.v1'
     assert m['boundaries']['automaticExecutionAuthorized'] is False
-    s=c.get('/v800/status').json(); assert s['ok'] and s['version']=='9.9.0' and s['v7SeriesIntegrated'] is True
+    s=c.get('/v800/status').json(); assert s['ok'] and s['version']=='9.10.0' and s['v7SeriesIntegrated'] is True
 
 
 def test_build_validate_and_tamper_detection():
@@ -65,6 +65,6 @@ def test_core_plan_is_two_phase():
 
 
 def test_capabilities_advertise_v800():
-    caps=c.get('/capabilities').json(); assert caps['version']=='9.9.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='9.10.0'
     assert caps['coreIntegration']['unifiedComputationalResearchEnvironment'] is True
     assert 'unified-computational-research-environment' in caps['capabilities']

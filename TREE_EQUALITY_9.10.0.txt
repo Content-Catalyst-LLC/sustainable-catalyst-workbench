@@ -1,0 +1,10 @@
+Workbench v9.10.0 tree equality certification
+
+Method: apply the exact final tiny patch to a clean v9.9.0 Git baseline, remove Git metadata and generated test caches, then compare every resulting file against the packaged v9.10.0 full-source tree by relative path and SHA-256.
+
+Expected final source file count: 1239
+Expected final installed file count: 1239
+Only in packaged source: 0
+Only in certified install: 0
+Content differences: 0
+Result: PASS

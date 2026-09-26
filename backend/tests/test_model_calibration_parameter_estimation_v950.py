@@ -20,7 +20,7 @@ def seed_project(monkeypatch, tmp_path):
 
 def seed_campaign(project):
     ch='b'*64
-    campaign={'ok':True,'schema':'sc-workbench-computational-campaign/1.0','version':'9.9.0','projectKey':project,'campaignHash':ch,'campaignRef':f'sc://workbench/campaign/{project}/{ch}','campaignKey':'cal','title':'Calibration campaign','status':'completed','runtimeKind':'unified','protocolHash':'c'*64,'studyHash':'d'*64,'plannedRunCount':6,'recordLabel':'Calibration campaign','createdBy':'test','createdAt':'2026-09-26T00:00:00Z'}
+    campaign={'ok':True,'schema':'sc-workbench-computational-campaign/1.0','version':'9.10.0','projectKey':project,'campaignHash':ch,'campaignRef':f'sc://workbench/campaign/{project}/{ch}','campaignKey':'cal','title':'Calibration campaign','status':'completed','runtimeKind':'unified','protocolHash':'c'*64,'studyHash':'d'*64,'plannedRunCount':6,'recordLabel':'Calibration campaign','createdBy':'test','createdAt':'2026-09-26T00:00:00Z'}
     campaign['recordHash']=content_hash({k:v for k,v in campaign.items() if k not in {'createdAt','recordHash','idempotent'}})
     _campaign_path(project,ch).parent.mkdir(parents=True,exist_ok=True); _atomic_json_write(_campaign_path(project,ch),campaign)
     points=[(0,0),(1,0),(0,1),(2,1),(1,3),(4,2)]
@@ -28,10 +28,10 @@ def seed_campaign(project):
     for i,(x,z) in enumerate(points,1):
         jid=f'cal-{i}'; result={'metrics':{'y1':2*x+z,'y2':x-z}}
         req={'x':x,'z':z}
-        job={'ok':True,'schema':'sc-workbench-execution-job/1.0','version':'9.9.0','jobId':jid,'projectKey':project,'runtimeKind':'unified','label':jid,'tags':[],'metadata':{'parameterValues':{'parameters.x':x,'parameters.z':z}},'status':'completed','jobRevision':1,'request':req,'requestHash':content_hash(req),'result':result,'resultHash':content_hash(result),'jobHash':'','createdAt':'2026-09-26T00:00:00Z','updatedAt':'2026-09-26T00:00:00Z','startedAt':'2026-09-26T00:00:00Z','completedAt':'2026-09-26T00:00:00Z','scientificExecutionPerformed':True}
+        job={'ok':True,'schema':'sc-workbench-execution-job/1.0','version':'9.10.0','jobId':jid,'projectKey':project,'runtimeKind':'unified','label':jid,'tags':[],'metadata':{'parameterValues':{'parameters.x':x,'parameters.z':z}},'status':'completed','jobRevision':1,'request':req,'requestHash':content_hash(req),'result':result,'resultHash':content_hash(result),'jobHash':'','createdAt':'2026-09-26T00:00:00Z','updatedAt':'2026-09-26T00:00:00Z','startedAt':'2026-09-26T00:00:00Z','completedAt':'2026-09-26T00:00:00Z','scientificExecutionPerformed':True}
         job['jobHash']=_job_hash(job); p=_job_path(jid); p.parent.mkdir(parents=True,exist_ok=True); p.write_text(json.dumps(job))
         jobs[str(i)]={'jobId':jid,'status':'completed','resultHash':job['resultHash'],'parameterValues':{'parameters.x':x,'parameters.z':z}}
-    state={'ok':True,'schema':STATE_SCHEMA,'version':'9.9.0','projectKey':project,'campaignHash':ch,'campaignRef':campaign['campaignRef'],'stateRevision':1,'updatedAt':'2026-09-26T00:00:00Z','jobs':jobs,'summary':{'planned':6,'completed':6},'automaticQueueingPerformed':False,'automaticExecutionPerformed':False,'automaticAnalysisPerformed':False,'automaticCoreDispatchPerformed':False}
+    state={'ok':True,'schema':STATE_SCHEMA,'version':'9.10.0','projectKey':project,'campaignHash':ch,'campaignRef':campaign['campaignRef'],'stateRevision':1,'updatedAt':'2026-09-26T00:00:00Z','jobs':jobs,'summary':{'planned':6,'completed':6},'automaticQueueingPerformed':False,'automaticExecutionPerformed':False,'automaticAnalysisPerformed':False,'automaticCoreDispatchPerformed':False}
     state['stateHash']=_state_hash(state); _state_path(project,ch).parent.mkdir(parents=True,exist_ok=True); _atomic_json_write(_state_path(project,ch),state)
     return ch
 
@@ -41,7 +41,7 @@ def payload(project,ch,estimator='linear-response-surface',loss='weighted-least-
 
 
 def test_manifest_and_status():
-    m=c.get('/model-calibration/manifest').json(); assert m['ok'] and m['version']=='9.9.0'
+    m=c.get('/model-calibration/manifest').json(); assert m['ok'] and m['version']=='9.10.0'
     assert m['capabilities']['boundedParameterEstimation'] and m['capabilities']['robustHuberCalibration']
     assert m['boundaries']['automaticPreferredModelSelection'] is False
     s=c.get('/v950/status').json(); assert s['modelCalibrationParameterEstimation'] and s['automaticModelValidityInference'] is False
@@ -111,5 +111,5 @@ def test_parameter_bounds_validation(monkeypatch,tmp_path):
 
 
 def test_capability_flags():
-    caps=c.get('/capabilities').json(); assert caps['version']=='9.9.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='9.10.0'
     for k in ('modelCalibrationParameterEstimation','modelCalibrationCampaignObjectiveScoring','modelCalibrationBoundedEstimation','modelCalibrationRobustLoss','modelCalibrationIdentifiabilityDiagnostics','modelCalibrationContentAddressedRecords','modelCalibrationCorePlanning'): assert caps['coreIntegration'][k] is True

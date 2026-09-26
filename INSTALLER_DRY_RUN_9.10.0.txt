@@ -1,0 +1,22 @@
+Workbench v9.10.0 exact installer certification
+
+Baseline: clean Workbench v9.9.0 source committed to a fresh local Git repository with a local bare origin.
+Artifact exercised: sustainable-catalyst-workbench-v9.10.0-tiny-patch.zip
+Installer: apply_and_push_workbench_v9_10_0_macos.sh
+
+Results:
+- git pull --ff-only baseline synchronization: PASS
+- rsync --checksum patch application: PASS
+- canonical release import APP_VERSION == 9.10.0: PASS
+- backend regression group 1: 212/212 PASS
+- backend regression group 2: 242/242 PASS
+- static/release regression: 676/676 PASS
+- total test gate: 1130/1130 PASS
+- live health/manifest/status/capability gate: PASS
+- commit creation: PASS
+- push to local certification origin: PASS
+- annotated tag v9.10.0 creation and push: PASS
+- post-test cache cleanup: PASS
+- final working tree clean: PASS
+
+The final release artifact is re-certified after these reports are embedded so installer/source equality remains exact.

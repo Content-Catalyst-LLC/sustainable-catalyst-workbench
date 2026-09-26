@@ -22,7 +22,7 @@ def payload(p):
 
 
 def test_manifest_and_status():
-    m=c.get('/cross-study-meta/manifest').json(); assert m['ok'] and m['version']=='9.9.0'
+    m=c.get('/cross-study-meta/manifest').json(); assert m['ok'] and m['version']=='9.10.0'
     assert m['capabilities']['dersimonianLairdRandomEffects'] and m['boundaries']['automaticPreferredModelSelection'] is False
     s=c.get('/v980/status').json(); assert s['crossStudyMetaAnalysisWorkspace'] and s['automaticScientificValidityInference'] is False
 
@@ -90,5 +90,5 @@ def test_ratio_measure_mismatch_rejected(monkeypatch,tmp_path):
 
 
 def test_capability_flags():
-    caps=c.get('/capabilities').json(); assert caps['version']=='9.9.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='9.10.0'
     for k in ('crossStudyMetaAnalysisWorkspace','crossStudyEffectNormalization','crossStudyFixedEffectMetaAnalysis','crossStudyRandomEffectsMetaAnalysis','crossStudyHeterogeneityDiagnostics','crossStudySubgroupAnalysis','crossStudyLeaveOneOutSensitivity','crossStudyCorePlanning'): assert caps['coreIntegration'][k] is True
