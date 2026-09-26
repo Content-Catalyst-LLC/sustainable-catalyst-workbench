@@ -41,7 +41,7 @@ CORE_PLAN_SCHEMA = "sc-workbench-execution-console-core-plan/1.0"
 MAX_JOBS_RETURNED = 500
 MAX_COMPARE_JOBS = 20
 
-RuntimeKind = Literal["unified", "solver", "simulation", "engineering", "design-space", "workflow", "notebook"]
+RuntimeKind = Literal["unified", "solver", "simulation", "engineering", "design-space", "workflow", "notebook", "ai-engineering"]
 JobStatus = Literal["prepared", "queued", "running", "completed", "failed", "cancelled"]
 
 router = APIRouter(tags=["workbench-v840-interactive-execution-console"])

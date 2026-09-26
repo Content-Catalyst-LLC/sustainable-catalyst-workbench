@@ -25,7 +25,7 @@ def handoff_body(p,package_hash,destinations=None):
 
 
 def test_manifest_and_status():
-    m=c.get('/scientific-research-handoff/manifest').json(); assert m['ok'] and m['version']=='9.12.0'
+    m=c.get('/scientific-research-handoff/manifest').json(); assert m['ok'] and m['version']=='10.0.0'
     assert m['capabilities']['destinationSpecificContracts'] and m['boundaries']['automaticDestinationDispatch'] is False
     s=c.get('/v9100/status').json(); assert s['platformWideScientificResearchHandoff'] and s['governedCoreObjectCreated'] is False
 
@@ -79,6 +79,6 @@ def test_missing_package_is_404(monkeypatch,tmp_path):
 
 
 def test_capability_flags():
-    caps=c.get('/capabilities').json(); assert caps['version']=='9.12.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='10.0.0'
     for k in ('platformWideScientificResearchHandoff','scientificResearchPortableTransportBinding','scientificResearchDestinationContracts','scientificResearchDestinationReadiness','scientificResearchRequirementReporting','scientificResearchContentAddressedHandoffs','scientificResearchCrossProductPlanning','scientificResearchCoreGovernancePlanning'):
         assert caps['coreIntegration'][k] is True

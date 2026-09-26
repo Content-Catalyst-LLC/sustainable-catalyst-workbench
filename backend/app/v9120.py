@@ -96,7 +96,7 @@ def _store_probe(write_probe: bool) -> Dict[str, Any]:
         out["exists"] = True; out["directory"] = root.is_dir(); out["writable"] = os.access(root, os.W_OK)
         if write_probe:
             probe = root / ".scwb-v9120-production-certification-probe"
-            probe.write_text("v9.12.0 Workbench v9 production certification\n", encoding="utf-8")
+            probe.write_text(f"v{VERSION} Workbench v9 production certification\n", encoding="utf-8")
             probe.unlink()
             out["writeProbePerformed"] = True; out["writeProbePassed"] = True
     except Exception as exc:
@@ -194,7 +194,7 @@ def run_certification(req: CertificationRequest) -> Dict[str, Any]:
     package_manifest = v990_manifest(); handoff_manifest = v9100_manifest(); study_cert_manifest = v9110_manifest()
 
     checks: List[Dict[str, Any]] = [
-        {"check": "canonical-release-identity", "passed": VERSION == "9.12.0" == APP_VERSION, "observed": VERSION},
+        {"check": "canonical-release-identity", "passed": VERSION == APP_VERSION, "observed": VERSION},
         {"check": "product-identity", "passed": PRODUCT_KEY == "workbench", "observed": PRODUCT_KEY},
         {"check": "runtime-kind", "passed": RUNTIME_KIND == "scientific-engineering-compute", "observed": RUNTIME_KIND},
         {"check": "health-readiness", "passed": health.get("ok") is True and health.get("readiness") == "ready" and health.get("version") == VERSION, "observed": health.get("readiness")},

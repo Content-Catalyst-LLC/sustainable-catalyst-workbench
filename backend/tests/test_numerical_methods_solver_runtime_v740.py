@@ -9,10 +9,10 @@ def client(): return TestClient(app)
 
 def test_manifest_catalog_status_and_capabilities():
     c=client(); m=c.get('/solvers/manifest'); assert m.status_code==200
-    d=m.json(); assert d['schema']==SCHEMA and d['version']=='9.12.0' and d['solverCount']>=20
+    d=m.json(); assert d['schema']==SCHEMA and d['version']=='10.0.0' and d['solverCount']>=20
     cat=c.get('/solvers/catalog').json(); assert cat['solverCount']==d['solverCount']; assert cat['defaultSolvers']['root']=='root.brentq'
-    s=c.get('/v740/status').json(); assert s['ok'] and s['version']=='9.12.0' and s['convergenceDiagnostics'] is True
-    caps=c.get('/capabilities').json(); assert caps['version']=='9.12.0'; assert caps['coreIntegration']['numericalMethodsSolverRuntime'] is True
+    s=c.get('/v740/status').json(); assert s['ok'] and s['version']=='10.0.0' and s['convergenceDiagnostics'] is True
+    caps=c.get('/capabilities').json(); assert caps['version']=='10.0.0'; assert caps['coreIntegration']['numericalMethodsSolverRuntime'] is True
 
 
 def test_root_solver_returns_diagnostics_and_execution_object():
@@ -71,4 +71,4 @@ def test_core_lineage_plan_two_phase_and_token_boundary(monkeypatch):
     assert second.json()['outputRegistrations'][0]['path'].endswith('/outputs') and second.json()['automaticCoreDispatchAuthorized'] is False
     monkeypatch.setenv('SCWB_REQUIRE_SERVICE_TOKEN','true'); monkeypatch.setenv('SCWB_SERVICE_TOKEN','secret740')
     denied=c.post('/integration/core/solver-lineage/plan',json={'solverResult':solved}); assert denied.status_code==401
-    ok=c.post('/integration/core/solver-lineage/plan',headers={'X-SC-Service-Token':'secret740'},json={'solverResult':solved}); assert ok.status_code==200 and ok.json()['version']=='9.12.0'
+    ok=c.post('/integration/core/solver-lineage/plan',headers={'X-SC-Service-Token':'secret740'},json={'solverResult':solved}); assert ok.status_code==200 and ok.json()['version']=='10.0.0'

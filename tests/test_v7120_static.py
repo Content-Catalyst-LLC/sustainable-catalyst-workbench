@@ -3,10 +3,10 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 def test_v7120_identity_router_compose():
-    assert 'APP_VERSION = "9.12.0"' in (ROOT/'backend/app/release.py').read_text()
-    main=(ROOT/'backend/app/main.py').read_text(); assert 'version="9.12.0"' in main
+    assert 'APP_VERSION = "10.0.0"' in (ROOT/'backend/app/release.py').read_text()
+    main=(ROOT/'backend/app/main.py').read_text(); assert 'version="10.0.0"' in main
     assert 'from app.v7120 import router as v7120_router' in main and 'app.include_router(v7120_router)' in main
-    compose=(ROOT/'compose.yml').read_text(); assert 'sustainable-catalyst-workbench:9.12.0' in compose and "d.get('version')=='9.12.0'" in compose
+    compose=(ROOT/'compose.yml').read_text(); assert 'sustainable-catalyst-workbench:10.0.0' in compose and "d.get('version')=='10.0.0'" in compose
 
 
 def test_v7120_surfaces_boundaries():
@@ -20,7 +20,7 @@ def test_v7120_surfaces_boundaries():
 
 def test_v7120_wordpress():
     main=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/sustainable-catalyst-workbench.php').read_text()
-    assert 'Version: 9.12.0' in main and "define('SCWB_VERSION', '9.12.0')" in main and 'SCWB_DIR' not in main
+    assert 'Version: 10.0.0' in main and "define('SCWB_VERSION', '10.0.0')" in main and 'SCWB_DIR' not in main
     assert 'includes/scwb-v7120-reproducible-experiment-engineering-package.php' in main
     inc=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/includes/scwb-v7120-reproducible-experiment-engineering-package.php').read_text()
     assert '/v7120/status' in inc and 'sc_workbench_reproducible_package_status' in inc and '/reproducible-package/status' in inc

@@ -2,9 +2,9 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 
 def test_v9120_identity_and_registration():
-    assert 'APP_VERSION = "9.12.0"' in (ROOT/'backend/app/release.py').read_text()
-    main=(ROOT/'backend/app/main.py').read_text(); assert 'version="9.12.0"' in main and 'from app.v9120 import router as v9120_router' in main
-    assert 'sustainable-catalyst-workbench:9.12.0' in (ROOT/'compose.yml').read_text()
+    assert 'APP_VERSION = "10.0.0"' in (ROOT/'backend/app/release.py').read_text()
+    main=(ROOT/'backend/app/main.py').read_text(); assert 'version="10.0.0"' in main and 'from app.v9120 import router as v9120_router' in main
+    assert 'sustainable-catalyst-workbench:10.0.0' in (ROOT/'compose.yml').read_text()
 
 def test_v9120_backend_contract_surface():
     t=(ROOT/'backend/app/v9120.py').read_text()
@@ -15,7 +15,7 @@ def test_v9120_backend_contract_surface():
 def test_v9120_wordpress_surface():
     p=ROOT/'wordpress-plugin/sustainable-catalyst-workbench/includes/scwb-v9120-workbench-v9-production-certification.php'; assert p.exists(); t=p.read_text()
     assert "add_shortcode('sc_workbench_v9_production_certification'" in t and "add_shortcode('sc_workbench_v9_production_certification_status'" in t
-    main=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/sustainable-catalyst-workbench.php').read_text(); assert 'Version: 9.12.0' in main and "define('SCWB_VERSION', '9.12.0');" in main and 'scwb-v9120-workbench-v9-production-certification.php' in main
+    main=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/sustainable-catalyst-workbench.php').read_text(); assert 'Version: 10.0.0' in main and "define('SCWB_VERSION', '10.0.0');" in main and 'scwb-v9120-workbench-v9-production-certification.php' in main
 
 def test_v9120_release_assets_and_hardening():
     installer=(ROOT/'installers/apply_and_push_workbench_v9_12_0_macos.sh').read_text(); deploy=(ROOT/'deploy/contabo/upgrade_workbench_backend_v9_12_0_contabo.sh').read_text()

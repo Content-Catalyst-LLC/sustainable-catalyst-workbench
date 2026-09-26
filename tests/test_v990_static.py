@@ -2,9 +2,9 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 
 def test_v990_identity_and_registration():
-    assert 'APP_VERSION = "9.12.0"' in (ROOT/'backend/app/release.py').read_text()
-    main=(ROOT/'backend/app/main.py').read_text(); assert 'version="9.12.0"' in main and 'from app.v990 import router as v990_router' in main
-    assert 'sustainable-catalyst-workbench:9.12.0' in (ROOT/'compose.yml').read_text()
+    assert 'APP_VERSION = "10.0.0"' in (ROOT/'backend/app/release.py').read_text()
+    main=(ROOT/'backend/app/main.py').read_text(); assert 'version="10.0.0"' in main and 'from app.v990 import router as v990_router' in main
+    assert 'sustainable-catalyst-workbench:10.0.0' in (ROOT/'compose.yml').read_text()
 
 def test_v990_backend_contract_surface():
     t=(ROOT/'backend/app/v990.py').read_text()
@@ -14,7 +14,7 @@ def test_v990_backend_contract_surface():
 def test_v990_wordpress_surface():
     p=ROOT/'wordpress-plugin/sustainable-catalyst-workbench/includes/scwb-v990-research-package-exchange-portability.php'; assert p.exists(); t=p.read_text()
     assert "add_shortcode('sc_workbench_research_package_exchange'" in t and "add_shortcode('sc_workbench_research_package_exchange_status'" in t
-    main=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/sustainable-catalyst-workbench.php').read_text(); assert 'Version: 9.12.0' in main and "define('SCWB_VERSION', '9.12.0');" in main and 'scwb-v990-research-package-exchange-portability.php' in main
+    main=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/sustainable-catalyst-workbench.php').read_text(); assert 'Version: 10.0.0' in main and "define('SCWB_VERSION', '10.0.0');" in main and 'scwb-v990-research-package-exchange-portability.php' in main
 
 def test_v990_release_assets_and_hardening():
     installer=(ROOT/'installers/apply_and_push_workbench_v9_9_0_macos.sh').read_text(); deploy=(ROOT/'deploy/contabo/upgrade_workbench_backend_v9_9_0_contabo.sh').read_text()

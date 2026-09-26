@@ -4,7 +4,7 @@ from app.main import app
 c = TestClient(app)
 
 def test_manifest_and_status_boundaries():
-    m=c.get('/v9-production-certification/manifest').json(); assert m['ok'] and m['version']=='9.12.0'
+    m=c.get('/v9-production-certification/manifest').json(); assert m['ok'] and m['version']=='10.0.0'
     assert len(m['requiredV9Milestones'])==12 and m['capabilities']['retainedV9MilestoneAudit']
     for k in ('productionCertificationIsScientificValidity','scientificCorrectnessCertified','evidenceTruthCertified','causalClaimsCertified','statisticalMeritCertified','peerReviewCertified','publicationMeritCertified','automaticRemediation','automaticCoreDispatch','governedCoreObjectCreated'):
         assert m['boundaries'][k] is False
@@ -17,7 +17,7 @@ def test_runtime_certification_passes(monkeypatch,tmp_path):
     d=r.json(); assert d['ok'] and d['productionReady'] and d['certificationStatus']=='pass' and d['summary']['failed']==0
     assert d['persistentStore']['writeProbePassed'] is True
     assert d['retainedV9Milestones']['allRequiredRetained'] and d['retainedV9Milestones']['passedCount']==d['retainedV9Milestones']['requiredCount']==12
-    assert d['deploymentContract']['localPort']==8088 and d['deploymentContract']['dockerImage']=='sustainable-catalyst-workbench:9.12.0'
+    assert d['deploymentContract']['localPort']==8088 and d['deploymentContract']['dockerImage']=='sustainable-catalyst-workbench:10.0.0'
     assert d['boundaries']['productionCertificationIsScientificValidity'] is False and len(d['reportHash'])==64
 
 
@@ -26,7 +26,7 @@ def test_all_v9_milestone_manifests_are_current(monkeypatch,tmp_path):
     d=c.post('/v9-production-certification/run',json={'requestedBy':'tester'}).json()
     rows=d['retainedV9Milestones']['milestones']; assert len(rows)==12
     assert all(x['manifestReady'] and x['capabilityRetained'] and x['passed'] for x in rows)
-    assert all(x['manifestVersion']=='9.12.0' and len(x['manifestHash'])==64 for x in rows)
+    assert all(x['manifestVersion']=='10.0.0' and len(x['manifestHash'])==64 for x in rows)
 
 
 def test_save_is_content_addressed_and_idempotent(monkeypatch,tmp_path):
@@ -49,13 +49,13 @@ def test_core_plan_is_plan_only(monkeypatch,tmp_path):
 
 
 def test_capability_registry_exposes_v9120_flags():
-    caps=c.get('/capabilities').json(); assert caps['version']=='9.12.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='10.0.0'
     for key in ('workbenchV9ProductionCertification','v9ProductionCertificationReleaseIdentity','v9ProductionCertificationRuntimeReadiness','v9ProductionCertificationPersistenceReadiness','v9ProductionCertificationRetainedMilestones','v9ProductionCertificationPortabilityHandoff','v9ProductionCertificationDeploymentInvariants','v9ProductionCertificationContentAddressedRecords','v9ProductionCertificationCorePlanning'):
         assert caps['coreIntegration'][key] is True
 
 
 def test_health_and_complete_v9_status_surface_retained(monkeypatch,tmp_path):
     monkeypatch.setenv('SCWB_RESEARCH_ENVIRONMENT_STORE',str(tmp_path/'store'))
-    h=c.get('/health').json(); assert h['version']=='9.12.0' and h['readiness']=='ready'
+    h=c.get('/health').json(); assert h['version']=='10.0.0' and h['readiness']=='ready'
     for path in ('/v900/status','/v910/status','/v920/status','/v930/status','/v940/status','/v950/status','/v960/status','/v970/status','/v980/status','/v990/status','/v9100/status','/v9110/status','/v9120/status'):
         r=c.get(path); assert r.status_code==200,(path,r.text)

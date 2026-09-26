@@ -38,7 +38,7 @@ def body(project, study, protocol, campaign, profile='study-foundation'):
 
 
 def test_manifest_and_status():
-    m=c.get('/research-study-certification/manifest').json(); assert m['ok'] and m['version']=='9.12.0'
+    m=c.get('/research-study-certification/manifest').json(); assert m['ok'] and m['version']=='10.0.0'
     assert m['capabilities']['crossStageLineageCoherence'] and m['boundaries']['certificationIsScientificValidity'] is False
     assert 'full-v9' in m['profiles'] and 'platform-wide-research-handoff' in m['profiles']['full-v9']
     s=c.get('/v9110/status').json(); assert s['endToEndResearchStudyCertification'] and s['automaticStudyApproval'] is False
@@ -108,7 +108,7 @@ def test_source_catalog_and_capability_flags(monkeypatch,tmp_path):
     p,st,pr,ca=seed_foundation(monkeypatch,tmp_path); c.post('/research-study-certification/certifications',json=body(p,st,pr,ca))
     cat=c.get(f'/research-study-certification/source-catalog/{p}').json(); assert cat['ok'] and cat['catalogs']['researchStudyCertifications']['certificationCount']==1
     assert 'platformWideResearchHandoffs' in cat['catalogs']
-    caps=c.get('/capabilities').json(); assert caps['version']=='9.12.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='10.0.0'
     for k in ('endToEndResearchStudyCertification','researchStudyCertificationProfiles','researchStudyCertificationObjectIntegrity','researchStudyCertificationLineageCoherence','researchStudyCertificationReproducibilityReadiness','researchStudyCertificationPortabilityReadiness','researchStudyCertificationHandoffReadiness','researchStudyCertificationContentAddressedRecords','researchStudyCertificationCorePlanning'):
         assert caps['coreIntegration'][k] is True
 
