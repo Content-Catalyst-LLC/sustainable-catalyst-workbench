@@ -15,7 +15,7 @@ def test_manifest_catalog_and_status():
     d = m.json()
     assert d['ok'] is True
     assert d['schema'] == SCHEMA
-    assert d['version'] == '9.4.0'
+    assert d['version'] == '9.5.0'
     assert d['operationCount'] == len(OPERATIONS) >= 60
     assert 'numerical-scientific' in d['categories']
     assert 'electronics-embedded' in d['categories']
@@ -32,7 +32,7 @@ def test_manifest_catalog_and_status():
         assert key in keys
 
     status = c.get('/v700/status').json()
-    assert status['ok'] and status['version'] == '9.4.0'
+    assert status['ok'] and status['version'] == '9.5.0'
     assert status['canonicalExecutionEnvelope'] is True
     assert status['workflowExecution'] is True
     assert status['coreLineagePlanning'] is True
@@ -46,7 +46,7 @@ def test_symbolic_math_execution_has_canonical_envelope_and_hashes():
     b = c.post('/execution/runtime/execute', json=payload)
     assert a.status_code == b.status_code == 200
     x, y = a.json(), b.json()
-    assert x['schema'] == RESULT_SCHEMA and x['version'] == '9.4.0'
+    assert x['schema'] == RESULT_SCHEMA and x['version'] == '9.5.0'
     assert x['operation'] == 'math.compute'
     assert x['executionId'] == y['executionId']
     assert x['requestHash'] == y['requestHash']
@@ -197,4 +197,4 @@ def test_core_route_token_boundary(monkeypatch):
     result = c.post('/execution/runtime/execute', json={'operation': 'math.compute', 'payload': {'expression': '1+1'}}).json()
     assert c.post('/integration/core/unified-execution/lineage/plan', json={'executionResult': result}).status_code == 401
     ok = c.post('/integration/core/unified-execution/lineage/plan', headers={'X-SC-Service-Token': 'secret700'}, json={'executionResult': result})
-    assert ok.status_code == 200 and ok.json()['version'] == '9.4.0'
+    assert ok.status_code == 200 and ok.json()['version'] == '9.5.0'

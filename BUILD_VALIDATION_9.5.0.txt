@@ -1,0 +1,31 @@
+Sustainable Catalyst Workbench v9.5.0 — Model Calibration & Parameter Estimation
+
+Development validation
+- Focused v9.5 backend/static gate: 17/17 PASS
+- Full backend regression suite: 396/396 PASS
+- Full static/release suite: 651/651 PASS
+- Total regression gate: 1,047/1,047 PASS
+- WordPress main plugin PHP lint: PASS
+- WordPress v9.5 include PHP lint: PASS
+- Canonical APP_VERSION: 9.5.0
+- Docker image identity: sustainable-catalyst-workbench:9.5.0
+- Backend verifier: 127.0.0.1:8088
+
+Primary capabilities
+- Researcher-authored calibration problems
+- Campaign candidate objective scoring
+- Bounded parameter estimation
+- Least-squares and weighted least-squares calibration
+- Robust Huber-loss calibration
+- Linear response-surface fitting
+- Residual diagnostics
+- Design rank and conditioning diagnostics
+- Approximate parameter confidence intervals when estimable
+- Content-addressed calibration records
+- Statistical/uncertainty follow-up planning
+- Platform Core binding plans
+
+Scientific boundaries
+No automatic model-validity inference, scientific acceptance, preferred-model selection,
+causal inference, prior selection, new-job execution, calibration experiment dispatch,
+or Platform Core dispatch.

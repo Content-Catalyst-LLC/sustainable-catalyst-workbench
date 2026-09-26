@@ -1,9 +1,9 @@
-# Sustainable Catalyst Workbench v9.4.0
+# Sustainable Catalyst Workbench v9.5.0
 
-Current release: **Workbench v9.4.0 — Uncertainty & Sensitivity Study Composer**.
+Current release: **Workbench v9.5.0 — Model Calibration & Parameter Estimation**.
 
-v9.4.0 extends the v9 scientific-study workflow with explicit uncertainty models, reproducible Monte Carlo / Latin-hypercube / Sobol sampling plans, output uncertainty summaries, and neutral sensitivity diagnostics over completed campaign results. It preserves researcher control: Workbench computes transparent analytical objects but does not infer scientific validity, causal importance, parameter rankings, convergence, or preferred models.
+v9.5.0 extends the v9 scientific-study workflow with explicit calibration problems over completed computational campaigns. Researchers define target observations, parameter bounds, estimator, loss function, confidence level, assumptions, and interpretation. Workbench can score observed campaign candidates or fit bounded linear response surfaces using least-squares, weighted least-squares, or robust Huber loss, while reporting residual, conditioning, identifiability, and approximate parameter-interval diagnostics.
 
-The release retains the complete Workbench execution, simulation, visualization, statistical-analysis, publication-handoff, and production-certification stack.
+The release retains the complete Workbench execution, simulation, visualization, statistical-analysis, uncertainty/sensitivity, publication-handoff, and production-certification stack. Calibration output is analytical evidence, not automatic scientific validation: Workbench does not infer that a model is correct, scientifically accepted, causal, or preferred.
 
-See `RELEASE_NOTES_9.4.0_UNCERTAINTY_SENSITIVITY_STUDY_COMPOSER.md`, `V940_UNCERTAINTY_SENSITIVITY_STUDY_COMPOSER_MAP.md`, and `docs/V940_UNCERTAINTY_SENSITIVITY_STUDY_COMPOSER.md`.
+See `RELEASE_NOTES_9.5.0_MODEL_CALIBRATION_PARAMETER_ESTIMATION.md`, `V950_MODEL_CALIBRATION_PARAMETER_ESTIMATION_MAP.md`, and `docs/V950_MODEL_CALIBRATION_PARAMETER_ESTIMATION.md`.

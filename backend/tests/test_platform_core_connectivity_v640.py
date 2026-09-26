@@ -15,11 +15,11 @@ def test_health_is_core_gateway_compatible(monkeypatch):
     body = response.json()
     assert body["ok"] is True
     assert body["product"] == "workbench"
-    assert body["version"] in {"6.4.0", "6.5.0", "6.6.0", "6.8.0", "6.12.0", "9.4.0"}
+    assert body["version"] in {"6.4.0", "6.5.0", "6.6.0", "6.8.0", "6.12.0", "9.5.0"}
     assert body["coreCompatible"] is True
     assert body["runtimeContractTarget"] == CORE_RUNTIME_CONTRACT
     assert response.headers["X-Request-ID"] == "core-health-640"
-    assert response.headers["X-SC-Workbench-Version"] in {"6.4.0", "6.5.0", "6.6.0", "6.8.0", "6.12.0", "9.4.0"}
+    assert response.headers["X-SC-Workbench-Version"] in {"6.4.0", "6.5.0", "6.6.0", "6.8.0", "6.12.0", "9.5.0"}
 
 
 def test_runtime_and_capabilities_boundaries():
