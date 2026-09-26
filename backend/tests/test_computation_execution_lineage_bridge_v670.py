@@ -32,7 +32,7 @@ def client():
 
 def test_manifest_targets_exact_core_287_contract_and_boundary():
     m = lineage_manifest()
-    assert m["version"] == "9.2.0"
+    assert m["version"] == "9.3.0"
     assert m["coreComputationLineageContract"] == "sc.research.computation-analysis-execution-lineage.v1"
     assert m["corePaths"]["executions"] == "/v1/research/computation-lineage/executions"
     assert m["corePaths"]["unifiedSessionExecutionBindings"] == "/v1/research/unified-runtime/execution-bindings"
@@ -181,17 +181,17 @@ def test_service_token_policy_applies_to_v670_routes(monkeypatch):
     c = client()
     assert c.get("/integration/core/computation-lineage/manifest").status_code == 401
     ok = c.get("/integration/core/computation-lineage/manifest", headers={"X-SC-Service-Token":"secret-670"})
-    assert ok.status_code == 200 and ok.json()["version"] == "9.2.0"
+    assert ok.status_code == 200 and ok.json()["version"] == "9.3.0"
 
 
 def test_v670_status_and_capabilities():
     c = client()
     status = c.get("/v670/status").json()
-    assert status["ok"] is True and status["version"] == "9.2.0"
+    assert status["ok"] is True and status["version"] == "9.3.0"
     assert status["coreComputationLineageContract"] == CORE_COMPUTATION_LINEAGE_CONTRACT
     assert status["twoPhaseExecutionLineage"] is True
     caps = c.get("/capabilities").json()
-    assert caps["version"] == "9.2.0"
+    assert caps["version"] == "9.3.0"
     assert caps["coreIntegration"]["executionLineageBridge"] is True
     assert "platform-core-computation-execution-lineage-bridge" in caps["capabilities"]
 

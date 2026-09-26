@@ -3,11 +3,11 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_v890_release_identity_and_routes():
-    assert 'APP_VERSION = "9.2.0"' in (ROOT / 'backend/app/release.py').read_text()
+    assert 'APP_VERSION = "9.3.0"' in (ROOT / 'backend/app/release.py').read_text()
     main = (ROOT / 'backend/app/main.py').read_text()
-    assert 'version="9.2.0"' in main and 'from app.v890 import router as v890_router' in main
+    assert 'version="9.3.0"' in main and 'from app.v890 import router as v890_router' in main
     compose = (ROOT / 'compose.yml').read_text()
-    assert 'sustainable-catalyst-workbench:9.2.0' in compose and "d.get('version')=='9.2.0'" in compose and '127.0.0.1:8088:8088' in compose
+    assert 'sustainable-catalyst-workbench:9.3.0' in compose and "d.get('version')=='9.3.0'" in compose and '127.0.0.1:8088:8088' in compose
 
 
 def test_v890_artifacts_and_capability_registry():
@@ -31,7 +31,7 @@ def test_v890_artifacts_and_capability_registry():
 
 def test_v890_wordpress_and_neutrality_contract():
     main = (ROOT / 'wordpress-plugin/sustainable-catalyst-workbench/sustainable-catalyst-workbench.php').read_text()
-    assert 'Version: 9.2.0' in main and "define('SCWB_VERSION', '9.2.0')" in main and 'SCWB_DIR' not in main
+    assert 'Version: 9.3.0' in main and "define('SCWB_VERSION', '9.3.0')" in main and 'SCWB_DIR' not in main
     assert 'scwb-v890-interactive-scientific-figure-visualization-composer.php' in main
     src = (ROOT / 'backend/app/v890.py').read_text()
     for literal in ('/figure-composer/manifest', '/figure-composer/source-catalog/{project_key}', '/figure-composer/compose', '/integration/core/figure-composer/plan', '/v890/status'):

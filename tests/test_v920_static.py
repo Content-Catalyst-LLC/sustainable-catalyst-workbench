@@ -2,9 +2,9 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 
 def test_v920_backend_registration_and_identity():
-    assert 'APP_VERSION = "9.2.0"' in (ROOT/'backend/app/release.py').read_text()
-    main=(ROOT/'backend/app/main.py').read_text(); assert 'from app.v920 import router as v920_router' in main and 'version="9.2.0"' in main
-    compose=(ROOT/'compose.yml').read_text(); assert 'sustainable-catalyst-workbench:9.2.0' in compose and "d.get('version')=='9.2.0'" in compose
+    assert 'APP_VERSION = "9.3.0"' in (ROOT/'backend/app/release.py').read_text()
+    main=(ROOT/'backend/app/main.py').read_text(); assert 'from app.v920 import router as v920_router' in main and 'version="9.3.0"' in main
+    compose=(ROOT/'compose.yml').read_text(); assert 'sustainable-catalyst-workbench:9.3.0' in compose and "d.get('version')=='9.3.0'" in compose
 
 def test_v920_campaign_contract_and_boundaries():
     s=(ROOT/'backend/app/v920.py').read_text()
@@ -21,7 +21,7 @@ def test_v920_routes_exist():
 def test_v920_wordpress_surface_and_version():
     plugin=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/sustainable-catalyst-workbench.php').read_text()
     inc=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/includes/scwb-v920-batch-experiment-computational-campaign-manager.php').read_text()
-    assert 'Version: 9.2.0' in plugin and "define('SCWB_VERSION', '9.2.0')" in plugin
+    assert 'Version: 9.3.0' in plugin and "define('SCWB_VERSION', '9.3.0')" in plugin
     assert 'scwb-v920-batch-experiment-computational-campaign-manager.php' in plugin
     assert "add_shortcode('sc_workbench_batch_campaign_manager'" in inc
     assert "add_shortcode('sc_workbench_batch_campaign_manager_status'" in inc

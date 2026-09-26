@@ -1,12 +1,9 @@
-# Sustainable Catalyst Workbench v9.2.0
+# Sustainable Catalyst Workbench v9.3.0
 
-Current release: **Workbench v9.2.0 — Batch Experiment & Computational Campaign Manager**.
+Current release: **Workbench v9.3.0 — Statistical Analysis & Diagnostic Workspace**.
 
-v9.2.0 binds v9.1 research protocols to explicit computational campaigns with deterministic parameter sweeps, replication sets, execution budgets, resumable campaign state, prepared execution-console job materialization, result-lineage refresh, and neutral analysis/Core handoff planning.
+v9.3.0 turns completed Workbench execution and campaign results into explicit, provenance-preserving statistical analyses. Researchers choose the response metric, grouping/predictor variables, methods, reference values, and confidence level. The workspace provides descriptive statistics, confidence intervals, distribution/normality/variance diagnostics, explicit test statistics, correlations, and linear-regression residual diagnostics without automatically deciding significance, accepting/rejecting hypotheses, inferring causality, or asserting scientific validity.
 
-The campaign manager does not automatically queue or execute jobs, select preferred results, infer scientific validity/significance/causality, mutate research protocols, dispatch analysis, or dispatch to Platform Core.
+The release preserves Workbench as the computational analysis plane while Platform Core remains the governed research, evidence, provenance, findings, and cross-product authority.
 
-See `RELEASE_NOTES_9.2.0_BATCH_EXPERIMENT_COMPUTATIONAL_CAMPAIGN_MANAGER.md`, `V920_BATCH_EXPERIMENT_COMPUTATIONAL_CAMPAIGN_MANAGER_MAP.md`, and `docs/V920_BATCH_EXPERIMENT_COMPUTATIONAL_CAMPAIGN_MANAGER.md`.
-
-## Workbench v8.10.0 — Reproducible Analysis Board
-Content-addressed analysis assembly and immutable snapshots over authoritative Workbench research objects.
+See `RELEASE_NOTES_9.3.0_STATISTICAL_ANALYSIS_DIAGNOSTIC_WORKSPACE.md`, `V930_STATISTICAL_ANALYSIS_DIAGNOSTIC_WORKSPACE_MAP.md`, and `docs/V930_STATISTICAL_ANALYSIS_DIAGNOSTIC_WORKSPACE.md`.

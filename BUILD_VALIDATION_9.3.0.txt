@@ -1,0 +1,12 @@
+Workbench v9.3.0 — Statistical Analysis & Diagnostic Workspace
+
+Focused v9.3 backend tests: 13/13 PASS
+Full backend regression: 375/375 PASS
+Static/release regression: 641/641 PASS
+Total release assertions: 1016/1016 PASS
+Release validator: PASS
+Canonical runtime identity: 9.3.0
+WordPress identity: 9.3.0
+Docker/healthcheck identity: 9.3.0
+Deployment verification port: 127.0.0.1:8088
+Scientific boundaries: no automatic method selection, significance decision, hypothesis acceptance/rejection, causal inference, scientific validity inference, preferred model selection, research interpretation, or Core dispatch.
