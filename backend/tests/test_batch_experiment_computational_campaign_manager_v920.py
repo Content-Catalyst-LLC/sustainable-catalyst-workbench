@@ -35,7 +35,7 @@ def campaign_payload(project,protocol):
 
 
 def test_manifest_status_and_boundaries():
-    m=c.get('/campaign-manager/manifest').json(); assert m['ok'] and m['version']=='9.10.0'
+    m=c.get('/campaign-manager/manifest').json(); assert m['ok'] and m['version']=='9.11.0'
     assert m['capabilities']['deterministicCartesianParameterSweeps'] and m['capabilities']['resumableCampaignState']
     assert all(v is False for v in m['boundaries'].values())
     s=c.get('/v920/status').json(); assert s['batchExperimentComputationalCampaignManager'] and s['automaticJobExecution'] is False
@@ -120,6 +120,6 @@ def test_core_plan_preserves_governance_boundary(monkeypatch,tmp_path):
 def test_source_catalog_and_capability_flags(monkeypatch,tmp_path):
     project,protocol=seed(monkeypatch,tmp_path); c.post('/campaign-manager/campaigns',json={**campaign_payload(project,protocol),'createdBy':'tester'})
     cat=c.get(f'/campaign-manager/source-catalog/{project}').json(); assert cat['protocolCount']==1 and cat['campaignCount']==1 and cat['boundaries']['catalogRunsJobs'] is False
-    caps=c.get('/capabilities').json(); assert caps['version']=='9.10.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='9.11.0'
     for key in ('batchExperimentComputationalCampaignManager','computationalCampaignDeterministicSweeps','computationalCampaignResumableState','computationalCampaignExecutionMaterialization','computationalCampaignAnalysisPlanning','computationalCampaignCorePlanning'):
         assert caps['coreIntegration'][key] is True

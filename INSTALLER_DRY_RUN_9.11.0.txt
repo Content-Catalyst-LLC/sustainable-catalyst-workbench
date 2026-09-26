@@ -1,0 +1,18 @@
+Sustainable Catalyst Workbench v9.11.0 — Installer Certification
+
+Baseline: clean certified v9.10.0 full-source repository
+Installer: installers/apply_and_push_workbench_v9_11_0_macos.sh
+Result: PASS
+
+Checks exercised:
+- git branch synchronization
+- checksum-aware rsync payload application
+- stale Python bytecode / pytest cache cleanup
+- canonical APP_VERSION = 9.11.0 assertion before tests
+- complete v9.11 release validation (1,144/1,144 tests)
+- Git commit creation
+- main-branch push to isolated bare remote
+- annotated v9.11.0 tag creation and push
+- clean working tree after installation
+
+The isolated certification repository is not the user's GitHub repository.

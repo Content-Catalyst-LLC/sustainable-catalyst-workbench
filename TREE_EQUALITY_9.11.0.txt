@@ -1,0 +1,11 @@
+Sustainable Catalyst Workbench v9.11.0 — Tree Equality Certification
+
+Final tiny-patch installer certification against a clean certified v9.10.0 baseline:
+Source files: 1,255
+Installed files: 1,255
+Missing: 0
+Extra: 0
+Different: 0
+Result: PASS
+
+The comparison excludes only Git metadata and generated Python/pytest caches. The installed source tree is byte-for-byte identical to the packaged v9.11.0 source tree.

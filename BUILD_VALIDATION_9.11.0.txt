@@ -1,0 +1,16 @@
+Sustainable Catalyst Workbench v9.11.0 — Build Validation
+Release: End-to-End Research Study Certification
+
+Focused v9.11 backend tests: 9/9 PASS
+Focused v9.11 + retained v9.10 static tests: 10/10 PASS
+Backend regression group 1: 215/215 PASS
+Backend regression group 2: 248/248 PASS
+Backend regression total: 463/463 PASS
+Static/release regression: 681/681 PASS
+Total regression gate: 1,144/1,144 PASS
+Release script live API gate: PASS
+Canonical APP_VERSION: 9.11.0
+Docker image identity: sustainable-catalyst-workbench:9.11.0
+Local backend verification port: 127.0.0.1:8088
+
+Certification boundaries are release-gated: structural certification does not infer scientific validity, peer review, hypothesis acceptance, publication approval, automatic remediation, or automatic Platform Core dispatch.

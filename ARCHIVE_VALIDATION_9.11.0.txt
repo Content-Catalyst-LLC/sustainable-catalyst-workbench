@@ -1,0 +1,20 @@
+Sustainable Catalyst Workbench v9.11.0 — Archive Validation
+
+Backend archive:
+- backend regression: 463/463 PASS
+- FastAPI application import/boot: PASS
+- /health reports 9.11.0 and ready: PASS
+- /research-study-certification/manifest: PASS
+- /v9110/status governance boundaries: PASS
+
+WordPress archive:
+- PHP files linted: 98/98 PASS
+- v9.11 certification include registered: PASS
+
+ZIP integrity:
+- backend archive: PASS
+- WordPress archive: PASS
+- full-source archive: PASS
+- tiny-patch archive: PASS
+
+Deployment contract retains checksum-aware synchronization, stale bytecode cleanup, pre-Docker source/Compose identity assertions, and local verification on 127.0.0.1:8088.
