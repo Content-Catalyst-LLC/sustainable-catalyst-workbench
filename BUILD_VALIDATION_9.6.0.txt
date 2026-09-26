@@ -1,0 +1,27 @@
+Sustainable Catalyst Workbench v9.6.0 — Scientific Results & Narrative Synthesis
+
+Focused v9.6 gate:
+- backend: 12 passed
+- static: 5 passed
+- focused total: 17 passed
+
+Full regression gate (executed in isolated groups):
+- backend group 1: 190 passed
+- backend group 2: 218 passed
+- backend total: 408 passed
+- static/release: 656 passed
+- total: 1064 passed
+
+Runtime/API checks:
+- /health runtime identity = 9.6.0
+- /results-synthesis/manifest = 9.6.0
+- /v960/status = ready
+- /capabilities exposes scientificResultsCorePlanning
+- WordPress main plugin PHP lint: PASS
+- v9.6 WordPress include PHP lint: PASS
+
+Scientific boundaries release-gated:
+- no automatic narrative/finding generation
+- no automatic hypothesis acceptance/significance/causal inference
+- unresolved source refs are surfaced
+- no automatic publication or Platform Core dispatch

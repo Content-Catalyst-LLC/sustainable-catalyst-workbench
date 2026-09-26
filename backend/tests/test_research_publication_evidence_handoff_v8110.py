@@ -16,18 +16,18 @@ def _seed(monkeypatch,tmp_path):
     return project,jid,snap.json()['snapshotHash']
 
 def test_manifest_status_capabilities():
-    m=c.get('/publication-handoff/manifest').json(); assert m['ok'] and m['version']=='9.5.0'
+    m=c.get('/publication-handoff/manifest').json(); assert m['ok'] and m['version']=='9.6.0'
     assert m['capabilities']['evidenceManifestGeneration'] and m['capabilities']['multiDestinationHandoffPlanning']
     assert m['boundaries']['automaticPublicationAuthorized'] is False
     s=c.get('/v8110/status').json(); assert s['contentAddressedHandoffPackages'] and s['automaticPublication'] is False
-    caps=c.get('/capabilities').json(); assert caps['version']=='9.5.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='9.6.0'
     for key in ('researchPublicationEvidenceHandoff','publicationHandoffEvidenceManifest','publicationHandoffImmutablePackages','publicationHandoffMultiDestinationPlanning','publicationHandoffCorePlanning','publicationHandoffKnowledgeLibraryPlanning','publicationHandoffResearchLabPlanning'):
         assert caps['coreIntegration'][key] is True
 
 def test_handoff_preserves_snapshot_narrative_and_evidence(monkeypatch,tmp_path):
     project,jid,snapshot=_seed(monkeypatch,tmp_path)
     r=c.post('/publication-handoff/build',json={'projectKey':project,'snapshotHash':snapshot,'title':'Research report','authors':[{'name':'Researcher'}],'keywords':['reproducibility'],'destinations':['platform-core','knowledge-library','research-lab','external-publication']}); assert r.status_code==200,r.text
-    p=r.json(); assert p['version']=='9.5.0' and p['snapshotHash']==snapshot and p['packageHash']
+    p=r.json(); assert p['version']=='9.6.0' and p['snapshotHash']==snapshot and p['packageHash']
     assert p['publication']['findings'][0]['text']=='A researcher-authored finding.'
     assert p['evidenceManifest']['summary']['findingCount']==1 and p['evidenceManifest']['summary']['unresolvedEvidenceRefCount']==0
     assert p['provenance']['analysisSnapshotImmutable'] is True and p['provenance']['researcherAuthoredNarrativePreserved'] is True
@@ -54,6 +54,6 @@ def test_unresolved_evidence_is_exposed_not_resolved(monkeypatch,tmp_path):
 def test_core_plan_is_two_phase_and_non_publishing(monkeypatch,tmp_path):
     project,jid,snapshot=_seed(monkeypatch,tmp_path)
     r=c.post('/integration/core/publication-handoff/plan',json={'projectKey':project,'snapshotHash':snapshot,'coreSessionId':'core-v8110','destinations':['platform-core']}); assert r.status_code==200,r.text
-    p=r.json(); assert p['version']=='9.5.0' and p['publicationHandoffIsGovernedDerivedObjectOnly'] is True
+    p=r.json(); assert p['version']=='9.6.0' and p['publicationHandoffIsGovernedDerivedObjectOnly'] is True
     assert p['automaticCoreDispatchAuthorized'] is False and p['publicationAuthorized'] is False
     assert any(x.get('phase')=='research-publication-evidence-handoff-bind' for x in p['coreRequests'])

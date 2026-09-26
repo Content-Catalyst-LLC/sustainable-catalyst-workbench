@@ -27,7 +27,7 @@ def write_job(tmp_path, project, jid, value, x=None, group=None):
     result={'metrics':{'y':value}}
     request={'operation':'evaluate','parameters':{'x':x,'group':group}}
     job={
-      'ok':True,'schema':'sc-workbench-execution-job/1.0','version':'9.5.0','jobId':jid,'projectKey':project,
+      'ok':True,'schema':'sc-workbench-execution-job/1.0','version':'9.6.0','jobId':jid,'projectKey':project,
       'runtimeKind':'unified','label':jid,'tags':['stats'],'metadata':{'parameterValues':params},'status':'completed','jobRevision':1,
       'request':request,'requestHash':content_hash(request),'result':result,'resultHash':content_hash(result),'jobHash':'',
       'createdAt':'2026-09-25T00:00:00Z','updatedAt':'2026-09-25T00:00:00Z','startedAt':'2026-09-25T00:00:00Z','completedAt':'2026-09-25T00:00:00Z',
@@ -43,7 +43,7 @@ def payload(project,ids,methods=None):
 
 
 def test_manifest_status_boundaries():
-    m=c.get('/statistical-workspace/manifest').json(); assert m['ok'] and m['version']=='9.5.0'
+    m=c.get('/statistical-workspace/manifest').json(); assert m['ok'] and m['version']=='9.6.0'
     assert m['capabilities']['linearRegressionDiagnostics'] and m['boundaries']['automaticSignificanceDecision'] is False
     s=c.get('/v930/status').json(); assert s['statisticalAnalysisDiagnosticWorkspace'] and s['automaticCausalInference'] is False
 
@@ -113,7 +113,7 @@ def test_core_plan_preserves_governance(monkeypatch,tmp_path):
 
 
 def test_capability_flags():
-    caps=c.get('/capabilities').json(); assert caps['version']=='9.5.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='9.6.0'
     for key in ('statisticalAnalysisDiagnosticWorkspace','statisticalAnalysisDescriptiveStatistics','statisticalAnalysisDiagnostics','statisticalAnalysisHypothesisStatistics','statisticalAnalysisRegressionDiagnostics','statisticalAnalysisContentAddressedRecords','statisticalAnalysisCorePlanning'):
         assert caps['coreIntegration'][key] is True
 

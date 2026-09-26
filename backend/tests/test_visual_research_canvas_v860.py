@@ -23,10 +23,10 @@ def _seed(monkeypatch,tmp_path):
 
 def test_manifest_status_and_capabilities():
     m=c.get('/research-canvas/manifest').json()
-    assert m['ok'] and m['version']=='9.5.0' and m['release']=='Visual Research Canvas'
+    assert m['ok'] and m['version']=='9.6.0' and m['release']=='Visual Research Canvas'
     assert m['capabilities']['projectVisualCanvas'] is True and m['boundaries']['canvasIsScientificSourceOfTruth'] is False
-    s=c.get('/v860/status').json(); assert s['ok'] and s['version']=='9.5.0' and s['persistentLayout'] is True
-    caps=c.get('/capabilities').json(); assert caps['version']=='9.5.0'
+    s=c.get('/v860/status').json(); assert s['ok'] and s['version']=='9.6.0' and s['persistentLayout'] is True
+    caps=c.get('/capabilities').json(); assert caps['version']=='9.6.0'
     for key in ('visualResearchCanvas','visualResearchCanvasPersistentLayout','visualResearchCanvasLineageOverlay','visualResearchCanvasLinkedSelection','visualResearchCanvasCorePlanning'):
         assert caps['coreIntegration'][key] is True
 

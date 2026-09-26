@@ -29,13 +29,13 @@ def payload(project,study):
     }
 
 def test_manifest_status_and_boundaries():
-    m=c.get('/protocol-builder/manifest').json(); assert m['ok'] and m['version']=='9.5.0' and m['capabilities']['formalResearchProtocolObject']
+    m=c.get('/protocol-builder/manifest').json(); assert m['ok'] and m['version']=='9.6.0' and m['capabilities']['formalResearchProtocolObject']
     assert 'analysis' in m['protocolSections']; assert all(v is False for v in m['boundaries'].values())
     s=c.get('/v910/status').json(); assert s['experimentalDesignResearchProtocolBuilder'] and s['automaticExecutionDispatch'] is False
 
 def test_compose_protocol_and_readiness(monkeypatch,tmp_path):
     project,study=seed_project(monkeypatch,tmp_path); r=c.post('/protocol-builder/compose',json=payload(project,study)); assert r.status_code==200,r.text
-    d=r.json(); assert d['version']=='9.5.0' and len(d['protocolHash'])==64 and d['sourceHashes']['studyHash']==study
+    d=r.json(); assert d['version']=='9.6.0' and len(d['protocolHash'])==64 and d['sourceHashes']['studyHash']==study
     sections={x['section']:x for x in d['sectionReadiness']}; assert sections['hypotheses']['ready'] and sections['variables']['ready'] and sections['analysis']['ready'] and sections['randomization']['ready']
     assert d['boundaries']['protocolCompletenessIsScientificValidity'] is False
 
@@ -77,5 +77,5 @@ def test_core_plan_preserves_governance_boundary(monkeypatch,tmp_path):
 def test_source_catalog_and_capability_flags(monkeypatch,tmp_path):
     project,study=seed_project(monkeypatch,tmp_path); c.post('/protocol-builder/protocols',json={**payload(project,study),'createdBy':'tester'})
     cat=c.get(f'/protocol-builder/source-catalog/{project}').json(); assert cat['studyCount']==1 and cat['protocolCount']==1 and cat['boundaries']['catalogMutatesSources'] is False
-    caps=c.get('/capabilities').json(); assert caps['version']=='9.5.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='9.6.0'
     for key in ('experimentalDesignResearchProtocolBuilder','researchProtocolContentAddressedRecords','researchProtocolPreregistrationMetadata','researchProtocolExecutionPlanning','researchProtocolCorePlanning'): assert caps['coreIntegration'][key] is True
