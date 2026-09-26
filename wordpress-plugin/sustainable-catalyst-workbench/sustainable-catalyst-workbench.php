@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 9.7.0
+ * Version: 9.8.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '9.7.0');
+define('SCWB_VERSION', '9.8.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -365,3 +365,6 @@ require_once __DIR__ . '/includes/scwb-v960-scientific-results-narrative-synthes
 
 // Workbench v9.7.0 — Reproduction & Replication Workflow.
 require_once __DIR__ . '/includes/scwb-v970-reproduction-replication-workflow.php';
+
+// Workbench v9.8.0 — Cross-Study Comparison & Meta-Analysis Workspace.
+require_once __DIR__ . '/includes/scwb-v980-cross-study-meta-analysis-workspace.php';

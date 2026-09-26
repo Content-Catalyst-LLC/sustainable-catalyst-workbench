@@ -23,9 +23,9 @@ def space():
 
 def test_manifest_status_capabilities():
     cl=c(); m=cl.get('/design-space/manifest'); assert m.status_code==200
-    d=m.json(); assert d['schema']==SCHEMA and d['version']=='9.7.0' and d['capabilities']['paretoFrontierExtraction']
+    d=m.json(); assert d['schema']==SCHEMA and d['version']=='9.8.0' and d['capabilities']['paretoFrontierExtraction']
     s=cl.get('/v770/status').json(); assert s['ok'] and s['paretoFrontier'] and s['automaticWinnerSelection'] is False
-    caps=cl.get('/capabilities').json(); assert caps['version']=='9.7.0' and caps['coreIntegration']['optimizationDesignSpaceRuntime'] is True
+    caps=cl.get('/capabilities').json(); assert caps['version']=='9.8.0' and caps['coreIntegration']['optimizationDesignSpaceRuntime'] is True
 
 
 def test_point_evaluation_and_constraint_feasibility():

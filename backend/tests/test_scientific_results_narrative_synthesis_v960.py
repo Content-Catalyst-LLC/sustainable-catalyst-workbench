@@ -21,13 +21,13 @@ def seed_project(monkeypatch,tmp_path):
 
 def seed_sources(project):
     ah='a'*64
-    analysis={'ok':True,'schema':'sc-workbench-statistical-analysis/1.0','version':'9.7.0','projectKey':project,'analysisHash':ah,'analysisRef':f'sc://workbench/statistical-analyses/{project}/{ah}','analysisKey':'a1','title':'Analysis','campaignHash':'c'*64,'resultMetricPath':'metrics.y','methods':['descriptive'],'observationCount':10,'createdBy':'test','createdAt':'2026-09-26T00:00:00Z'}
+    analysis={'ok':True,'schema':'sc-workbench-statistical-analysis/1.0','version':'9.8.0','projectKey':project,'analysisHash':ah,'analysisRef':f'sc://workbench/statistical-analyses/{project}/{ah}','analysisKey':'a1','title':'Analysis','campaignHash':'c'*64,'resultMetricPath':'metrics.y','methods':['descriptive'],'observationCount':10,'createdBy':'test','createdAt':'2026-09-26T00:00:00Z'}
     analysis['recordHash']=content_hash({k:v for k,v in analysis.items() if k not in {'createdAt','recordHash','idempotent'}}); _analysis_path(project,ah).parent.mkdir(parents=True,exist_ok=True); _atomic_json_write(_analysis_path(project,ah),analysis)
     uh='u'*64
-    study={'ok':True,'schema':'sc-workbench-uncertainty-sensitivity-study/1.0','version':'9.7.0','projectKey':project,'studyHash':uh,'studyRef':f'sc://workbench/uncertainty-sensitivity/{project}/{uh}','studyKey':'u1','title':'Uncertainty','campaignHash':'c'*64,'samplingMethod':'monte-carlo','sampleCount':100,'createdBy':'test','createdAt':'2026-09-26T00:00:00Z'}
+    study={'ok':True,'schema':'sc-workbench-uncertainty-sensitivity-study/1.0','version':'9.8.0','projectKey':project,'studyHash':uh,'studyRef':f'sc://workbench/uncertainty-sensitivity/{project}/{uh}','studyKey':'u1','title':'Uncertainty','campaignHash':'c'*64,'samplingMethod':'monte-carlo','sampleCount':100,'createdBy':'test','createdAt':'2026-09-26T00:00:00Z'}
     study['recordHash']=content_hash({k:v for k,v in study.items() if k not in {'createdAt','recordHash','idempotent'}}); _study_path(project,uh).parent.mkdir(parents=True,exist_ok=True); _atomic_json_write(_study_path(project,uh),study)
     kh='k'*64
-    cal={'ok':True,'schema':'sc-workbench-model-calibration/1.0','version':'9.7.0','projectKey':project,'calibrationHash':kh,'calibrationRef':f'sc://workbench/model-calibration/{project}/{kh}','calibrationKey':'k1','title':'Calibration','campaignHash':'c'*64,'problemHash':'p'*64,'createdBy':'test','createdAt':'2026-09-26T00:00:00Z'}
+    cal={'ok':True,'schema':'sc-workbench-model-calibration/1.0','version':'9.8.0','projectKey':project,'calibrationHash':kh,'calibrationRef':f'sc://workbench/model-calibration/{project}/{kh}','calibrationKey':'k1','title':'Calibration','campaignHash':'c'*64,'problemHash':'p'*64,'createdBy':'test','createdAt':'2026-09-26T00:00:00Z'}
     cal['recordHash']=content_hash({k:v for k,v in cal.items() if k not in {'createdAt','recordHash','idempotent'}}); _calibration_path(project,kh).parent.mkdir(parents=True,exist_ok=True); _atomic_json_write(_calibration_path(project,kh),cal)
     return ah,uh,kh
 
@@ -37,7 +37,7 @@ def payload(project,ah,uh,kh):
 
 
 def test_manifest_and_status():
-    m=c.get('/results-synthesis/manifest').json(); assert m['ok'] and m['version']=='9.7.0'
+    m=c.get('/results-synthesis/manifest').json(); assert m['ok'] and m['version']=='9.8.0'
     assert m['capabilities']['statementSourceTraceability'] and m['boundaries']['automaticNarrativeGeneration'] is False
     s=c.get('/v960/status').json(); assert s['scientificResultsNarrativeSynthesis'] and s['automaticScientificValidityInference'] is False
 
@@ -93,5 +93,5 @@ def test_missing_bound_source_returns_404(monkeypatch,tmp_path):
 
 
 def test_capability_flags():
-    caps=c.get('/capabilities').json(); assert caps['version']=='9.7.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='9.8.0'
     for k in ('scientificResultsNarrativeSynthesis','scientificResultsResearcherAuthoredNarrative','scientificResultsSourceBinding','scientificResultsStatementTraceability','scientificResultsContentAddressedRecords','scientificResultsPublicationPlanning','scientificResultsCorePlanning'): assert caps['coreIntegration'][k] is True

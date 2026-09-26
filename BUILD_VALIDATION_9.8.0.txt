@@ -1,0 +1,23 @@
+Workbench v9.8.0 — Cross-Study Comparison & Meta-Analysis Workspace
+
+Focused v9.8 validation: 18/18 PASS
+Backend regression: 434/434 PASS
+Static/release regression: 666/666 PASS
+Total regression gate: 1,100/1,100 PASS
+
+Validated capabilities:
+- explicit study effect records and source lineage
+- ratio and Fisher-z effect normalization
+- inverse-variance fixed-effect meta-analysis
+- DerSimonian-Laird random-effects meta-analysis
+- Q, I-squared, tau-squared heterogeneity diagnostics
+- subgroup meta-analysis
+- leave-one-out sensitivity analysis
+- pairwise study effect comparison
+- content-addressed immutable analysis records
+- renderer-neutral visualization planning
+- plan-only Platform Core handoff
+
+Scientific guardrails remain explicit: no automatic comparability, preferred-model,
+significance, causality, publication-bias, scientific-validity, interpretation,
+or Platform Core governance decision is inferred.
