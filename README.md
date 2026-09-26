@@ -1,9 +1,9 @@
-# Sustainable Catalyst Workbench v9.3.0
+# Sustainable Catalyst Workbench v9.4.0
 
-Current release: **Workbench v9.3.0 — Statistical Analysis & Diagnostic Workspace**.
+Current release: **Workbench v9.4.0 — Uncertainty & Sensitivity Study Composer**.
 
-v9.3.0 turns completed Workbench execution and campaign results into explicit, provenance-preserving statistical analyses. Researchers choose the response metric, grouping/predictor variables, methods, reference values, and confidence level. The workspace provides descriptive statistics, confidence intervals, distribution/normality/variance diagnostics, explicit test statistics, correlations, and linear-regression residual diagnostics without automatically deciding significance, accepting/rejecting hypotheses, inferring causality, or asserting scientific validity.
+v9.4.0 extends the v9 scientific-study workflow with explicit uncertainty models, reproducible Monte Carlo / Latin-hypercube / Sobol sampling plans, output uncertainty summaries, and neutral sensitivity diagnostics over completed campaign results. It preserves researcher control: Workbench computes transparent analytical objects but does not infer scientific validity, causal importance, parameter rankings, convergence, or preferred models.
 
-The release preserves Workbench as the computational analysis plane while Platform Core remains the governed research, evidence, provenance, findings, and cross-product authority.
+The release retains the complete Workbench execution, simulation, visualization, statistical-analysis, publication-handoff, and production-certification stack.
 
-See `RELEASE_NOTES_9.3.0_STATISTICAL_ANALYSIS_DIAGNOSTIC_WORKSPACE.md`, `V930_STATISTICAL_ANALYSIS_DIAGNOSTIC_WORKSPACE_MAP.md`, and `docs/V930_STATISTICAL_ANALYSIS_DIAGNOSTIC_WORKSPACE.md`.
+See `RELEASE_NOTES_9.4.0_UNCERTAINTY_SENSITIVITY_STUDY_COMPOSER.md`, `V940_UNCERTAINTY_SENSITIVITY_STUDY_COMPOSER_MAP.md`, and `docs/V940_UNCERTAINTY_SENSITIVITY_STUDY_COMPOSER.md`.

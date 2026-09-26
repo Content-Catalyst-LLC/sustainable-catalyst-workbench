@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 9.3.0
+ * Version: 9.4.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '9.3.0');
+define('SCWB_VERSION', '9.4.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -353,3 +353,6 @@ require_once __DIR__ . '/includes/scwb-v920-batch-experiment-computational-campa
 
 // Workbench v9.3.0 — Statistical Analysis & Diagnostic Workspace.
 require_once __DIR__ . '/includes/scwb-v930-statistical-analysis-diagnostic-workspace.php';
+
+// Workbench v9.4.0 — Uncertainty & Sensitivity Study Composer.
+require_once __DIR__ . '/includes/scwb-v940-uncertainty-sensitivity-study-composer.php';

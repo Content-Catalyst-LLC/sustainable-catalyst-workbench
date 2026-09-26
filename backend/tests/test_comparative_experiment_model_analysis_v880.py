@@ -16,9 +16,9 @@ def _seed(monkeypatch,tmp_path):
     return project,jobs
 
 def test_manifest_status_capabilities():
-    m=c.get('/comparative-analysis/manifest').json(); assert m['ok'] and m['version']=='9.3.0' and m['capabilities']['pairwiseNumericDeltas']
+    m=c.get('/comparative-analysis/manifest').json(); assert m['ok'] and m['version']=='9.4.0' and m['capabilities']['pairwiseNumericDeltas']
     s=c.get('/v880/status').json(); assert s['completedRunComparison'] and s['automaticWinnerSelection'] is False
-    caps=c.get('/capabilities').json(); assert caps['version']=='9.3.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='9.4.0'
     for key in ('comparativeExperimentModelAnalysis','comparativeRunMetricExtraction','comparativePairwiseDeltas','comparativeNeutralAssessment','comparativeCorePlanning'): assert caps['coreIntegration'][key] is True
 
 def test_compare_completed_runs(monkeypatch,tmp_path):
@@ -44,6 +44,6 @@ def test_duplicate_and_incomplete_rejected(monkeypatch,tmp_path):
 def test_core_plan_is_neutral_and_two_phase(monkeypatch,tmp_path):
     project,jobs=_seed(monkeypatch,tmp_path)
     r=c.post('/integration/core/comparative-analysis/plan',json={'projectKey':project,'jobIds':jobs[:2],'coreSessionId':'core-v880'}); assert r.status_code==200,r.text
-    b=r.json(); assert b['version']=='9.3.0' and b['comparisonBindingIsAnalyticalViewOnly'] is True
+    b=r.json(); assert b['version']=='9.4.0' and b['comparisonBindingIsAnalyticalViewOnly'] is True
     assert b['automaticCoreDispatchAuthorized'] is False and b['automaticWinnerSelectionAuthorized'] is False
     assert any(x.get('phase')=='comparative-analysis-bind' for x in b['coreRequests'])

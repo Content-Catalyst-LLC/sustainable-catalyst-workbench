@@ -52,9 +52,9 @@ def axial_graph():
 
 def test_manifest_status_and_capabilities():
     cl=c(); m=cl.get('/workflow-graph/manifest'); assert m.status_code==200
-    d=m.json(); assert d['schema']==SCHEMA and d['version']=='9.3.0' and d['capabilities']['dependencyDirectedAcyclicGraphs']
+    d=m.json(); assert d['schema']==SCHEMA and d['version']=='9.4.0' and d['capabilities']['dependencyDirectedAcyclicGraphs']
     s=cl.get('/v790/status').json(); assert s['ok'] and s['typedNodes'] and s['hiddenOutputSubstitution'] is False
-    caps=cl.get('/capabilities').json(); assert caps['version']=='9.3.0' and caps['coreIntegration']['scientificWorkflowGraph'] is True
+    caps=cl.get('/capabilities').json(); assert caps['version']=='9.4.0' and caps['coreIntegration']['scientificWorkflowGraph'] is True
 
 
 def test_graph_plan_is_deterministic_and_content_addressed():

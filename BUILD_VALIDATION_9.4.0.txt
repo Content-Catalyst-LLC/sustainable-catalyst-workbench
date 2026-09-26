@@ -1,0 +1,17 @@
+Sustainable Catalyst Workbench v9.4.0 — Uncertainty & Sensitivity Study Composer
+
+Release validation:
+- Backend regression suite: 384/384 PASS
+- Static/release suite: 646/646 PASS
+- Total: 1030/1030 PASS
+- Focused v9.4 backend/static development gate: PASS
+- Release live API gate: PASS
+
+Scientific boundaries retained:
+- no automatic distribution selection
+- no automatic parameter-importance ranking
+- no causal-importance inference
+- no convergence declaration
+- no scientific-validity inference
+- no automatic job execution
+- no automatic Platform Core dispatch
