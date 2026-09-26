@@ -1,0 +1,8 @@
+Workbench v9.9.0 tree equality certification
+
+Status: PASS
+- Certified installed source files: 1,223
+- Packaged full-source files: 1,223
+- Files only in certified installer tree: 0
+- Files only in packaged full source: 0
+- Content differences: 0

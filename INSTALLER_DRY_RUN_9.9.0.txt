@@ -1,0 +1,13 @@
+Workbench v9.9.0 exact installer certification
+
+Status: PASS
+- Baseline: clean Workbench v9.8.0 full-source repository
+- Tiny-patch changed/new files: 121
+- Tiny-patch deletions: 0
+- Canonical APP_VERSION pre-test check: 9.9.0 PASS
+- Backend regression: 445/445 PASS
+- Static/release regression: 671/671 PASS
+- Total release gate: 1,116/1,116 PASS
+- Commit/push/tag simulation: PASS
+- Tag: v9.9.0
+- Final working tree: clean

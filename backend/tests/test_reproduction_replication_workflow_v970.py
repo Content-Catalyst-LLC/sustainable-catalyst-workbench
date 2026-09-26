@@ -15,13 +15,13 @@ def seed_project(monkeypatch,tmp_path):
 
 
 def payload(p,h,mode='reproduction'):
-    x={'projectKey':p,'workflowKey':'rr-1','title':'Reproduction workflow','mode':mode,'targetSynthesisHash':h,'researchQuestion':'Can this result be reproduced?','environment':{'runtime':'python','runtimeVersion':'3.12','containerImage':'workbench:9.8.0'},'inputs':[{'inputKey':'dataset','role':'dataset','objectRef':'asset:data','contentHash':'abc'}],'comparisonCriteria':[{'criterionKey':'metric-y','metric':'metrics.y','comparator':'absolute','targetValue':10.0,'tolerance':0.5,'unit':'unit'}],'invariants':['same dataset']}
+    x={'projectKey':p,'workflowKey':'rr-1','title':'Reproduction workflow','mode':mode,'targetSynthesisHash':h,'researchQuestion':'Can this result be reproduced?','environment':{'runtime':'python','runtimeVersion':'3.12','containerImage':'workbench:9.9.0'},'inputs':[{'inputKey':'dataset','role':'dataset','objectRef':'asset:data','contentHash':'abc'}],'comparisonCriteria':[{'criterionKey':'metric-y','metric':'metrics.y','comparator':'absolute','targetValue':10.0,'tolerance':0.5,'unit':'unit'}],'invariants':['same dataset']}
     if mode=='replication': x['plannedChanges']=['independent dataset']
     return x
 
 
 def test_manifest_and_status():
-    m=c.get('/reproduction-replication/manifest').json(); assert m['ok'] and m['version']=='9.8.0'
+    m=c.get('/reproduction-replication/manifest').json(); assert m['ok'] and m['version']=='9.9.0'
     assert m['capabilities']['environmentCapture'] and m['boundaries']['automaticReplicationVerdict'] is False
     s=c.get('/v970/status').json(); assert s['reproductionReplicationWorkflow'] and s['automaticExecution'] is False
 
@@ -75,5 +75,5 @@ def test_missing_target_returns_404(monkeypatch,tmp_path):
 
 
 def test_capability_flags():
-    caps=c.get('/capabilities').json(); assert caps['version']=='9.8.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='9.9.0'
     for k in ('reproductionReplicationWorkflow','reproductionReplicationTargetBinding','reproductionReplicationEnvironmentCapture','reproductionReplicationComparisonCriteria','reproductionReplicationResultComparison','reproductionReplicationContentAddressedRecords','reproductionReplicationCorePlanning'): assert caps['coreIntegration'][k] is True

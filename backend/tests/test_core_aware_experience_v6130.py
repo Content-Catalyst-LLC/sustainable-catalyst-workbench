@@ -10,13 +10,13 @@ def test_status_and_manifest():
     s = c.get('/v6130/status')
     assert s.status_code == 200
     d = s.json()
-    assert d['version'] == '9.8.0'
+    assert d['version'] == '9.9.0'
     assert d['coreAwareContext'] is True
     assert d['automaticCoreDispatch'] is False
     m = c.get('/integration/core/experience/manifest')
     assert m.status_code == 200, m.text
     body = m.json()
-    assert body['version'] == '9.8.0'
+    assert body['version'] == '9.9.0'
     assert len(body['bridges']) == 9
     assert body['contracts']['runtime'] == CORE_RUNTIME_CONTRACT
     assert body['boundaries']['coreIdsMustComeFromCore'] is True
@@ -89,7 +89,7 @@ def test_action_planning_enforces_core_id_requirements_without_dispatch():
 
 def test_capability_registry_declares_v6130_experience():
     caps = c.get('/capabilities').json()
-    assert caps['version'] == '9.8.0'
+    assert caps['version'] == '9.9.0'
     assert caps['coreIntegration']['coreAwareWorkbenchExperience'] is True
     assert 'platform-core-aware-workbench-experience' in caps['capabilities']
 
@@ -99,4 +99,4 @@ def test_service_token_guard(monkeypatch):
     monkeypatch.setenv('SCWB_SERVICE_TOKEN', 'secret6130')
     assert c.get('/integration/core/experience/manifest').status_code == 401
     ok = c.get('/integration/core/experience/manifest', headers={'X-SC-Service-Token': 'secret6130'})
-    assert ok.status_code == 200 and ok.json()['version'] == '9.8.0'
+    assert ok.status_code == 200 and ok.json()['version'] == '9.9.0'

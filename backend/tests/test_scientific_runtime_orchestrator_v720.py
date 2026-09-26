@@ -9,15 +9,15 @@ def client(): return TestClient(app)
 
 def test_manifest_catalog_status_and_capabilities_current_identity():
     c=client(); m=c.get('/execution/orchestrator/manifest'); assert m.status_code==200
-    d=m.json(); assert d['schema']==SCHEMA and d['version']=='9.8.0'
+    d=m.json(); assert d['schema']==SCHEMA and d['version']=='9.9.0'
     assert d['operationCount']>=60 and d['adapterCount']==len(RUNTIME_ADAPTERS)
     assert d['localAdapterCount']==10 and d['handoffPlanAdapterCount']==3
     assert d['coreWorkflowContract']==CORE_WORKFLOW_CONTRACT
     assert d['boundaries']['arbitraryRExecutionAuthorized'] is False
     cat=c.get('/execution/orchestrator/runtimes').json(); assert cat['adapterCount']==13
     assert any(x['key']=='external.julia' and x['mode']=='handoff_plan' and not x['available'] for x in cat['adapters'])
-    s=c.get('/v720/status').json(); assert s['ok'] and s['version']=='9.8.0' and s['deterministicRouting'] is True
-    caps=c.get('/capabilities').json(); assert caps['version']=='9.8.0'
+    s=c.get('/v720/status').json(); assert s['ok'] and s['version']=='9.9.0' and s['deterministicRouting'] is True
+    caps=c.get('/capabilities').json(); assert caps['version']=='9.9.0'
     assert caps['coreIntegration']['scientificRuntimeOrchestrator'] is True
     assert 'scientific-runtime-orchestrator' in caps['capabilities']
 
@@ -60,7 +60,7 @@ def test_orchestrated_execution_runs_v700_and_projects_v710_object():
     assert r.status_code==200,r.text
     d=r.json(); assert d['route']['adapter']['key']=='workbench.symbolic'
     assert d['executionResult']['result']['result']['exactText']=='42'
-    obj=d['executionObject']; assert obj['version']=='9.8.0' and obj['objectKind']=='single_execution'
+    obj=d['executionObject']; assert obj['version']=='9.9.0' and obj['objectKind']=='single_execution'
     assert obj['inputs']['declaredPayload']=={'expression':'6*7'}
     assert obj['outputs'][0]['contentHash']==d['executionResult']['resultHash']
     assert obj['metadata']['orchestratorRoute']['routeHash']==d['route']['routeHash']
@@ -121,4 +121,4 @@ def test_core_route_token_boundary(monkeypatch):
     c=client(); result=_orchestrated(c)
     denied=c.post('/integration/core/runtime-orchestrator/workflow/plan',json={'orchestrationResult':result}); assert denied.status_code==401
     ok=c.post('/integration/core/runtime-orchestrator/workflow/plan',headers={'X-SC-Service-Token':'secret720'},json={'orchestrationResult':result})
-    assert ok.status_code==200 and ok.json()['version']=='9.8.0'
+    assert ok.status_code==200 and ok.json()['version']=='9.9.0'

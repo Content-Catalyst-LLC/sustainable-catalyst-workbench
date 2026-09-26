@@ -1,0 +1,21 @@
+Workbench v9.9.0 — Research Package Exchange & Portability
+
+Validation summary
+- Focused v9.9 backend/static gate: 16/16 PASS
+- Backend regression: 445/445 PASS
+- Static/release regression: 671/671 PASS
+- Total regression: 1,116/1,116 PASS
+- Release script: PASS
+- Canonical APP_VERSION: 9.9.0
+- Tiny patch: 121 changed/new files, 0 deletions
+- Portable ZIP export/integrity validation: PASS
+- Import validation and explicit staging boundaries: PASS
+- Platform Core plan-only boundary: PASS
+
+Scientific/governance boundaries
+- no automatic native object overwrite
+- no automatic imported object activation
+- no automatic scientific validity inference
+- no automatic evidence promotion
+- no automatic Platform Core dispatch
+- imported archives are never executed

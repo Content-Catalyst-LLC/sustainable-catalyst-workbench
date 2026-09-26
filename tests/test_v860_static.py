@@ -3,9 +3,9 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 def test_v860_identity_router_compose():
-    assert 'APP_VERSION = "9.8.0"' in (ROOT/'backend/app/release.py').read_text()
-    main=(ROOT/'backend/app/main.py').read_text(); assert 'version="9.8.0"' in main and 'from app.v860 import router as v860_router' in main
-    compose=(ROOT/'compose.yml').read_text(); assert 'sustainable-catalyst-workbench:9.8.0' in compose and "d.get('version')=='9.8.0'" in compose and './data:/data' in compose
+    assert 'APP_VERSION = "9.9.0"' in (ROOT/'backend/app/release.py').read_text()
+    main=(ROOT/'backend/app/main.py').read_text(); assert 'version="9.9.0"' in main and 'from app.v860 import router as v860_router' in main
+    compose=(ROOT/'compose.yml').read_text(); assert 'sustainable-catalyst-workbench:9.9.0' in compose and "d.get('version')=='9.9.0'" in compose and './data:/data' in compose
 
 
 def test_v860_contract_routes_boundaries():
@@ -26,7 +26,7 @@ def test_v860_capabilities_docs():
 
 def test_v860_wordpress():
     main=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/sustainable-catalyst-workbench.php').read_text()
-    assert 'Version: 9.8.0' in main and "define('SCWB_VERSION', '9.8.0')" in main and 'SCWB_DIR' not in main
+    assert 'Version: 9.9.0' in main and "define('SCWB_VERSION', '9.9.0')" in main and 'SCWB_DIR' not in main
     assert 'includes/scwb-v860-visual-research-canvas.php' in main
     inc=(ROOT/'wordpress-plugin/sustainable-catalyst-workbench/includes/scwb-v860-visual-research-canvas.php').read_text()
     for literal in ('/v860/status','sc_workbench_visual_research_canvas','visual-research-canvas','/research-canvas/'):
