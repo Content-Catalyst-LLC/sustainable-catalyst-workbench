@@ -42,7 +42,7 @@ def base_request(project='ai-project'):
 
 def test_manifest_status_and_boundaries():
     m = c.get('/ai-engineering/manifest').json()
-    assert m['ok'] and m['version'] == '10.0.0'
+    assert m['ok'] and m['version'] == '10.1.0'
     assert m['capabilities']['scientificAIEngineeringRuntimeFoundation']
     assert m['capabilities']['contentAddressedAIExperimentSpecifications']
     for key in ('automaticModelDownload','automaticTrainingExecution','automaticInferenceExecution','externalProviderCallsAuthorized','arbitraryCodeExecutionAuthorized','hiddenAgentExecutionAuthorized','automaticModelSelection','automaticScientificInterpretation','scientificValidityInferred','automaticCoreDispatch','automaticCorePersistence','governedCoreObjectCreated'):
@@ -53,7 +53,7 @@ def test_manifest_status_and_boundaries():
 
 def test_runtime_contracts_are_plan_only():
     d = c.get('/ai-engineering/runtime-contracts').json()
-    assert d['version'] == '10.0.0' and len(d['contracts']) == 2 and len(d['contractHash']) == 64
+    assert d['version'] == '10.1.0' and len(d['contracts']) == 2 and len(d['contractHash']) == 64
     assert all(x['executionImplemented'] is False for x in d['contracts'])
 
 
@@ -106,7 +106,7 @@ def test_core_plan_is_plan_only(monkeypatch, tmp_path):
 
 
 def test_capability_registry_exposes_v1000_flags():
-    caps = c.get('/capabilities').json(); assert caps['version'] == '10.0.0'
+    caps = c.get('/capabilities').json(); assert caps['version'] == '10.1.0'
     for key in ('scientificAIEngineeringRuntimeFoundation','aiEngineeringContentAddressedExperiments','aiEngineeringModelProviderContracts','aiEngineeringDatasetLineage','aiEngineeringDeterministicConfiguration','aiEngineeringResourceBudgets','aiEngineeringNeutralExecutionPlanning','aiEngineeringCorePlanning'):
         assert caps['coreIntegration'][key] is True
 
@@ -118,7 +118,7 @@ def test_execution_console_retains_ai_engineering_runtime_kind():
 
 def test_health_and_v9_production_surface_retained(monkeypatch, tmp_path):
     monkeypatch.setenv('SCWB_RESEARCH_ENVIRONMENT_STORE', str(tmp_path/'store'))
-    h = c.get('/health').json(); assert h['version'] == '10.0.0' and h['readiness'] == 'ready'
-    old = c.get('/v9-production-certification/manifest').json(); assert old['version'] == '10.0.0' and old['capabilities']['retainedV9MilestoneAudit']
+    h = c.get('/health').json(); assert h['version'] == '10.1.0' and h['readiness'] == 'ready'
+    old = c.get('/v9-production-certification/manifest').json(); assert old['version'] == '10.1.0' and old['capabilities']['retainedV9MilestoneAudit']
     for path in ('/v9120/status','/v1000/status'):
         r = c.get(path); assert r.status_code == 200, (path, r.text)
