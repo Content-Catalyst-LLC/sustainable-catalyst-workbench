@@ -16,13 +16,13 @@ def package_spec():
             {"componentKey":"validation","componentType":"validation-report","componentRef":"sc://workbench/validation/vv-1","payload":vv},
             {"componentKey":"external-data","componentType":"dataset","componentRef":"sc://dataset/1","contentHash":"a"*64,"required":True}
         ],
-        "environments":[{"environmentKey":"workbench","environmentType":"workbench","environmentRef":"sc://workbench/runtime/9.6.0","versionRef":"9.6.0"}],
+        "environments":[{"environmentKey":"workbench","environmentType":"workbench","environmentRef":"sc://workbench/runtime/9.6.0","versionRef":"9.7.0"}],
         "lineageRefs":["sc://execution/1"],"assumptions":["Declared inputs are complete."],"limitations":["Package pass does not certify scientific validity."]
     }
 
 
 def test_manifest_status():
-    m=c.get('/repro-package/manifest').json(); assert m['ok'] and m['version']=='9.6.0' and m['coreContract']=='sc.research.reproducible-package.v1'
+    m=c.get('/repro-package/manifest').json(); assert m['ok'] and m['version']=='9.7.0' and m['coreContract']=='sc.research.reproducible-package.v1'
     s=c.get('/v7120/status').json(); assert s['ok'] and s['v7SeriesComplete'] is True and s['automaticReplayAuthorized'] is False
 
 

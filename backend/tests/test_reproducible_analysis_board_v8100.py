@@ -30,13 +30,13 @@ def _figure_request(project,jobs):
 
 def test_manifest_status_capabilities():
     m=c.get('/analysis-board/manifest').json()
-    assert m['ok'] and m['version']=='9.6.0'
+    assert m['ok'] and m['version']=='9.7.0'
     assert m['capabilities']['crossObjectAnalysisAssembly'] and m['capabilities']['immutableAnalysisSnapshots']
     assert m['boundaries']['automaticFindingGenerationAuthorized'] is False
     s=c.get('/v8100/status').json()
     assert s['immutableAnalysisSnapshots'] and s['automaticFindingGeneration'] is False
     caps=c.get('/capabilities').json()
-    assert caps['version']=='9.6.0'
+    assert caps['version']=='9.7.0'
     for key in ('reproducibleAnalysisBoard','analysisBoardCrossObjectAssembly','analysisBoardImmutableSnapshots','analysisBoardProvenance','analysisBoardResearcherNarrative','analysisBoardCorePlanning'):
         assert caps['coreIntegration'][key] is True
 
@@ -49,7 +49,7 @@ def test_board_assembles_authoritative_sources(monkeypatch,tmp_path):
              'narrative':[{'itemId':'a1','kind':'assumption','title':'Bracket','text':'Each run uses an explicit bracket.','evidenceRefs':[jobs[0]]},
                           {'itemId':'f1','kind':'finding','title':'Observed output','text':'Finding text is explicitly researcher-authored.','state':'final'}]}
     r=c.post('/analysis-board/build',json=payload); assert r.status_code==200,r.text
-    b=r.json(); assert b['version']=='9.6.0' and b['projectKey']==project
+    b=r.json(); assert b['version']=='9.7.0' and b['projectKey']==project
     assert len(b['sources']['jobs'])==2 and len(b['sources']['assets'])==1
     assert b['analysis']['comparison']['comparisonHash'] and b['analysis']['figures'][0]['figureHash']
     assert b['narrative']['assumptions'][0]['itemId']=='a1' and b['narrative']['findings'][0]['itemId']=='f1'
@@ -79,6 +79,6 @@ def test_core_plan_is_two_phase_and_non_authoritative(monkeypatch,tmp_path):
     project,jobs,assets=_seed(monkeypatch,tmp_path)
     r=c.post('/integration/core/analysis-board/plan',json={'projectKey':project,'jobIds':jobs,'assetKeys':assets,'coreSessionId':'core-v8100'})
     assert r.status_code==200,r.text
-    b=r.json(); assert b['version']=='9.6.0' and b['boardBindingIsReproducibleAnalyticalViewOnly'] is True
+    b=r.json(); assert b['version']=='9.7.0' and b['boardBindingIsReproducibleAnalyticalViewOnly'] is True
     assert b['automaticCoreDispatchAuthorized'] is False and b['scientificValidityInferenceAuthorized'] is False
     assert any(x.get('phase')=='reproducible-analysis-board-bind' for x in b['coreRequests'])

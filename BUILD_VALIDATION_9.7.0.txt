@@ -1,0 +1,19 @@
+Workbench v9.7.0 — Reproduction & Replication Workflow
+
+Focused v9.7 backend/static gate: 18/18 PASS
+Backend regression group 1: 190/190 PASS
+Backend regression group 2: 231/231 PASS
+Backend regression total: 421/421 PASS
+Static/release regression: 661/661 PASS
+Total certified source regression: 1082/1082 PASS
+Release script live manifest/status/capability gate: PASS
+
+Scientific boundary checks include:
+- no automatic execution
+- no automatic replication verdict
+- no automatic scientific-validity inference
+- no automatic hypothesis acceptance
+- no automatic causal inference
+- no automatic discrepancy resolution
+- no automatic Platform Core dispatch
+- no governed replication claim creation by Workbench

@@ -21,10 +21,10 @@ def _seed(monkeypatch,tmp_path):
 
 
 def test_manifest_status_capabilities():
-    m=c.get('/linked-scientific-views/manifest').json(); assert m['ok'] and m['version']=='9.6.0'
+    m=c.get('/linked-scientific-views/manifest').json(); assert m['ok'] and m['version']=='9.7.0'
     assert m['capabilities']['declarativeCrossFiltering'] and m['boundaries']['filtersMutateScientificObjects'] is False
     s=c.get('/v870/status').json(); assert s['linkedScientificViews'] and s['crossFiltering']
-    caps=c.get('/capabilities').json(); assert caps['version']=='9.6.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='9.7.0'
     for key in ('linkedScientificViews','linkedScientificCrossFiltering','linkedScientificSelectionPropagation','linkedScientificFacetCounts','linkedScientificCorePlanning'):
         assert caps['coreIntegration'][key] is True
 
@@ -66,6 +66,6 @@ def test_timeline_range_validation(monkeypatch,tmp_path):
 def test_core_plan_is_two_phase_and_view_only(monkeypatch,tmp_path):
     project=_seed(monkeypatch,tmp_path)
     p=c.post('/integration/core/linked-scientific-views/plan',json={'projectKey':project,'filters':{'kinds':['asset']},'coreSessionId':'core-session-v870'}); assert p.status_code==200,p.text
-    b=p.json(); assert b['version']=='9.6.0' and b['linkedViewBindingIsViewStateOnly'] is True
+    b=p.json(); assert b['version']=='9.7.0' and b['linkedViewBindingIsViewStateOnly'] is True
     assert b['automaticCoreDispatchAuthorized'] is False and b['coreRequests']
     assert any(x.get('phase')=='linked-scientific-views-bind' for x in b['coreRequests'])
