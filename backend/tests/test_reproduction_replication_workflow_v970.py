@@ -21,7 +21,7 @@ def payload(p,h,mode='reproduction'):
 
 
 def test_manifest_and_status():
-    m=c.get('/reproduction-replication/manifest').json(); assert m['ok'] and m['version']=='9.11.0'
+    m=c.get('/reproduction-replication/manifest').json(); assert m['ok'] and m['version']=='9.12.0'
     assert m['capabilities']['environmentCapture'] and m['boundaries']['automaticReplicationVerdict'] is False
     s=c.get('/v970/status').json(); assert s['reproductionReplicationWorkflow'] and s['automaticExecution'] is False
 
@@ -75,5 +75,5 @@ def test_missing_target_returns_404(monkeypatch,tmp_path):
 
 
 def test_capability_flags():
-    caps=c.get('/capabilities').json(); assert caps['version']=='9.11.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='9.12.0'
     for k in ('reproductionReplicationWorkflow','reproductionReplicationTargetBinding','reproductionReplicationEnvironmentCapture','reproductionReplicationComparisonCriteria','reproductionReplicationResultComparison','reproductionReplicationContentAddressedRecords','reproductionReplicationCorePlanning'): assert caps['coreIntegration'][k] is True
