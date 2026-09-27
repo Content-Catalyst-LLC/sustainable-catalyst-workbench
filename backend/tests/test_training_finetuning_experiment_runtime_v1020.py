@@ -67,7 +67,7 @@ def run_req(project, m, e, b, method='lora'):
 
 
 def test_manifest_status_capabilities_and_boundaries():
-    m = c.get('/ai-training/manifest').json(); assert m['ok'] and m['version']=='10.2.0'
+    m = c.get('/ai-training/manifest').json(); assert m['ok'] and m['version']=='10.3.0'
     for k in ('trainingFineTuningExperimentRuntime','registryBackedTrainingRuns','fullAndParameterEfficientFineTuning','loraAndQloraConfiguration','deterministicTrainingManifests','trainingResourceBudgets','checkpointLineage','appendOnlyTrainingProgressEvents','immutableTrainingResults','derivedModelRegistrationPlanning','platformCoreTrainingPlanning'):
         assert m['capabilities'][k] is True
     for k in ('automaticModelDownload','automaticDatasetDownload','automaticTrainingExecution','arbitraryCodeExecution','automaticExternalProviderCall','automaticCheckpointPromotion','automaticRegistryPromotion','automaticPreferredModelSelection','scientificValidityInferred','automaticCoreDispatch','automaticCorePersistence','governedCoreObjectCreated'):
@@ -141,9 +141,9 @@ def test_core_plan_is_plan_only(monkeypatch,tmp_path):
 
 
 def test_capability_registry_and_retained_v10_surfaces():
-    caps=c.get('/capabilities').json(); assert caps['version']=='10.2.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='10.3.0'
     for k in ('trainingFineTuningExperimentRuntime','aiTrainingRegistryBackedRuns','aiTrainingFineTuningMethods','aiTrainingDeterministicManifests','aiTrainingResourceBudgets','aiTrainingCheckpointLineage','aiTrainingAppendOnlyProgress','aiTrainingImmutableResults','aiTrainingDerivedModelPlanning','aiTrainingCorePlanning'):
         assert caps['coreIntegration'][k] is True
-    assert c.get('/ai-engineering/manifest').json()['version']=='10.2.0'
-    assert c.get('/ai-registry/manifest').json()['version']=='10.2.0'
+    assert c.get('/ai-engineering/manifest').json()['version']=='10.3.0'
+    assert c.get('/ai-registry/manifest').json()['version']=='10.3.0'
     assert c.get('/v1000/status').status_code==200 and c.get('/v1010/status').status_code==200

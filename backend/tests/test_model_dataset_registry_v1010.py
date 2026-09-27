@@ -36,7 +36,7 @@ def experiment_req(project='registry-project'):
 
 
 def test_manifest_status_and_boundaries():
-    m=c.get('/ai-registry/manifest').json(); assert m['ok'] and m['version']=='10.2.0'
+    m=c.get('/ai-registry/manifest').json(); assert m['ok'] and m['version']=='10.3.0'
     for key in ('modelDatasetRegistry','immutableVersionedModelRecords','immutableVersionedDatasetRecords','contentAddressedRegistryRecords','registrySearchAndListing','immutableAIExperimentRegistryBindings','versionCollisionProtection','platformCoreRegistryPlanning'):
         assert m['capabilities'][key] is True
     for key in ('automaticModelDownload','automaticDatasetDownload','automaticTrainingExecution','automaticInferenceExecution','automaticRegistryReplacement','automaticLatestVersionSelection','automaticPreferredModelSelection','automaticPreferredDatasetSelection','scientificValidityInferred','automaticExperimentMutation','automaticCoreDispatch','automaticCorePersistence','governedCoreObjectCreated'):
@@ -103,8 +103,8 @@ def test_core_plan_is_plan_only(monkeypatch,tmp_path):
 
 
 def test_capability_registry_and_retained_v1000_surface():
-    caps=c.get('/capabilities').json(); assert caps['version']=='10.2.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='10.3.0'
     for key in ('modelDatasetRegistry','aiRegistryImmutableModelVersions','aiRegistryImmutableDatasetVersions','aiRegistryContentAddressedRecords','aiRegistryLicenseProvenance','aiRegistryCompatibilityMetadata','aiRegistryNeutralEvaluationState','aiRegistrySearch','aiRegistryExperimentBindings','aiRegistryCorePlanning'):
         assert caps['coreIntegration'][key] is True
-    old=c.get('/ai-engineering/manifest').json(); assert old['version']=='10.2.0' and old['capabilities']['scientificAIEngineeringRuntimeFoundation']
+    old=c.get('/ai-engineering/manifest').json(); assert old['version']=='10.3.0' and old['capabilities']['scientificAIEngineeringRuntimeFoundation']
     assert c.get('/v1000/status').status_code==200
