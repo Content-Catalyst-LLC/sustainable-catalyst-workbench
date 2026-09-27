@@ -23,7 +23,7 @@ def bench_req(p,d,baseline=''):
             'baselineModelRecordHash':baseline,'reproducibility':{'seed':42,'repeats':3,'dependencyLockHash':'d'*64,'deterministicRequested':True},'createdBy':'tester'}
 
 def test_manifest_status_and_boundaries():
-    m=c.get('/ai-evaluation/manifest').json(); assert m['ok'] and m['version']=='10.3.0'
+    m=c.get('/ai-evaluation/manifest').json(); assert m['ok'] and m['version']=='10.4.0'
     for k in ('aiEvaluationBenchmarkWorkspace','registryBackedBenchmarkSuites','researcherDefinedMetrics','evaluationDatasetBinding','diagnosticSlices','deterministicEvaluationManifests','immutableEvaluationResults','baselineRelativeRegressionDiagnostics','datasetAndSliceDiagnostics','multiModelComparison','platformCoreEvaluationPlanning'): assert m['capabilities'][k] is True
     for k in ('automaticInferenceExecution','automaticModelDownload','automaticDatasetDownload','automaticExternalProviderCall','automaticCompositeRanking','automaticWinnerSelection','automaticPreferredModelPromotion','automaticProductionApproval','scientificValidityInferred','automaticCoreDispatch'): assert m['boundaries'][k] is False
     s=c.get('/v1030/status').json(); assert s['aiEvaluationBenchmarkWorkspace'] and s['automaticWinnerSelection'] is False
@@ -68,8 +68,8 @@ def test_core_plan_is_plan_only(monkeypatch,tmp_path):
     x=r.json(); assert x['bindingPlan']['objectType']=='workbench.ai-benchmark-suite' and x['boundaries']['automaticCoreDispatch'] is False and x['boundaries']['scientificValidityInferred'] is False
 
 def test_capability_registry_and_retained_v10_surfaces():
-    caps=c.get('/capabilities').json(); assert caps['version']=='10.3.0'
+    caps=c.get('/capabilities').json(); assert caps['version']=='10.4.0'
     for k in ('aiEvaluationBenchmarkWorkspace','aiEvaluationRegistryBackedBenchmarks','aiEvaluationResearcherDefinedMetrics','aiEvaluationDatasetBindings','aiEvaluationDiagnosticSlices','aiEvaluationDeterministicManifests','aiEvaluationImmutableResults','aiEvaluationRegressionDiagnostics','aiEvaluationMultiModelComparison','aiEvaluationCorePlanning'): assert caps['coreIntegration'][k] is True
-    assert c.get('/ai-training/manifest').json()['version']=='10.3.0'
-    assert c.get('/ai-registry/manifest').json()['version']=='10.3.0'
-    assert c.get('/ai-engineering/manifest').json()['version']=='10.3.0'
+    assert c.get('/ai-training/manifest').json()['version']=='10.4.0'
+    assert c.get('/ai-registry/manifest').json()['version']=='10.4.0'
+    assert c.get('/ai-engineering/manifest').json()['version']=='10.4.0'

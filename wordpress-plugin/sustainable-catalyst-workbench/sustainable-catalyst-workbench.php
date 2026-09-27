@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 10.3.0
+ * Version: 10.4.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '10.3.0');
+define('SCWB_VERSION', '10.4.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -393,3 +393,6 @@ require_once __DIR__ . '/includes/scwb-v1020-training-finetuning-experiment-runt
 
 // Workbench v10.3.0 — AI Evaluation & Benchmark Workspace.
 require_once __DIR__ . '/includes/scwb-v1030-ai-evaluation-benchmark-workspace.php';
+
+// Workbench v10.4.0 — Hyperparameter Optimization & Search Engine.
+require_once __DIR__ . '/includes/scwb-v1040-hyperparameter-optimization-search-engine.php';
