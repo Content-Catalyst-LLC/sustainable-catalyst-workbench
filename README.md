@@ -1,3 +1,13 @@
+# Sustainable Catalyst Workbench v10.2.0
+
+Current release: **Workbench v10.2.0 — Training & Fine-Tuning Experiment Runtime**.
+
+v10.2.0 adds registry-backed, content-addressed training and fine-tuning run specifications over the v10.0 AI Engineering foundation and v10.1 Model & Dataset Registry. It captures fine-tuning methods, deterministic hyperparameters, runtime/environment identity, checkpoint policy, evaluation schedules, resource budgets, append-only progress lineage, immutable training results, and explicit derived-model registry plans.
+
+Training remains explicitly authorized: this release does not silently download models or datasets, execute arbitrary code, call external providers, promote checkpoints/models, select a preferred model, infer scientific validity, or persist governed Platform Core objects automatically.
+
+See `RELEASE_NOTES_10.2.0_TRAINING_FINE_TUNING_EXPERIMENT_RUNTIME.md` and `V1020_TRAINING_FINE_TUNING_EXPERIMENT_RUNTIME_MAP.md`.
+
 # Sustainable Catalyst Workbench v9.6.0
 
 Current release: **Workbench v9.6.0 — Scientific Results & Narrative Synthesis**.
