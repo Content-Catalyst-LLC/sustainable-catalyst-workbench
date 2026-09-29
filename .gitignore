@@ -1,5 +1,44 @@
-
 # Python generated files
 __pycache__/
 *.py[cod]
 .pytest_cache/
+.venv/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+coverage/
+
+# Runtime/local data
+backend/data/
+*.sqlite3
+*.sqlite3-shm
+*.sqlite3-wal
+
+# Local release staging and packaged archives
+/release-staging/
+/dist-v*/
+/*.zip
+/*.tgz
+/*.tar.gz
+
+# Generated release artifacts belong in release bundles/history, not repository root.
+/BUILD_VALIDATION_*.txt
+/ARCHIVE_VALIDATION_*.txt
+/INSTALLER_DRY_RUN_*.txt
+/TREE_EQUALITY_*.txt
+/CHANGED_FILES_*.txt
+/DIFF_SUMMARY_*.json
+/RELEASE_NOTES_*.md
+/V*_RELEASE_NOTES.md
+/V*_MAP.md
+/V*_FIELD_MAP.md
+/V*_OPERATION_MAP.md
+/WORKBENCH_V*_TERMINAL_COMMANDS.txt
+/NO_BACKEND_REDEPLOY_REQUIRED*.md
+/workbench-v*.env.example
+
+# Operational/release helpers belong under scripts/, deploy/, or installers/, not repository root.
+/*.sh
+/*.py
