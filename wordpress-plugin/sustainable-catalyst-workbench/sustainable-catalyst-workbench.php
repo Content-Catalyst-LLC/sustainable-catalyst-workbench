@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 10.10.3
+ * Version: 10.10.4
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '10.10.3');
+define('SCWB_VERSION', '10.10.4');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -423,3 +423,6 @@ require_once __DIR__ . '/includes/scwb-v10102-standalone-runtime-contract-stabil
 
 // Workbench v10.10.3 — Standalone Client/API Adapter Foundation.
 require_once __DIR__ . '/includes/scwb-v10103-standalone-client-api-adapter.php';
+
+// Workbench v10.10.4 — Dual-Mode WordPress + Standalone Certification.
+require_once __DIR__ . '/includes/scwb-v10104-dual-mode-certification.php';
