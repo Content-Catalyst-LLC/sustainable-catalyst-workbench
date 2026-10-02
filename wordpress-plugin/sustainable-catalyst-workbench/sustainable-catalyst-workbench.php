@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 11.1.0
+ * Version: 11.2.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '11.1.0');
+define('SCWB_VERSION', '11.2.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -438,3 +438,6 @@ require_once __DIR__ . '/includes/scwb-v1100-unified-calculation-engine.php';
 
 // Workbench v11.1.0 — Advanced Symbolic Algebra.
 require_once __DIR__ . '/includes/scwb-v1110-advanced-symbolic-algebra.php';
+
+// Workbench v11.2.0 — Advanced Calculus Engine.
+require_once __DIR__ . '/includes/scwb-v1120-advanced-calculus-engine.php';
