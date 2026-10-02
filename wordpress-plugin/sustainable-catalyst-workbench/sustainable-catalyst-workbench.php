@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 10.8.0
+ * Version: 10.9.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '10.8.0');
+define('SCWB_VERSION', '10.9.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -408,3 +408,6 @@ require_once __DIR__ . '/includes/scwb-v1070-uncertainty-calibration-workspace.p
 
 // Workbench v10.8.0 — Scientific ML Workspace.
 require_once __DIR__ . '/includes/scwb-v1080-scientific-ml-workspace.php';
+
+// Workbench v10.9.0 — Agent / Computational Graph Workspace.
+require_once __DIR__ . '/includes/scwb-v1090-agent-computational-graph-workspace.php';
