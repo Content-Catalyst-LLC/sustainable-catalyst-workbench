@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 10.6.0
+ * Version: 10.7.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '10.6.0');
+define('SCWB_VERSION', '10.7.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -402,3 +402,6 @@ require_once __DIR__ . '/includes/scwb-v1050-feature-engineering-representation-
 
 // Workbench v10.6.0 — Explainability Workspace.
 require_once __DIR__ . '/includes/scwb-v1060-explainability-workspace.php';
+
+// Workbench v10.7.0 — Uncertainty & Calibration Workspace.
+require_once __DIR__ . '/includes/scwb-v1070-uncertainty-calibration-workspace.php';
