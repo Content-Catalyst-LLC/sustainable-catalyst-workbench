@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 11.10.0
+ * Version: 11.11.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '11.10.0');
+define('SCWB_VERSION', '11.11.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -465,3 +465,6 @@ require_once __DIR__ . '/includes/scwb-v1190-arbitrary-precision-interval.php';
 
 // Workbench v11.10.0 — Optimization & Mathematical Programming.
 require_once __DIR__ . '/includes/scwb-v11100-optimization-mathematical-programming.php';
+
+// Workbench v11.11.0 — Numerical Analysis Laboratory.
+require_once __DIR__ . '/includes/scwb-v11110-numerical-analysis-laboratory.php';
