@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 11.4.0
+ * Version: 11.5.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '11.4.0');
+define('SCWB_VERSION', '11.5.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -447,3 +447,6 @@ require_once __DIR__ . '/includes/scwb-v1130-equation-solver-laboratory.php';
 
 // Workbench v11.4.0 — Linear Algebra, Matrix & Tensor Engine.
 require_once __DIR__ . '/includes/scwb-v1140-linear-algebra-matrix-tensor.php';
+
+// Workbench v11.5.0 — Julia Scientific Runtime Foundation.
+require_once __DIR__ . '/includes/scwb-v1150-julia-scientific-runtime.php';

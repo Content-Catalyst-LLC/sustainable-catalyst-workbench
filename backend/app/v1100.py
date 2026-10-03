@@ -96,8 +96,8 @@ def build_execution_plan(req: UnifiedCalculationRequest) -> Dict[str, Any]:
     op = req.calculation.operation
 
     if req.preferredRuntime == "julia":
-        selected = "python"
-        runtime_note = "Julia requested but not active in v11.0.0; Python canonical runtime selected."
+        selected = "julia"
+        runtime_note = "Julia scientific runtime active from Workbench v11.5.0."
     elif req.preferredRuntime == "haskell":
         selected = "python"
         runtime_note = "Haskell requested but verification runtime is not active in v11.0.0."
@@ -145,8 +145,8 @@ def build_execution_plan(req: UnifiedCalculationRequest) -> Dict[str, Any]:
         "legacyPlanner": legacy_plan,
         "futureRuntimeSlots": {
             "julia": {
-                "enabled": False,
-                "intendedFor": ["ode", "sde", "dae", "optimization", "simulation", "scientific-ml"],
+                "enabled": True,
+                "intendedFor": ["linear-algebra", "statistics", "ode", "sde", "dae", "optimization", "simulation", "scientific-ml"],
             },
             "haskell": {
                 "enabled": False,
@@ -278,7 +278,7 @@ def object_schema_contract() -> Dict[str, Any]:
         },
         "futureRuntimeModel": {
             "python": "active-canonical",
-            "julia": "reserved",
+            "julia": "active-scientific",
             "haskell": "reserved-verification",
             "native": "reserved",
         },
@@ -301,8 +301,8 @@ def status() -> Dict[str, Any]:
         "wordpressRequired": False,
         "canonicalCalculationObject": OBJECT_SCHEMA,
         "canonicalPlanner": "unified-calculation-planner/1.0",
-        "activeRuntimes": ["python"],
-        "reservedRuntimes": ["julia", "haskell", "native"],
+        "activeRuntimes": ["python", "julia"],
+        "reservedRuntimes": ["haskell", "native"],
         "capabilities": {
             "normalizedCalculationInput": True,
             "assumptionCapture": True,
