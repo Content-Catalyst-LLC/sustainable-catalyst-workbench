@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 11.17.0
+ * Version: 11.18.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '11.17.0');
+define('SCWB_VERSION', '11.18.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -486,3 +486,6 @@ require_once __DIR__ . '/includes/scwb-v11160-interactive-graphing-linked-views.
 
 // Workbench v11.17.0 — Calculation Provenance, Replay & Reproducibility.
 require_once __DIR__ . '/includes/scwb-v11170-calculation-provenance-replay-reproducibility.php';
+
+// Workbench v11.18.0 — Multi-Runtime Calculation Certification.
+require_once __DIR__ . '/includes/scwb-v11180-multi-runtime-calculation-certification.php';
