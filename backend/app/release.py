@@ -1,6 +1,6 @@
 """Canonical Sustainable Catalyst Workbench release identity."""
 
-APP_VERSION = "11.5.0"
+APP_VERSION = "11.6.0"
 PRODUCT_KEY = "workbench"
 PRODUCT_NAME = "Sustainable Catalyst Workbench"
 RUNTIME_KIND = "scientific-engineering-compute"
