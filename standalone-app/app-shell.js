@@ -4,30 +4,55 @@ const state = {
   manifest: null,
   routes: null,
   shell: null,
+  auth: null,
+  session: null,
+  token: null,
   online: false,
   error: null
 };
 
-async function json(path) {
-  const response = await fetch(WORKBENCH_CONFIG.apiBaseUrl.replace(/\/+$/,"") + path, {
-    headers: {"Accept":"application/json"}
+async function request(path, options = {}) {
+  const init = {
+    method: options.method || "GET",
+    headers: Object.assign(
+      {"Accept":"application/json","Content-Type":"application/json"},
+      options.headers || {}
+    )
+  };
+  if (options.body !== undefined) init.body = JSON.stringify(options.body);
+  const response = await fetch(
+    WORKBENCH_CONFIG.apiBaseUrl.replace(/\/+$/,"") + path,
+    init
+  );
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(payload.detail || `HTTP ${response.status}`);
+  return payload;
+}
+
+async function bootstrapSession() {
+  state.auth = (await request("/standalone/v1/auth/config")).auth;
+  if (!WORKBENCH_CONFIG.auth.anonymousBootstrap) return;
+  const created = await request("/standalone/v1/auth/session/anonymous", {
+    method: "POST",
+    body: {ttlSeconds:3600,clientLabel:"standalone-app"}
   });
-  if (!response.ok) throw new Error(`HTTP ${response.status}`);
-  return response.json();
+  state.token = created.token;
+  state.session = created.session;
 }
 
 async function bootstrap() {
   try {
     const [health, manifest, routes, shell] = await Promise.all([
-      json("/standalone/v1/health"),
-      json("/standalone/v1/app-manifest"),
-      json("/standalone/v1/app-routes"),
-      json("/standalone/v1/app-shell")
+      request("/standalone/v1/health"),
+      request("/standalone/v1/app-manifest"),
+      request("/standalone/v1/app-routes"),
+      request("/standalone/v1/app-shell")
     ]);
     state.online = Boolean(health.ok);
     state.manifest = manifest.manifest;
     state.routes = routes.routeRegistry;
     state.shell = shell.shell;
+    await bootstrapSession();
   } catch (error) {
     state.online = false;
     state.error = String(error);
@@ -42,6 +67,12 @@ function currentPath() {
 function navigate(path) {
   history.pushState({}, "", path);
   render();
+}
+
+function sessionLabel() {
+  if (!state.session) return "NO SESSION";
+  if (state.session.subject.type === "anonymous") return "ANONYMOUS SESSION";
+  return "AUTHENTICATED SESSION";
 }
 
 function render() {
@@ -60,7 +91,7 @@ function render() {
     <div class="sc-shell">
       <header class="sc-topbar">
         <div class="sc-brand">Sustainable Catalyst / Workbench</div>
-        <div class="sc-status">${state.online ? "API ONLINE" : "API OFFLINE"} · ${WORKBENCH_CONFIG.version}</div>
+        <div class="sc-status">${state.online ? "API ONLINE" : "API OFFLINE"} · ${sessionLabel()} · ${WORKBENCH_CONFIG.version}</div>
       </header>
       <div class="sc-main">
         <nav class="sc-nav" aria-label="Workbench">
@@ -68,17 +99,22 @@ function render() {
         </nav>
         <main class="sc-workspace">
           <section class="sc-hero">
-            <div class="sc-kicker">Standalone application shell</div>
+            <div class="sc-kicker">Standalone authentication & session foundation</div>
             <h1 class="sc-title">${selected?.label || "Workbench"}</h1>
-            <p class="sc-copy">FastAPI is the authoritative computational backend. This application shell runs independently of WordPress and will receive persistent projects, authentication, notebooks, renderers, and reproducibility workflows across the v12 program.</p>
+            <p class="sc-copy">The standalone application now owns its session boundary directly with FastAPI. WordPress user identity and WP REST nonces are not required. v12.1 uses signed anonymous bootstrap sessions while leaving the identity-provider boundary open for a later production authentication provider.</p>
           </section>
           <section class="sc-panel">
-            <strong>Runtime</strong>
-            <pre>${state.online ? "Connected directly to Workbench API" : "Offline shell mode — backend unavailable"}</pre>
+            <strong>Session</strong>
+            <pre>${state.session ? JSON.stringify({
+              type: state.session.subject.type,
+              sessionId: state.session.sessionId,
+              expiresAt: state.session.expiresAt,
+              capabilities: state.session.capabilities
+            }, null, 2) : "No active session"}</pre>
           </section>
         </main>
       </div>
-      <footer class="sc-footer">WordPress optional · authoritative computation remains server-side</footer>
+      <footer class="sc-footer">Standalone session authority: FastAPI · WordPress identity not required</footer>
     </div>`;
 
   root.querySelectorAll("a[data-route]").forEach(a => {

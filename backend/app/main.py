@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.release import APP_VERSION
 
 app = FastAPI(title="Sustainable Catalyst Workbench", version=APP_VERSION)
-# Static release identity marker: version="12.0.0"
+# Static release identity marker: version="12.1.0"
 version=APP_VERSION
 
 def _allowed_origins():
@@ -21,7 +21,7 @@ app.add_middleware(
     allow_origins=_allowed_origins(),
     allow_credentials=False,
     allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["Content-Type", "Accept", "X-Request-ID", "X-SC-Service-Token", "X-SC-Gateway-Service", "X-SC-Core-Version"],
+    allow_headers=["Content-Type", "Accept", "Authorization", "X-Request-ID", "X-SC-Service-Token", "X-SC-Gateway-Service", "X-SC-Core-Version"],
 )
 
 @app.middleware("http")
@@ -649,3 +649,7 @@ app.include_router(v11180_router)
 # Workbench v12.0.0 — Standalone Workbench Application Shell.
 from app.v1200 import router as v1200_router
 app.include_router(v1200_router)
+
+# Workbench v12.1.0 — Standalone Authentication & Session Foundation.
+from app.v1210 import router as v1210_router
+app.include_router(v1210_router)

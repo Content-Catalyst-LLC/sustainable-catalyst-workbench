@@ -3,5 +3,9 @@ export const WORKBENCH_CONFIG = Object.freeze({
     globalThis.SC_WORKBENCH_API_BASE_URL ||
     "https://workbench-api.sustainablecatalyst.com",
   appName: "Sustainable Catalyst Workbench",
-  version: "12.0.0"
+  version: "12.1.0",
+  auth: {
+    anonymousBootstrap: true,
+    persistToken: false
+  }
 });
