@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 11.15.0
+ * Version: 11.16.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '11.15.0');
+define('SCWB_VERSION', '11.16.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -480,3 +480,6 @@ require_once __DIR__ . '/includes/scwb-v11140-complex-analysis-special-functions
 
 // Workbench v11.15.0 — Uncertainty Propagation & Monte Carlo.
 require_once __DIR__ . '/includes/scwb-v11150-uncertainty-propagation-monte-carlo.php';
+
+// Workbench v11.16.0 — Interactive Graphing & Linked Mathematical Views.
+require_once __DIR__ . '/includes/scwb-v11160-interactive-graphing-linked-views.php';
