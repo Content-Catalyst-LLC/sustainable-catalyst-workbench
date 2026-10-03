@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 11.13.0
+ * Version: 11.14.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '11.13.0');
+define('SCWB_VERSION', '11.14.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -474,3 +474,6 @@ require_once __DIR__ . '/includes/scwb-v11120-geometry-trigonometry-coordinate-m
 
 // Workbench v11.13.0 — Number Theory & Discrete Mathematics.
 require_once __DIR__ . '/includes/scwb-v11130-number-theory-discrete-mathematics.php';
+
+// Workbench v11.14.0 — Complex Analysis & Special Functions.
+require_once __DIR__ . '/includes/scwb-v11140-complex-analysis-special-functions.php';
