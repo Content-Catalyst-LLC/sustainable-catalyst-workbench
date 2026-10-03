@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 11.14.0
+ * Version: 11.15.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '11.14.0');
+define('SCWB_VERSION', '11.15.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -477,3 +477,6 @@ require_once __DIR__ . '/includes/scwb-v11130-number-theory-discrete-mathematics
 
 // Workbench v11.14.0 — Complex Analysis & Special Functions.
 require_once __DIR__ . '/includes/scwb-v11140-complex-analysis-special-functions.php';
+
+// Workbench v11.15.0 — Uncertainty Propagation & Monte Carlo.
+require_once __DIR__ . '/includes/scwb-v11150-uncertainty-propagation-monte-carlo.php';
