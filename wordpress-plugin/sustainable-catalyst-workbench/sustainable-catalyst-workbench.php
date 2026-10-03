@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 11.6.0
+ * Version: 11.7.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '11.6.0');
+define('SCWB_VERSION', '11.7.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -453,3 +453,6 @@ require_once __DIR__ . '/includes/scwb-v1150-julia-scientific-runtime.php';
 
 // Workbench v11.6.0 — Differential Equations & Dynamical Systems.
 require_once __DIR__ . '/includes/scwb-v1160-differential-equations-dynamical-systems.php';
+
+// Workbench v11.7.0 — Units, Dimensions & Physical Quantities.
+require_once __DIR__ . '/includes/scwb-v1170-units-dimensions-physical-quantities.php';
