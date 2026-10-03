@@ -44,6 +44,7 @@ push!(states,copy(u))
 t=t0
 
 for i in 2:samples
+    global u, t
     k1=f(model,t,u)
     k2=f(model,t+dt/2,u .+ (dt/2).*k1)
     k3=f(model,t+dt/2,u .+ (dt/2).*k2)
