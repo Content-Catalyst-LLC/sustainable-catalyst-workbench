@@ -53,7 +53,7 @@ def application_manifest() -> Dict[str, Any]:
             "persistentProjectStore": "planned-v12.2",
             "calculatorWorkspace": "active-v12.3",
             "mathematicalRenderer": "active-v12.4",
-            "notebookHistory": "planned-v12.5",
+            "notebookHistory": "active-v12.5",
             "reproducibilityBrowser": "planned-v12.6",
         },
     }
@@ -67,7 +67,7 @@ def route_registry() -> Dict[str, Any]:
         {"id": "calculator", "path": "/calculator", "label": "Calculator", "available": True},
         {"id": "workspace", "path": "/workspace", "label": "Workspace", "available": True},
         {"id": "graphs", "path": "/graphs", "label": "Graphs", "available": True},
-        {"id": "history", "path": "/history", "label": "History", "available": False, "planned": "12.5.0"},
+        {"id": "history", "path": "/history", "label": "History", "available": True},
         {"id": "packages", "path": "/packages", "label": "Reproducibility", "available": False, "planned": "12.6.0"},
         {"id": "settings", "path": "/settings", "label": "Settings", "available": True},
     ]
