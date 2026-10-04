@@ -52,7 +52,7 @@ def application_manifest() -> Dict[str, Any]:
             "authentication": "planned-v12.1",
             "persistentProjectStore": "planned-v12.2",
             "calculatorWorkspace": "active-v12.3",
-            "mathematicalRenderer": "planned-v12.4",
+            "mathematicalRenderer": "active-v12.4",
             "notebookHistory": "planned-v12.5",
             "reproducibilityBrowser": "planned-v12.6",
         },

@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 12.3.0
+ * Version: 12.4.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '12.3.0');
+define('SCWB_VERSION', '12.4.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -501,3 +501,6 @@ require_once __DIR__ . '/includes/scwb-v1220-persistent-calculation-project-stor
 
 // Workbench v12.3.0 — Standalone Calculator Workspace.
 require_once __DIR__ . '/includes/scwb-v1230-standalone-calculator-workspace.php';
+
+// Workbench v12.4.0 — Standalone Mathematical View Renderer.
+require_once __DIR__ . '/includes/scwb-v1240-standalone-mathematical-view-renderer.php';
