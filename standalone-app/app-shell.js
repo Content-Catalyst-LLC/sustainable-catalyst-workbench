@@ -1,8 +1,9 @@
 import { WORKBENCH_CONFIG } from "./config.js";
 
 const state={
-  token:null,session:null,launch:null,projects:[],
-  stateCertification:null,stateAuthority:null,error:null,online:false
+  token:null,session:null,launch:null,
+  migrationCertification:null,capabilityMatrix:null,runbook:null,
+  error:null,online:false
 };
 
 async function request(path,options={}){
@@ -20,12 +21,17 @@ async function bootstrapSession(){
   const stored=sessionStorage.getItem("scwb.session.token");
   if(stored){
     try{
-      const v=await request("/standalone/v1/auth/session/verify",{method:"POST",auth:false,body:{token:stored}});
+      const v=await request("/standalone/v1/auth/session/verify",{
+        method:"POST",auth:false,body:{token:stored}
+      });
       state.token=stored;state.session=v.session;return;
-    }catch(_e){sessionStorage.removeItem("scwb.session.token");}
+    }catch(_e){
+      sessionStorage.removeItem("scwb.session.token");
+    }
   }
   const c=await request("/standalone/v1/auth/session/anonymous",{
-    method:"POST",auth:false,body:{ttlSeconds:3600,clientLabel:"standalone-app"}
+    method:"POST",auth:false,
+    body:{ttlSeconds:3600,clientLabel:"standalone-app"}
   });
   state.token=c.token;state.session=c.session;
   sessionStorage.setItem("scwb.session.token",c.token);
@@ -40,61 +46,65 @@ async function resolveLaunch(){
   state.launch=v.launchDescriptor;
 }
 
-async function loadStateCertification(){
-  const [cert,authority,probe]=await Promise.all([
-    request("/standalone/v1/state-dependency/certification"),
-    request("/standalone/v1/state-authority"),
-    request("/standalone/v1/state-dependency/session-probe")
+async function loadMigrationCertification(){
+  const [cert,matrix,runbook,probe]=await Promise.all([
+    request("/standalone/v1/migration/certification"),
+    request("/standalone/v1/migration/capability-matrix"),
+    request("/standalone/v1/migration/runbook"),
+    request("/standalone/v1/migration/session-probe"),
   ]);
-  state.stateCertification=cert;
-  state.stateAuthority=authority.authority;
-  if(!probe.ok) throw new Error("Standalone session authority probe failed.");
+  state.migrationCertification=cert;
+  state.capabilityMatrix=matrix.matrix;
+  state.runbook=runbook.runbook;
+  if(!probe.ok) throw new Error("Standalone migration session probe failed.");
 }
-
-function currentPath(){return location.pathname==="/" ? "/calculator" : location.pathname;}
-function nav(p){history.pushState({},"",p);render();}
 
 function render(){
   const root=document.getElementById("sc-workbench-app");
-  const path=currentPath();
-  const passed=state.stateCertification?.certification==="pass";
+  const passed=state.migrationCertification?.certification==="pass";
+  const rows=state.capabilityMatrix?.capabilities||[];
+
   root.innerHTML=`
   <div class="sc-shell">
     <header class="sc-topbar">
       <div class="sc-brand">Sustainable Catalyst / Workbench</div>
-      <div class="sc-status">${state.online?"API ONLINE":"API OFFLINE"} · 12.8.0 · ${passed?"WORDPRESS STATE: ELIMINATED":"STATE CHECK PENDING"}</div>
+      <div class="sc-status">${state.online?"API ONLINE":"API OFFLINE"} · 12.9.0 · ${passed?"MIGRATION CERTIFIED":"CERTIFICATION PENDING"}</div>
     </header>
     <div class="sc-main">
       <nav class="sc-nav">
-        <a data-route="/calculator">Calculator</a>
-        <a data-route="/workspace">Workspace</a>
-        <a data-route="/graphs">Graphs</a>
-        <a data-route="/history">History</a>
-        <a data-route="/packages">Packages</a>
-        <a data-route="/settings">Settings</a>
+        <a href="/calculator">Calculator</a>
+        <a href="/workspace">Workspace</a>
+        <a href="/graphs">Graphs</a>
+        <a href="/history">History</a>
+        <a href="/packages">Packages</a>
+        <a href="/settings">Settings</a>
       </nav>
       <main class="sc-workspace">
         <section class="sc-hero">
-          <div class="sc-kicker">WordPress state dependency elimination</div>
-          <h1 class="sc-title">${path.slice(1)||"Calculator"}</h1>
-          <p class="sc-copy">The v12 standalone path owns identity, projects, calculations, notebooks, history, reproducibility packages, views, and route state outside WordPress.</p>
+          <div class="sc-kicker">Standalone migration certification</div>
+          <h1 class="sc-title">${passed?"Migration Certified":"Migration Certification"}</h1>
+          <p class="sc-copy">The v12 application path is certified to operate with standalone browser state, FastAPI authority, and persistent SQLite research state while WordPress remains optional.</p>
         </section>
         <section class="sc-panel">
-          <h3>State authority certification</h3>
+          <h3>Certification</h3>
           <pre>${JSON.stringify({
-            certification:state.stateCertification?.certification||"pending",
-            wordpressRequired:state.stateCertification?.wordpressRequired??false,
-            checks:state.stateCertification?.checks||{},
-            authorityHash:state.stateAuthority?.authorityManifestHash||null,
-            launchSource:state.launch?.source||null
+            certification:state.migrationCertification?.certification||"pending",
+            migrationReady:state.migrationCertification?.migrationReady||false,
+            wordpressRequired:state.migrationCertification?.wordpressRequired??false,
+            canonicalApplication:state.migrationCertification?.canonicalApplication||null,
+            canonicalBackend:state.migrationCertification?.canonicalBackend||null,
+            canonicalPersistentState:state.migrationCertification?.canonicalPersistentState||null,
           },null,2)}</pre>
-          ${state.error?`<p class="sc-error">${state.error}</p>`:""}
         </section>
+        <section class="sc-panel">
+          <h3>Capability Matrix</h3>
+          ${rows.map(r=>`<div class="sc-project-row"><strong>${r.capability}</strong> · ${r.migrationReady?"ready":"not ready"}<br><small>${r.standaloneAuthority} · WordPress required: ${r.wordpressRequired}</small></div>`).join("")||"<p>Loading…</p>"}
+        </section>
+        ${state.error?`<section class="sc-panel"><p class="sc-error">${state.error}</p></section>`:""}
       </main>
     </div>
-    <footer class="sc-footer">Canonical state: standalone browser → FastAPI → SQLite · WordPress compatibility only</footer>
+    <footer class="sc-footer">v12 migration boundary certified · WordPress optional · v12.10 production consolidation next</footer>
   </div>`;
-  root.querySelectorAll("[data-route]").forEach(a=>a.addEventListener("click",()=>nav(a.dataset.route)));
 }
 
 async function bootstrap(){
@@ -102,9 +112,10 @@ async function bootstrap(){
     state.online=Boolean((await request("/standalone/v1/health",{auth:false})).ok);
     await resolveLaunch();
     await bootstrapSession();
-    await loadStateCertification();
-  }catch(e){state.error=String(e);}
+    await loadMigrationCertification();
+  }catch(e){
+    state.error=String(e);
+  }
   render();
 }
-addEventListener("popstate",render);
 bootstrap();
