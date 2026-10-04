@@ -54,7 +54,7 @@ def application_manifest() -> Dict[str, Any]:
             "calculatorWorkspace": "active-v12.3",
             "mathematicalRenderer": "active-v12.4",
             "notebookHistory": "active-v12.5",
-            "reproducibilityBrowser": "planned-v12.6",
+            "reproducibilityBrowser": "active-v12.6",
         },
     }
     body["manifestHash"] = _hash(body)
@@ -68,7 +68,7 @@ def route_registry() -> Dict[str, Any]:
         {"id": "workspace", "path": "/workspace", "label": "Workspace", "available": True},
         {"id": "graphs", "path": "/graphs", "label": "Graphs", "available": True},
         {"id": "history", "path": "/history", "label": "History", "available": True},
-        {"id": "packages", "path": "/packages", "label": "Reproducibility", "available": False, "planned": "12.6.0"},
+        {"id": "packages", "path": "/packages", "label": "Reproducibility", "available": True},
         {"id": "settings", "path": "/settings", "label": "Settings", "available": True},
     ]
     body = {

@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.release import APP_VERSION
 
 app = FastAPI(title="Sustainable Catalyst Workbench", version=APP_VERSION)
-# Static release identity marker: version="12.5.0"
+# Static release identity marker: version="12.6.0"
 version=APP_VERSION
 
 def _allowed_origins():
@@ -669,3 +669,7 @@ app.include_router(v1240_router)
 # Workbench v12.5.0 — Notebook & Calculation History.
 from app.v1250 import router as v1250_router
 app.include_router(v1250_router)
+
+# Workbench v12.6.0 — Reproducibility Package Browser.
+from app.v1260 import router as v1260_router
+app.include_router(v1260_router)
