@@ -56,6 +56,7 @@ def application_manifest() -> Dict[str, Any]:
             "notebookHistory": "active-v12.5",
             "reproducibilityBrowser": "active-v12.6",
             "wordpressEmbedDeepLink": "active-v12.7",
+            "wordpressStateDependency": "eliminated-v12.8",
         },
     }
     body["manifestHash"] = _hash(body)

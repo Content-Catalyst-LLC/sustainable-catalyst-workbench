@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 12.7.0
+ * Version: 12.8.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '12.7.0');
+define('SCWB_VERSION', '12.8.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -513,3 +513,6 @@ require_once __DIR__ . '/includes/scwb-v1260-reproducibility-package-browser.php
 
 // Workbench v12.7.0 — WordPress Embed & Deep-Link Compatibility.
 require_once __DIR__ . '/includes/scwb-v1270-wordpress-embed-deep-link.php';
+
+// Workbench v12.8.0 — WordPress State Dependency Elimination.
+require_once __DIR__ . '/includes/scwb-v1280-wordpress-state-dependency-elimination.php';
