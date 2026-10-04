@@ -65,7 +65,7 @@ def route_registry() -> Dict[str, Any]:
     routes = [
         {"id": "home", "path": "/", "label": "Workbench", "available": True},
         {"id": "calculator", "path": "/calculator", "label": "Calculator", "available": True},
-        {"id": "workspace", "path": "/workspace", "label": "Workspace", "available": False, "planned": "12.2.0"},
+        {"id": "workspace", "path": "/workspace", "label": "Workspace", "available": True},
         {"id": "graphs", "path": "/graphs", "label": "Graphs", "available": True},
         {"id": "history", "path": "/history", "label": "History", "available": False, "planned": "12.5.0"},
         {"id": "packages", "path": "/packages", "label": "Reproducibility", "available": False, "planned": "12.6.0"},
