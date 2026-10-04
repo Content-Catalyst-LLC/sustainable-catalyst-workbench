@@ -1,8 +1,10 @@
 import { WORKBENCH_CONFIG } from "./config.js";
 
 const state={
-  token:null,session:null,launch:null,
-  migrationCertification:null,capabilityMatrix:null,runbook:null,
+  token:null,session:null,
+  productionReadiness:null,
+  productionCertification:null,
+  deploymentManifest:null,
   error:null,online:false
 };
 
@@ -37,38 +39,29 @@ async function bootstrapSession(){
   sessionStorage.setItem("scwb.session.token",c.token);
 }
 
-async function resolveLaunch(){
-  const token=new URL(location.href).searchParams.get("launch");
-  if(!token) return;
-  const v=await request("/standalone/v1/launch/validate",{
-    method:"POST",auth:false,body:{token}
-  });
-  state.launch=v.launchDescriptor;
-}
-
-async function loadMigrationCertification(){
-  const [cert,matrix,runbook,probe]=await Promise.all([
-    request("/standalone/v1/migration/certification"),
-    request("/standalone/v1/migration/capability-matrix"),
-    request("/standalone/v1/migration/runbook"),
-    request("/standalone/v1/migration/session-probe"),
+async function loadProductionReadiness(){
+  const [readiness,certification,deployment,probe]=await Promise.all([
+    request("/standalone/v1/production/readiness"),
+    request("/standalone/v1/production/certification"),
+    request("/standalone/v1/production/deployment-manifest"),
+    request("/standalone/v1/production/session-probe"),
   ]);
-  state.migrationCertification=cert;
-  state.capabilityMatrix=matrix.matrix;
-  state.runbook=runbook.runbook;
-  if(!probe.ok) throw new Error("Standalone migration session probe failed.");
+  state.productionReadiness=readiness;
+  state.productionCertification=certification;
+  state.deploymentManifest=deployment.deployment;
+  if(!probe.ok) throw new Error("Production standalone session probe failed.");
 }
 
 function render(){
   const root=document.getElementById("sc-workbench-app");
-  const passed=state.migrationCertification?.certification==="pass";
-  const rows=state.capabilityMatrix?.capabilities||[];
+  const ready=state.productionReadiness?.productionReady===true;
+  const remaining=state.productionReadiness?.remainingProductionActions||[];
 
   root.innerHTML=`
   <div class="sc-shell">
     <header class="sc-topbar">
       <div class="sc-brand">Sustainable Catalyst / Workbench</div>
-      <div class="sc-status">${state.online?"API ONLINE":"API OFFLINE"} · 12.9.0 · ${passed?"MIGRATION CERTIFIED":"CERTIFICATION PENDING"}</div>
+      <div class="sc-status">${state.online?"API ONLINE":"API OFFLINE"} · 12.10.0 · ${ready?"PRODUCTION READY":"PRODUCTION CONFIG PENDING"}</div>
     </header>
     <div class="sc-main">
       <nav class="sc-nav">
@@ -81,38 +74,44 @@ function render(){
       </nav>
       <main class="sc-workspace">
         <section class="sc-hero">
-          <div class="sc-kicker">Standalone migration certification</div>
-          <h1 class="sc-title">${passed?"Migration Certified":"Migration Certification"}</h1>
-          <p class="sc-copy">The v12 application path is certified to operate with standalone browser state, FastAPI authority, and persistent SQLite research state while WordPress remains optional.</p>
+          <div class="sc-kicker">WordPress-optional production Workbench</div>
+          <h1 class="sc-title">${ready?"Production Ready":"Production Readiness"}</h1>
+          <p class="sc-copy">Workbench v12 is consolidated as a standalone application with FastAPI authority and persistent v12 research state. WordPress remains optional.</p>
         </section>
+
         <section class="sc-panel">
-          <h3>Certification</h3>
+          <h3>Production Certification</h3>
           <pre>${JSON.stringify({
-            certification:state.migrationCertification?.certification||"pending",
-            migrationReady:state.migrationCertification?.migrationReady||false,
-            wordpressRequired:state.migrationCertification?.wordpressRequired??false,
-            canonicalApplication:state.migrationCertification?.canonicalApplication||null,
-            canonicalBackend:state.migrationCertification?.canonicalBackend||null,
-            canonicalPersistentState:state.migrationCertification?.canonicalPersistentState||null,
+            architectureCertification:state.productionCertification?.architectureCertification||"pending",
+            productionEnvironmentCertification:state.productionCertification?.productionEnvironmentCertification||"pending",
+            productionReady:state.productionCertification?.productionReady||false,
+            wordpressRequired:state.productionCertification?.wordpressRequired??false,
+            remainingProductionActions:remaining
           },null,2)}</pre>
         </section>
+
         <section class="sc-panel">
-          <h3>Capability Matrix</h3>
-          ${rows.map(r=>`<div class="sc-project-row"><strong>${r.capability}</strong> · ${r.migrationReady?"ready":"not ready"}<br><small>${r.standaloneAuthority} · WordPress required: ${r.wordpressRequired}</small></div>`).join("")||"<p>Loading…</p>"}
+          <h3>Deployment</h3>
+          <pre>${JSON.stringify({
+            frontend:state.deploymentManifest?.frontend?.url||null,
+            backend:state.deploymentManifest?.backend?.url||null,
+            persistentState:state.deploymentManifest?.state?.path||null,
+            wordpressRole:state.deploymentManifest?.wordpressRole||null
+          },null,2)}</pre>
         </section>
+
         ${state.error?`<section class="sc-panel"><p class="sc-error">${state.error}</p></section>`:""}
       </main>
     </div>
-    <footer class="sc-footer">v12 migration boundary certified · WordPress optional · v12.10 production consolidation next</footer>
+    <footer class="sc-footer">v12 production consolidation · standalone canonical · WordPress optional</footer>
   </div>`;
 }
 
 async function bootstrap(){
   try{
     state.online=Boolean((await request("/standalone/v1/health",{auth:false})).ok);
-    await resolveLaunch();
     await bootstrapSession();
-    await loadMigrationCertification();
+    await loadProductionReadiness();
   }catch(e){
     state.error=String(e);
   }
