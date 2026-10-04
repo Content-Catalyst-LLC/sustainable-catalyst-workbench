@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.release import APP_VERSION
 
 app = FastAPI(title="Sustainable Catalyst Workbench", version=APP_VERSION)
-# Static release identity marker: version="12.2.0"
+# Static release identity marker: version="12.3.0"
 version=APP_VERSION
 
 def _allowed_origins():
@@ -20,7 +20,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=_allowed_origins(),
     allow_credentials=False,
-    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_methods=["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["Content-Type", "Accept", "Authorization", "X-Request-ID", "X-SC-Service-Token", "X-SC-Gateway-Service", "X-SC-Core-Version"],
 )
 
@@ -657,3 +657,7 @@ app.include_router(v1210_router)
 # Workbench v12.2.0 — Persistent Calculation & Project Store.
 from app.v1220 import router as v1220_router
 app.include_router(v1220_router)
+
+# Workbench v12.3.0 — Standalone Calculator Workspace.
+from app.v1230 import router as v1230_router
+app.include_router(v1230_router)
