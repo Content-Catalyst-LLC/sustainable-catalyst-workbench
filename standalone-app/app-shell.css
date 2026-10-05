@@ -55,3 +55,16 @@
 .sc-history-filter{min-width:180px}
 @media(max-width:900px){.sc-timeline-item,.sc-notebook-workspace{grid-template-columns:1fr}}
 
+/* Workbench v13.7.0 — Reproducibility Package Workspace */
+.sc-package-layout{display:grid;grid-template-columns:minmax(260px,340px) minmax(0,1fr);gap:14px}
+.sc-package-list{display:grid;gap:8px}
+.sc-package-row{border:1px solid #292929;border-radius:8px;padding:10px;background:#0b0b0b;cursor:pointer}
+.sc-package-row.active{border-color:#666}
+.sc-package-status{display:flex;gap:8px;flex-wrap:wrap}
+.sc-package-grid{display:grid;grid-template-columns:repeat(3,minmax(140px,1fr));gap:10px}
+.sc-package-cell{border:1px solid #292929;border-radius:8px;padding:12px;background:#0b0b0b}
+.sc-hash{font-family:ui-monospace,monospace;font-size:11px;word-break:break-all;color:#999}
+.sc-comparison-table{width:100%;border-collapse:collapse}
+.sc-comparison-table td,.sc-comparison-table th{padding:8px;border-bottom:1px solid #222;text-align:left;font-size:12px}
+@media(max-width:950px){.sc-package-layout,.sc-package-grid{grid-template-columns:1fr}}
+
