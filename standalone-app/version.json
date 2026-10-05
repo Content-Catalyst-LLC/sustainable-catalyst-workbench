@@ -1,8 +1,8 @@
 {
   "product": "workbench",
   "name": "Sustainable Catalyst Workbench",
-  "version": "13.5.0",
-  "interface": "interactive-graph-studio",
+  "version": "13.6.0",
+  "interface": "notebook-history-research-timeline-workspace",
   "api": "https://workbench-api.sustainablecatalyst.com",
   "wordpressRequired": false
 }
