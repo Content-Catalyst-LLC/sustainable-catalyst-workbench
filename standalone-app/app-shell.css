@@ -16,3 +16,16 @@
 .sc-normalization-detail{margin-top:8px;color:#888;font-size:12px}
 @media(max-width:900px){.sc-palette-group{grid-template-columns:1fr}}
 
+/* Workbench v13.4.0 — Project Workspace & Persistent Research Sessions */
+.sc-session-bar{display:grid;grid-template-columns:minmax(220px,1fr) auto auto;gap:10px;align-items:end}
+.sc-session-card{border:1px solid #292929;border-radius:8px;padding:14px;background:#0b0b0b;display:grid;gap:8px}
+.sc-session-card.active{border-color:#555}
+.sc-session-purpose{color:#aaa;line-height:1.45}
+.sc-session-meta{display:flex;gap:7px;flex-wrap:wrap}
+.sc-activity-list{display:grid;gap:8px}
+.sc-activity-item{display:grid;grid-template-columns:140px 1fr auto;gap:12px;border-bottom:1px solid #222;padding:9px 0;align-items:start}
+.sc-workspace-summary{display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:10px}
+.sc-summary-cell{border:1px solid #292929;border-radius:7px;padding:12px;background:#0b0b0b}
+.sc-summary-value{font-size:22px;font-weight:700}
+@media(max-width:850px){.sc-session-bar,.sc-activity-item,.sc-workspace-summary{grid-template-columns:1fr}}
+
