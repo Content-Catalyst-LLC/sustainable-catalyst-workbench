@@ -1,8 +1,8 @@
 {
   "product": "workbench",
   "name": "Sustainable Catalyst Workbench",
-  "version": "13.2.0",
-  "interface": "calculator-experience",
+  "version": "13.3.0",
+  "interface": "advanced-calculator-input-mathematical-notation",
   "api": "https://workbench-api.sustainablecatalyst.com",
   "wordpressRequired": false
 }
