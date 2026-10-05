@@ -29,3 +29,16 @@
 .sc-summary-value{font-size:22px;font-weight:700}
 @media(max-width:850px){.sc-session-bar,.sc-activity-item,.sc-workspace-summary{grid-template-columns:1fr}}
 
+/* Workbench v13.5.0 — Interactive Graph Studio */
+.sc-graph-layout{display:grid;grid-template-columns:minmax(300px,380px) minmax(0,1fr);gap:16px}
+.sc-graph-sidebar{display:grid;gap:12px;align-content:start}
+.sc-graph-series-list{display:grid;gap:8px}
+.sc-graph-series{border:1px solid #292929;border-radius:8px;padding:10px;background:#0b0b0b}
+.sc-graph-toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sc-graph-canvas{min-height:460px}
+.sc-graph-saved-list{display:grid;gap:8px}
+.sc-graph-saved{display:flex;justify-content:space-between;gap:10px;align-items:center;border-bottom:1px solid #222;padding:8px 0}
+.sc-graph-annotation-list{display:grid;gap:7px;margin-top:10px}
+.sc-graph-annotation{border-left:2px solid #444;padding-left:8px;color:#aaa}
+@media(max-width:980px){.sc-graph-layout{grid-template-columns:1fr}}
+
