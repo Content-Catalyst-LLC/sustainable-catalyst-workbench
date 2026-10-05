@@ -1,0 +1,8 @@
+{
+  "product": "workbench",
+  "name": "Sustainable Catalyst Workbench",
+  "version": "13.1.0",
+  "interface": "functional-standalone",
+  "api": "https://workbench-api.sustainablecatalyst.com",
+  "wordpressRequired": false
+}

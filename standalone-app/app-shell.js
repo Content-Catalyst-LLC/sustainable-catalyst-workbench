@@ -187,7 +187,7 @@ function bind(){
 
 async function createProject(){
   const name=prompt("Project name","Workbench Project"); if(!name)return;
-  try{const d=await api("/standalone/v1/projects",{method:"POST",body:{name,description:"Created from Workbench v13.0 standalone interface",metadata:{interfaceVersion:"13.0.0"}}});state.projectId=d.project.id;await loadProjects();await loadProjectData();toast("Project created.");}catch(e){toast(String(e),true);}
+  try{const d=await api("/standalone/v1/projects",{method:"POST",body:{name,description:"Created from Workbench v13.1 hardened standalone interface",metadata:{interfaceVersion:"13.1.0"}}});state.projectId=d.project.id;await loadProjects();await loadProjectData();toast("Project created.");}catch(e){toast(String(e),true);}
 }
 
 async function executeCalculation(){
@@ -203,7 +203,7 @@ async function executeCalculation(){
     const resultType=["evaluate","root"].includes(operation)?"numeric":operation==="exact"?"exact":"symbolic";
     const calculationRequest={calculation,requestedResultType:resultType,requireVerification:true,requireProvenance:true};
     state.lastRequest=calculationRequest;
-    const d=await api("/standalone/v1/calculator/execute",{method:"POST",body:{calculationRequest,projectId:state.projectId,saveResult,title,tags:["standalone-v13"],metadata:{interfaceVersion:"13.0.0"}}});
+    const d=await api("/standalone/v1/calculator/execute",{method:"POST",body:{calculationRequest,projectId:state.projectId,saveResult,title,tags:["standalone-v13.1"],metadata:{interfaceVersion:"13.1.0"}}});
     state.lastCalculation=d.calculationObject;
     await loadProjectData();
     toast(saveResult?"Calculation executed and saved.":"Calculation executed.");
@@ -228,7 +228,7 @@ function drawGraph(){
 
 async function createNotebook(){
   const title=prompt("Notebook title","Research Notebook"); if(!title||!state.projectId)return;
-  try{const d=await api("/standalone/v1/notebooks",{method:"POST",body:{projectId:state.projectId,title,description:"",metadata:{interfaceVersion:"13.0.0"}}});state.notebookId=d.notebook.id;await loadProjectData();toast("Notebook created.");}catch(e){toast(String(e),true);}
+  try{const d=await api("/standalone/v1/notebooks",{method:"POST",body:{projectId:state.projectId,title,description:"",metadata:{interfaceVersion:"13.1.0"}}});state.notebookId=d.notebook.id;await loadProjectData();toast("Notebook created.");}catch(e){toast(String(e),true);}
 }
 async function loadEntries(){
   const target=document.getElementById("entries"); if(!target||!state.notebookId)return;
@@ -237,16 +237,16 @@ async function loadEntries(){
 async function addNote(){
   const markdown=document.getElementById("notebook-note").value;
   if(!markdown.trim())return;
-  try{await api(`/standalone/v1/notebooks/${encodeURIComponent(state.notebookId)}/entries`,{method:"POST",body:{kind:"note",markdown,pinned:false,metadata:{interfaceVersion:"13.0.0"}}});document.getElementById("notebook-note").value="";await loadEntries();toast("Note added.");}catch(e){toast(String(e),true);}
+  try{await api(`/standalone/v1/notebooks/${encodeURIComponent(state.notebookId)}/entries`,{method:"POST",body:{kind:"note",markdown,pinned:false,metadata:{interfaceVersion:"13.1.0"}}});document.getElementById("notebook-note").value="";await loadEntries();toast("Note added.");}catch(e){toast(String(e),true);}
 }
 async function attachCalculation(){
   const c=state.calculations[0]; if(!c)return;
-  try{await api(`/standalone/v1/notebooks/${encodeURIComponent(state.notebookId)}/entries`,{method:"POST",body:{kind:"calculation-reference",markdown:`Calculation: ${c.title}`,savedCalculationId:c.id,pinned:false,metadata:{interfaceVersion:"13.0.0"}}});await loadEntries();toast("Calculation attached.");}catch(e){toast(String(e),true);}
+  try{await api(`/standalone/v1/notebooks/${encodeURIComponent(state.notebookId)}/entries`,{method:"POST",body:{kind:"calculation-reference",markdown:`Calculation: ${c.title}`,savedCalculationId:c.id,pinned:false,metadata:{interfaceVersion:"13.1.0"}}});await loadEntries();toast("Calculation attached.");}catch(e){toast(String(e),true);}
 }
 async function createPackage(){
   if(!state.projectId||!state.lastRequest)return;
   try{
-    await api("/standalone/v1/reproducibility/packages",{method:"POST",body:{projectId:state.projectId,calculationRequest:state.lastRequest,calculationObject:state.lastCalculation,title:"Workbench v13 Reproducibility Package",notes:"Captured from functional standalone interface",metadata:{interfaceVersion:"13.0.0"}}});
+    await api("/standalone/v1/reproducibility/packages",{method:"POST",body:{projectId:state.projectId,calculationRequest:state.lastRequest,calculationObject:state.lastCalculation,title:"Workbench v13 Reproducibility Package",notes:"Captured from functional standalone interface",metadata:{interfaceVersion:"13.1.0"}}});
     await loadProjectData();toast("Reproducibility package created.");
   }catch(e){toast(String(e),true);}
 }
@@ -263,9 +263,15 @@ async function resolveLaunch(){
   }catch(e){state.error=`Launch token: ${e}`;}
 }
 
+async function verifyVersionAlignment(){
+  const [front,back]=await Promise.all([fetch("/version.json",{cache:"no-store"}).then(r=>r.json()),api("/v1310/status",{auth:false})]);
+  if(front.version!==back.version||back.hardeningReady!==true) throw new Error(`Frontend/API version mismatch: ${front.version} vs ${back.version}`);
+}
+
 async function bootstrap(){
   try{
     state.online=Boolean((await api("/health",{auth:false})).ok);
+    await verifyVersionAlignment();
     await bootstrapSession();
     await resolveLaunch();
     const c=await api("/standalone/v1/interface/capabilities");
