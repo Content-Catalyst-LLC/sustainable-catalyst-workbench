@@ -59,6 +59,7 @@ def application_manifest() -> Dict[str, Any]:
             "wordpressStateDependency": "eliminated-v12.8",
             "standaloneMigrationCertification": "active-v12.9",
             "v12ProductionConsolidation": "active-v12.10",
+            "functionalStandaloneInterface": "active-v13.0",
         },
     }
     body["manifestHash"] = _hash(body)
