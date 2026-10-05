@@ -1,8 +1,8 @@
 {
   "product": "workbench",
   "name": "Sustainable Catalyst Workbench",
-  "version": "13.7.0",
-  "interface": "reproducibility-package-workspace",
+  "version": "13.8.0",
+  "interface": "unified-workbench-workspace",
   "api": "https://workbench-api.sustainablecatalyst.com",
   "wordpressRequired": false
 }
