@@ -82,3 +82,13 @@
 @media(max-width:1000px){.sc-unified-surface-grid{grid-template-columns:repeat(2,1fr)}.sc-unified-counts{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:720px){.sc-unified-hero,.sc-unified-surface-grid,.sc-unified-counts,.sc-unified-activity-row{grid-template-columns:1fr}}
 
+/* Workbench v13.9.0 — Natural-Language Computation Foundation */
+.sc-nl-panel{border:1px solid #292929;border-radius:9px;padding:14px;background:#090909;margin-bottom:14px}
+.sc-nl-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.sc-nl-plan{margin-top:12px;border-top:1px solid #222;padding-top:12px}
+.sc-nl-plan-grid{display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:8px}
+.sc-nl-plan-cell{border:1px solid #292929;border-radius:8px;padding:10px;background:#0b0b0b}
+.sc-nl-expression{font-family:ui-monospace,monospace;word-break:break-word}
+.sc-nl-warning{padding:8px 10px;border:1px solid #4a3d23;border-radius:7px;margin-top:8px}
+@media(max-width:760px){.sc-nl-plan-grid{grid-template-columns:1fr 1fr}}
+
