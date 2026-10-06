@@ -1,8 +1,8 @@
 {
   "product": "workbench",
   "name": "Sustainable Catalyst Workbench",
-  "version": "13.9.0",
-  "interface": "natural-language-computation-foundation",
+  "version": "13.10.0",
+  "interface": "intent-to-calculation-planning-explainable-execution",
   "api": "https://workbench-api.sustainablecatalyst.com",
   "wordpressRequired": false
 }

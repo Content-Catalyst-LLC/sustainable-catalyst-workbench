@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Sustainable Catalyst Prototyping Workbench
- * Version: 13.9.0
+ * Version: 13.10.0
  */
 if (!defined('ABSPATH')) { exit; }
-define('SCWB_VERSION', '13.9.0');
+define('SCWB_VERSION', '13.10.0');
 
 // Workbench v2.0.0 — Go Runner, Research Lab, and Hardware Studio Foundation.
 if (!defined('SCWB_V200_PLUGIN_FILE')) {
@@ -552,3 +552,6 @@ require_once __DIR__ . '/includes/scwb-v1380-unified-workbench-workspace.php';
 
 // Workbench v13.9.0 — Natural-Language Computation Foundation.
 require_once __DIR__ . '/includes/scwb-v1390-natural-language-computation-foundation.php';
+
+// Workbench v13.10.0 — Intent-to-Calculation Planning & Explainable Execution.
+require_once __DIR__ . '/includes/scwb-v13100-intent-planning-explainable-execution.php';

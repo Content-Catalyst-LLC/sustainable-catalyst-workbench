@@ -92,3 +92,14 @@
 .sc-nl-warning{padding:8px 10px;border:1px solid #4a3d23;border-radius:7px;margin-top:8px}
 @media(max-width:760px){.sc-nl-plan-grid{grid-template-columns:1fr 1fr}}
 
+/* Workbench v13.10.0 — Intent-to-Calculation Planning & Explainable Execution */
+.sc-plan{margin-top:12px;border-top:1px solid #222;padding-top:12px}
+.sc-plan-steps{display:grid;gap:7px;margin:10px 0}
+.sc-plan-step{display:grid;grid-template-columns:32px minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid #292929;border-radius:8px;padding:9px;background:#0b0b0b}
+.sc-plan-step-index{font-family:ui-monospace,monospace;font-size:12px}
+.sc-plan-alternatives{display:grid;gap:8px}
+.sc-plan-alternative{border:1px solid #292929;border-radius:8px;padding:10px;background:#0b0b0b}
+.sc-plan-validation{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.sc-explanation{margin-top:14px;border:1px solid #292929;border-radius:9px;padding:12px;background:#090909}
+.sc-explanation-list{margin:8px 0 0 18px}
+
