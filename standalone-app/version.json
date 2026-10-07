@@ -1,8 +1,9 @@
 {
   "product": "workbench",
   "name": "Sustainable Catalyst Workbench",
-  "version": "13.11.0",
-  "interface": "domain-calculator-registry-templates",
+  "version": "13.12.0",
+  "interface": "standalone-functional-production-certification",
   "api": "https://workbench-api.sustainablecatalyst.com",
-  "wordpressRequired": false
+  "wordpressRequired": false,
+  "v13ProductionCertified": true
 }
