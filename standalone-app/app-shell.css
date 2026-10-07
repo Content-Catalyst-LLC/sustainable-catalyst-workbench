@@ -102,4 +102,6 @@
 .sc-plan-validation{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
 .sc-explanation{margin-top:14px;border:1px solid #292929;border-radius:9px;padding:12px;background:#090909}
 .sc-explanation-list{margin:8px 0 0 18px}
+/* Workbench v13.11.0 — Domain Calculator Registry & Templates */
+.sc-domain-panel{border:1px solid #292929;border-radius:9px;padding:14px;background:#090909;margin-bottom:14px}.sc-domain-toolbar{display:grid;grid-template-columns:minmax(180px,1fr) minmax(220px,2fr);gap:10px}.sc-domain-template-grid{display:grid;grid-template-columns:repeat(3,minmax(180px,1fr));gap:9px;margin-top:12px}.sc-domain-template-card{border:1px solid #292929;border-radius:8px;padding:11px;background:#0b0b0b;display:grid;gap:7px;text-align:left}.sc-domain-template-card.active{border-width:2px}.sc-domain-params{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:9px;margin-top:10px}.sc-domain-instance{margin-top:10px;border-top:1px solid #222;padding-top:10px}.sc-domain-formula{font-family:ui-monospace,monospace;word-break:break-word}@media(max-width:900px){.sc-domain-template-grid,.sc-domain-params{grid-template-columns:repeat(2,1fr)}}@media(max-width:650px){.sc-domain-toolbar,.sc-domain-template-grid,.sc-domain-params{grid-template-columns:1fr}}
 

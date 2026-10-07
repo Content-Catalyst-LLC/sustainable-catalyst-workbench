@@ -1,8 +1,8 @@
 {
   "product": "workbench",
   "name": "Sustainable Catalyst Workbench",
-  "version": "13.10.0",
-  "interface": "intent-to-calculation-planning-explainable-execution",
+  "version": "13.11.0",
+  "interface": "domain-calculator-registry-templates",
   "api": "https://workbench-api.sustainablecatalyst.com",
   "wordpressRequired": false
 }
