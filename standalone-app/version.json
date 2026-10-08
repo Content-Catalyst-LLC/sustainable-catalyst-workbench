@@ -1,9 +1,8 @@
 {
   "product": "workbench",
   "name": "Sustainable Catalyst Workbench",
-  "version": "13.12.0",
-  "interface": "standalone-functional-production-certification",
+  "version": "14.0.0",
+  "interface": "computational-workflow-composer",
   "api": "https://workbench-api.sustainablecatalyst.com",
-  "wordpressRequired": false,
-  "v13ProductionCertified": true
+  "wordpressRequired": false
 }

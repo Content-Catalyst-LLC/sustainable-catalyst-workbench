@@ -107,4 +107,9 @@
 /* Workbench v13.12.0 — Standalone Functional Production Certification */
 .sc-v13-certified{display:inline-flex;align-items:center;gap:7px;border:1px solid #2c2c2c;border-radius:999px;padding:6px 10px;font-size:12px}
 .sc-v13-certified strong{letter-spacing:.02em}
+/* Workbench v14.0.0 — Computational Workflow Composer */
+.sc-workflow-grid{display:grid;grid-template-columns:minmax(260px,1fr) minmax(360px,2fr);gap:14px}
+.sc-workflow-steps{display:grid;gap:10px}.sc-workflow-step{border:1px solid #292929;border-radius:8px;padding:12px;background:#0b0b0b}
+.sc-workflow-step-grid{display:grid;grid-template-columns:160px 1fr;gap:8px}.sc-workflow-dag{font-family:ui-monospace,monospace;word-break:break-word}
+@media(max-width:850px){.sc-workflow-grid,.sc-workflow-step-grid{grid-template-columns:1fr}}
 
