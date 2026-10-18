@@ -88,7 +88,7 @@ E('readmode').onclick=async()=>{
 </script>"""
 def canvas_page():
     page=authenticated_page()
-    assert page.startswith("<!doctype html>") && "</head>" in page
+    assert page.startswith("<!doctype html>") and "</head>" in page
     assert page.count('<article><h2>Manuscript editor</h2>')==1
     assert page.rstrip().endswith("</html>") && "</body>" in page
     page=page.replace("</head>",STYLE+"</head>",1)
