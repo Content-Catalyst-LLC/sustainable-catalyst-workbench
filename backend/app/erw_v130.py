@@ -90,7 +90,7 @@ def canvas_page():
     page=authenticated_page()
     assert page.startswith("<!doctype html>") and "</head>" in page
     assert page.count('<article><h2>Manuscript editor</h2>')==1
-    assert page.rstrip().endswith("</html>") && "</body>" in page
+    assert page.rstrip().endswith("</html>") and "</body>" in page
     page=page.replace("</head>",STYLE+"</head>",1)
     page=page.replace('<article><h2>Manuscript editor</h2>','<article><h2>Scientific document canvas</h2>'+TOOLS,1)
     before, marker, after = page.rpartition('</body>')
