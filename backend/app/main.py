@@ -757,3 +757,7 @@ app.include_router(erw_v020_router)
 # ERW 0.3.0 — hypothetical baseline/additionality scenario ledger
 from app.erw_v030 import router as erw_v030_router
 app.include_router(erw_v030_router)
+
+# ERW 0.4.0 — lifecycle burden and permanence evidence
+from app.erw_v040 import router as erw_v040_router
+app.include_router(erw_v040_router)
