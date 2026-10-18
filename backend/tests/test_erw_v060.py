@@ -13,7 +13,7 @@ def fixture():
              "incrementalPotentialProxyTonnesCO2":"1"} for year in (1,2)]})
     lifecycle={"researchId":scenario["researchId"],"calculationObjectHash":"b"*64,
       "sourceScenarioCalculationHash":"a"*64,
-      "totalsByCategoryTonnesCO2e":{"transport":"10","quarrying":"4"},
+      "lifecycleBurdenByCategoryTonnesCO2e":{"transport":"10","quarrying":"4"},
       "totalModeledLifecycleBurdenTonnesCO2e":"14"}
     uncertainty={"schema":"sc.erw.uncertainty-mrv.v0.5.0","researchId":scenario["researchId"],
       "calculationObjectHash":"c"*64,
@@ -45,7 +45,7 @@ def test_emissions_sum_rejected():
     f=fixture(); f.lifecycle["totalModeledLifecycleBurdenTonnesCO2e"]="16"
     with pytest.raises(HTTPException):visual(f)
 def test_nonfinite_rejected():
-    f=fixture(); f.lifecycle["totalsByCategoryTonnesCO2e"]["transport"]="NaN"
+    f=fixture(); f.lifecycle["lifecycleBurdenByCategoryTonnesCO2e"]["transport"]="NaN"
     with pytest.raises(HTTPException):visual(f)
 def test_negative_interval_allowed_for_screening():
     f=fixture(); f.uncertainty["exploratoryProxyMinusBurdenTonnes"]["low"]="-2"
