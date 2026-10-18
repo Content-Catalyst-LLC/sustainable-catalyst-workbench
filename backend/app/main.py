@@ -777,3 +777,7 @@ app.include_router(erw_v070_router)
 # ERW 0.8.0 unpublished academic report composer
 from app.erw_v080 import router as erw_v080_router
 app.include_router(erw_v080_router)
+
+# ERW 0.9.0 scientific-integrity and publication audit
+from app.erw_v090 import router as erw_v090_router
+app.include_router(erw_v090_router)
