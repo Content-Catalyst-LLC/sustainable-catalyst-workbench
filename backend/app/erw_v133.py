@@ -60,6 +60,7 @@ el('evidence-open').onclick=async()=>{
    '\nMachine verified: NO\nNotes: '+o.note;
  }catch(e){notice(e)}
 };
+evidenceOptions();
 """
 def build_page():
     page=previous()
