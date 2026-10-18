@@ -51,3 +51,10 @@ def test_snapshot_menu_collapses_identical_hashes():
     assert len(output)==1
     assert output[0]["id"]=="new"
     assert "aaaaaaaaaa" in output[0]["title"]
+
+
+def test_saved_object_selector_excludes_report_snapshots():
+    page=m.build_page()
+    assert "catalog=d.objects.filter(x=>x.schema!=='sc.erw.report-workspace.v1.2.0')" in page
+    assert "await refreshDrafts()" in page
+    assert "Saved report snapshots" in page
