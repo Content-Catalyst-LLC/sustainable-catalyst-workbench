@@ -4,7 +4,7 @@ from fastapi import HTTPException
 from app.erw_v060 import VisualRequest,visual,status
 
 def fixture():
-    scenario={"schema":"sc.erw.scenario-ledger.v0.3.0","researchId":"erw-wexford-hypothetical-100ha-v0.1",
+    scenario={"schema":"sc.erw.scenario-ledger.v0.3.0","researchId":"SC-ERW-IRELAND-001",
       "calculationObjectHash":"a"*64,"scenarios":[]}
     for rate in ("0","10"):
         scenario["scenarios"].append({"rateTonnesPerHa":rate,"annual":[
