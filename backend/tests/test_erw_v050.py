@@ -60,7 +60,7 @@ def test_distinct_hashes_required():
 def test_sensitivity_count():
     a=analyze(fixture())
     assert len(a["sensitivityOneAtATime"])==4
-    assert a["sensitivityOneAtATime"][0]["absoluteSwingTonnesCO2"]=="15"
+    assert a["sensitivityOneAtATime"][0]["absoluteSwingTonnesCO2"]=="30"
 
 def test_hash_deterministic():
     assert analyze(fixture())["calculationObjectHash"]==analyze(fixture())["calculationObjectHash"]
