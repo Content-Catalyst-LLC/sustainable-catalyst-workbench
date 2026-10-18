@@ -797,3 +797,7 @@ app.include_router(erw_v120_router)
 # ERW 1.2.1 Sustainable Catalyst identity and onboarding
 from app.erw_v121 import router as erw_v121_router
 app.include_router(erw_v121_router)
+
+# ERW 1.2.2 authenticated report workspace
+from app.erw_v122 import router as erw_v122_router
+app.include_router(erw_v122_router)
