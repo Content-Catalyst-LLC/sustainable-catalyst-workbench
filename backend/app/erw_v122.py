@@ -38,10 +38,16 @@ def _unique_snapshots(items):
     seen=set()
     unique=[]
     for item in reversed(drafts):
-        if item["hash"] in seen:
+        fingerprint=item.get("hash")
+        # Incomplete legacy/test catalog entries cannot be deduplicated safely.
+        if not isinstance(fingerprint,str) or not fingerprint:
+            unique.append(item)
             continue
-        seen.add(item["hash"])
-        unique.append({**item,"title":item["title"]+" · "+item["hash"][:10]})
+        if fingerprint in seen:
+            continue
+        seen.add(fingerprint)
+        label=item.get("title")
+        unique.append({**item,"title":(label+" · "+fingerprint[:10]) if label else fingerprint[:10]})
     return unique
 
 @router.get("/erw/v1.2.2/projects/{project_id}/report-drafts")
