@@ -85,7 +85,7 @@ def model(req: ScenarioRequest):
         scenarios.append({"rateTonnesPerHa":out(rate),"rockTonnes":out(rock),
                           "grossTheoreticalUpperBoundTonnesCO2":out(gross),
                           "annual":series,
-                          "cumulativeIncrementalPotentialProxyTonnesCO2":out(sum((Decimal(z["incrementalPotentialProxyTonnesCO2"]) for z in series),Decimal("0")))})
+                          "cumulativeIncrementalPotentialProxyTonnesCO2":out(gross * sum((frac for a, frac in zip(assumptions, fractions) if a.year >= req.applicationYear), Decimal("0")))})
     payload={"schema":"sc.erw.scenario-ledger.v0.3.0","workbenchVersion":APP_VERSION,
              "researchId":PROJECT_KEY,
              "inputs":{"studyAreaHa":out(area),"years":req.years,
