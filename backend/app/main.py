@@ -745,3 +745,7 @@ app.include_router(v13120_router)
 # Workbench v14.0.0 — Computational Workflow & Multi-Step Calculation Composer.
 from app.v1400 import router as v1400_router
 app.include_router(v1400_router)
+
+# ERW 0.1.0 — Wexford research project and feedstock-mass foundation.
+from app.erw_v010 import router as erw_v010_router
+app.include_router(erw_v010_router)
