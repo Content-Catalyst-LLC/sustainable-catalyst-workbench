@@ -781,3 +781,7 @@ app.include_router(erw_v080_router)
 # ERW 0.9.0 scientific-integrity and publication audit
 from app.erw_v090 import router as erw_v090_router
 app.include_router(erw_v090_router)
+
+# ERW 1.0.0 end-to-end research certification manifest
+from app.erw_v100 import router as erw_v100_router
+app.include_router(erw_v100_router)
