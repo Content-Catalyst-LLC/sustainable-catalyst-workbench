@@ -38,7 +38,6 @@ async function evidenceRefresh(){
 el('evidence-save').onclick=async()=>{
  try{
   const sourceId=el('pdfsources').value;if(!sourceId)throw Error('Choose a PDF in the Source Library first');
-  evidenceOptions();
   const body={sourceId,sectionId:el('evidence-section').value,claim:el('evidence-claim').value,
    pageReference:el('evidence-page').value,excerpt:el('evidence-excerpt').value,
    evidenceClass:el('evidence-class').value,assessment:el('evidence-assessment').value,
