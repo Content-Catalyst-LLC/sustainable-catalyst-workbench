@@ -761,3 +761,7 @@ app.include_router(erw_v030_router)
 # ERW 0.4.0 — lifecycle burden and permanence evidence
 from app.erw_v040 import router as erw_v040_router
 app.include_router(erw_v040_router)
+
+# ERW 0.5.0 — uncertainty and MRV readiness
+from app.erw_v050 import router as erw_v050_router
+app.include_router(erw_v050_router)
