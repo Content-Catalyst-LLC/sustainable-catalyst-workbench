@@ -823,3 +823,9 @@ from app.erw_v133 import router as erw_v133_router
 from app.erw_v133_evidence import router as erw_v133_evidence_router
 app.include_router(erw_v133_router)
 app.include_router(erw_v133_evidence_router)
+
+# ERW 1.3.4 native DOCX and PDF research report export
+from app.erw_v134 import router as erw_v134_router
+from app.erw_v134_export import router as erw_v134_export_router
+app.include_router(erw_v134_router)
+app.include_router(erw_v134_export_router)
