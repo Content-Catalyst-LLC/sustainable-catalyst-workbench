@@ -40,7 +40,7 @@ def compose(req:ReportRequest):
     objs=req.sourceObjects;hashes={}
     for k in KINDS:
         o=objs[k]
-        if o.get("researchId")!=PROJECT_KEY:raise HTTPException(422,detail=k+": research mismatch")
+        if k!="geochemistry" and o.get("researchId")!=PROJECT_KEY:raise HTTPException(422,detail=k+": research mismatch")
         h=o.get("calculationObjectHash")
         if not isinstance(h,str) or len(h)<16 or len(h)>200:raise HTTPException(422,detail=k+": missing hash")
         if o.get("schema")!=EXPECTED[k]:
