@@ -785,3 +785,7 @@ app.include_router(erw_v090_router)
 # ERW 1.0.0 end-to-end research certification manifest
 from app.erw_v100 import router as erw_v100_router
 app.include_router(erw_v100_router)
+
+# ERW 1.1.0 authenticated research explorer and client SVG figure export
+from app.erw_v110 import router as erw_v110_router
+app.include_router(erw_v110_router)
