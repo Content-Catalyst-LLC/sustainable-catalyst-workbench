@@ -32,11 +32,23 @@ def context_route(authorization:Optional[str]=Header(default=None)):
     return {"ok":True,"identityId":owner,"projects":projects,
             "wordPressRequired":False}
 
+def _unique_snapshots(items):
+    """Collapse identical report hashes in the UI only; never delete saved history."""
+    drafts=[i for i in items if i["schema"]==REPORT and i["digestConsistent"]]
+    seen=set()
+    unique=[]
+    for item in reversed(drafts):
+        if item["hash"] in seen:
+            continue
+        seen.add(item["hash"])
+        unique.append({**item,"title":item["title"]+" · "+item["hash"][:10]})
+    return unique
+
 @router.get("/erw/v1.2.2/projects/{project_id}/report-drafts")
 def drafts_route(project_id:str,authorization:Optional[str]=Header(default=None)):
     owner=owner_from_auth(authorization)
     items=catalog(project_id,owner)
-    return {"ok":True,"drafts":[i for i in items if i["schema"]==REPORT and i["digestConsistent"]]}
+    return {"ok":True,"drafts":_unique_snapshots(items)}
 
 # This remains a tab-memory bearer session; it is never written to a URL or
 # web storage. The existing editor's API methods retain owner validation.
