@@ -773,3 +773,7 @@ app.include_router(erw_v060_router)
 # ERW 0.7.0 equation/map/diagram representations
 from app.erw_v070 import router as erw_v070_router
 app.include_router(erw_v070_router)
+
+# ERW 0.8.0 unpublished academic report composer
+from app.erw_v080 import router as erw_v080_router
+app.include_router(erw_v080_router)
