@@ -753,3 +753,7 @@ app.include_router(erw_v010_router)
 # ERW 0.2.0 — exploratory feedstock composition and stoichiometry.
 from app.erw_v020 import router as erw_v020_router
 app.include_router(erw_v020_router)
+
+# ERW 0.3.0 — hypothetical baseline/additionality scenario ledger
+from app.erw_v030 import router as erw_v030_router
+app.include_router(erw_v030_router)
