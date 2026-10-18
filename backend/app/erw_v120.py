@@ -152,7 +152,16 @@ def create_table(project_id:str,request:TableRequest,authorization:Optional[str]
 @router.post("/erw/v1.2.0/projects/{project_id}/reports")
 def create_report(project_id:str,request:ReportRequest,authorization:Optional[str]=Header(default=None)):
     owner,_=_owner(authorization)
-    return store(project_id,owner,make_report(project_id,owner,request),"ERW research report: "+request.title)
+    candidate=make_report(project_id,owner,request)
+    # An unchanged manuscript is already preserved by the latest matching snapshot.
+    for row in reversed(list_calculations(project_id,owner)):
+        existing=row.get("calculationObject",{})
+        if (existing.get("schema")==REPORT
+            and existing.get("calculationObjectHash")==candidate["calculationObjectHash"]
+            and existing.get("projectId")==project_id):
+            return {"ok":True,"id":row["id"],"object":candidate,
+                    "immutableSnapshot":True,"unchanged":True}
+    return store(project_id,owner,candidate,"ERW research report: "+request.title)
 
 @router.get("/erw/v1.2.0/report",response_class=HTMLResponse)
 def report_ui():return HTMLResponse(PAGE)
