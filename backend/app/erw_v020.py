@@ -81,6 +81,10 @@ def calculate(req: PotentialRequest) -> dict:
     if total < Decimal("99"):
         reasons.append("bulk-assay-incomplete-or-unreported")
     # Even a complete assay cannot certify net durable atmospheric uptake.
+    def output_decimal(value: Decimal) -> str:
+        """Emit canonical zero rather than Decimal exponent notation (0E-28)."""
+        return "0" if value == 0 else str(value)
+
     obj = {
         "schema": "sc.erw.stoichiometric-potential.v0.2.0",
         "method": {"name": "idealized-four-oxide-charge-balance",
@@ -89,10 +93,10 @@ def calculate(req: PotentialRequest) -> dict:
                    "assumption": "complete idealized carbonic-acid dissolution"},
         "assay": assay.model_dump(),
         "inputs": {"rockTonnes": str(mass), "unit": "t feedstock"},
-        "oxideContributionsTco2PerTrock": {k: str(v) for k,v in contributions.items()},
+        "oxideContributionsTco2PerTrock": {k: output_decimal(v) for k,v in contributions.items()},
         "grossUpperBound": {
-            "tCO2PerTFeedstock": str(gross),
-            "tCO2ForInputRockMass": str(gross * mass),
+            "tCO2PerTFeedstock": output_decimal(gross),
+            "tCO2ForInputRockMass": output_decimal(gross * mass),
         },
         "assayTotalWtPct": str(total),
         "unresolvedCorrections": reasons,
