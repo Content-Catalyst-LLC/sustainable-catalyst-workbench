@@ -817,3 +817,9 @@ from app.erw_v132 import router as erw_v132_router
 from app.erw_v132_sources import router as erw_v132_sources_router
 app.include_router(erw_v132_router)
 app.include_router(erw_v132_sources_router)
+
+# ERW 1.3.3 evidence links and inspection
+from app.erw_v133 import router as erw_v133_router
+from app.erw_v133_evidence import router as erw_v133_evidence_router
+app.include_router(erw_v133_router)
+app.include_router(erw_v133_evidence_router)
