@@ -811,3 +811,9 @@ from app.erw_v131 import router as erw_v131_router
 from app.erw_v131_import import router as erw_v131_import_router
 app.include_router(erw_v131_router)
 app.include_router(erw_v131_import_router)
+
+# ERW 1.3.2 private PDF sources and Harvard citations
+from app.erw_v132 import router as erw_v132_router
+from app.erw_v132_sources import router as erw_v132_sources_router
+app.include_router(erw_v132_router)
+app.include_router(erw_v132_sources_router)
