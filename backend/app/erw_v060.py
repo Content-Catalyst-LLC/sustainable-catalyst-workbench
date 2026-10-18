@@ -79,7 +79,7 @@ def visual(req:VisualRequest):
         trajectories.append({"rateTonnesPerHa":rate,"points":points})
     if sum(len(x["points"]) for x in trajectories)>MAX_POINTS:
         raise HTTPException(422,detail="Visualization size exceeded")
-    category=required(l,"totalsByCategoryTonnesCO2e")
+    category=required(l,"lifecycleBurdenByCategoryTonnesCO2e")
     if not isinstance(category,dict) or len(category)>30: raise HTTPException(422,detail="Invalid emissions categories")
     emissions=[{"category":k,"tonnesCO2e":num_string(v,"emissions")} for k,v in sorted(category.items())]
     required_total=number(required(l,"totalModeledLifecycleBurdenTonnesCO2e"),"total emissions")
