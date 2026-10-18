@@ -82,7 +82,7 @@ AUTH_CONNECT="""el('connect').onclick=async()=>{try{
  if(wex)await refreshObjects();
  }catch(e){token='';notice(e)}};"""
 LOAD_ORIGINAL="""el('load').onclick=async()=>{try{let d=await api('/erw/v1.2.0/projects/'+project()+'/objects');catalog=d.objects;options('object',catalog);el('status').textContent=catalog.length+' stored research objects'}catch(e){notice(e)}};"""
-LOAD_NEW="""async function refreshObjects(){let d=await api('/erw/v1.2.0/projects/'+project()+'/objects');catalog=d.objects;options('object',catalog);el('status').textContent=catalog.length+' stored research objects';await refreshDrafts()}
+LOAD_NEW="""async function refreshObjects(){let d=await api('/erw/v1.2.0/projects/'+project()+'/objects');catalog=d.objects.filter(x=>x.schema!==REPORT);options('object',catalog);el('status').textContent=catalog.length+' insertable research object(s); saved reports are listed separately above.';await refreshDrafts()}
 el('load').onclick=async()=>{try{await refreshObjects()}catch(e){notice(e)}};
 async function refreshDrafts(){const d=await api('/erw/v1.2.2/projects/'+project()+'/report-drafts');options('drafts',d.drafts.map(x=>({id:x.id,title:x.title})))}
 el('restore').onclick=async()=>{try{
