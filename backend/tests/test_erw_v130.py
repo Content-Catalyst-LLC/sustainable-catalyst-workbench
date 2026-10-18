@@ -9,8 +9,9 @@ def test_build_canvas():
     assert 'Signed Workbench session token' not in page
     assert 'Sign in and open my projects' in page
     assert 'Save draft snapshot' in page
-    assert page.count('</head>')==1
-    assert page.count('</body>')==1
+    assert '<style id="sc-document-canvas-theme">' in page
+    assert page.rfind('id="sc-canvas-controls"') > page.find('id="document-outline"')
+    assert page.rstrip().endswith('</html>')
 
 def test_scientific_limitations():
     s=m.status()
