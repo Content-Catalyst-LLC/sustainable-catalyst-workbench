@@ -88,12 +88,14 @@ E('readmode').onclick=async()=>{
 </script>"""
 def canvas_page():
     page=authenticated_page()
-    assert page.count("</head>")==1
+    assert page.startswith("<!doctype html>") && "</head>" in page
     assert page.count('<article><h2>Manuscript editor</h2>')==1
-    assert page.count("</body>")==1
+    assert page.rstrip().endswith("</html>") && "</body>" in page
     page=page.replace("</head>",STYLE+"</head>",1)
     page=page.replace('<article><h2>Manuscript editor</h2>','<article><h2>Scientific document canvas</h2>'+TOOLS,1)
-    page=page.replace('</body>',SCRIPT+'</body>',1)
+    before, marker, after = page.rpartition('</body>')
+    assert marker and after.strip() == '</html>'
+    page=before+SCRIPT+marker+after
     return page
 def status():
     return {"ok":True,"extensionVersion":"1.3.0",
