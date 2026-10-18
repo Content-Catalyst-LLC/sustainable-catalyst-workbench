@@ -789,3 +789,7 @@ app.include_router(erw_v100_router)
 # ERW 1.1.0 authenticated research explorer and client SVG figure export
 from app.erw_v110 import router as erw_v110_router
 app.include_router(erw_v110_router)
+
+# ERW 1.2.0 report workspace and first-class research tables
+from app.erw_v120 import router as erw_v120_router
+app.include_router(erw_v120_router)
