@@ -15,7 +15,7 @@ from .erw_v010 import PROJECT_KEY
 router=APIRouter(tags=["erw-0.8.0"])
 KINDS=("geochemistry","scenario","lifecycle","uncertainty","visualization","diagrams")
 EXPECTED={
- "geochemistry":"sc.erw.geochemical-capacity.v0.2.0",
+ "geochemistry":"sc.erw.stoichiometric-potential.v0.2.0",
  "scenario":"sc.erw.scenario-ledger.v0.3.0",
  "lifecycle":"sc.erw.lifecycle-permanence.v0.4.0",
  "uncertainty":"sc.erw.uncertainty-mrv.v0.5.0",
@@ -43,7 +43,7 @@ def compose(req:ReportRequest):
         if o.get("researchId")!=PROJECT_KEY:raise HTTPException(422,detail=k+": research mismatch")
         h=o.get("calculationObjectHash")
         if not isinstance(h,str) or len(h)<16 or len(h)>200:raise HTTPException(422,detail=k+": missing hash")
-        if k!="geochemistry" and o.get("schema")!=EXPECTED[k]:
+        if o.get("schema")!=EXPECTED[k]:
             raise HTTPException(422,detail=k+": incompatible schema")
         hashes[k]=h
     if len(set(hashes.values()))!=6:raise HTTPException(422,detail="Source hashes must be distinct")
