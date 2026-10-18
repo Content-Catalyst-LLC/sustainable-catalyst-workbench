@@ -805,3 +805,9 @@ app.include_router(erw_v122_router)
 # ERW 1.3.0 scientific document canvas
 from app.erw_v130 import router as erw_v130_router
 app.include_router(erw_v130_router)
+
+# ERW 1.3.1 source-backed scientific figures and Word upload
+from app.erw_v131 import router as erw_v131_router
+from app.erw_v131_import import router as erw_v131_import_router
+app.include_router(erw_v131_router)
+app.include_router(erw_v131_import_router)
