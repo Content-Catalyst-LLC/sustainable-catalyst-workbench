@@ -829,3 +829,9 @@ from app.erw_v134 import router as erw_v134_router
 from app.erw_v134_export import router as erw_v134_export_router
 app.include_router(erw_v134_router)
 app.include_router(erw_v134_export_router)
+
+# ERW 1.3.5 publication readiness certification audit
+from app.erw_v135 import router as erw_v135_router
+from app.erw_v135_ui import router as erw_v135_ui_router
+app.include_router(erw_v135_router)
+app.include_router(erw_v135_ui_router)
