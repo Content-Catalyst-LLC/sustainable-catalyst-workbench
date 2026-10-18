@@ -26,7 +26,11 @@ def number(raw, label, ceiling="1000000000000"):
     return value
 
 def fmt(value):
-    return "0" if value == 0 else str(value)
+    """Canonical decimal string: 14.0 -> 14, without losing integer zeros."""
+    s = format(value, "f")
+    if "." in s:
+        s = s.rstrip("0").rstrip(".")
+    return s or "0"
 
 class Activity(BaseModel):
     category: str = Field(pattern="^(quarrying|crushing|processing|transport|spreading|monitoring|other)$")
