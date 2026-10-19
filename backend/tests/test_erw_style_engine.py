@@ -12,7 +12,7 @@ def test_modern_docx_layout():
  s=e.StyleOptions()
  blob=e.docx_export(REPORT,"project","owner",s)
  d=Document(BytesIO(blob))
- assert d.sections[0].page_height.mm==297
+ assert abs(d.sections[0].page_height.mm - 297) < 0.1
  assert round(d.sections[0].left_margin.mm)==25
  assert d.styles["Normal"].font.name=="Cambria"
  assert d.styles["Normal"].font.size.pt==11
