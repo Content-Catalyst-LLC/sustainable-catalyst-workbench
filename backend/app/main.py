@@ -839,3 +839,9 @@ app.include_router(erw_v135_ui_router)
 # ERW 1.3.6 manuscript structure and unified report entry
 from app.erw_v136 import router as erw_v136_router
 app.include_router(erw_v136_router)
+
+# Configurable academic and institutional document styling
+from app.erw_style_engine import router as erw_style_router
+from app.erw_style_ui import router as erw_style_ui_router
+app.include_router(erw_style_router)
+app.include_router(erw_style_ui_router)
