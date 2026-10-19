@@ -29,8 +29,10 @@ el('style-preset').onchange=()=>{
 };
 async function scStyleExport(format){
  try{
+  const original=el('export-draft').value;
   const d=await api('/erw/v1.2.2/projects/'+project()+'/report-drafts');
   options('export-draft',d.drafts.map(x=>({id:x.id,title:x.title})));
+  if(original&&d.drafts.some(x=>x.id===original))el('export-draft').value=original;
   const id=el('export-draft').value;
   if(!id)throw Error('Save a manuscript snapshot and select it in Native research report exports.');
   const data={preset:el('style-preset').value,fontFamily:el('style-font').value,
