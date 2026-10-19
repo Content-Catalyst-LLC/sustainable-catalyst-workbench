@@ -855,3 +855,9 @@ from app.erw_v1381_source import router as erw_v1381_source_router
 from app.erw_v1381_ui import router as erw_v1381_ui_router
 app.include_router(erw_v1381_source_router)
 app.include_router(erw_v1381_ui_router)
+
+# ERW 1.3.8.1.1 read-only research object discovery repair
+from app.erw_v13811_repair import router as erw_v13811_repair_router
+from app.erw_v13811_ui import router as erw_v13811_ui_router
+app.include_router(erw_v13811_repair_router)
+app.include_router(erw_v13811_ui_router)
