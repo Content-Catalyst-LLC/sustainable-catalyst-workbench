@@ -114,6 +114,9 @@ def build_page():
 @router.get("/erw/v1.3.6/report",response_class=HTMLResponse)
 def report_route():return HTMLResponse(build_page())
 @router.get("/erw/report")
-def current_report():return RedirectResponse(url="/erw/v1.3.6/report",status_code=307)
+def current_report():
+    from .erw_v13811_ui import build_page as latest_report
+    from .erw_v139_composition import compose_page
+    return HTMLResponse(compose_page(latest_report()))
 @router.get("/erw/v1.3.6/status")
 def status():return {"ok":True,"extensionVersion":"1.3.6","reviewedEmptySectionCleanup":True,"safeWordImportMode":True,"bibliographyReconciliation":True,"workspaceNavigation":True,"permanentWorkspaceRoute":True,"faithfulWordTables":False,"publicationCertified":False,"verifiedCDR":False}
