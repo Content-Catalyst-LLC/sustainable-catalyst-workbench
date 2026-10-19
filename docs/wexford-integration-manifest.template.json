@@ -1,0 +1,38 @@
+{
+  "schema": "sc.wexford.wi01.integration-manifest.v1",
+  "status": "draft-unverified",
+  "project": {
+    "name": "Wexford Enhanced Rock Weathering",
+    "workbench_project_id": "baf85d6f-8821-451f-87f6-5a90ccfd5f56",
+    "hypothetical_study": true
+  },
+  "observed": {
+    "pdf_source_count": 1,
+    "word_document_count": 4,
+    "workbench_container_healthy": true,
+    "lab_container_healthy": true,
+    "core_container_healthy": true,
+    "workspace_git_commit": "b0f1122"
+  },
+  "gates": {
+    "live_file_hashes_collected": false,
+    "consistent_backup_taken": false,
+    "backup_restore_verified": false,
+    "latest_manuscript_identified": false,
+    "lab_figure_handoff_tested": false,
+    "four_d_renderer_tested": false
+  },
+  "authority": {
+    "workbench": "ERW files and calculations",
+    "lab": "scientific methods",
+    "workspace": "persistent computation state",
+    "core": "canonical governance",
+    "library": "research sources"
+  },
+  "scientific_boundaries": {
+    "hypothetical_scenario": true,
+    "measured_field_results": false,
+    "verified_durable_cdr": false
+  },
+  "private_by_default": true
+}
