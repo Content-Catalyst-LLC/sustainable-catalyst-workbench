@@ -79,3 +79,8 @@ cd /opt/sustainable-catalyst/workbench
 docker compose -f compose.yml -f compose.erw121-identity.yml -f compose.erw136-styles.yml up -d --no-build --force-recreate workbench
 ```
 Rollback needs an existing `compose.erw136-styles.yml` and its image. Do not delete `/data` or run docker prune.
+
+## PNG export patch after initial 1.3.8 deployment
+The two SVG graphs now have browser-side PNG exports at 300 or 600 DPI-equivalent scaling (680px viewBox at 96px/in to 2125px or 4250px width). The exported images remain **hypothetical** and unverified; source identifiers are user supplied and not validated. The browser rasterizer creates a white-backed PNG and leaves existing SVG/CSV and report DOCX/PDF endpoints intact. Browser acceptance must explicitly inspect PNG visual quality and label legibility in Word; a passing HTML test does not certify browser rendering.
+
+To deploy on an already healthy ERW 1.3.8 instance: on Mac `git pull --ff-only origin feature/erw-1.3.8-dynamic-scientific-graphics`, rerun the existing suite, then SCP `backend/app/erw_v138.py` and `backend/tests/test_erw_v138.py` to `/tmp/`. On Contabo back up `backend/` and active Compose files, copy the two revised files into `backend/app/` and `backend/tests/`, rebuild using **new** tag `sustainable-catalyst-workbench:14.0.0-erw138-png`, smoke-check the updated controls and update a separate Compose override `compose.erw138-png.yml` to that tag. Use the normal loopback health checks and retain `compose.erw138.yml` for rollback. Do not remove persistent /data or restart unrelated services.
