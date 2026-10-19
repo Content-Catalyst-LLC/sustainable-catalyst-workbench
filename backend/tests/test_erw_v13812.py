@@ -44,3 +44,17 @@ def test_ui_integrates_preview_save_and_downloads():
   assert key in page
  assert "#sc138,#sc1381,#sc13811{display:none}" in page
  assert m.status()["fieldCalibrated"] is False
+
+def test_saved_model_reload_is_hash_and_owner_scoped(monkeypatch):
+ obj=m.calculate(params(),"wexford")
+ monkeypatch.setattr(m,"owner_from_auth",lambda auth:"owner")
+ monkeypatch.setattr(m,"project_for",lambda project,owner:{"id":project})
+ monkeypatch.setattr(m,"get_calculation",lambda identifier,owner:{"projectId":"wexford","calculationObject":obj})
+ response=m.saved_model("wexford","saved123",obj["calculationObjectHash"],"Bearer simulated")
+ assert response["visual"]["calculationObjectHash"]==obj["calculationObjectHash"]
+ with pytest.raises(HTTPException) as exc:
+  m.saved_model("wexford","saved123","tampered","Bearer simulated")
+ assert exc.value.status_code==409
+ with pytest.raises(HTTPException) as exc:
+  m.saved_model("other","saved123",obj["calculationObjectHash"],"Bearer simulated")
+ assert exc.value.status_code==404
