@@ -835,3 +835,7 @@ from app.erw_v135 import router as erw_v135_router
 from app.erw_v135_ui import router as erw_v135_ui_router
 app.include_router(erw_v135_router)
 app.include_router(erw_v135_ui_router)
+
+# ERW 1.3.6 manuscript structure and unified report entry
+from app.erw_v136 import router as erw_v136_router
+app.include_router(erw_v136_router)
