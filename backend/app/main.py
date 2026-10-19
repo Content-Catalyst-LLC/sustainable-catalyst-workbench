@@ -849,3 +849,9 @@ app.include_router(erw_style_ui_router)
 # ERW 1.3.8 browser-only scientific visual exploration
 from app.erw_v138 import router as erw_v138_router
 app.include_router(erw_v138_router)
+
+# ERW 1.3.8.1 hash-verified saved source visualization
+from app.erw_v1381_source import router as erw_v1381_source_router
+from app.erw_v1381_ui import router as erw_v1381_ui_router
+app.include_router(erw_v1381_source_router)
+app.include_router(erw_v1381_ui_router)
