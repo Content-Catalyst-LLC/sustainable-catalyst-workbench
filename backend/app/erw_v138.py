@@ -19,8 +19,11 @@ PANEL=r"""<section id="sc138" class="controls">
 <button type="button" id="sc138svg">Download scenario SVG</button>
 <button type="button" id="sc138pathsvg">Download pathway SVG</button>
 <button type="button" id="sc138csv">Download scenario CSV</button>
+<label for="sc138resolution">Raster export</label><select id="sc138resolution"><option value="300">300 DPI (Word default)</option><option value="600">600 DPI (print quality)</option></select>
+<button type="button" id="sc138png">Download scenario PNG</button>
+<button type="button" id="sc138pathpng">Download pathway PNG</button>
 <p id="sc138msg" role="status"></p>
-<p>Both charts are editable browser explorations. SVG/CSV downloads include assumptions and non-verification notices; PDF/DOCX outputs remain on the existing saved-report export routes.</p>
+<p>Both charts are editable browser explorations. SVG/PNG/CSV downloads include assumptions and non-verification notices; PDF/DOCX outputs remain on the existing saved-report export routes.</p>
 </section>"""
 JS=r"""
 (function(){
@@ -65,6 +68,36 @@ JS=r"""
  ['sc138dose','sc138year','sc138decay','sc138source'].forEach(id=>g(id).addEventListener('input',draw));
  g('sc138svg').onclick=()=>download('wexford-hypothetical-index.svg',chart,'image/svg+xml');
  g('sc138pathsvg').onclick=()=>download('erw-conceptual-pathway.svg',path,'image/svg+xml');
+ async function downloadPng(svgText,name,baseWidth,baseHeight){
+  const dpi=Number(g('sc138resolution').value);
+  if(![300,600].includes(dpi))throw Error('Unsupported DPI setting');
+  const scale=dpi/96;
+  const width=Math.round(baseWidth*scale),height=Math.round(baseHeight*scale);
+  const svgUrl=URL.createObjectURL(new Blob([svgText],{type:'image/svg+xml;charset=utf-8'}));
+  try{
+   const image=await new Promise((resolve,reject)=>{
+    const img=new Image();
+    img.onload=()=>resolve(img);
+    img.onerror=()=>reject(Error('SVG rendering failed'));
+    img.src=svgUrl;
+   });
+   const canvas=document.createElement('canvas');
+   canvas.width=width;canvas.height=height;
+   const context=canvas.getContext('2d');
+   if(!context)throw Error('Canvas drawing unavailable');
+   context.fillStyle='#fff';context.fillRect(0,0,width,height);
+   context.drawImage(image,0,0,width,height);
+   const png=await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(Error('PNG conversion failed')),'image/png'));
+   const url=URL.createObjectURL(png);
+   try{
+    const a=document.createElement('a');a.href=url;a.download=name+'-'+dpi+'dpi.png';
+    document.body.append(a);a.click();a.remove();
+   }finally{setTimeout(()=>URL.revokeObjectURL(url),1000);}
+   g('sc138msg').textContent='Exported '+name+' as '+width+' × '+height+' PNG at '+dpi+' DPI-equivalent scale. Review layout before Word insertion.';
+  }finally{URL.revokeObjectURL(svgUrl);}
+ }
+ g('sc138png').onclick=async()=>{try{await downloadPng(chart,'wexford-hypothetical-index',680,385)}catch(err){g('sc138msg').textContent=err.message||String(err)}};
+ g('sc138pathpng').onclick=async()=>{try{await downloadPng(path,'erw-conceptual-pathway',680,245)}catch(err){g('sc138msg').textContent=err.message||String(err)}};
  g('sc138csv').onclick=()=>{
   const att=Number(g('sc138decay').value)/100,dose=Number(g('sc138dose').value);
   let rows=['# HYPOTHETICAL DIMENSIONLESS INDEX — NOT VERIFIED CDR','# Reference hash entered in UI is NOT independently validated',
@@ -86,4 +119,4 @@ def build_page():
 @router.get("/erw/v1.3.8/report",response_class=HTMLResponse)
 def report():return HTMLResponse(build_page())
 @router.get("/erw/v1.3.8/status")
-def status():return {"ok":True,"extensionVersion":"1.3.8","dynamicGraphics":True,"conceptualPathway":True,"interactiveNormalizedScenarioIndex":True,"downloadSvgCsv":True,"savedDataMutated":False,"empiricalCarbonEstimation":False,"verifiedCDR":False,"publicationCertified":False}
+def status():return {"ok":True,"extensionVersion":"1.3.8","dynamicGraphics":True,"conceptualPathway":True,"interactiveNormalizedScenarioIndex":True,"downloadSvgCsv":True,"downloadPng300600":True,"savedDataMutated":False,"empiricalCarbonEstimation":False,"verifiedCDR":False,"publicationCertified":False}
