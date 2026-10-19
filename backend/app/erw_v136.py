@@ -24,13 +24,15 @@ PANEL="""<div id="sc-manuscript-repair">
 <select id="erw136mode"><option value="replace-empty">Replace an empty starter template (recommended)</option><option value="append">Append to current manuscript</option></select>
 <button id="erw136-clean" type="button">Preview cleanup of empty starter sections</button>
 <button id="erw136-apply" type="button">Apply reviewed cleanup to editor</button>
+<button id="erw136-bib-preview" type="button">Preview bibliography reconciliation</button>
+<button id="erw136-bib-apply" type="button">Move imported references into bibliography field</button>
 <pre id="erw136summary" role="status"></pre></div>"""
 NAV="""<nav id="sc-workspace-menu" aria-label="Research workspace modules">
 <a href="#document-outline">Manuscript</a><a href="#word-intake">Word import</a>
 <a href="#evidence-studio">Evidence</a><a href="#publication-audit">Audit</a>
 <a href="#native-export">Export</a></nav>"""
 JS=r"""
-const sc136={pending:[]};
+const sc136={pending:[],bibliographyCandidate:null};
 function sc136Norm(h){return String(h||'').trim().replace(/^\d+(?:\.\d+)*[.)]?\s*/, '').toLowerCase();}
 function sc136Plan(){
  const substantive=sections.filter(s=>String(s.text||'').trim());
@@ -48,6 +50,27 @@ el('erw136-apply').onclick=()=>{
  const remove=new Set(sc136.pending);
  sections=sections.filter((_,i)=>!remove.has(i));
  sc136.pending=[];paint();el('erw136summary').textContent='Editor updated. Review manuscript before saving a NEW snapshot.';
+};
+function sc136Bibs(){return sections.map((s,i)=>({s,i})).filter(x=>sc136Norm(x.s.heading)==='bibliography' && String(x.s.text||'').trim());}
+el('erw136-bib-preview').onclick=()=>{
+ sc136.bibliographyCandidate=null;
+ const bibs=sc136Bibs(),existing=el('bibliography').value.trim();
+ if(bibs.length!==1){throwNotice('Found '+bibs.length+' populated bibliography sections. Reconcile manually unless exactly one is present.');return;}
+ const incoming=String(bibs[0].s.text).trim();
+ if(existing && existing!==incoming){throwNotice('Dedicated bibliography already contains different text. Resolve differences manually; no automatic overwrite.');return;}
+ sc136.bibliographyCandidate={id:bibs[0].s.id,text:incoming};
+ el('erw136summary').textContent='Ready to transfer '+incoming.length+' characters from the imported Bibliography section. The dedicated field is '+(existing?'identical':'empty')+'. No changes made. Review original references first.';
+};
+el('erw136-bib-apply').onclick=()=>{
+ const candidate=sc136.bibliographyCandidate;
+ if(!candidate){throwNotice('Preview bibliography reconciliation first.');return;}
+ const matches=sections.filter(s=>s.id===candidate.id&&sc136Norm(s.heading)==='bibliography'&&String(s.text||'').trim()===candidate.text);
+ const existing=el('bibliography').value.trim();
+ if(matches.length!==1||(existing&&existing!==candidate.text)){sc136.bibliographyCandidate=null;throwNotice('Bibliography has changed. Preview again.');return;}
+ el('bibliography').value=candidate.text;
+ sections=sections.filter(s=>s!==matches[0]);
+ sc136.pending=[];sc136.bibliographyCandidate=null;paint();
+ el('erw136summary').textContent='References moved to dedicated bibliography field in this editor. Verify text and save a NEW snapshot; existing snapshots preserved.';
 };
 function throwNotice(m){el('erw136summary').textContent=m;}
 el('uploadword').onclick=async()=>{
