@@ -84,3 +84,8 @@ cd /opt/sustainable-catalyst/workbench
 docker compose -f compose.yml -f compose.erw121-identity.yml -f compose.erw135.yml up -d --no-build --force-recreate workbench
 ```
 Keep /data and previous image intact.
+
+## Bibliography reconciliation patch (after initial 1.3.6 rollout)
+For a previously imported Wexford manuscript, use **Preview bibliography reconciliation** then **Move imported references into bibliography field**. Exactly one populated Bibliography section must exist; otherwise the operation stops. If the dedicated field differs, review manually—never overwrite it automatically. The change is in the live editor only. Review the field, save a NEW snapshot, reopen it and run the publication-readiness audit. No saved historical calculation or original Word document is deleted.
+
+To deploy this patch atop an already healthy 1.3.6 image, use a new image tag `14.0.0-erw136-bibfix` (not `14.0.0-erw136`), with `erw_v136.py` and its test transferred from Mac. Back up the current backend before replacement, rebuild from `backend/Dockerfile`, validate the image and use a separate Compose override; retain the old 1.3.6 image/overlay for rollback. Do not remove the data mount.
