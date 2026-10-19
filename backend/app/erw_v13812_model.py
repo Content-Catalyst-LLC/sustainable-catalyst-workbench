@@ -10,7 +10,7 @@ from .erw_v121 import owner_from_auth
 from .erw_v110 import project_for
 from .erw_v010 import PROJECT_KEY
 from .v510 import content_hash
-from .v1220 import save_calculation, SavedCalculationCreateRequest
+from .v1220 import save_calculation, get_calculation, SavedCalculationCreateRequest
 from .erw_v1381_source import extract_series
 router=APIRouter(tags=["erw-1.3.8.1.2-scenario-model"])
 SCHEMA="sc.erw.visual-research-package.v0.6.0"
@@ -76,6 +76,22 @@ def save(project_id:str,request:ScenarioParameters,authorization:Optional[str]=H
       metadata={"researchId":PROJECT_KEY,"scientificStatus":"assumptions-only","publicationEnabled":False}),owner)
     return {"ok":True,"id":row["id"],"sourceHash":obj["calculationObjectHash"],
       "visual":obj,"immutableSnapshot":True,"verifiedCDR":False}
+
+@router.get("/erw/v1.3.8.1.2/projects/{project_id}/saved/{calculation_id}")
+def saved_model(project_id:str,calculation_id:str,hash:str,authorization:Optional[str]=Header(default=None)):
+    owner=owner_from_auth(authorization);project_for(project_id,owner)
+    row=get_calculation(calculation_id,owner)
+    if row.get("projectId")!=project_id:raise HTTPException(404,detail="Object not in project")
+    obj=row.get("calculationObject")
+    if not isinstance(obj,dict) or obj.get("schema")!=SCHEMA or "model" not in obj:
+        raise HTTPException(422,detail="Not a Wexford scenario model")
+    h=obj.get("calculationObjectHash")
+    if h!=hash or h!=content_hash({k:v for k,v in obj.items() if k!="calculationObjectHash"}):
+        raise HTTPException(409,detail="Saved calculation hash mismatch")
+    if obj.get("verifiedCDR") is not False or obj.get("netDurableAtmosphericRemoval") is not None:
+        raise HTTPException(422,detail="Unsupported verification status")
+    extract_series(obj)
+    return {"ok":True,"visual":obj,"id":calculation_id,"immutableSnapshot":True}
 
 @router.get("/erw/v1.3.8.1.2/status")
 def status():
