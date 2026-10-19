@@ -86,12 +86,9 @@ JS=r"""
  n('mload').onclick=async()=>{
   try{
    const o=n('mobjects').selectedOptions[0];if(!o)throw Error('Select a saved visual package');
-   const d=await api('/erw/v1.3.8.1.1/projects/'+project()+'/chart/'+encodeURIComponent(o.value)+'?hash='+encodeURIComponent(o.dataset.hash));
-   if(!d.ok||d.sourceHash!==o.dataset.hash)throw Error('Invalid saved source hash');
-   // Saved visual package itself contains model metadata; fetch same verified object through owner-scoped API.
-   const detail=await api('/erw/v1.2.0/projects/'+project()+'/objects/'+encodeURIComponent(o.value));
-   if(detail.object.calculationObjectHash!==d.sourceHash || !detail.object.model)throw Error('Not a supported saved model package');
-   draw(detail.object,true,o.value);
+   const detail=await api('/erw/v1.3.8.1.2/projects/'+project()+'/saved/'+encodeURIComponent(o.value)+'?hash='+encodeURIComponent(o.dataset.hash));
+   if(!detail.ok||detail.visual.calculationObjectHash!==o.dataset.hash)throw Error('Saved model hash mismatch');
+   draw(detail.visual,true,o.value);
   }catch(err){n('mstatus').textContent=String(err.message||err)}
  };
  n('msvg').onclick=()=>{if(active)saveFile('wexford-'+active.v.calculationObjectHash.slice(0,12)+'.svg',new Blob([svg],{type:'image/svg+xml'}))};
