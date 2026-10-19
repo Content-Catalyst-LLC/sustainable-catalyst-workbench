@@ -25,3 +25,14 @@ def test_safe_reconcile_does_not_write_snapshots():
     assert m.status()["publicationCertified"] is False
     assert m.status()["faithfulWordTables"] is False
     assert m.current_report().status_code==307
+
+
+def test_existing_bibliography_reconciliation_is_explicit_and_safe():
+    page=m.build_page()
+    assert 'id="erw136-bib-preview"' in page
+    assert 'id="erw136-bib-apply"' in page
+    assert "bibs.length!==1" in page
+    assert "existing && existing!==incoming" in page
+    assert "bibliographyCandidate" in page
+    assert "sections=sections.filter(s=>s!==matches[0])" in page
+    assert "save a NEW snapshot" in page
