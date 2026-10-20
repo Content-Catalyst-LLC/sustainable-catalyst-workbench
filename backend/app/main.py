@@ -861,3 +861,7 @@ from app.erw_v13811_repair import router as erw_v13811_repair_router
 from app.erw_v13811_ui import router as erw_v13811_ui_router
 app.include_router(erw_v13811_repair_router)
 app.include_router(erw_v13811_ui_router)
+
+# ERW v1.3.8.1.6 — Evidence and bibliography registry
+from app.erw_v13816_registry import router as erw_v13816_registry_router
+app.include_router(erw_v13816_registry_router)
