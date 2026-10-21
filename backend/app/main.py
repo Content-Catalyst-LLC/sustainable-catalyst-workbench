@@ -845,3 +845,7 @@ from app.erw_style_engine import router as erw_style_router
 from app.erw_style_ui import router as erw_style_ui_router
 app.include_router(erw_style_router)
 app.include_router(erw_style_ui_router)
+
+# ERW 1.3.8 browser-only scientific visual exploration
+from app.erw_v138 import router as erw_v138_router
+app.include_router(erw_v138_router)
