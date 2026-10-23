@@ -41,6 +41,10 @@ class PrecisionCalculationObjectRequest(BaseModel):
 
 def _hash(x): return content_hash(x)
 
+# Evaluate a caller expression with mpmath names at requested decimal
+# precision. The historical name describes intended arithmetic, not a
+# security guarantee: limiting builtins and string length does not establish
+# a verified sandbox. Route trust, resource cost and grammar require review.
 def _safe_eval(expr:str,dps:int):
     with mp.workdps(dps):
         env={"pi":mp.pi,"e":mp.e,"sqrt":mp.sqrt,"sin":mp.sin,"cos":mp.cos,"tan":mp.tan,
