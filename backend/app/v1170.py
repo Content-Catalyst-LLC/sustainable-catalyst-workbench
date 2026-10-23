@@ -99,6 +99,11 @@ def _require_right(req: PhysicalQuantityRequest):
     return _quantity_from_operand(req.right)
 
 
+# Apply Pint unit operations and return serialized magnitude/dimension data.
+# The derive branch accepts a caller formula over q1..qN and invokes Python
+# expression evaluation after a token check; that check is not a formal
+# grammar or independently verified sandbox. Treat the expression as a
+# security-sensitive input before exposing this route beyond trusted users.
 def execute_quantity(req: PhysicalQuantityRequest) -> Dict[str, Any]:
     details: Dict[str, Any] = {}
     verification: Dict[str, Any] = {}
