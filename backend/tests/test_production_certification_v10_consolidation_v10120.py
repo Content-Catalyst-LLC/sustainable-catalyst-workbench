@@ -10,7 +10,8 @@ def test_v10120_status_passes():
     assert r.status_code == 200
     data = r.json()
     assert data["ok"] is True
-    assert data["version"] == "10.12.0"
+    from app.release import APP_VERSION
+    assert data["version"] == APP_VERSION
     assert data["certification"] == "pass"
     assert data["wordpressRequired"] is False
     assert data["v10Consolidated"] is True
