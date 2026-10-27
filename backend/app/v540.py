@@ -203,13 +203,143 @@ def _horizontal_asymptotes(expr: sp.Expr, x: sp.Symbol, params: Dict[sp.Symbol, 
     return unique
 
 
+# V540-only performance accelerator. Bounded, pure-Python numeric interpretation of
+# existing restricted SymPy trees; unsupported constructs use the legacy engine.
+# There is no eval, exec, lambdify, or change to the accepted input grammar.
+def _v540_numeric_evaluator(expr: sp.Expr, variable: sp.Symbol, params: Dict[sp.Symbol, float]):
+    expr = expr.subs(params)
+    if expr.free_symbols - {variable}:
+        return None
+    unary = {
+        sp.sin: math.sin, sp.cos: math.cos, sp.tan: math.tan,
+        sp.asin: math.asin, sp.acos: math.acos, sp.atan: math.atan,
+        sp.sinh: math.sinh, sp.cosh: math.cosh, sp.tanh: math.tanh,
+        sp.exp: math.exp, sp.log: math.log, sp.Abs: abs,
+        sp.floor: math.floor, sp.ceiling: math.ceil,
+        sp.sign: lambda v: 0 if v == 0 else (1 if v > 0 else -1),
+    }
+
+    def build(node):
+        if node == variable:
+            return lambda xv: xv
+        if node.is_Number and node.is_real:
+            try:
+                value = float(node)
+            except (TypeError, ValueError, OverflowError):
+                return None
+            if math.isfinite(value):
+                return lambda xv, value=value: value
+            return None
+        if node in (sp.pi, sp.E):
+            value = float(node)
+            return lambda xv, value=value: value
+        if node.func in (sp.Add, sp.Mul):
+            children = [build(arg) for arg in node.args]
+            if any(child is None for child in children):
+                return None
+            if node.func == sp.Add:
+                return lambda xv, children=children: sum(fn(xv) for fn in children)
+            def product(xv, children=children):
+                result = 1.0
+                for fn in children:
+                    result *= fn(xv)
+                return result
+            return product
+        if node.func == sp.Pow and len(node.args) == 2:
+            base, exponent = build(node.args[0]), build(node.args[1])
+            if base is None or exponent is None:
+                return None
+            return lambda xv, base=base, exponent=exponent: base(xv) ** exponent(xv)
+        operation = unary.get(node.func)
+        if operation is not None and len(node.args) == 1:
+            arg = build(node.args[0])
+            if arg is not None:
+                return lambda xv, operation=operation, arg=arg: operation(arg(xv))
+        return None
+
+    calculate = build(expr)
+    if calculate is None:
+        return None
+
+    def evaluate(xv):
+        try:
+            value = calculate(xv)
+            if isinstance(value, complex):
+                # Legacy _safe_real rejects nonreal numbers, including values
+                # extremely close to the real line but with imaginary residue.
+                return None
+            value = float(value)
+            return value if math.isfinite(value) else None
+        except (ArithmeticError, TypeError, ValueError, OverflowError):
+            return None
+
+    return evaluate
+
+
+_v540_legacy_finite_real_roots = _finite_real_roots
+
+
+def _v540_numeric_roots(expr: sp.Expr, variable: sp.Symbol, lo: float, hi: float,
+                        samples: int, params: Dict[sp.Symbol, float]):
+    """Preserve SymPy exact candidates, use bounded numeric evaluation for scans."""
+    substituted = sp.simplify(expr.subs(params))
+    numeric = _v540_numeric_evaluator(substituted, variable, {})
+    if numeric is None:
+        return _v540_legacy_finite_real_roots(expr, variable, lo, hi, samples, params)
+    candidates = []
+    try:
+        solved = sp.solveset(substituted, variable, domain=sp.Interval(lo, hi))
+        if isinstance(solved, sp.FiniteSet):
+            for item in solved:
+                value = _safe_real(item, {})
+                if value is not None and lo - 1e-9 <= value <= hi + 1e-9:
+                    candidates.append(value)
+    except Exception:
+        pass
+
+    xs = _linspace(lo, hi, samples)
+    vals = [numeric(xv) for xv in xs]
+    for idx in range(len(xs) - 1):
+        a, b, fa, fb = xs[idx], xs[idx + 1], vals[idx], vals[idx + 1]
+        if fa is None or fb is None:
+            continue
+        if abs(fa) < 1e-9:
+            candidates.append(a)
+        if fa * fb < 0:
+            left, right, fl = a, b, fa
+            for _ in range(45):
+                mid = (left + right) / 2
+                fm = numeric(mid)
+                if fm is None:
+                    break
+                if abs(fm) < 1e-12:
+                    left = right = mid
+                    break
+                if fl * fm <= 0:
+                    right = mid
+                else:
+                    left, fl = mid, fm
+            candidates.append((left + right) / 2)
+
+    unique = []
+    for value in sorted(candidates):
+        if not unique or abs(value - unique[-1]) > 1e-6:
+            unique.append(value)
+    return unique[:100]
+
+
+# Scoped to Advanced Graph Mathematics II; earlier mathematics engines unchanged.
+_finite_real_roots = _v540_numeric_roots
+
+
 def _sample_expression(expr: sp.Expr, x: sp.Symbol, spec: SeriesSpec, payload: MultiGraphInput, params: Dict[sp.Symbol, float]) -> List[Optional[Dict[str, float]]]:
     points: List[Optional[Dict[str, float]]] = []
+    numeric = _v540_numeric_evaluator(expr, x, params)
     for xv in _linspace(payload.xMin, payload.xMax, payload.samples):
         if not _in_domain(spec, xv):
             points.append(None)
             continue
-        yv = _safe_real(expr, {x: xv, **params})
+        yv = numeric(xv) if numeric is not None else _safe_real(expr, {x: xv, **params})
         points.append(_point(xv, yv) if yv is not None else None)
     return points
 
