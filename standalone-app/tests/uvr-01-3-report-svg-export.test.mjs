@@ -9,3 +9,20 @@ test("rejects modified package",()=>{const p=build();p.views[0].series[0].points
 test("rejects unsupported nonnumeric view series",()=>{const r=structuredClone(response);r.render.views[0].series[0].points=[{x:"bad",y:0},{x:1,y:1}];assert.throws(()=>renderReportSvg(build(r)),/numeric/);});
 test("rejects missing point values",()=>{const r=structuredClone(response);r.render.views[0].series[0].points=[{x:0,y:0}];assert.throws(()=>renderReportSvg(build(r)),/at least two/);});
 test("rejects invalid dimensions",()=>assert.throws(()=>renderReportSvg(build(),{width:4}),/size/));
+
+test("supports live Graph Studio parallel numeric x/y series",()=>{
+ const r=structuredClone(response);
+ r.render.views=[{kind:"cartesian-function",series:[{expression:"sin(x)",label:"Sine",seriesId:"s1",x:[0,1,2],y:[0,1,0]}]}];
+ const svg=renderReportSvg(build(r));
+ assert.match(svg,/<polyline /);
+});
+test("rejects mismatched parallel x/y array lengths",()=>{
+ const r=structuredClone(response);
+ r.render.views=[{kind:"cartesian-function",series:[{x:[0,1],y:[0]}]}];
+ assert.throws(()=>renderReportSvg(build(r)),/matching lengths/);
+});
+test("rejects nonfinite parallel x/y entries",()=>{
+ const r=structuredClone(response);
+ r.render.views=[{kind:"cartesian-function",series:[{x:[0,1],y:[0,null]}]}];
+ assert.throws(()=>renderReportSvg(build(r)),/finite numeric/);
+});
