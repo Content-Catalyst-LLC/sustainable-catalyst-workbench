@@ -165,6 +165,8 @@ node --test standalone-app/tests/uvr-*.test.*
 git diff --check
 ```
 
+Verified results: **18 Python tests and 58 Node tests passed on both Mac and Raspberry Pi**. Pi Python: 18 passed, one existing Pydantic warning, 5.71 s. Mac Python: 18 passed, two dependency/model warnings. Node: 58 passed, zero failures on each host. Logs are delivered separately.
+
 Pi worktree: `/mnt/catalyst-ssd/workbench-svg-parity`; disposable test venv `/mnt/catalyst-ssd/workbench-svg-parity-venv`. No production credentials are needed. Node parity tests invoke `python3` for the pure export module; Python integration tests use the venv. CI is scoped to this regression set; no claim is made that the entire historical release suite passes.
 
 ## Deployment and rollback procedure (proposal; not executed)
@@ -190,3 +192,10 @@ Rollback trigger: missing import/route, visual regression, authentication/owners
 - [Library direct-service contracts](https://github.com/Content-Catalyst-LLC/sustainable-catalyst-library/blob/81c3ad7e1a19d7cdfa0f58032b98925e3ca96402/library-backend/app/cross_product_integration.py)
 - [Workspace Reporting Studio #7](https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workspace/pull/7), [packaging #9](https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workspace/pull/9), [G1 handoff #10](https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workspace/pull/10)
 - [Reporting implementation and limits](https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workspace/blob/f640b2628e645af77c2ac3297919073e600d3926/docs/reporting-studio/G1/IMPLEMENTATION.md), [acceptance ledger](https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workspace/blob/f640b2628e645af77c2ac3297919073e600d3926/docs/reporting-studio/G1/ACCEPTANCE.md)
+
+## Prepared draft pull requests
+
+- [#36 — recovered source and SVG precision correction](https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/36), head `b9b386fefb7d0f7882ca25eb913c4f8f6f292403`, stacked on #35.
+- [#37 — architecture audit and integration build map](https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/37), independent documentation change against main.
+
+Both are draft and unmerged. Approval is still required for merge and production deployment.
