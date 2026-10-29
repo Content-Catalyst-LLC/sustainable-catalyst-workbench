@@ -27,6 +27,17 @@ def _points(series):
     return raw
 
 
+def display_y_range(minimum, maximum):
+    """Match standalone-app/display-range.mjs; change display bounds only."""
+    spread = maximum - minimum
+    magnitude = max(abs(minimum), abs(maximum))
+    if spread <= 32 * math.ulp(1.0) * magnitude:
+        center = minimum + spread / 2
+        span = max(1e-12, abs(center) * 0.2)
+        return center - span / 2, center + span / 2
+    return minimum, maximum
+
+
 def render_svg(render_response, expected_project_id, expected_graph_id, caption='', width=900, height=550):
     if not isinstance(render_response, dict) or render_response.get('ok') is not True:
         raise ValueError('Successful authoritative render response required')
@@ -54,7 +65,7 @@ def render_svg(render_response, expected_project_id, expected_graph_id, caption=
     minx, maxx = min(p[0] for p in coordinates), max(p[0] for p in coordinates)
     miny, maxy = min(p[1] for p in coordinates), max(p[1] for p in coordinates)
     if minx == maxx: minx, maxx = minx - 1, maxx + 1
-    if miny == maxy: miny, maxy = miny - 1, maxy + 1
+    miny, maxy = display_y_range(miny, maxy)
     left, right, top, bottom = 74, 26, 75, 65
     pw, ph = width-left-right, height-top-bottom
     def sx(v): return left + (v-minx)/(maxx-minx)*pw

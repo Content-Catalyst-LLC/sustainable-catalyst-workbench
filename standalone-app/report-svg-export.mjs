@@ -2,6 +2,7 @@
  * Only numeric points are accepted. No scientific validation is implied.
  * This is an export utility, not a report-attachment endpoint.
  */
+import { displayYRange } from "./display-range.mjs";
 import { verifyGraphReportPackage } from "./report-render-package.mjs";
 const escapeXml = value => String(value).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&apos;"}[c]));
 function pointsFromSeries(series) {
@@ -30,7 +31,7 @@ export function renderReportSvg(pkg,{width=900,height=550}={}) {
   const all=datasets.flat();
   let minX=Math.min(...all.map(p=>p.x)),maxX=Math.max(...all.map(p=>p.x));
   let minY=Math.min(...all.map(p=>p.y)),maxY=Math.max(...all.map(p=>p.y));
-  if (minX===maxX) {minX-=1;maxX+=1;} if(minY===maxY){minY-=1;maxY+=1;}
+  if (minX===maxX) {minX-=1;maxX+=1;} [minY,maxY]=displayYRange(minY,maxY);
   const left=74,right=26,top=75,bottom=65,plotW=width-left-right,plotH=height-top-bottom;
   const X=x=>left+(x-minX)/(maxX-minX)*plotW;
   const Y=y=>top+(maxY-y)/(maxY-minY)*plotH;

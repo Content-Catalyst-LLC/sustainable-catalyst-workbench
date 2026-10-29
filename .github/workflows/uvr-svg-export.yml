@@ -1,0 +1,25 @@
+name: UVR SVG export regression
+on:
+  pull_request:
+    paths:
+      - 'backend/**'
+      - 'standalone-app/**'
+      - 'tests/fixtures/uvr-display-range.json'
+      - '.github/workflows/uvr-svg-export.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  svg-export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python -m pip install -r backend/requirements.txt
+      - run: PYTHONPATH=backend python -m pytest -q backend/tests/test_uvr_svg_export_precision.py
+      - run: node --test standalone-app/tests/uvr-*.test.*
