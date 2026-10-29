@@ -34,7 +34,20 @@ function renderCartesian(host,v){
   if(!groups.length){const pre=document.createElement("pre");pre.textContent=JSON.stringify(v,null,2);card.appendChild(pre);host.appendChild(card);return;}
   const pts=groups.flatMap(g=>g.points),w=900,hg=420,pad=34;
   const xs=pts.map(p=>p.x),ys=pts.map(p=>p.y),xmin=Math.min(...xs),xmax=Math.max(...xs),ymin=Math.min(...ys),ymax=Math.max(...ys);
-  const dx=(xmax-xmin)||1,dy=(ymax-ymin)||1,X=x=>pad+(x-xmin)/dx*(w-2*pad),Y=y=>hg-pad-(y-ymin)/dy*(hg-2*pad);
+  // Avoid magnifying IEEE-754 round-off into full-height spikes for mathematically
+  // constant curves (e.g. sin(x)^2 + cos(x)^2). Preserve the original data points.
+  // Compare the spread with the value scale, not with the x-domain or a fixed 1.0.
+  const spread=ymax-ymin;
+  const magnitude=Math.max(Math.abs(ymin),Math.abs(ymax),1e-12);
+  const numericalNoise=32*Number.EPSILON*magnitude;
+  const nearConstant=spread<=numericalNoise;
+  const center=ymin+(ymax-ymin)/2;
+  const displaySpan=Math.max(1e-12,Math.abs(center)*0.2);
+  const plotMin=nearConstant?center-displaySpan/2:ymin;
+  const plotMax=nearConstant?center+displaySpan/2:ymax;
+  const dx=(xmax-xmin)||1,dy=(plotMax-plotMin)||1;
+  const X=x=>pad+(x-xmin)/dx*(w-2*pad);
+  const Y=y=>hg-pad-(y-plotMin)/dy*(hg-2*pad);
   const svg=svgEl("svg",{viewBox:`0 0 ${w} ${hg}`,role:"img","aria-label":title.textContent});
   if(xmin<=0&&xmax>=0)svg.appendChild(svgEl("line",{x1:X(0),x2:X(0),y1:pad,y2:hg-pad,class:"math-axis"}));
   if(ymin<=0&&ymax>=0)svg.appendChild(svgEl("line",{x1:pad,x2:w-pad,y1:Y(0),y2:Y(0),class:"math-axis"}));
