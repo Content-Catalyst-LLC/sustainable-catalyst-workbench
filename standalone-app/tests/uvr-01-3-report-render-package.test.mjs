@@ -1,0 +1,20 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import {packageGraphRenderForReport,verifyGraphReportPackage} from "../report-render-package.mjs";
+const response={ok:true,render:{graph:{id:"g",projectId:"p",researchSessionId:"s",title:"Synthetic sine",graphObjectHash:"ghash",series:[{expression:"sin(x)"}],updatedAt:1720000000},views:[{kind:"line",series:[{points:[{x:0,y:0}]}]}],renderHash:"rhash",renderer:"native",viewSpecAuthority:"Graph Studio"}};
+const opts={response,expectedProjectId:"p",expectedGraphId:"g",researchSessionId:"s",caption:"Scenario illustration"};
+test("packages deterministic render spec and provenance",()=>{
+ const p=packageGraphRenderForReport(opts);const p2=packageGraphRenderForReport(opts);
+ assert.equal(p.artifactSha256,p2.artifactSha256);
+ assert.equal(p.figureReference.graphId,"g");
+ assert.equal(p.sourceIntegrity.graphObjectHash,"ghash");
+ assert.equal(p.representation,"json-view-spec");
+ assert.equal(p.scientificVerification,"not-asserted");
+ assert.equal(verifyGraphReportPackage(p),true);
+});
+test("detects tampering",()=>{const p=packageGraphRenderForReport(opts);p.views[0].kind="changed";assert.equal(verifyGraphReportPackage(p),false);});
+test("rejects project mismatch",()=>assert.throws(()=>packageGraphRenderForReport({...opts,expectedProjectId:"other"}),/Project identity mismatch/));
+test("rejects graph mismatch",()=>assert.throws(()=>packageGraphRenderForReport({...opts,expectedGraphId:"other"}),/Graph identity mismatch/));
+test("rejects missing views",()=>assert.throws(()=>packageGraphRenderForReport({...opts,response:{ok:true,render:{...response.render,views:[]}}}),/views required/));
+test("rejects absent source integrity hash",()=>assert.throws(()=>packageGraphRenderForReport({...opts,response:{ok:true,render:{...response.render,renderHash:null}}}),/Render hash missing/));
+test("rejects conflicting graph integrity hash",()=>assert.throws(()=>packageGraphRenderForReport({...opts,response:{ok:true,render:{...response.render,graphObjectHash:"other"}}}),/Conflicting graph hashes/));

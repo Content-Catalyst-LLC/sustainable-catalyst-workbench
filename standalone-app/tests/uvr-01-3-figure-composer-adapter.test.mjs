@@ -1,0 +1,14 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import {buildFigureComposeRequest} from "../figure-composer-adapter.mjs";
+const figureReference={schema:"sc-workbench-report-figure/1.0",graphId:"g1",projectId:"p1",researchSessionId:"s1",title:"Test graph",caption:"Scientific caption"};
+const mapping={verified:true,graphId:"g1",workbenchProjectId:"p1",researchSessionId:"s1",projectKey:"composer-project",jobIds:["job-1"]};
+const panel={kind:"line",jobId:"job-1"};
+test("builds only verified composer payload with required fields",()=>{const result=buildFigureComposeRequest({figureReference,mapping,panel});assert.deepEqual(result.jobIds,["job-1"]);assert.equal(result.projectKey,"composer-project");assert.equal(result.caption,"Scientific caption");assert.deepEqual(result.panels,[panel]);});
+test("blocks unverified cross-system mapping",()=>assert.throws(()=>buildFigureComposeRequest({figureReference,mapping:{...mapping,verified:false},panel}),/Unverified/));
+test("blocks mismatched graph",()=>assert.throws(()=>buildFigureComposeRequest({figureReference,mapping:{...mapping,graphId:"g2"},panel}),/Graph ID mismatch/));
+test("blocks cross-project association",()=>assert.throws(()=>buildFigureComposeRequest({figureReference,mapping:{...mapping,workbenchProjectId:"p2"},panel}),/project mismatch/));
+test("blocks cross-session association",()=>assert.throws(()=>buildFigureComposeRequest({figureReference,mapping:{...mapping,researchSessionId:"s2"},panel}),/session mismatch/));
+test("does not manufacture nonexistent job IDs",()=>assert.throws(()=>buildFigureComposeRequest({figureReference,mapping:{...mapping,jobIds:[]},panel}),/jobIds/));
+test("requires panel mapping",()=>assert.throws(()=>buildFigureComposeRequest({figureReference,mapping,panel:null}),/panel required/));
+test("does not mutate supplied panel",()=>{const p={kind:"line",settings:{color:"red"}};const r=buildFigureComposeRequest({figureReference,mapping,panel:p});r.panels[0].settings.color="blue";assert.equal(p.settings.color,"red");});
