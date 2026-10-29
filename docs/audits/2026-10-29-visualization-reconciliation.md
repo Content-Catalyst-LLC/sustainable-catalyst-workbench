@@ -199,3 +199,5 @@ Rollback trigger: missing import/route, visual regression, authentication/owners
 - [#37 — architecture audit and integration build map](https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/37), independent documentation change against main.
 
 Both are draft and unmerged. Approval is still required for merge and production deployment.
+
+Exact-head GitHub CI passed for correction commit `b9b386fefb7d0f7882ca25eb913c4f8f6f292403`: [run 40926301715](https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/actions/runs/40926301715). Pi worktree is clean at that commit.
