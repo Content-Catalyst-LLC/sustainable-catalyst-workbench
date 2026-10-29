@@ -1,0 +1,489 @@
+{
+  "date": "2026-10-29",
+  "openPullRequests": {
+    "platform-core": [
+      {
+        "number": 4,
+        "title": "Add isolated Raspberry Pi development activation",
+        "head": "codex/pi-development-activation",
+        "headSha": "797839842101654880557bea4fb75cce3ddeb846",
+        "base": "main",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-platform-core/pull/4"
+      },
+      {
+        "number": 3,
+        "title": "Document Core authorization and lineage boundaries",
+        "head": "codex/source-documentation-01",
+        "headSha": "103545acc843a34bb92a1cb8229871bfd8f661e4",
+        "base": "main",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-platform-core/pull/3"
+      },
+      {
+        "number": 2,
+        "title": "Parallelize CI tests and reuse container build caches",
+        "head": "codex/optimize-container-builds",
+        "headSha": "2eb059472f3a7becc3ec5901c2130c7dda0ffc64",
+        "base": "codex/fix-platform-core-ci",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-platform-core/pull/2"
+      },
+      {
+        "number": 1,
+        "title": "Fix SDK downloads and repair Platform Core CI regressions",
+        "head": "codex/fix-platform-core-ci",
+        "headSha": "543c182be84ef48c2268d43b44878d59eb4d2147",
+        "base": "main",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-platform-core/pull/1"
+      }
+    ],
+    "workbench": [
+      {
+        "number": 35,
+        "title": "UVR-01.3.7 — Numerical Rendering Precision Fix",
+        "head": "feature/uvr-01-3-7-numerical-rendering-precision",
+        "headSha": "17118f03008cb2472a7a5d3c54bdba613b71b2ee",
+        "base": "feature/uvr-01-3-6-graph-svg-export-ui",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/35"
+      },
+      {
+        "number": 34,
+        "title": "UVR-01.3.6 — Graph Studio authenticated SVG export button",
+        "head": "feature/uvr-01-3-6-graph-svg-export-ui",
+        "headSha": "e103332ce2d55fe785c4eaef4a74707079788f3a",
+        "base": "feature/uvr-01-3-research-reporting",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/34"
+      },
+      {
+        "number": 33,
+        "title": "UVR-01.3: Research Reporting Integration — figure handoff foundation",
+        "head": "feature/uvr-01-3-research-reporting",
+        "headSha": "fe4a59f53880e1c40458f7c3228cf7c724ca1b7b",
+        "base": "feature/uvr-01-2-graph-persistence",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/33"
+      },
+      {
+        "number": 32,
+        "title": "UVR-01.2: certify Graph Studio persistence and integration",
+        "head": "feature/uvr-01-2-graph-persistence",
+        "headSha": "409f0fced5b0153e16b9b0d91187f795976db03a",
+        "base": "fix/uvr-01-1-graph-studio-render-handler",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/32"
+      },
+      {
+        "number": 31,
+        "title": "UVR-01.1: Fix new Graph Studio render handler",
+        "head": "fix/uvr-01-1-graph-studio-render-handler",
+        "headSha": "db8b30636a7552e8c7e12363c19bd8cfc2b42679",
+        "base": "main",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/31"
+      },
+      {
+        "number": 30,
+        "title": "Document formula evaluation trust boundaries",
+        "head": "codex/source-documentation-01",
+        "headSha": "7f9b973f8746098e9296bc80d3867e93c555bf18",
+        "base": "main",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/30"
+      },
+      {
+        "number": 29,
+        "title": "Reuse container build caches and exclude local metadata",
+        "head": "codex/optimize-builds",
+        "headSha": "3fc3999b682bdf8f429f31712fe0c74481fd11b7",
+        "base": "main",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/29"
+      },
+      {
+        "number": 28,
+        "title": "WI-01 Wexford research recovery baseline and manifest (non-deploying)",
+        "head": "feature/wi01-wexford-recovery-baseline",
+        "headSha": "31e29baa0ce435cea9f1cf476c7716a0e2e520cf",
+        "base": "main",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/28"
+      },
+      {
+        "number": 27,
+        "title": "ERW 1.3.8.1.2 — Wexford Scenario Model & Visualization Integration",
+        "head": "feature/erw-1.3.8.1.2-wexford-scenario-integration",
+        "headSha": "f66de4c7f4cb0db6b95a1531369342db604caf9c",
+        "base": "fix/erw-1.3.8.1.1-discovery-visualization",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/27"
+      },
+      {
+        "number": 26,
+        "title": "ERW 1.3.8.1.1 — Research Object Discovery & Visualization Repair",
+        "head": "fix/erw-1.3.8.1.1-discovery-visualization",
+        "headSha": "1948d5b4857bb833324540cbedd7a2d97a001f25",
+        "base": "feature/erw-1.3.8.1-source-linked-graphics",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/26"
+      },
+      {
+        "number": 25,
+        "title": "ERW 1.3.8.1 — Source-Linked Scientific Graphics",
+        "head": "feature/erw-1.3.8.1-source-linked-graphics",
+        "headSha": "997dea2f5ef33447a6dbf1c86d4ab2175f2cc8ea",
+        "base": "feature/erw-1.3.8-dynamic-scientific-graphics",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/25"
+      },
+      {
+        "number": 24,
+        "title": "ERW 1.3.8 — Dynamic Scientific Graphics",
+        "head": "feature/erw-1.3.8-dynamic-scientific-graphics",
+        "headSha": "15e92f0e2cafc869aa7df0dc12bda9d35c413417",
+        "base": "feature/erw-1.3.6-style-engine",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/24"
+      },
+      {
+        "number": 23,
+        "title": "Scientific Publication Style Engine — Modern Academic + Institutional",
+        "head": "feature/erw-1.3.6-style-engine",
+        "headSha": "c218d3d14fcce781de569e4e3010b0917514b4d6",
+        "base": "feature/erw-1.3.6-manuscript-structure-workspace",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/23"
+      },
+      {
+        "number": 22,
+        "title": "ERW 1.3.6 — Manuscript Structure & Workspace Navigation",
+        "head": "feature/erw-1.3.6-manuscript-structure-workspace",
+        "headSha": "d9b648339c6975d861b8474ac7bec4f7ba173bb1",
+        "base": "feature/erw-1.3.5-publication-certification",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/22"
+      },
+      {
+        "number": 21,
+        "title": "ERW 1.3.5 — Scientific Publication Readiness Audit",
+        "head": "feature/erw-1.3.5-publication-certification",
+        "headSha": "b4cbe96bfe2e735eaadf4247c3205c1b26d1f4f5",
+        "base": "feature/erw-1.3.4-native-docx-pdf-export",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/21"
+      },
+      {
+        "number": 20,
+        "title": "ERW 1.3.4 — Native DOCX & PDF Research Report Export",
+        "head": "feature/erw-1.3.4-native-docx-pdf-export",
+        "headSha": "aef3a4656c68d1a5548d8dcbbf07efcd46972c65",
+        "base": "feature/erw-1.3.3-claim-source-evidence",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/20"
+      },
+      {
+        "number": 19,
+        "title": "ERW 1.3.3 — Claim-to-Source Linking & Evidence Inspection",
+        "head": "feature/erw-1.3.3-claim-source-evidence",
+        "headSha": "03418e41e1b2b775e7c09c608c2f84195445ad63",
+        "base": "fix/erw-report-snapshot-dedup-visibility",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/19"
+      },
+      {
+        "number": 18,
+        "title": "ERW report snapshot deduplication and distinguishable versions",
+        "head": "fix/erw-report-snapshot-dedup-visibility",
+        "headSha": "376a0d27affb683a1e729062a9958b56a95a14cc",
+        "base": "feature/erw-1.3.2-pdf-library-harvard-references",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/18"
+      },
+      {
+        "number": 17,
+        "title": "ERW 1.3.2 — PDF Source Library & Harvard Reference Manager",
+        "head": "feature/erw-1.3.2-pdf-library-harvard-references",
+        "headSha": "094736484b404a4d6c94b160e920b1b288620b7e",
+        "base": "feature/erw-1.3.1-native-scientific-figures",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/17"
+      },
+      {
+        "number": 16,
+        "title": "ERW 1.3.1 — Native Scientific Figures & Completed Word Import",
+        "head": "feature/erw-1.3.1-native-scientific-figures",
+        "headSha": "0797815ed2aad21d095f1224312e64c4b0e14c76",
+        "base": "feature/erw-1.3.0-scientific-document-canvas",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/16"
+      },
+      {
+        "number": 15,
+        "title": "ERW 1.3.0 — Scientific Document Canvas & Authoring Foundation",
+        "head": "feature/erw-1.3.0-scientific-document-canvas",
+        "headSha": "c16b44a1428308c49be7912b350e604704dc0121",
+        "base": "feature/erw-1.2.2-authenticated-report-integration",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/15"
+      },
+      {
+        "number": 14,
+        "title": "ERW 1.2.2 — Authenticated Research Workspace & Report Integration",
+        "head": "feature/erw-1.2.2-authenticated-report-integration",
+        "headSha": "d1273631c3ec861f5402ce7eb9a53a450c882686",
+        "base": "feature/erw-1.2.1-sustainable-catalyst-identity-onboarding",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/14"
+      },
+      {
+        "number": 13,
+        "title": "ERW 1.2.1 — Sustainable Catalyst Identity & Research Workspace Onboarding",
+        "head": "feature/erw-1.2.1-sustainable-catalyst-identity-onboarding",
+        "headSha": "cca00ad499ddff5298dc82ba33f70140a3414ac2",
+        "base": "feature/erw-1.2.0-integrated-research-report-workspace",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/13"
+      },
+      {
+        "number": 12,
+        "title": "ERW 1.2.0 — Integrated Research Report Workspace + Research Tables",
+        "head": "feature/erw-1.2.0-integrated-research-report-workspace",
+        "headSha": "60c309d15e47989c1f4df670d0a2daac38ee1a23",
+        "base": "feature/erw-1.1.0-research-explorer-figure-export",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/12"
+      },
+      {
+        "number": 11,
+        "title": "ERW 1.1.0 — Research Explorer & Scientific Figure Export",
+        "head": "feature/erw-1.1.0-research-explorer-figure-export",
+        "headSha": "f86f93d671c40c1eebd3d1a421cf5995dce2d929",
+        "base": "feature/erw-1.0.0-end-to-end-research-certification",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/11"
+      },
+      {
+        "number": 10,
+        "title": "ERW 1.0.0 — End-to-End Research Certification",
+        "head": "feature/erw-1.0.0-end-to-end-research-certification",
+        "headSha": "f92c3e4f415a084f56a419a1142f7002b448f08a",
+        "base": "feature/erw-0.9.0-scientific-integrity-audit",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/10"
+      },
+      {
+        "number": 9,
+        "title": "ERW 0.9.0 — Scientific Integrity & Publication Audit",
+        "head": "feature/erw-0.9.0-scientific-integrity-audit",
+        "headSha": "f62734242dd8f79b8ce8dba1e475e74fbfc4b86f",
+        "base": "feature/erw-0.8.0-academic-report-composer",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/9"
+      },
+      {
+        "number": 8,
+        "title": "ERW 0.8.0 — Academic Report Composer",
+        "head": "feature/erw-0.8.0-academic-report-composer",
+        "headSha": "f69d26d3c3ef8c7efc3db588979649c187cbba35",
+        "base": "feature/erw-0.7.0-equations-maps-diagrams",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/8"
+      },
+      {
+        "number": 7,
+        "title": "ERW 0.7.0 — Equations, Maps & Scientific Diagrams",
+        "head": "feature/erw-0.7.0-equations-maps-diagrams",
+        "headSha": "7cdf2557b6ffe047dadb4acfbf1d7e2fe9ca5691",
+        "base": "feature/erw-0.6.0-scientific-visualization",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/7"
+      },
+      {
+        "number": 6,
+        "title": "ERW 0.6.0 — Scientific Visualization",
+        "head": "feature/erw-0.6.0-scientific-visualization",
+        "headSha": "b2c58d7af1c95562ee4ed6c0ee77619478815f20",
+        "base": "feature/erw-0.5.0-uncertainty-mrv",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/6"
+      },
+      {
+        "number": 5,
+        "title": "ERW 0.5.0 — Uncertainty, Sensitivity & MRV Readiness",
+        "head": "feature/erw-0.5.0-uncertainty-mrv",
+        "headSha": "e2ee87b553d4930d4ba9a2f478ce5d0a0cd32748",
+        "base": "feature/erw-0.4.0-lifecycle-permanence",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/5"
+      },
+      {
+        "number": 4,
+        "title": "ERW 0.4.0 — Lifecycle Emissions & Carbon Permanence",
+        "head": "feature/erw-0.4.0-lifecycle-permanence",
+        "headSha": "a0b4f4bca35b625cd3a54ce6da027ba6f541498d",
+        "base": "feature/erw-0.3.0-baseline-additionality-scenarios",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/4"
+      },
+      {
+        "number": 3,
+        "title": "ERW 0.3.0 — Baseline, additionality and scenarios",
+        "head": "feature/erw-0.3.0-baseline-additionality-scenarios",
+        "headSha": "54065d9051668e3b2ca87cd1954bf0d8357bee5f",
+        "base": "feature/erw-0.2.0-geochemical-stoichiometry",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/3"
+      },
+      {
+        "number": 2,
+        "title": "ERW 0.2.0 — Geochemical feedstock & stoichiometry foundation",
+        "head": "feature/erw-0.2.0-geochemical-stoichiometry",
+        "headSha": "db57bf54fa9f48f911d53b02cace0cbf0e101822",
+        "base": "feature/erw-0.1.0-research-foundation",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/2"
+      },
+      {
+        "number": 1,
+        "title": "ERW 0.1.0 — Workbench v14 research project foundation",
+        "head": "feature/erw-0.1.0-research-foundation",
+        "headSha": "b2e3850523f028ec4b3d3085fb906048ded387eb",
+        "base": "main",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench/pull/1"
+      }
+    ],
+    "lab": [
+      {
+        "number": 3,
+        "title": "Add isolated Raspberry Pi development activation",
+        "head": "codex/pi-development-activation",
+        "headSha": "3599db9ccf9bbe4b8f4e56d6c528ab91678d88f1",
+        "base": "main",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-lab/pull/3"
+      },
+      {
+        "number": 2,
+        "title": "Document Lab artifact, ensemble and vault limits",
+        "head": "codex/source-documentation-01",
+        "headSha": "16c56d2142a3557d1f1fd31e17d04b2f92cb8f93",
+        "base": "main",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-lab/pull/2"
+      },
+      {
+        "number": 1,
+        "title": "Reuse container build caches and exclude local metadata",
+        "head": "codex/optimize-builds",
+        "headSha": "a52dc98cd03b9c5936dd4a019ea4da96739cb966",
+        "base": "main",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-lab/pull/1"
+      }
+    ],
+    "site-intelligence": [
+      {
+        "number": 6,
+        "title": "SI-2.1.4: consolidate reliability fixes and guarded deployment candidate",
+        "head": "codex/si-214-consolidation",
+        "headSha": "bae6ab3dc248f9bd8a71181ad96d795ecdd653f6",
+        "base": "main",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-site-intelligence/pull/6"
+      },
+      {
+        "number": 5,
+        "title": "Add isolated Raspberry Pi development activation",
+        "head": "codex/pi-development-activation",
+        "headSha": "af0562bf278b505bf6cf083c41c9a99ff0815e73",
+        "base": "main",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-site-intelligence/pull/5"
+      },
+      {
+        "number": 4,
+        "title": "Document environmental connector and forecast provenance",
+        "head": "codex/source-documentation-01",
+        "headSha": "7b9e5103d2bee04577da939dd1e460a829e33109",
+        "base": "main",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-site-intelligence/pull/4"
+      },
+      {
+        "number": 3,
+        "title": "Reuse build caches and streamline plugin artifact uploads",
+        "head": "codex/optimize-container-builds",
+        "headSha": "af17c8deb9de27680ffa0704a4f6998ca32e45de",
+        "base": "main",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-site-intelligence/pull/3"
+      },
+      {
+        "number": 2,
+        "title": "WIP: reconcile production Ocean source through v4.64.0",
+        "head": "reconcile/production-ocean-v4-64-20261017",
+        "headSha": "38c5192fa70b1127feb7dd90c8fcde5f39862a87",
+        "base": "main",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-site-intelligence/pull/2"
+      }
+    ],
+    "library": [
+      {
+        "number": 2,
+        "title": "Document Library access and evidence authority limits",
+        "head": "codex/source-documentation-01",
+        "headSha": "eab732641a71c41d5b1c91dafbafdd1b9c155501",
+        "base": "main",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-library/pull/2"
+      },
+      {
+        "number": 1,
+        "title": "Reuse container build caches and exclude local metadata",
+        "head": "codex/optimize-builds",
+        "headSha": "eee8cd83dde41dcc644d50faba0a4ef50d24abf0",
+        "base": "main",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-library/pull/1"
+      }
+    ],
+    "workspace": [
+      {
+        "number": 10,
+        "title": "WXR-10: consolidated research release candidate and production-readiness evidence",
+        "head": "codex/reporting-studio-g1-handoff",
+        "headSha": "f640b2628e645af77c2ac3297919073e600d3926",
+        "base": "codex/rs-wxr-02-g0-g1-packaging",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workspace/pull/10"
+      },
+      {
+        "number": 9,
+        "title": "RS-WXR-02: isolated Reporting Studio renderer image and G0/G1 checklist",
+        "head": "codex/rs-wxr-02-g0-g1-packaging",
+        "headSha": "2f7e4a54e3ad7164b6ce664801fb82b2723d8b50",
+        "base": "codex/rs-mig-01-reporting-studio",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workspace/pull/9"
+      },
+      {
+        "number": 7,
+        "title": "Private Workspace Reporting Studio: immutable figures, equations and Wexford heat maps",
+        "head": "codex/rs-mig-01-reporting-studio",
+        "headSha": "1f09292cc0b8efa28c96d31b89376c7620899c56",
+        "base": "codex/wxr-09-3-complete",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workspace/pull/7"
+      },
+      {
+        "number": 6,
+        "title": "WXR-09.3/09.4: persistent private research release candidate",
+        "head": "codex/wxr-09-3-complete",
+        "headSha": "de45f37c3b1984692602ccef2f80b87a8e549094",
+        "base": "codex/wexford-reconciliation-plan",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workspace/pull/6"
+      },
+      {
+        "number": 5,
+        "title": "Document Workspace security, storage and scientific boundaries",
+        "head": "codex/source-documentation-01",
+        "headSha": "d201099e3446c57ee8bd67f77bb53c6cae7899a7",
+        "base": "main",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workspace/pull/5"
+      },
+      {
+        "number": 4,
+        "title": "WXR-09.3 — Persistent Private Research & Same-Origin Authentication",
+        "head": "wxr-09-3-persistent-private-research",
+        "headSha": "8842f819e0ba2bb067b486c88d1c47062f5ffd64",
+        "base": "codex/wexford-reconciliation-plan",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workspace/pull/4"
+      },
+      {
+        "number": 3,
+        "title": "Implement private controlled research restoration with dry-run validation and rollback",
+        "head": "codex/wexford-reconciliation-plan",
+        "headSha": "8656c0d190f95ff11cefa06d08fdf1e3b5bd13f9",
+        "base": "codex/wexford-login-config",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workspace/pull/3"
+      },
+      {
+        "number": 2,
+        "title": "Repair ERW login configuration and add private recovery inventory review",
+        "head": "codex/wexford-login-config",
+        "headSha": "a7206e22122229d5ef4fe46b41fe7664794daa84",
+        "base": "main",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workspace/pull/2"
+      },
+      {
+        "number": 1,
+        "title": "Reuse container build caches and exclude local metadata",
+        "head": "codex/optimize-builds",
+        "headSha": "cd0763739ec01fbc14ade56477fa65eea6b3ff28",
+        "base": "main",
+        "url": "https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workspace/pull/1"
+      }
+    ]
+  },
+  "publishedReleases": {
+    "platform-core": [],
+    "workbench": [],
+    "lab": [],
+    "site-intelligence": [],
+    "library": [],
+    "workspace": []
+  }
+}
