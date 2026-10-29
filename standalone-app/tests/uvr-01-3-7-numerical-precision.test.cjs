@@ -4,7 +4,8 @@ const test=require("node:test");
 const assert=require("node:assert/strict");
 const fs=require("node:fs");
 const path=require("node:path");
-const source=fs.readFileSync(path.join(__dirname,"..","math-renderer.js"),"utf8");
+const {pathToFileURL}=require("node:url");
+const source=fs.readFileSync(path.join(__dirname,"..","math-renderer.js"),"utf8").replace("./display-range.mjs",pathToFileURL(path.join(__dirname,"..","display-range.mjs")).href);
 function element(name){return {name,attributes:{},children:[],textContent:"",setAttribute(k,v){this.attributes[k]=v;},appendChild(child){this.children.push(child);return child;}};}
 function descendants(node,name){return (node.children||[]).flatMap(x=>[...(x.name===name?[x]:[]),...descendants(x,name)]);}
 async function plot(values){
