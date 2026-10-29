@@ -5,7 +5,13 @@
 import { verifyGraphReportPackage } from "./report-render-package.mjs";
 const escapeXml = value => String(value).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&apos;"}[c]));
 function pointsFromSeries(series) {
-  const raw = series?.points;
+  let raw = series?.points;
+  if (raw === undefined && (series?.x !== undefined || series?.y !== undefined)) {
+    if (!Array.isArray(series.x) || !Array.isArray(series.y) || series.x.length !== series.y.length) {
+      throw new TypeError("Graph Studio x/y arrays must have matching lengths");
+    }
+    raw = series.x.map((x, i) => ({x, y: series.y[i]}));
+  }
   if (!Array.isArray(raw) || raw.length < 2) throw new TypeError("Series requires at least two explicit numeric points");
   return raw.map(p => {
     const x = Array.isArray(p) ? p[0] : p?.x;
