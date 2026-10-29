@@ -17,7 +17,7 @@ async function plot(values){
     renderViewSpec(host,{views:[{kind:"cartesian-function",series:[{label:"sample",points:values.map((y,x)=>({x,y}))}]}]});
     const line=descendants(host,"polyline")[0];
     assert.ok(line,"SVG polyline should render");
-    return line.attributes.points.trim().split(/\\s+/).map(pair=>pair.split(",").map(Number));
+    return line.attributes.points.trim().split(/\s+/).map(pair=>pair.split(",").map(Number));
   }finally{global.document=previous;}
 }
 function yrange(pts){const ys=pts.map(p=>p[1]);return Math.max(...ys)-Math.min(...ys);}
@@ -51,5 +51,5 @@ test("existing Graph Studio SVG export implementation stays in frontend",()=>{
   const shell=fs.readFileSync(path.join(__dirname,"..","app-shell.js"),"utf8");
   assert.match(shell,/downloadActiveGraphSvg/);
   assert.match(shell,/export-graph-svg/);
-  assert.match(shell,/export\\.svg/);
+  assert.match(shell,/export\.svg/);
 });
