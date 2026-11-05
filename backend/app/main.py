@@ -745,3 +745,6 @@ app.include_router(v13120_router)
 # Workbench v14.0.0 — Computational Workflow & Multi-Step Calculation Composer.
 from app.v1400 import router as v1400_router
 app.include_router(v1400_router)
+
+from app.scientific_figures import router as scientific_figures_router
+app.include_router(scientific_figures_router)
