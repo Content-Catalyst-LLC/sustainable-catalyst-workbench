@@ -22,6 +22,10 @@ class ImportFigure(BaseModel):
 def validate_source(raw):
     try:
         obj=json.loads(raw,parse_constant=lambda _: (_ for _ in ()).throw(ValueError()))
+        if obj.get('schema')=='sc-lab-source-bound-scientific-figure/1.0':
+            spec=obj['spec']
+            if not spec['sources'] or not spec['project_id'] or obj['net_removal_status']!='NOT_QUANTIFIED':raise ValueError()
+            return obj
         if obj.get('schema')!='sc-lab-scientific-visualization/1.0': raise ValueError()
         context=obj['scientificContext']
         if not isinstance(context['source']['sha256'],str) or not re.fullmatch('[a-f0-9]{64}',context['source']['sha256']):raise ValueError()
@@ -54,9 +58,11 @@ def import_figure(session_id:str,body:ImportFigure,authorization:str|None=Header
     digest=hashlib.sha256(raw).hexdigest()
     if digest!=body.artifactId.rsplit(':',1)[1]:raise HTTPException(409,'Library artifact SHA256 mismatch.')
     obj=validate_source(raw)
+    if obj.get('schema')=='sc-lab-source-bound-scientific-figure/1.0' and obj['spec']['project_id']!=body.workspaceProjectId:
+        raise HTTPException(409,'Scientific source belongs to another Workspace project.')
     metadata={'workspaceProjectId':body.workspaceProjectId,'libraryArtifactId':body.artifactId,
               'sha256':digest,'contentBase64':base64.b64encode(raw).decode(),
-              'source':obj['scientificContext']['source'],'revision':1}
+              'source':obj.get('scientificContext',{}).get('source',obj.get('spec',{}).get('sources')),'revision':1}
     receipt=append_activity(session_id,ResearchSessionActivityRequest(kind='scientific-figure-version',
         label=obj.get('title','Scientific figure'),objectType=obj['schema'],objectId=body.artifactId,
         route='workspace',metadata=metadata),owner)
@@ -71,3 +77,12 @@ def get_figure(session_id:str,figure_id:str,authorization:str|None=Header(defaul
             (figure_id,session_id,owner,'scientific-figure-version')).fetchone()
         if row is None:raise HTTPException(404,'Scientific figure version not found.')
         return {'figure':_activity_dict(row)}
+
+@router.get('/{session_id}/scientific-figures')
+def list_figures(session_id:str,authorization:str|None=Header(default=None)):
+    owner,_=_owner(authorization)
+    with _connection() as conn:
+        _migrate(conn);_session_row(conn,session_id,owner)
+        rows=conn.execute("SELECT id,label,created_at,json_extract(metadata_json,'$.sha256') AS sha256 FROM scwb_research_session_activity WHERE session_id=? AND owner_subject=? AND kind=? ORDER BY created_at DESC,id LIMIT 100",
+            (session_id,owner,'scientific-figure-version')).fetchall()
+        return {'figures':[dict(row) for row in rows]}

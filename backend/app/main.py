@@ -748,3 +748,6 @@ app.include_router(v1400_router)
 
 from app.scientific_figures import router as scientific_figures_router
 app.include_router(scientific_figures_router)
+
+from app.research_flux import router as research_flux_router
+app.include_router(research_flux_router)
