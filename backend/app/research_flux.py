@@ -33,13 +33,13 @@ class FluxRecipe(Strict):
  source_refs:list[str]=Field(min_length=1,max_length=100)
  discharge_unit:Literal['L/s','m3/s']
  concentration_unit:Literal['mmol/L','mol/m3','ueq/L']
- max_gap_seconds:float=Field(gt=0)
+ max_gap_seconds:float=Field(gt=0,strict=True)
  temporal_model:Literal['trapezoidal-linear-flux']
  uncertainty_model:Literal['independent-samples-and-inputs','not-declared']
  treated:list[Sample]=Field(min_length=2,max_length=10000)
  control:list[Sample]|None=Field(default=None,min_length=2,max_length=10000)
  hydrological_comparability_ref:str|None=Field(default=None,min_length=1,max_length=300)
- area_m2:float|None=Field(default=None,gt=0)
+ area_m2:float|None=Field(default=None,gt=0,strict=True)
 
 def integrate(samples,recipe):
  times=[s.timestamp.timestamp() for s in samples]
@@ -58,8 +58,10 @@ def integrate(samples,recipe):
  variance=None
  if recipe.uncertainty_model=='independent-samples-and-inputs' and all(s.discharge_standard_uncertainty is not None and s.concentration_standard_uncertainty is not None for s in samples):
   # Shared interval endpoints enter once with their combined trapezoid weight.
-  variances=[(qfactor*cfactor)**2*(s.concentration**2*s.discharge_standard_uncertainty**2+s.discharge**2*s.concentration_standard_uncertainty**2+s.discharge_standard_uncertainty**2*s.concentration_standard_uncertainty**2) for s in samples]
-  variance=math.fsum(w*w*v for w,v in zip(weights,variances))
+  try:
+   variances=[(qfactor*cfactor)**2*(s.concentration**2*s.discharge_standard_uncertainty**2+s.discharge**2*s.concentration_standard_uncertainty**2+s.discharge_standard_uncertainty**2*s.concentration_standard_uncertainty**2) for s in samples]
+   variance=math.fsum(w*w*v for w,v in zip(weights,variances))
+  except OverflowError as exc:raise HTTPException(422,'Uncertainty overflow; unsupported input magnitude.') from exc
   if not math.isfinite(variance):raise HTTPException(422,'Uncertainty overflow.')
  return {'status':'CALCULATED_FROM_DECLARED_INPUTS','transport':transport,'standard_uncertainty':math.sqrt(variance) if variance is not None else None,
   'uncertainty_model':recipe.uncertainty_model,'uncertainty_distribution':'not-inferred','confidence_interval':None,

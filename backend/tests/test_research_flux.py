@@ -36,3 +36,15 @@ def test_timezone_and_duplicate_timestamp_rejection():
  x=recipe();x['treated'][1]['timestamp']=x['treated'][0]['timestamp']
  from fastapi import HTTPException
  with pytest.raises(HTTPException):calculate(FluxRecipe.model_validate(x))
+
+
+def test_ambiguous_numeric_inputs_and_uncertainty_overflow_fail_closed():
+ for field in ['discharge','concentration','discharge_standard_uncertainty']:
+  x=recipe();x['treated'][0][field]=True
+  with pytest.raises(ValidationError):FluxRecipe.model_validate(x)
+ x=recipe();x['max_gap_seconds']=True
+ with pytest.raises(ValidationError):FluxRecipe.model_validate(x)
+ x=recipe();x['treated'][0]['discharge_standard_uncertainty']=1e200
+ from fastapi import HTTPException
+ with pytest.raises(HTTPException) as error:calculate(FluxRecipe.model_validate(x))
+ assert error.value.status_code==422
