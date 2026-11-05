@@ -20,4 +20,4 @@ jobs:
       - name: Source and ownership regressions
         env:
           PYTHONPATH: backend
-        run: python -m pytest -o addopts="" -q backend/tests/test_scientific_figures.py backend/tests/test_research_flux.py
+        run: python -m pytest -o addopts="" -q backend/tests/test_scientific_figures.py backend/tests/test_research_flux.py backend/tests/test_scientific_carbon_ledger.py

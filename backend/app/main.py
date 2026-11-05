@@ -751,3 +751,6 @@ app.include_router(scientific_figures_router)
 
 from app.research_flux import router as research_flux_router
 app.include_router(research_flux_router)
+
+from .scientific_carbon_ledger import router as scientific_carbon_ledger_router
+app.include_router(scientific_carbon_ledger_router)
