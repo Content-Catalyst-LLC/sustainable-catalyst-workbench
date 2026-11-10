@@ -13,7 +13,7 @@ Regression comparison:
 - Two production failures are fixed: the v10110 status and package tests, which now read `APP_VERSION`.
 - The extra failure in the release candidate, `test_erw_v136.py::test_safe_reconcile_does_not_write_snapshots` (`200 == 307`), already fails in production.
 
-`backend/tests/BASELINE_FAILURES.txt` lists the accepted failures for this branch. CI (`.github/workflows/workbench-backend.yml`) fails on any failure outside it, and on any collection error. The adapter tests must pass outright.
+`backend/tests/BASELINE_FAILURES.txt` lists the accepted failures for this branch: 185 on PR #44, and 186 on the release candidate, which adds the production `erw_v136` failure. CI (`.github/workflows/workbench-backend.yml`) fails on any failure outside it, and on any collection error. The adapter tests must pass outright.
 
 ## Disposition by cause
 
