@@ -1,0 +1,102 @@
+name: Workbench staging image security scan
+
+# Report-only vulnerability scan of the FIG-02A staging candidate (PR #42):
+#   1. the CycloneDX SBOM generated inside the Contabo staging image,
+#   2. a CI rebuild of the same revision, compared layer-by-layer and by SBOM with the Contabo image.
+# Findings are reported, not auto-fixed; no dependency is upgraded by this workflow.
+on:
+  pull_request:
+    paths:
+      - "backend/Dockerfile.plotly-staging"
+      - "backend/requirements*.txt"
+      - "deploy/staging/workbench-fig02a/**"
+      - ".github/workflows/workbench-staging-security-scan.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  TRIVY_VERSION: "0.76.1"
+  TRIVY_SHA256: "c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0"
+  IMAGE_REVISION: "7cfbdf0c6ad047e33ef9046c4133a59aee3583f7"
+  IMAGE_BUILD_DATE: "2026-11-10T03:54:18Z"
+  REF_DIR: "deploy/staging/workbench-fig02a/contabo-rc1"
+
+jobs:
+  scan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - name: Checkout workflow revision
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - name: Checkout image revision
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: ${{ env.IMAGE_REVISION }}
+          path: rc1
+
+      - name: Install Trivy (pinned release, sha256-verified)
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP"
+          curl -fsSLo trivy.tar.gz "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz"
+          echo "${TRIVY_SHA256}  trivy.tar.gz" | sha256sum -c -
+          mkdir -p bin && tar -xzf trivy.tar.gz -C bin trivy
+          echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
+          "$RUNNER_TEMP/bin/trivy" --version
+
+      - name: Scan Contabo staging SBOM
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          sha256sum "$REF_DIR/sbom.cdx.json"
+          trivy sbom --scanners vuln --format json --output out/trivy-sbom-contabo.json "$REF_DIR/sbom.cdx.json"
+          trivy --version --format json > out/trivy-version.json
+
+      - name: Rebuild staging image from the same revision
+        working-directory: rc1/backend
+        run: |
+          set -euo pipefail
+          docker build --platform linux/amd64 -f Dockerfile.plotly-staging \
+            --build-arg VCS_REF="$IMAGE_REVISION" --build-arg BUILD_DATE="$IMAGE_BUILD_DATE" \
+            -t sc-workbench-staging:ci-rebuild .
+          docker image inspect sc-workbench-staging:ci-rebuild > "$GITHUB_WORKSPACE/out/ci-image-inspect.json"
+          docker run --rm --network none -i --entrypoint python \
+            -e SBOM_IMAGE_TAG=sc-workbench-staging:ci-rebuild sc-workbench-staging:ci-rebuild - \
+            < "$GITHUB_WORKSPACE/deploy/staging/workbench-fig02a/sbom.py" > "$GITHUB_WORKSPACE/out/sbom-ci.cdx.json"
+
+      - name: Scan CI rebuild image
+        run: |
+          set -euo pipefail
+          trivy image --scanners vuln --format json --output out/trivy-image-ci.json sc-workbench-staging:ci-rebuild
+          trivy sbom --scanners vuln --format json --output out/trivy-sbom-ci.json out/sbom-ci.cdx.json
+
+      - name: Compare and summarize
+        run: |
+          set -euo pipefail
+          S=deploy/staging/workbench-fig02a/security_report.py
+          python3 "$S" compare "$REF_DIR/image.json" out/ci-image-inspect.json "$REF_DIR/sbom.cdx.json" out/sbom-ci.cdx.json > out/rebuild-comparison.json
+          python3 "$S" trivy out/trivy-sbom-contabo.json out/trivy-image-ci.json out/trivy-sbom-ci.json > out/trivy-summary.json
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          c = json.load(open("out/rebuild-comparison.json")); t = json.load(open("out/trivy-summary.json"))
+          print("## Rebuild comparison\n")
+          print(f"- Verdict: **{c['verdict']}** (image ID match: {c['imageIdMatch']}; layers matching {c['layersMatching']}/{c['layerCount']['contabo']})")
+          for l in c["layers"]:
+              print(f"  - layer {l['index']} {l['origin']}: {'match' if l['match'] else 'differs'}")
+          s = c["sbom"]
+          print(f"- SBOM components: Contabo {s['contaboComponents']}, CI {s['ciComponents']}, identical set: {s['identicalComponentSet']}")
+          print("\n## Vulnerabilities (report-only)\n\n| Scan | Critical | High | Medium | Low | Unknown | With fix |\n|---|---|---|---|---|---|---|")
+          for k, v in t.items():
+              n = v["counts"]
+              print(f"| {k.split('/')[-1]} | {n['CRITICAL']} | {n['HIGH']} | {n['MEDIUM']} | {n['LOW']} | {n['UNKNOWN']} | {v['withFix']} |")
+          PY
+
+      - name: Upload scan evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: workbench-staging-security-scan
+          path: out/
+          retention-days: 90

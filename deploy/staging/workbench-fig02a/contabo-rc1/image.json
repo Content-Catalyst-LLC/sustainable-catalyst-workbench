@@ -1,0 +1,23 @@
+{
+  "description": "Identity of the staging image built on Contabo (vmi3544820) on 2026-11-10, used as the reference for the CI rebuild comparison.",
+  "tag": "sc-workbench-staging:14.0.0-fig02a-rc1-7cfbdf0c6ad0",
+  "imageId": "sha256:ad6671df88bc14327cef8173550777e2a70d29c59d2c536cf68f75059c135c72",
+  "architecture": "amd64",
+  "revision": "7cfbdf0c6ad047e33ef9046c4133a59aee3583f7",
+  "buildDate": "2026-11-10T03:54:18Z",
+  "sbomSha256": "37c036941c4baf70820902c2ecae0de17d878366af63e5d46f5b7e8a9481e8fe",
+  "rootfsLayers": [
+    "sha256:1d7b9dd8778ebc4d9bf2f64436dd358640718cb349f5640b33bebaea4ffd62c2",
+    "sha256:a3cfe73133965fb536427fde3fe66b2949ea6178f568733760bf45f5c8b5c405",
+    "sha256:5e63f01f0cee6291b52c44ffeee48c9eb7b94cdb19478259bcfce37db9eb680e",
+    "sha256:311a92d269bd002ca4ff3d801c6320df734027d3b425ff1ec860368f12b07a26",
+    "sha256:5b1df68e1d109c508a0ab23fdabb993909e81da9b2cf99f5e3b56b5d5753a3cd",
+    "sha256:22988fff982276fd383e090f28f7aa10a128c578ecfebdf20261c0f9ff7f2e71",
+    "sha256:1d3d9f3e0e4866beee26c695a77ae195e84cc26234591d965379d2a7bef9daa1",
+    "sha256:355827376f8bd381580a93059b7e0b25609351be7693ea6c0aa5fa3903d81e32",
+    "sha256:04fdf4ed2e9338702a073dd5534866fe33209fa87ca9a1fb25e3fe00fb865f97",
+    "sha256:815d221410a64479d45ff462bf94f03ce3475d9c67bdf4ed17a8331c98a529db",
+    "sha256:e56776b455400f640681b564974c183efbacfb9fb63cc3b22a16de67895cdfaf"
+  ],
+  "layerOrigins": ["base", "base", "base", "base", "apt + Chrome for Testing", "WORKDIR", "requirements files", "pip install", "COPY . .", "chmod/useradd", "Julia (COPY --from pinned julia image)"]
+}

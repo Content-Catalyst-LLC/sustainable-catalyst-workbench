@@ -1,0 +1,4043 @@
+{
+ "bomFormat": "CycloneDX",
+ "components": [
+  {
+   "bom-ref": "pkg:generic/chrome-for-testing@157.0.8103.50",
+   "name": "chrome-for-testing",
+   "properties": [
+    {
+     "name": "sc:path",
+     "value": "/opt/chrome-linux64/chrome"
+    }
+   ],
+   "purl": "pkg:generic/chrome-for-testing",
+   "type": "application",
+   "version": "157.0.8103.50"
+  },
+  {
+   "bom-ref": "pkg:generic/julia@1.11.9",
+   "name": "julia",
+   "properties": [
+    {
+     "name": "sc:path",
+     "value": "/usr/local/julia"
+    }
+   ],
+   "purl": "pkg:generic/julia",
+   "type": "application",
+   "version": "1.11.9"
+  },
+  {
+   "bom-ref": "pkg:generic/cpython@3.12.16",
+   "name": "cpython",
+   "purl": "pkg:generic/cpython@3.12.16",
+   "type": "application",
+   "version": "3.12.16"
+  },
+  {
+   "bom-ref": "pkg:pypi/annotated-doc@0.0.5",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "annotated-doc",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/annotated-doc@0.0.5",
+   "type": "library",
+   "version": "0.0.5"
+  },
+  {
+   "bom-ref": "pkg:pypi/annotated-types@0.8.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "annotated-types",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/annotated-types@0.8.0",
+   "type": "library",
+   "version": "0.8.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/anyio@4.16.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "anyio",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/anyio@4.16.0",
+   "type": "library",
+   "version": "4.16.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/certifi@2026.10.23",
+   "licenses": [
+    {
+     "license": {
+      "name": "MPL-2.0"
+     }
+    }
+   ],
+   "name": "certifi",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/certifi@2026.10.23",
+   "type": "library",
+   "version": "2026.10.23"
+  },
+  {
+   "bom-ref": "pkg:pypi/charset-normalizer@3.5.2",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "charset-normalizer",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/charset-normalizer@3.5.2",
+   "type": "library",
+   "version": "3.5.2"
+  },
+  {
+   "bom-ref": "pkg:pypi/choreographer@1.4.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "choreographer",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/choreographer@1.4.0",
+   "type": "library",
+   "version": "1.4.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/click@8.5.1",
+   "licenses": [
+    {
+     "license": {
+      "name": "BSD-3-Clause"
+     }
+    }
+   ],
+   "name": "click",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/click@8.5.1",
+   "type": "library",
+   "version": "8.5.1"
+  },
+  {
+   "bom-ref": "pkg:pypi/contourpy@1.4.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "BSD-3-Clause"
+     }
+    }
+   ],
+   "name": "contourpy",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/contourpy@1.4.0",
+   "type": "library",
+   "version": "1.4.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/cycler@0.12.1",
+   "name": "cycler",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/cycler@0.12.1",
+   "type": "library",
+   "version": "0.12.1"
+  },
+  {
+   "bom-ref": "pkg:pypi/fastapi@0.162.2",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "fastapi",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/fastapi@0.162.2",
+   "type": "library",
+   "version": "0.162.2"
+  },
+  {
+   "bom-ref": "pkg:pypi/flexcache@0.3",
+   "licenses": [
+    {
+     "license": {
+      "name": "BSD"
+     }
+    }
+   ],
+   "name": "flexcache",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/flexcache@0.3",
+   "type": "library",
+   "version": "0.3"
+  },
+  {
+   "bom-ref": "pkg:pypi/flexparser@0.4",
+   "licenses": [
+    {
+     "license": {
+      "name": "BSD-3-Clause"
+     }
+    }
+   ],
+   "name": "flexparser",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/flexparser@0.4",
+   "type": "library",
+   "version": "0.4"
+  },
+  {
+   "bom-ref": "pkg:pypi/fonttools@4.68.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "fonttools",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/fonttools@4.68.0",
+   "type": "library",
+   "version": "4.68.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/h11@0.16.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "h11",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/h11@0.16.0",
+   "type": "library",
+   "version": "0.16.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/httpcore2@2.16.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "BSD-3-Clause"
+     }
+    }
+   ],
+   "name": "httpcore2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/httpcore2@2.16.0",
+   "type": "library",
+   "version": "2.16.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/httptools@0.9.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "httptools",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/httptools@0.9.0",
+   "type": "library",
+   "version": "0.9.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/httpx2@2.16.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "BSD-3-Clause"
+     }
+    }
+   ],
+   "name": "httpx2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/httpx2@2.16.0",
+   "type": "library",
+   "version": "2.16.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/idna@3.20",
+   "licenses": [
+    {
+     "license": {
+      "name": "BSD-3-Clause"
+     }
+    }
+   ],
+   "name": "idna",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/idna@3.20",
+   "type": "library",
+   "version": "3.20"
+  },
+  {
+   "bom-ref": "pkg:pypi/iniconfig@2.3.1",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "iniconfig",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/iniconfig@2.3.1",
+   "type": "library",
+   "version": "2.3.1"
+  },
+  {
+   "bom-ref": "pkg:pypi/kaleido@1.2.0",
+   "name": "kaleido",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/kaleido@1.2.0",
+   "type": "library",
+   "version": "1.2.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/kiwisolver@1.5.1",
+   "name": "kiwisolver",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/kiwisolver@1.5.1",
+   "type": "library",
+   "version": "1.5.1"
+  },
+  {
+   "bom-ref": "pkg:pypi/logistro@2.0.1",
+   "name": "logistro",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/logistro@2.0.1",
+   "type": "library",
+   "version": "2.0.1"
+  },
+  {
+   "bom-ref": "pkg:pypi/matplotlib@3.11.2",
+   "name": "matplotlib",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/matplotlib@3.11.2",
+   "type": "library",
+   "version": "3.11.2"
+  },
+  {
+   "bom-ref": "pkg:pypi/mpmath@1.3.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "BSD"
+     }
+    }
+   ],
+   "name": "mpmath",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/mpmath@1.3.0",
+   "type": "library",
+   "version": "1.3.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/narwhals@2.28.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "narwhals",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/narwhals@2.28.0",
+   "type": "library",
+   "version": "2.28.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/numpy@2.5.4",
+   "licenses": [
+    {
+     "license": {
+      "name": "BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0"
+     }
+    }
+   ],
+   "name": "numpy",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/numpy@2.5.4",
+   "type": "library",
+   "version": "2.5.4"
+  },
+  {
+   "bom-ref": "pkg:pypi/opentelemetry-api@1.45.2",
+   "licenses": [
+    {
+     "license": {
+      "name": "Apache-2.0"
+     }
+    }
+   ],
+   "name": "opentelemetry-api",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/opentelemetry-api@1.45.2",
+   "type": "library",
+   "version": "1.45.2"
+  },
+  {
+   "bom-ref": "pkg:pypi/orjson@3.13.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "MPL-2.0 AND (Apache-2.0 OR MIT)"
+     }
+    }
+   ],
+   "name": "orjson",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/orjson@3.13.0",
+   "type": "library",
+   "version": "3.13.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/packaging@26.3",
+   "licenses": [
+    {
+     "license": {
+      "name": "Apache-2.0 OR BSD-2-Clause"
+     }
+    }
+   ],
+   "name": "packaging",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/packaging@26.3",
+   "type": "library",
+   "version": "26.3"
+  },
+  {
+   "bom-ref": "pkg:pypi/pandas@2.3.3",
+   "name": "pandas",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/pandas@2.3.3",
+   "type": "library",
+   "version": "2.3.3"
+  },
+  {
+   "bom-ref": "pkg:pypi/pillow@13.0.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT-CMU"
+     }
+    }
+   ],
+   "name": "pillow",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/pillow@13.0.0",
+   "type": "library",
+   "version": "13.0.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/pint@0.26.2",
+   "licenses": [
+    {
+     "license": {
+      "name": "BSD-3-Clause"
+     }
+    }
+   ],
+   "name": "Pint",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/pint@0.26.2",
+   "type": "library",
+   "version": "0.26.2"
+  },
+  {
+   "bom-ref": "pkg:pypi/pip@25.0.1",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "pip",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/pip@25.0.1",
+   "type": "library",
+   "version": "25.0.1"
+  },
+  {
+   "bom-ref": "pkg:pypi/platformdirs@4.14.5",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "platformdirs",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/platformdirs@4.14.5",
+   "type": "library",
+   "version": "4.14.5"
+  },
+  {
+   "bom-ref": "pkg:pypi/plotly@6.5.2",
+   "name": "plotly",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/plotly@6.5.2",
+   "type": "library",
+   "version": "6.5.2"
+  },
+  {
+   "bom-ref": "pkg:pypi/pluggy@1.7.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "pluggy",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/pluggy@1.7.0",
+   "type": "library",
+   "version": "1.7.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/pydantic@2.14.3",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "pydantic",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/pydantic@2.14.3",
+   "type": "library",
+   "version": "2.14.3"
+  },
+  {
+   "bom-ref": "pkg:pypi/pydantic-settings@2.16.2",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "pydantic-settings",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/pydantic-settings@2.16.2",
+   "type": "library",
+   "version": "2.16.2"
+  },
+  {
+   "bom-ref": "pkg:pypi/pydantic-core@2.50.4",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "pydantic_core",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/pydantic-core@2.50.4",
+   "type": "library",
+   "version": "2.50.4"
+  },
+  {
+   "bom-ref": "pkg:pypi/pygments@2.21.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "BSD-2-Clause"
+     }
+    }
+   ],
+   "name": "Pygments",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/pygments@2.21.0",
+   "type": "library",
+   "version": "2.21.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/pyparsing@3.3.3",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "pyparsing",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/pyparsing@3.3.3",
+   "type": "library",
+   "version": "3.3.3"
+  },
+  {
+   "bom-ref": "pkg:pypi/pytest@8.4.2",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "pytest",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/pytest@8.4.2",
+   "type": "library",
+   "version": "8.4.2"
+  },
+  {
+   "bom-ref": "pkg:pypi/pytest-timeout@2.4.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "pytest-timeout",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/pytest-timeout@2.4.0",
+   "type": "library",
+   "version": "2.4.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/python-dateutil@4.0.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "BSD-3-Clause"
+     }
+    }
+   ],
+   "name": "python-dateutil",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/python-dateutil@4.0.0",
+   "type": "library",
+   "version": "4.0.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/python-dotenv@1.2.4",
+   "licenses": [
+    {
+     "license": {
+      "name": "BSD-3-Clause"
+     }
+    }
+   ],
+   "name": "python-dotenv",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/python-dotenv@1.2.4",
+   "type": "library",
+   "version": "1.2.4"
+  },
+  {
+   "bom-ref": "pkg:pypi/pytz@2026.6",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "pytz",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/pytz@2026.6",
+   "type": "library",
+   "version": "2026.6"
+  },
+  {
+   "bom-ref": "pkg:pypi/pyyaml@6.0.3",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "PyYAML",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/pyyaml@6.0.3",
+   "type": "library",
+   "version": "6.0.3"
+  },
+  {
+   "bom-ref": "pkg:pypi/requests@2.34.2",
+   "licenses": [
+    {
+     "license": {
+      "name": "Apache-2.0"
+     }
+    }
+   ],
+   "name": "requests",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/requests@2.34.2",
+   "type": "library",
+   "version": "2.34.2"
+  },
+  {
+   "bom-ref": "pkg:pypi/scipy@1.18.1",
+   "name": "scipy",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/scipy@1.18.1",
+   "type": "library",
+   "version": "1.18.1"
+  },
+  {
+   "bom-ref": "pkg:pypi/simplejson@4.2.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT OR AFL-2.1"
+     }
+    }
+   ],
+   "name": "simplejson",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/simplejson@4.2.0",
+   "type": "library",
+   "version": "4.2.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/starlette@1.10.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "BSD-3-Clause"
+     }
+    }
+   ],
+   "name": "starlette",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/starlette@1.10.0",
+   "type": "library",
+   "version": "1.10.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/sympy@1.14.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "BSD"
+     }
+    }
+   ],
+   "name": "sympy",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/sympy@1.14.0",
+   "type": "library",
+   "version": "1.14.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/truststore@0.10.5",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "truststore",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/truststore@0.10.5",
+   "type": "library",
+   "version": "0.10.5"
+  },
+  {
+   "bom-ref": "pkg:pypi/typing-inspection@0.4.5",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "typing-inspection",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/typing-inspection@0.4.5",
+   "type": "library",
+   "version": "0.4.5"
+  },
+  {
+   "bom-ref": "pkg:pypi/typing-extensions@4.16.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "PSF-2.0"
+     }
+    }
+   ],
+   "name": "typing_extensions",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/typing-extensions@4.16.0",
+   "type": "library",
+   "version": "4.16.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/tzdata@2026.6",
+   "licenses": [
+    {
+     "license": {
+      "name": "Apache-2.0"
+     }
+    }
+   ],
+   "name": "tzdata",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/tzdata@2026.6",
+   "type": "library",
+   "version": "2026.6"
+  },
+  {
+   "bom-ref": "pkg:pypi/urllib3@2.8.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "urllib3",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/urllib3@2.8.0",
+   "type": "library",
+   "version": "2.8.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/uvicorn@0.54.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "BSD-3-Clause"
+     }
+    }
+   ],
+   "name": "uvicorn",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/uvicorn@0.54.0",
+   "type": "library",
+   "version": "0.54.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/uvloop@0.23.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT License"
+     }
+    }
+   ],
+   "name": "uvloop",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/uvloop@0.23.0",
+   "type": "library",
+   "version": "0.23.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/watchfiles@1.3.0",
+   "licenses": [
+    {
+     "license": {
+      "name": "MIT"
+     }
+    }
+   ],
+   "name": "watchfiles",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/watchfiles@1.3.0",
+   "type": "library",
+   "version": "1.3.0"
+  },
+  {
+   "bom-ref": "pkg:pypi/websockets@17.4",
+   "licenses": [
+    {
+     "license": {
+      "name": "BSD-3-Clause"
+     }
+    }
+   ],
+   "name": "websockets",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "python-site-packages"
+    }
+   ],
+   "purl": "pkg:pypi/websockets@17.4",
+   "type": "library",
+   "version": "17.4"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/adduser@3.134?arch=all&distro=bookworm",
+   "name": "adduser",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/adduser@3.134?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "3.134"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/adwaita-icon-theme@43-1?arch=all&distro=bookworm",
+   "name": "adwaita-icon-theme",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/adwaita-icon-theme@43-1?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "43-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/apt@2.6.2?arch=amd64&distro=bookworm",
+   "name": "apt",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/apt@2.6.2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.6.2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/at-spi2-common@2.46.0-5?arch=all&distro=bookworm",
+   "name": "at-spi2-common",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/at-spi2-common@2.46.0-5?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "2.46.0-5"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/base-files@12.4+deb12u15?arch=amd64&distro=bookworm",
+   "name": "base-files",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/base-files@12.4+deb12u15?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "12.4+deb12u15"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/base-passwd@3.6.1?arch=amd64&distro=bookworm",
+   "name": "base-passwd",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/base-passwd@3.6.1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "3.6.1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/bash@5.2.15-2+b13?arch=amd64&distro=bookworm",
+   "name": "bash",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/bash@5.2.15-2+b13?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "5.2.15-2+b13"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/bsdutils@1:2.38.1-5+deb12u3?arch=amd64&distro=bookworm",
+   "name": "bsdutils",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/bsdutils@1:2.38.1-5+deb12u3?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1:2.38.1-5+deb12u3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/ca-certificates@20250419~deb12u2?arch=all&distro=bookworm",
+   "name": "ca-certificates",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/ca-certificates@20250419~deb12u2?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "20250419~deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/coreutils@9.1-1?arch=amd64&distro=bookworm",
+   "name": "coreutils",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/coreutils@9.1-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "9.1-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/dash@0.5.12-2?arch=amd64&distro=bookworm",
+   "name": "dash",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/dash@0.5.12-2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "0.5.12-2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/dbus@1.14.10-1~deb12u1?arch=amd64&distro=bookworm",
+   "name": "dbus",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/dbus@1.14.10-1~deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.14.10-1~deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/dbus-bin@1.14.10-1~deb12u1?arch=amd64&distro=bookworm",
+   "name": "dbus-bin",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/dbus-bin@1.14.10-1~deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.14.10-1~deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/dbus-daemon@1.14.10-1~deb12u1?arch=amd64&distro=bookworm",
+   "name": "dbus-daemon",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/dbus-daemon@1.14.10-1~deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.14.10-1~deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/dbus-session-bus-common@1.14.10-1~deb12u1?arch=all&distro=bookworm",
+   "name": "dbus-session-bus-common",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/dbus-session-bus-common@1.14.10-1~deb12u1?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "1.14.10-1~deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/dbus-system-bus-common@1.14.10-1~deb12u1?arch=all&distro=bookworm",
+   "name": "dbus-system-bus-common",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/dbus-system-bus-common@1.14.10-1~deb12u1?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "1.14.10-1~deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/dbus-user-session@1.14.10-1~deb12u1?arch=amd64&distro=bookworm",
+   "name": "dbus-user-session",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/dbus-user-session@1.14.10-1~deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.14.10-1~deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/dconf-gsettings-backend@0.40.0-4?arch=amd64&distro=bookworm",
+   "name": "dconf-gsettings-backend",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/dconf-gsettings-backend@0.40.0-4?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "0.40.0-4"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/dconf-service@0.40.0-4?arch=amd64&distro=bookworm",
+   "name": "dconf-service",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/dconf-service@0.40.0-4?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "0.40.0-4"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/debconf@1.5.82?arch=all&distro=bookworm",
+   "name": "debconf",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/debconf@1.5.82?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "1.5.82"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/debian-archive-keyring@2023.3+deb12u2?arch=all&distro=bookworm",
+   "name": "debian-archive-keyring",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/debian-archive-keyring@2023.3+deb12u2?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "2023.3+deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/debianutils@5.7-0.5~deb12u1?arch=amd64&distro=bookworm",
+   "name": "debianutils",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/debianutils@5.7-0.5~deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "5.7-0.5~deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/diffutils@1:3.8-4?arch=amd64&distro=bookworm",
+   "name": "diffutils",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/diffutils@1:3.8-4?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1:3.8-4"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/dmsetup@2:1.02.185-2?arch=amd64&distro=bookworm",
+   "name": "dmsetup",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/dmsetup@2:1.02.185-2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2:1.02.185-2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/dpkg@1.21.23?arch=amd64&distro=bookworm",
+   "name": "dpkg",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/dpkg@1.21.23?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.21.23"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/e2fsprogs@1.47.0-2+b2?arch=amd64&distro=bookworm",
+   "name": "e2fsprogs",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/e2fsprogs@1.47.0-2+b2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.47.0-2+b2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/findutils@4.9.0-4?arch=amd64&distro=bookworm",
+   "name": "findutils",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/findutils@4.9.0-4?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "4.9.0-4"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/fontconfig@2.14.1-4?arch=amd64&distro=bookworm",
+   "name": "fontconfig",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/fontconfig@2.14.1-4?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.14.1-4"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/fontconfig-config@2.14.1-4?arch=amd64&distro=bookworm",
+   "name": "fontconfig-config",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/fontconfig-config@2.14.1-4?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.14.1-4"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/fonts-liberation@1:1.07.4-11?arch=all&distro=bookworm",
+   "name": "fonts-liberation",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/fonts-liberation@1:1.07.4-11?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "1:1.07.4-11"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/gcc-12-base@12.2.0-14+deb12u1?arch=amd64&distro=bookworm",
+   "name": "gcc-12-base",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/gcc-12-base@12.2.0-14+deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "12.2.0-14+deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/gpgv@2.2.40-1.1+deb12u2?arch=amd64&distro=bookworm",
+   "name": "gpgv",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/gpgv@2.2.40-1.1+deb12u2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.2.40-1.1+deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/grep@3.8-5?arch=amd64&distro=bookworm",
+   "name": "grep",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/grep@3.8-5?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "3.8-5"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/gtk-update-icon-cache@3.24.38-2~deb12u3?arch=amd64&distro=bookworm",
+   "name": "gtk-update-icon-cache",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/gtk-update-icon-cache@3.24.38-2~deb12u3?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "3.24.38-2~deb12u3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/gzip@1.12-1?arch=amd64&distro=bookworm",
+   "name": "gzip",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/gzip@1.12-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.12-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/hicolor-icon-theme@0.17-2?arch=all&distro=bookworm",
+   "name": "hicolor-icon-theme",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/hicolor-icon-theme@0.17-2?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "0.17-2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/hostname@3.23+nmu1?arch=amd64&distro=bookworm",
+   "name": "hostname",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/hostname@3.23+nmu1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "3.23+nmu1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/init-system-helpers@1.65.2+deb12u1?arch=all&distro=bookworm",
+   "name": "init-system-helpers",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/init-system-helpers@1.65.2+deb12u1?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "1.65.2+deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libacl1@2.3.1-3?arch=amd64&distro=bookworm",
+   "name": "libacl1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libacl1@2.3.1-3?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.3.1-3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libapparmor1@3.0.8-3?arch=amd64&distro=bookworm",
+   "name": "libapparmor1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libapparmor1@3.0.8-3?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "3.0.8-3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libapt-pkg6.0@2.6.2?arch=amd64&distro=bookworm",
+   "name": "libapt-pkg6.0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libapt-pkg6.0@2.6.2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.6.2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libargon2-1@0~20171227-0.3+deb12u1?arch=amd64&distro=bookworm",
+   "name": "libargon2-1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libargon2-1@0~20171227-0.3+deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "0~20171227-0.3+deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libasound2@1.2.8-1+b1?arch=amd64&distro=bookworm",
+   "name": "libasound2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libasound2@1.2.8-1+b1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.2.8-1+b1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libasound2-data@1.2.8-1?arch=all&distro=bookworm",
+   "name": "libasound2-data",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libasound2-data@1.2.8-1?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "1.2.8-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libatk-bridge2.0-0@2.46.0-5?arch=amd64&distro=bookworm",
+   "name": "libatk-bridge2.0-0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libatk-bridge2.0-0@2.46.0-5?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.46.0-5"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libatk1.0-0@2.46.0-5?arch=amd64&distro=bookworm",
+   "name": "libatk1.0-0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libatk1.0-0@2.46.0-5?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.46.0-5"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libatspi2.0-0@2.46.0-5?arch=amd64&distro=bookworm",
+   "name": "libatspi2.0-0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libatspi2.0-0@2.46.0-5?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.46.0-5"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libattr1@1:2.5.1-4?arch=amd64&distro=bookworm",
+   "name": "libattr1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libattr1@1:2.5.1-4?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1:2.5.1-4"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libaudit-common@1:3.0.9-1?arch=all&distro=bookworm",
+   "name": "libaudit-common",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libaudit-common@1:3.0.9-1?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "1:3.0.9-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libaudit1@1:3.0.9-1?arch=amd64&distro=bookworm",
+   "name": "libaudit1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libaudit1@1:3.0.9-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1:3.0.9-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libavahi-client3@0.8-10+deb12u1?arch=amd64&distro=bookworm",
+   "name": "libavahi-client3",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libavahi-client3@0.8-10+deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "0.8-10+deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libavahi-common-data@0.8-10+deb12u1?arch=amd64&distro=bookworm",
+   "name": "libavahi-common-data",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libavahi-common-data@0.8-10+deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "0.8-10+deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libavahi-common3@0.8-10+deb12u1?arch=amd64&distro=bookworm",
+   "name": "libavahi-common3",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libavahi-common3@0.8-10+deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "0.8-10+deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libblkid1@2.38.1-5+deb12u3?arch=amd64&distro=bookworm",
+   "name": "libblkid1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libblkid1@2.38.1-5+deb12u3?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.38.1-5+deb12u3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libbrotli1@1.0.9-2+deb12u1?arch=amd64&distro=bookworm",
+   "name": "libbrotli1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libbrotli1@1.0.9-2+deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.0.9-2+deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libbsd0@0.11.7-2?arch=amd64&distro=bookworm",
+   "name": "libbsd0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libbsd0@0.11.7-2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "0.11.7-2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libbz2-1.0@1.0.8-5+b1?arch=amd64&distro=bookworm",
+   "name": "libbz2-1.0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libbz2-1.0@1.0.8-5+b1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.0.8-5+b1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libc-bin@2.36-9+deb12u14?arch=amd64&distro=bookworm",
+   "name": "libc-bin",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libc-bin@2.36-9+deb12u14?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.36-9+deb12u14"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libc6@2.36-9+deb12u14?arch=amd64&distro=bookworm",
+   "name": "libc6",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libc6@2.36-9+deb12u14?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.36-9+deb12u14"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libcairo-gobject2@1.16.0-7?arch=amd64&distro=bookworm",
+   "name": "libcairo-gobject2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libcairo-gobject2@1.16.0-7?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.16.0-7"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libcairo2@1.16.0-7?arch=amd64&distro=bookworm",
+   "name": "libcairo2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libcairo2@1.16.0-7?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.16.0-7"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libcap-ng0@0.8.3-1+b3?arch=amd64&distro=bookworm",
+   "name": "libcap-ng0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libcap-ng0@0.8.3-1+b3?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "0.8.3-1+b3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libcap2@1:2.66-4+deb12u3+b1?arch=amd64&distro=bookworm",
+   "name": "libcap2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libcap2@1:2.66-4+deb12u3+b1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1:2.66-4+deb12u3+b1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libcolord2@1.4.6-2.2?arch=amd64&distro=bookworm",
+   "name": "libcolord2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libcolord2@1.4.6-2.2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.4.6-2.2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libcom-err2@1.47.0-2+b2?arch=amd64&distro=bookworm",
+   "name": "libcom-err2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libcom-err2@1.47.0-2+b2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.47.0-2+b2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libcrypt1@1:4.4.33-2?arch=amd64&distro=bookworm",
+   "name": "libcrypt1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libcrypt1@1:4.4.33-2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1:4.4.33-2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libcryptsetup12@2:2.6.1-4~deb12u2?arch=amd64&distro=bookworm",
+   "name": "libcryptsetup12",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libcryptsetup12@2:2.6.1-4~deb12u2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2:2.6.1-4~deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libcups2@2.4.2-3+deb12u9?arch=amd64&distro=bookworm",
+   "name": "libcups2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libcups2@2.4.2-3+deb12u9?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.4.2-3+deb12u9"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libcurl4@7.88.1-10+deb12u15?arch=amd64&distro=bookworm",
+   "name": "libcurl4",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libcurl4@7.88.1-10+deb12u15?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "7.88.1-10+deb12u15"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libdatrie1@0.2.13-2+b1?arch=amd64&distro=bookworm",
+   "name": "libdatrie1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libdatrie1@0.2.13-2+b1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "0.2.13-2+b1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libdb5.3@5.3.28+dfsg2-1?arch=amd64&distro=bookworm",
+   "name": "libdb5.3",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libdb5.3@5.3.28+dfsg2-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "5.3.28+dfsg2-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libdbus-1-3@1.14.10-1~deb12u1?arch=amd64&distro=bookworm",
+   "name": "libdbus-1-3",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libdbus-1-3@1.14.10-1~deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.14.10-1~deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libdconf1@0.40.0-4?arch=amd64&distro=bookworm",
+   "name": "libdconf1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libdconf1@0.40.0-4?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "0.40.0-4"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libdebconfclient0@0.270?arch=amd64&distro=bookworm",
+   "name": "libdebconfclient0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libdebconfclient0@0.270?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "0.270"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libdeflate0@1.14-1?arch=amd64&distro=bookworm",
+   "name": "libdeflate0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libdeflate0@1.14-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.14-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libdevmapper1.02.1@2:1.02.185-2?arch=amd64&distro=bookworm",
+   "name": "libdevmapper1.02.1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libdevmapper1.02.1@2:1.02.185-2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2:1.02.185-2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libdrm-common@2.4.114-1?arch=all&distro=bookworm",
+   "name": "libdrm-common",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libdrm-common@2.4.114-1?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "2.4.114-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libdrm2@2.4.114-1+b1?arch=amd64&distro=bookworm",
+   "name": "libdrm2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libdrm2@2.4.114-1+b1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.4.114-1+b1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libepoxy0@1.5.10-1?arch=amd64&distro=bookworm",
+   "name": "libepoxy0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libepoxy0@1.5.10-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.5.10-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libexpat1@2.5.0-1+deb12u5?arch=amd64&distro=bookworm",
+   "name": "libexpat1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libexpat1@2.5.0-1+deb12u5?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.5.0-1+deb12u5"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libext2fs2@1.47.0-2+b2?arch=amd64&distro=bookworm",
+   "name": "libext2fs2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libext2fs2@1.47.0-2+b2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.47.0-2+b2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libfdisk1@2.38.1-5+deb12u3?arch=amd64&distro=bookworm",
+   "name": "libfdisk1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libfdisk1@2.38.1-5+deb12u3?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.38.1-5+deb12u3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libffi8@3.4.4-1?arch=amd64&distro=bookworm",
+   "name": "libffi8",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libffi8@3.4.4-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "3.4.4-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libfontconfig1@2.14.1-4?arch=amd64&distro=bookworm",
+   "name": "libfontconfig1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libfontconfig1@2.14.1-4?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.14.1-4"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libfreetype6@2.12.1+dfsg-5+deb12u4?arch=amd64&distro=bookworm",
+   "name": "libfreetype6",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libfreetype6@2.12.1+dfsg-5+deb12u4?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.12.1+dfsg-5+deb12u4"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libfribidi0@1.0.8-2.1?arch=amd64&distro=bookworm",
+   "name": "libfribidi0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libfribidi0@1.0.8-2.1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.0.8-2.1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libgbm1@22.3.6-1+deb12u2?arch=amd64&distro=bookworm",
+   "name": "libgbm1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libgbm1@22.3.6-1+deb12u2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "22.3.6-1+deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libgcc-s1@12.2.0-14+deb12u1?arch=amd64&distro=bookworm",
+   "name": "libgcc-s1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libgcc-s1@12.2.0-14+deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "12.2.0-14+deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libgcrypt20@1.10.1-3+deb12u1?arch=amd64&distro=bookworm",
+   "name": "libgcrypt20",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libgcrypt20@1.10.1-3+deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.10.1-3+deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libgdbm6@1.23-3?arch=amd64&distro=bookworm",
+   "name": "libgdbm6",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libgdbm6@1.23-3?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.23-3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libgdk-pixbuf-2.0-0@2.42.10+dfsg-1+deb12u4?arch=amd64&distro=bookworm",
+   "name": "libgdk-pixbuf-2.0-0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libgdk-pixbuf-2.0-0@2.42.10+dfsg-1+deb12u4?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.42.10+dfsg-1+deb12u4"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libgdk-pixbuf2.0-common@2.42.10+dfsg-1+deb12u4?arch=all&distro=bookworm",
+   "name": "libgdk-pixbuf2.0-common",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libgdk-pixbuf2.0-common@2.42.10+dfsg-1+deb12u4?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "2.42.10+dfsg-1+deb12u4"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libglib2.0-0@2.74.6-2+deb12u9?arch=amd64&distro=bookworm",
+   "name": "libglib2.0-0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libglib2.0-0@2.74.6-2+deb12u9?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.74.6-2+deb12u9"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libgmp10@2:6.2.1+dfsg1-1.1?arch=amd64&distro=bookworm",
+   "name": "libgmp10",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libgmp10@2:6.2.1+dfsg1-1.1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2:6.2.1+dfsg1-1.1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libgnutls30@3.7.9-2+deb12u7?arch=amd64&distro=bookworm",
+   "name": "libgnutls30",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libgnutls30@3.7.9-2+deb12u7?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "3.7.9-2+deb12u7"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libgpg-error0@1.46-1?arch=amd64&distro=bookworm",
+   "name": "libgpg-error0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libgpg-error0@1.46-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.46-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libgraphite2-3@1.3.14-1+deb12u1?arch=amd64&distro=bookworm",
+   "name": "libgraphite2-3",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libgraphite2-3@1.3.14-1+deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.3.14-1+deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libgssapi-krb5-2@1.20.1-2+deb12u5?arch=amd64&distro=bookworm",
+   "name": "libgssapi-krb5-2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libgssapi-krb5-2@1.20.1-2+deb12u5?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.20.1-2+deb12u5"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libgtk-3-0@3.24.38-2~deb12u3?arch=amd64&distro=bookworm",
+   "name": "libgtk-3-0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libgtk-3-0@3.24.38-2~deb12u3?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "3.24.38-2~deb12u3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libgtk-3-common@3.24.38-2~deb12u3?arch=all&distro=bookworm",
+   "name": "libgtk-3-common",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libgtk-3-common@3.24.38-2~deb12u3?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "3.24.38-2~deb12u3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libharfbuzz0b@6.0.0+dfsg-3?arch=amd64&distro=bookworm",
+   "name": "libharfbuzz0b",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libharfbuzz0b@6.0.0+dfsg-3?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "6.0.0+dfsg-3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libhogweed6@3.8.1-2?arch=amd64&distro=bookworm",
+   "name": "libhogweed6",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libhogweed6@3.8.1-2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "3.8.1-2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libicu72@72.1-3+deb12u1?arch=amd64&distro=bookworm",
+   "name": "libicu72",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libicu72@72.1-3+deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "72.1-3+deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libidn2-0@2.3.3-1+b1?arch=amd64&distro=bookworm",
+   "name": "libidn2-0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libidn2-0@2.3.3-1+b1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.3.3-1+b1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libip4tc2@1.8.9-2?arch=amd64&distro=bookworm",
+   "name": "libip4tc2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libip4tc2@1.8.9-2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.8.9-2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libjbig0@2.1-6.1?arch=amd64&distro=bookworm",
+   "name": "libjbig0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libjbig0@2.1-6.1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.1-6.1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libjpeg62-turbo@1:2.1.5-2?arch=amd64&distro=bookworm",
+   "name": "libjpeg62-turbo",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libjpeg62-turbo@1:2.1.5-2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1:2.1.5-2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libjson-c5@0.16-2?arch=amd64&distro=bookworm",
+   "name": "libjson-c5",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libjson-c5@0.16-2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "0.16-2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libk5crypto3@1.20.1-2+deb12u5?arch=amd64&distro=bookworm",
+   "name": "libk5crypto3",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libk5crypto3@1.20.1-2+deb12u5?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.20.1-2+deb12u5"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libkeyutils1@1.6.3-2?arch=amd64&distro=bookworm",
+   "name": "libkeyutils1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libkeyutils1@1.6.3-2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.6.3-2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libkmod2@30+20221128-1?arch=amd64&distro=bookworm",
+   "name": "libkmod2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libkmod2@30+20221128-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "30+20221128-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libkrb5-3@1.20.1-2+deb12u5?arch=amd64&distro=bookworm",
+   "name": "libkrb5-3",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libkrb5-3@1.20.1-2+deb12u5?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.20.1-2+deb12u5"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libkrb5support0@1.20.1-2+deb12u5?arch=amd64&distro=bookworm",
+   "name": "libkrb5support0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libkrb5support0@1.20.1-2+deb12u5?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.20.1-2+deb12u5"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/liblcms2-2@2.14-2+deb12u1?arch=amd64&distro=bookworm",
+   "name": "liblcms2-2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/liblcms2-2@2.14-2+deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.14-2+deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libldap-2.5-0@2.5.13+dfsg-5?arch=amd64&distro=bookworm",
+   "name": "libldap-2.5-0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libldap-2.5-0@2.5.13+dfsg-5?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.5.13+dfsg-5"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/liblerc4@4.0.0+ds-2?arch=amd64&distro=bookworm",
+   "name": "liblerc4",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/liblerc4@4.0.0+ds-2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "4.0.0+ds-2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/liblz4-1@1.9.4-1?arch=amd64&distro=bookworm",
+   "name": "liblz4-1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/liblz4-1@1.9.4-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.9.4-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/liblzma5@5.4.1-1+deb12u2?arch=amd64&distro=bookworm",
+   "name": "liblzma5",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/liblzma5@5.4.1-1+deb12u2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "5.4.1-1+deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libmd0@1.0.4-2?arch=amd64&distro=bookworm",
+   "name": "libmd0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libmd0@1.0.4-2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.0.4-2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libmount1@2.38.1-5+deb12u3?arch=amd64&distro=bookworm",
+   "name": "libmount1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libmount1@2.38.1-5+deb12u3?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.38.1-5+deb12u3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libncursesw6@6.4-4?arch=amd64&distro=bookworm",
+   "name": "libncursesw6",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libncursesw6@6.4-4?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "6.4-4"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libnettle8@3.8.1-2?arch=amd64&distro=bookworm",
+   "name": "libnettle8",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libnettle8@3.8.1-2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "3.8.1-2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libnghttp2-14@1.52.0-1+deb12u3?arch=amd64&distro=bookworm",
+   "name": "libnghttp2-14",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libnghttp2-14@1.52.0-1+deb12u3?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.52.0-1+deb12u3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libnsl2@1.3.0-2?arch=amd64&distro=bookworm",
+   "name": "libnsl2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libnsl2@1.3.0-2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.3.0-2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libnspr4@2:4.35-1?arch=amd64&distro=bookworm",
+   "name": "libnspr4",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libnspr4@2:4.35-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2:4.35-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libnss3@2:3.87.1-1+deb12u4?arch=amd64&distro=bookworm",
+   "name": "libnss3",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libnss3@2:3.87.1-1+deb12u4?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2:3.87.1-1+deb12u4"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libp11-kit0@0.24.1-2?arch=amd64&distro=bookworm",
+   "name": "libp11-kit0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libp11-kit0@0.24.1-2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "0.24.1-2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libpam-modules@1.5.2-6+deb12u2?arch=amd64&distro=bookworm",
+   "name": "libpam-modules",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libpam-modules@1.5.2-6+deb12u2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.5.2-6+deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libpam-modules-bin@1.5.2-6+deb12u2?arch=amd64&distro=bookworm",
+   "name": "libpam-modules-bin",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libpam-modules-bin@1.5.2-6+deb12u2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.5.2-6+deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libpam-runtime@1.5.2-6+deb12u2?arch=all&distro=bookworm",
+   "name": "libpam-runtime",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libpam-runtime@1.5.2-6+deb12u2?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "1.5.2-6+deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libpam-systemd@252.39-1~deb12u2?arch=amd64&distro=bookworm",
+   "name": "libpam-systemd",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libpam-systemd@252.39-1~deb12u2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "252.39-1~deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libpam0g@1.5.2-6+deb12u2?arch=amd64&distro=bookworm",
+   "name": "libpam0g",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libpam0g@1.5.2-6+deb12u2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.5.2-6+deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libpango-1.0-0@1.50.12+ds-1?arch=amd64&distro=bookworm",
+   "name": "libpango-1.0-0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libpango-1.0-0@1.50.12+ds-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.50.12+ds-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libpangocairo-1.0-0@1.50.12+ds-1?arch=amd64&distro=bookworm",
+   "name": "libpangocairo-1.0-0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libpangocairo-1.0-0@1.50.12+ds-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.50.12+ds-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libpangoft2-1.0-0@1.50.12+ds-1?arch=amd64&distro=bookworm",
+   "name": "libpangoft2-1.0-0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libpangoft2-1.0-0@1.50.12+ds-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.50.12+ds-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libpcre2-8-0@10.42-1+deb12u2?arch=amd64&distro=bookworm",
+   "name": "libpcre2-8-0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libpcre2-8-0@10.42-1+deb12u2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "10.42-1+deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libpixman-1-0@0.42.2-1?arch=amd64&distro=bookworm",
+   "name": "libpixman-1-0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libpixman-1-0@0.42.2-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "0.42.2-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libpng16-16@1.6.39-2+deb12u6?arch=amd64&distro=bookworm",
+   "name": "libpng16-16",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libpng16-16@1.6.39-2+deb12u6?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.6.39-2+deb12u6"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libproc2-0@2:4.0.2-3?arch=amd64&distro=bookworm",
+   "name": "libproc2-0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libproc2-0@2:4.0.2-3?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2:4.0.2-3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libpsl5@0.21.2-1?arch=amd64&distro=bookworm",
+   "name": "libpsl5",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libpsl5@0.21.2-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "0.21.2-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libreadline8@8.2-1.3?arch=amd64&distro=bookworm",
+   "name": "libreadline8",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libreadline8@8.2-1.3?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "8.2-1.3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/librtmp1@2.4+20151223.gitfa8646d.1-2+b2?arch=amd64&distro=bookworm",
+   "name": "librtmp1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/librtmp1@2.4+20151223.gitfa8646d.1-2+b2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.4+20151223.gitfa8646d.1-2+b2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libsasl2-2@2.1.28+dfsg-10+deb12u1?arch=amd64&distro=bookworm",
+   "name": "libsasl2-2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libsasl2-2@2.1.28+dfsg-10+deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.1.28+dfsg-10+deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libsasl2-modules-db@2.1.28+dfsg-10+deb12u1?arch=amd64&distro=bookworm",
+   "name": "libsasl2-modules-db",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libsasl2-modules-db@2.1.28+dfsg-10+deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.1.28+dfsg-10+deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libseccomp2@2.5.4-1+deb12u1?arch=amd64&distro=bookworm",
+   "name": "libseccomp2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libseccomp2@2.5.4-1+deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.5.4-1+deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libselinux1@3.4-1+b6?arch=amd64&distro=bookworm",
+   "name": "libselinux1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libselinux1@3.4-1+b6?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "3.4-1+b6"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libsemanage-common@3.4-1?arch=all&distro=bookworm",
+   "name": "libsemanage-common",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libsemanage-common@3.4-1?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "3.4-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libsemanage2@3.4-1+b5?arch=amd64&distro=bookworm",
+   "name": "libsemanage2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libsemanage2@3.4-1+b5?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "3.4-1+b5"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libsepol2@3.4-2.1?arch=amd64&distro=bookworm",
+   "name": "libsepol2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libsepol2@3.4-2.1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "3.4-2.1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libsmartcols1@2.38.1-5+deb12u3?arch=amd64&distro=bookworm",
+   "name": "libsmartcols1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libsmartcols1@2.38.1-5+deb12u3?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.38.1-5+deb12u3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libsqlite3-0@3.40.1-2+deb12u2?arch=amd64&distro=bookworm",
+   "name": "libsqlite3-0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libsqlite3-0@3.40.1-2+deb12u2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "3.40.1-2+deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libss2@1.47.0-2+b2?arch=amd64&distro=bookworm",
+   "name": "libss2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libss2@1.47.0-2+b2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.47.0-2+b2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libssh2-1@1.10.0-3+deb12u1?arch=amd64&distro=bookworm",
+   "name": "libssh2-1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libssh2-1@1.10.0-3+deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.10.0-3+deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libssl3@3.0.22-1~deb12u2?arch=amd64&distro=bookworm",
+   "name": "libssl3",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libssl3@3.0.22-1~deb12u2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "3.0.22-1~deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libstdc++6@12.2.0-14+deb12u1?arch=amd64&distro=bookworm",
+   "name": "libstdc++6",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libstdc++6@12.2.0-14+deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "12.2.0-14+deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libsystemd-shared@252.39-1~deb12u2?arch=amd64&distro=bookworm",
+   "name": "libsystemd-shared",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libsystemd-shared@252.39-1~deb12u2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "252.39-1~deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libsystemd0@252.39-1~deb12u2?arch=amd64&distro=bookworm",
+   "name": "libsystemd0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libsystemd0@252.39-1~deb12u2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "252.39-1~deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libtasn1-6@4.19.0-2+deb12u1?arch=amd64&distro=bookworm",
+   "name": "libtasn1-6",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libtasn1-6@4.19.0-2+deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "4.19.0-2+deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libthai-data@0.1.29-1?arch=all&distro=bookworm",
+   "name": "libthai-data",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libthai-data@0.1.29-1?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "0.1.29-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libthai0@0.1.29-1?arch=amd64&distro=bookworm",
+   "name": "libthai0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libthai0@0.1.29-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "0.1.29-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libtiff6@4.5.0-6+deb12u4?arch=amd64&distro=bookworm",
+   "name": "libtiff6",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libtiff6@4.5.0-6+deb12u4?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "4.5.0-6+deb12u4"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libtinfo6@6.4-4?arch=amd64&distro=bookworm",
+   "name": "libtinfo6",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libtinfo6@6.4-4?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "6.4-4"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libtirpc-common@1.3.3+ds-1?arch=all&distro=bookworm",
+   "name": "libtirpc-common",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libtirpc-common@1.3.3+ds-1?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "1.3.3+ds-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libtirpc3@1.3.3+ds-1?arch=amd64&distro=bookworm",
+   "name": "libtirpc3",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libtirpc3@1.3.3+ds-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.3.3+ds-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libudev1@252.39-1~deb12u2?arch=amd64&distro=bookworm",
+   "name": "libudev1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libudev1@252.39-1~deb12u2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "252.39-1~deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libunistring2@1.0-2?arch=amd64&distro=bookworm",
+   "name": "libunistring2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libunistring2@1.0-2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.0-2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libuuid1@2.38.1-5+deb12u3?arch=amd64&distro=bookworm",
+   "name": "libuuid1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libuuid1@2.38.1-5+deb12u3?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.38.1-5+deb12u3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libvulkan1@1.3.239.0-1?arch=amd64&distro=bookworm",
+   "name": "libvulkan1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libvulkan1@1.3.239.0-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.3.239.0-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libwayland-client0@1.21.0-1?arch=amd64&distro=bookworm",
+   "name": "libwayland-client0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libwayland-client0@1.21.0-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.21.0-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libwayland-cursor0@1.21.0-1?arch=amd64&distro=bookworm",
+   "name": "libwayland-cursor0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libwayland-cursor0@1.21.0-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.21.0-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libwayland-egl1@1.21.0-1?arch=amd64&distro=bookworm",
+   "name": "libwayland-egl1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libwayland-egl1@1.21.0-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.21.0-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libwayland-server0@1.21.0-1?arch=amd64&distro=bookworm",
+   "name": "libwayland-server0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libwayland-server0@1.21.0-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.21.0-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libwebp7@1.2.4-0.2+deb12u1?arch=amd64&distro=bookworm",
+   "name": "libwebp7",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libwebp7@1.2.4-0.2+deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.2.4-0.2+deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libx11-6@2:1.8.4-2+deb12u2?arch=amd64&distro=bookworm",
+   "name": "libx11-6",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libx11-6@2:1.8.4-2+deb12u2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2:1.8.4-2+deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libx11-data@2:1.8.4-2+deb12u2?arch=all&distro=bookworm",
+   "name": "libx11-data",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libx11-data@2:1.8.4-2+deb12u2?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "2:1.8.4-2+deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libxau6@1:1.0.9-1?arch=amd64&distro=bookworm",
+   "name": "libxau6",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libxau6@1:1.0.9-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1:1.0.9-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libxcb-render0@1.15-1?arch=amd64&distro=bookworm",
+   "name": "libxcb-render0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libxcb-render0@1.15-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.15-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libxcb-shm0@1.15-1?arch=amd64&distro=bookworm",
+   "name": "libxcb-shm0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libxcb-shm0@1.15-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.15-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libxcb1@1.15-1?arch=amd64&distro=bookworm",
+   "name": "libxcb1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libxcb1@1.15-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.15-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libxcomposite1@1:0.4.5-1?arch=amd64&distro=bookworm",
+   "name": "libxcomposite1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libxcomposite1@1:0.4.5-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1:0.4.5-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libxcursor1@1:1.2.1-1?arch=amd64&distro=bookworm",
+   "name": "libxcursor1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libxcursor1@1:1.2.1-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1:1.2.1-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libxdamage1@1:1.1.6-1?arch=amd64&distro=bookworm",
+   "name": "libxdamage1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libxdamage1@1:1.1.6-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1:1.1.6-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libxdmcp6@1:1.1.2-3?arch=amd64&distro=bookworm",
+   "name": "libxdmcp6",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libxdmcp6@1:1.1.2-3?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1:1.1.2-3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libxext6@2:1.3.4-1+b1?arch=amd64&distro=bookworm",
+   "name": "libxext6",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libxext6@2:1.3.4-1+b1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2:1.3.4-1+b1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libxfixes3@1:6.0.0-2?arch=amd64&distro=bookworm",
+   "name": "libxfixes3",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libxfixes3@1:6.0.0-2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1:6.0.0-2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libxi6@2:1.8-1+b1?arch=amd64&distro=bookworm",
+   "name": "libxi6",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libxi6@2:1.8-1+b1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2:1.8-1+b1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libxinerama1@2:1.1.4-3?arch=amd64&distro=bookworm",
+   "name": "libxinerama1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libxinerama1@2:1.1.4-3?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2:1.1.4-3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libxkbcommon0@1.5.0-1?arch=amd64&distro=bookworm",
+   "name": "libxkbcommon0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libxkbcommon0@1.5.0-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.5.0-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libxml2@2.9.14+dfsg-1.3~deb12u6?arch=amd64&distro=bookworm",
+   "name": "libxml2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libxml2@2.9.14+dfsg-1.3~deb12u6?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.9.14+dfsg-1.3~deb12u6"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libxrandr2@2:1.5.2-2+b1?arch=amd64&distro=bookworm",
+   "name": "libxrandr2",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libxrandr2@2:1.5.2-2+b1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2:1.5.2-2+b1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libxrender1@1:0.9.10-1.1?arch=amd64&distro=bookworm",
+   "name": "libxrender1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libxrender1@1:0.9.10-1.1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1:0.9.10-1.1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libxxhash0@0.8.1-1?arch=amd64&distro=bookworm",
+   "name": "libxxhash0",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libxxhash0@0.8.1-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "0.8.1-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/libzstd1@1.5.4+dfsg2-5?arch=amd64&distro=bookworm",
+   "name": "libzstd1",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/libzstd1@1.5.4+dfsg2-5?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.5.4+dfsg2-5"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/login@1:4.13+dfsg1-1+deb12u2?arch=amd64&distro=bookworm",
+   "name": "login",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/login@1:4.13+dfsg1-1+deb12u2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1:4.13+dfsg1-1+deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/logsave@1.47.0-2+b2?arch=amd64&distro=bookworm",
+   "name": "logsave",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/logsave@1.47.0-2+b2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.47.0-2+b2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/mawk@1.3.4.20200120-3.1?arch=amd64&distro=bookworm",
+   "name": "mawk",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/mawk@1.3.4.20200120-3.1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.3.4.20200120-3.1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/mount@2.38.1-5+deb12u3?arch=amd64&distro=bookworm",
+   "name": "mount",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/mount@2.38.1-5+deb12u3?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.38.1-5+deb12u3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/ncurses-base@6.4-4?arch=all&distro=bookworm",
+   "name": "ncurses-base",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/ncurses-base@6.4-4?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "6.4-4"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/ncurses-bin@6.4-4?arch=amd64&distro=bookworm",
+   "name": "ncurses-bin",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/ncurses-bin@6.4-4?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "6.4-4"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/netbase@6.4?arch=all&distro=bookworm",
+   "name": "netbase",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/netbase@6.4?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "6.4"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/openssl@3.0.22-1~deb12u2?arch=amd64&distro=bookworm",
+   "name": "openssl",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/openssl@3.0.22-1~deb12u2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "3.0.22-1~deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/passwd@1:4.13+dfsg1-1+deb12u2?arch=amd64&distro=bookworm",
+   "name": "passwd",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/passwd@1:4.13+dfsg1-1+deb12u2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1:4.13+dfsg1-1+deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/perl-base@5.36.0-7+deb12u4?arch=amd64&distro=bookworm",
+   "name": "perl-base",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/perl-base@5.36.0-7+deb12u4?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "5.36.0-7+deb12u4"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/procps@2:4.0.2-3?arch=amd64&distro=bookworm",
+   "name": "procps",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/procps@2:4.0.2-3?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2:4.0.2-3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/readline-common@8.2-1.3?arch=all&distro=bookworm",
+   "name": "readline-common",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/readline-common@8.2-1.3?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "8.2-1.3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/sed@4.9-1+deb12u1?arch=amd64&distro=bookworm",
+   "name": "sed",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/sed@4.9-1+deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "4.9-1+deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/shared-mime-info@2.2-1?arch=amd64&distro=bookworm",
+   "name": "shared-mime-info",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/shared-mime-info@2.2-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.2-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/systemd@252.39-1~deb12u2?arch=amd64&distro=bookworm",
+   "name": "systemd",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/systemd@252.39-1~deb12u2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "252.39-1~deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/systemd-sysv@252.39-1~deb12u2?arch=amd64&distro=bookworm",
+   "name": "systemd-sysv",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/systemd-sysv@252.39-1~deb12u2?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "252.39-1~deb12u2"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/sysvinit-utils@3.06-4?arch=amd64&distro=bookworm",
+   "name": "sysvinit-utils",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/sysvinit-utils@3.06-4?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "3.06-4"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/tar@1.34+dfsg-1.2+deb12u1?arch=amd64&distro=bookworm",
+   "name": "tar",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/tar@1.34+dfsg-1.2+deb12u1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1.34+dfsg-1.2+deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/tzdata@2026f-0+deb12u1?arch=all&distro=bookworm",
+   "name": "tzdata",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/tzdata@2026f-0+deb12u1?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "2026f-0+deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/usr-is-merged@37~deb12u1?arch=all&distro=bookworm",
+   "name": "usr-is-merged",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/usr-is-merged@37~deb12u1?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "37~deb12u1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/util-linux@2.38.1-5+deb12u3?arch=amd64&distro=bookworm",
+   "name": "util-linux",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/util-linux@2.38.1-5+deb12u3?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.38.1-5+deb12u3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/util-linux-extra@2.38.1-5+deb12u3?arch=amd64&distro=bookworm",
+   "name": "util-linux-extra",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/util-linux-extra@2.38.1-5+deb12u3?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "2.38.1-5+deb12u3"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/xkb-data@2.35.1-1?arch=all&distro=bookworm",
+   "name": "xkb-data",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/xkb-data@2.35.1-1?arch=all&distro=bookworm",
+   "type": "library",
+   "version": "2.35.1-1"
+  },
+  {
+   "bom-ref": "pkg:deb/debian/zlib1g@1:1.2.13.dfsg-1?arch=amd64&distro=bookworm",
+   "name": "zlib1g",
+   "properties": [
+    {
+     "name": "sc:source",
+     "value": "dpkg"
+    }
+   ],
+   "purl": "pkg:deb/debian/zlib1g@1:1.2.13.dfsg-1?arch=amd64&distro=bookworm",
+   "type": "library",
+   "version": "1:1.2.13.dfsg-1"
+  }
+ ],
+ "metadata": {
+  "component": {
+   "name": "sc-workbench-staging",
+   "type": "container",
+   "version": "sc-workbench-staging:14.0.0-fig02a-rc1-7cfbdf0c6ad0"
+  },
+  "timestamp": "2026-11-10T03:58:58+00:00",
+  "tools": {
+   "components": [
+    {
+     "name": "sc-workbench-staging-sbom",
+     "type": "application",
+     "version": "1.0"
+    }
+   ]
+  }
+ },
+ "serialNumber": "urn:uuid:8389495a-38af-487f-975d-3be4c07efe45",
+ "specVersion": "1.5",
+ "version": 1
+}
