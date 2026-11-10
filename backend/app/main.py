@@ -745,3 +745,7 @@ app.include_router(v13120_router)
 # Workbench v14.0.0 — Computational Workflow & Multi-Step Calculation Composer.
 from app.v1400 import router as v1400_router
 app.include_router(v1400_router)
+
+# SC-SIM-01 G7: governed Workspace execution adapter (Workspace issues the receipt).
+from app.workspace_adapter import router as workspace_adapter_router  # noqa: E402
+app.include_router(workspace_adapter_router)
