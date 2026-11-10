@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 
 from app.main import app
+from app.release import APP_VERSION
 
 client = TestClient(app)
 
@@ -25,7 +26,7 @@ def test_v10110_status():
     assert r.status_code == 200
     data = r.json()
     assert data["ok"] is True
-    assert data["version"] == "10.11.0"
+    assert data["version"] == APP_VERSION
     assert data["wordpressRequired"] is False
     assert data["capabilities"]["replayVerification"] is True
 
@@ -36,7 +37,7 @@ def test_package_build_captures_reproducibility_fields():
     assert data["schema"] == "sc-workbench-reproducible-computational-package/1.0"
     assert data["result"]["result"]["exact"] == "1/2"
     assert data["manifest"]["calculationResultHash"] == data["result"]["calculationHash"]
-    assert data["environment"]["workbenchVersion"] == "10.11.0"
+    assert data["environment"]["workbenchVersion"] == APP_VERSION
     assert data["replay"]["expectedCalculationHash"] == data["result"]["calculationHash"]
     assert data["provenance"]["wordpressRequired"] is False
     assert data["packageHash"]
