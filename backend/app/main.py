@@ -801,3 +801,7 @@ app.include_router(erw_v121_router)
 # ERW 1.2.2 authenticated report workspace
 from app.erw_v122 import router as erw_v122_router
 app.include_router(erw_v122_router)
+
+# ERW 1.3.0 scientific document canvas
+from app.erw_v130 import router as erw_v130_router
+app.include_router(erw_v130_router)
