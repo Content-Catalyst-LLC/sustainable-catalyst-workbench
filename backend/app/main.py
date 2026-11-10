@@ -749,3 +749,7 @@ app.include_router(v1400_router)
 # ERW 0.1.0 — Wexford research project and feedstock-mass foundation.
 from app.erw_v010 import router as erw_v010_router
 app.include_router(erw_v010_router)
+
+# ERW 0.2.0 — exploratory feedstock composition and stoichiometry.
+from app.erw_v020 import router as erw_v020_router
+app.include_router(erw_v020_router)
