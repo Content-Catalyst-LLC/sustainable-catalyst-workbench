@@ -32,11 +32,29 @@ def context_route(authorization:Optional[str]=Header(default=None)):
     return {"ok":True,"identityId":owner,"projects":projects,
             "wordPressRequired":False}
 
+def _unique_snapshots(items):
+    """Collapse identical report hashes in the UI only; never delete saved history."""
+    drafts=[i for i in items if i["schema"]==REPORT and i["digestConsistent"]]
+    seen=set()
+    unique=[]
+    for item in reversed(drafts):
+        fingerprint=item.get("hash")
+        # Incomplete legacy/test catalog entries cannot be deduplicated safely.
+        if not isinstance(fingerprint,str) or not fingerprint:
+            unique.append(item)
+            continue
+        if fingerprint in seen:
+            continue
+        seen.add(fingerprint)
+        label=item.get("title")
+        unique.append({**item,"title":(label+" · "+fingerprint[:10]) if label else fingerprint[:10]})
+    return unique
+
 @router.get("/erw/v1.2.2/projects/{project_id}/report-drafts")
 def drafts_route(project_id:str,authorization:Optional[str]=Header(default=None)):
     owner=owner_from_auth(authorization)
     items=catalog(project_id,owner)
-    return {"ok":True,"drafts":[i for i in items if i["schema"]==REPORT and i["digestConsistent"]]}
+    return {"ok":True,"drafts":_unique_snapshots(items)}
 
 # This remains a tab-memory bearer session; it is never written to a URL or
 # web storage. The existing editor's API methods retain owner validation.
@@ -64,7 +82,7 @@ AUTH_CONNECT="""el('connect').onclick=async()=>{try{
  if(wex)await refreshObjects();
  }catch(e){token='';notice(e)}};"""
 LOAD_ORIGINAL="""el('load').onclick=async()=>{try{let d=await api('/erw/v1.2.0/projects/'+project()+'/objects');catalog=d.objects;options('object',catalog);el('status').textContent=catalog.length+' stored research objects'}catch(e){notice(e)}};"""
-LOAD_NEW="""async function refreshObjects(){let d=await api('/erw/v1.2.0/projects/'+project()+'/objects');catalog=d.objects;options('object',catalog);el('status').textContent=catalog.length+' stored research objects';await refreshDrafts()}
+LOAD_NEW="""async function refreshObjects(){let d=await api('/erw/v1.2.0/projects/'+project()+'/objects');catalog=d.objects.filter(x=>x.schema!=='sc.erw.report-workspace.v1.2.0');options('object',catalog);el('status').textContent=catalog.length+' insertable research object(s); saved reports are listed separately above.';await refreshDrafts()}
 el('load').onclick=async()=>{try{await refreshObjects()}catch(e){notice(e)}};
 async function refreshDrafts(){const d=await api('/erw/v1.2.2/projects/'+project()+'/report-drafts');options('drafts',d.drafts.map(x=>({id:x.id,title:x.title})))}
 el('restore').onclick=async()=>{try{

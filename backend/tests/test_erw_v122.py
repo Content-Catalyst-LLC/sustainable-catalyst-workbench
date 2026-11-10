@@ -40,3 +40,21 @@ def test_report_response():
     response=m.report_ui()
     assert response.status_code==200
     assert b"Authenticated Research Report Workspace" in response.body
+
+
+def test_snapshot_menu_collapses_identical_hashes():
+    from app.erw_v122 import _unique_snapshots
+    from app.erw_v120 import REPORT
+    record={"schema":REPORT,"digestConsistent":True,"title":"Wexford report","hash":"a"*64}
+    rows=[{**record,"id":"old"},{**record,"id":"new"}]
+    output=_unique_snapshots(rows)
+    assert len(output)==1
+    assert output[0]["id"]=="new"
+    assert "aaaaaaaaaa" in output[0]["title"]
+
+
+def test_saved_object_selector_excludes_report_snapshots():
+    page=m.build_page()
+    assert "catalog=d.objects.filter(x=>x.schema!=='sc.erw.report-workspace.v1.2.0')" in page
+    assert "await refreshDrafts()" in page
+    assert "Saved report snapshots" in page
