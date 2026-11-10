@@ -40,7 +40,12 @@ def test_create_and_validate_project_launch():
 def test_tampered_launch_rejected():
     d=client.post("/standalone/v1/launch",json={"route":"/calculator"}).json()
     token=d["launchToken"]
-    bad=token[:-1]+("A" if token[-1]!="A" else "B")
+    # Alter a character in the middle of the signature. The final base64url character of a
+    # 32-byte HMAC carries two unused bits, so swapping only that character (e.g. A->B) can
+    # decode to the same signature and make this test pass or fail at random.
+    prefix,body,sig=token.split(".",2)
+    k=len(sig)//2
+    bad=f"{prefix}.{body}.{sig[:k]}{'A' if sig[k]!='A' else 'B'}{sig[k+1:]}"
     r=client.post("/standalone/v1/launch/validate",json={"token":bad})
     assert r.status_code==400
 
