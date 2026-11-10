@@ -3,12 +3,14 @@ from __future__ import annotations
 import json, sqlite3, time, uuid
 from typing import Any, Dict, List, Optional, Literal
 from fastapi import APIRouter, Header, HTTPException
+from fastapi.responses import Response
 from pydantic import BaseModel, Field
 from .release import APP_VERSION, PRODUCT_KEY, PRODUCT_NAME, RUNTIME_KIND
 from .v510 import content_hash
 from .v11160 import GraphingRequest, execute_graphing
 from .v1220 import _connection, _owner, _assert_project_owner, _json
 from .v1340 import get_research_session, project_workspace_contract
+from .graph_svg import render_svg
 
 VERSION=APP_VERSION
 router=APIRouter(tags=["workbench-v1350-interactive-graph-studio"])
@@ -281,3 +283,28 @@ def annotation_route(graph_id:str,req:AnnotationRequest,authorization:Optional[s
 @router.post("/standalone/v1/graph-studio/graphs/{graph_id}/render")
 def render_route(graph_id:str,authorization:Optional[str]=Header(default=None)):
     owner,_=_owner(authorization); return {"ok":True,"version":VERSION,"render":render_graph(graph_id,owner)}
+
+
+@router.get("/standalone/v1/graph-studio/graphs/{graph_id}/export.svg")
+def export_svg_route(graph_id:str,authorization:Optional[str]=Header(default=None)):
+    # The existing auth and owner-scoped graph lookup are the authorization boundary.
+    owner,_=_owner(authorization)
+    render=render_graph(graph_id,owner)
+    graph=render["graph"]
+    result=render_svg(
+        {"ok":True,"render":render},
+        expected_project_id=graph["projectId"],
+        expected_graph_id=graph_id,
+    )
+    return Response(
+        content=result["svg"],
+        media_type="image/svg+xml",
+        headers={
+            "Content-Disposition":'attachment; filename="graph-studio-%s.svg"' % graph_id,
+            "X-Content-Type-Options":"nosniff",
+            "Content-Security-Policy":"default-src 'none'; sandbox",
+            "Cache-Control":"private, no-store",
+            "X-SC-Figure-SHA256":result["svgSha256"],
+            "X-SC-Figure-Provenance-SHA256":result["provenanceSha256"],
+        },
+    )
