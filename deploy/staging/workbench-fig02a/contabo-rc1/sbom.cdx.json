@@ -1212,6 +1212,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "adduser"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "3.134"
     }
    ],
    "purl": "pkg:deb/debian/adduser@3.134?arch=all&distro=debian-12.15",
@@ -1225,6 +1233,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "adwaita-icon-theme"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "43-1"
     }
    ],
    "purl": "pkg:deb/debian/adwaita-icon-theme@43-1?arch=all&distro=debian-12.15",
@@ -1238,6 +1254,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "apt"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.6.2"
     }
    ],
    "purl": "pkg:deb/debian/apt@2.6.2?arch=amd64&distro=debian-12.15",
@@ -1251,6 +1275,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "at-spi2-core"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.46.0-5"
     }
    ],
    "purl": "pkg:deb/debian/at-spi2-common@2.46.0-5?arch=all&distro=debian-12.15",
@@ -1264,6 +1296,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "base-files"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "12.4+deb12u15"
     }
    ],
    "purl": "pkg:deb/debian/base-files@12.4+deb12u15?arch=amd64&distro=debian-12.15",
@@ -1277,6 +1317,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "base-passwd"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "3.6.1"
     }
    ],
    "purl": "pkg:deb/debian/base-passwd@3.6.1?arch=amd64&distro=debian-12.15",
@@ -1290,6 +1338,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "bash"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "5.2.15-2"
     }
    ],
    "purl": "pkg:deb/debian/bash@5.2.15-2+b13?arch=amd64&distro=debian-12.15",
@@ -1303,6 +1359,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "util-linux"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.38.1-5+deb12u3"
     }
    ],
    "purl": "pkg:deb/debian/bsdutils@1:2.38.1-5+deb12u3?arch=amd64&distro=debian-12.15",
@@ -1316,6 +1380,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "ca-certificates"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "20250419~deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/ca-certificates@20250419~deb12u2?arch=all&distro=debian-12.15",
@@ -1329,6 +1401,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "coreutils"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "9.1-1"
     }
    ],
    "purl": "pkg:deb/debian/coreutils@9.1-1?arch=amd64&distro=debian-12.15",
@@ -1342,6 +1422,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "dash"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "0.5.12-2"
     }
    ],
    "purl": "pkg:deb/debian/dash@0.5.12-2?arch=amd64&distro=debian-12.15",
@@ -1355,6 +1443,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "dbus"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.14.10-1~deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/dbus@1.14.10-1~deb12u1?arch=amd64&distro=debian-12.15",
@@ -1368,6 +1464,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "dbus"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.14.10-1~deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/dbus-bin@1.14.10-1~deb12u1?arch=amd64&distro=debian-12.15",
@@ -1381,6 +1485,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "dbus"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.14.10-1~deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/dbus-daemon@1.14.10-1~deb12u1?arch=amd64&distro=debian-12.15",
@@ -1394,6 +1506,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "dbus"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.14.10-1~deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/dbus-session-bus-common@1.14.10-1~deb12u1?arch=all&distro=debian-12.15",
@@ -1407,6 +1527,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "dbus"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.14.10-1~deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/dbus-system-bus-common@1.14.10-1~deb12u1?arch=all&distro=debian-12.15",
@@ -1420,6 +1548,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "dbus"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.14.10-1~deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/dbus-user-session@1.14.10-1~deb12u1?arch=amd64&distro=debian-12.15",
@@ -1433,6 +1569,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "dconf"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "0.40.0-4"
     }
    ],
    "purl": "pkg:deb/debian/dconf-gsettings-backend@0.40.0-4?arch=amd64&distro=debian-12.15",
@@ -1446,6 +1590,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "dconf"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "0.40.0-4"
     }
    ],
    "purl": "pkg:deb/debian/dconf-service@0.40.0-4?arch=amd64&distro=debian-12.15",
@@ -1459,6 +1611,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "debconf"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.5.82"
     }
    ],
    "purl": "pkg:deb/debian/debconf@1.5.82?arch=all&distro=debian-12.15",
@@ -1472,6 +1632,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "debian-archive-keyring"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2023.3+deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/debian-archive-keyring@2023.3+deb12u2?arch=all&distro=debian-12.15",
@@ -1485,6 +1653,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "debianutils"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "5.7-0.5~deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/debianutils@5.7-0.5~deb12u1?arch=amd64&distro=debian-12.15",
@@ -1498,6 +1674,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "diffutils"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1:3.8-4"
     }
    ],
    "purl": "pkg:deb/debian/diffutils@1:3.8-4?arch=amd64&distro=debian-12.15",
@@ -1511,6 +1695,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "lvm2"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.03.16-2"
     }
    ],
    "purl": "pkg:deb/debian/dmsetup@2:1.02.185-2?arch=amd64&distro=debian-12.15",
@@ -1524,6 +1716,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.21.23"
     }
    ],
    "purl": "pkg:deb/debian/dpkg@1.21.23?arch=amd64&distro=debian-12.15",
@@ -1537,6 +1737,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "e2fsprogs"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.47.0-2"
     }
    ],
    "purl": "pkg:deb/debian/e2fsprogs@1.47.0-2+b2?arch=amd64&distro=debian-12.15",
@@ -1550,6 +1758,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "findutils"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "4.9.0-4"
     }
    ],
    "purl": "pkg:deb/debian/findutils@4.9.0-4?arch=amd64&distro=debian-12.15",
@@ -1563,6 +1779,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "fontconfig"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.14.1-4"
     }
    ],
    "purl": "pkg:deb/debian/fontconfig@2.14.1-4?arch=amd64&distro=debian-12.15",
@@ -1576,6 +1800,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "fontconfig"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.14.1-4"
     }
    ],
    "purl": "pkg:deb/debian/fontconfig-config@2.14.1-4?arch=amd64&distro=debian-12.15",
@@ -1589,6 +1821,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "fonts-liberation"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1:1.07.4-11"
     }
    ],
    "purl": "pkg:deb/debian/fonts-liberation@1:1.07.4-11?arch=all&distro=debian-12.15",
@@ -1602,6 +1842,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "gcc-12"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "12.2.0-14+deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/gcc-12-base@12.2.0-14+deb12u1?arch=amd64&distro=debian-12.15",
@@ -1615,6 +1863,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "gnupg2"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.2.40-1.1+deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/gpgv@2.2.40-1.1+deb12u2?arch=amd64&distro=debian-12.15",
@@ -1628,6 +1884,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "grep"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "3.8-5"
     }
    ],
    "purl": "pkg:deb/debian/grep@3.8-5?arch=amd64&distro=debian-12.15",
@@ -1641,6 +1905,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "gtk+3.0"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "3.24.38-2~deb12u3"
     }
    ],
    "purl": "pkg:deb/debian/gtk-update-icon-cache@3.24.38-2~deb12u3?arch=amd64&distro=debian-12.15",
@@ -1654,6 +1926,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "gzip"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.12-1"
     }
    ],
    "purl": "pkg:deb/debian/gzip@1.12-1?arch=amd64&distro=debian-12.15",
@@ -1667,6 +1947,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "hicolor-icon-theme"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "0.17-2"
     }
    ],
    "purl": "pkg:deb/debian/hicolor-icon-theme@0.17-2?arch=all&distro=debian-12.15",
@@ -1680,6 +1968,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "hostname"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "3.23+nmu1"
     }
    ],
    "purl": "pkg:deb/debian/hostname@3.23+nmu1?arch=amd64&distro=debian-12.15",
@@ -1693,6 +1989,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "init-system-helpers"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.65.2+deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/init-system-helpers@1.65.2+deb12u1?arch=all&distro=debian-12.15",
@@ -1706,6 +2010,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "acl"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.3.1-3"
     }
    ],
    "purl": "pkg:deb/debian/libacl1@2.3.1-3?arch=amd64&distro=debian-12.15",
@@ -1719,6 +2031,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "apparmor"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "3.0.8-3"
     }
    ],
    "purl": "pkg:deb/debian/libapparmor1@3.0.8-3?arch=amd64&distro=debian-12.15",
@@ -1732,6 +2052,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "apt"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.6.2"
     }
    ],
    "purl": "pkg:deb/debian/libapt-pkg6.0@2.6.2?arch=amd64&distro=debian-12.15",
@@ -1745,6 +2073,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "argon2"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "0~20171227-0.3+deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/libargon2-1@0~20171227-0.3+deb12u1?arch=amd64&distro=debian-12.15",
@@ -1758,6 +2094,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "alsa-lib"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.2.8-1"
     }
    ],
    "purl": "pkg:deb/debian/libasound2@1.2.8-1+b1?arch=amd64&distro=debian-12.15",
@@ -1771,6 +2115,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "alsa-lib"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.2.8-1"
     }
    ],
    "purl": "pkg:deb/debian/libasound2-data@1.2.8-1?arch=all&distro=debian-12.15",
@@ -1784,6 +2136,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "at-spi2-core"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.46.0-5"
     }
    ],
    "purl": "pkg:deb/debian/libatk-bridge2.0-0@2.46.0-5?arch=amd64&distro=debian-12.15",
@@ -1797,6 +2157,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "at-spi2-core"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.46.0-5"
     }
    ],
    "purl": "pkg:deb/debian/libatk1.0-0@2.46.0-5?arch=amd64&distro=debian-12.15",
@@ -1810,6 +2178,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "at-spi2-core"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.46.0-5"
     }
    ],
    "purl": "pkg:deb/debian/libatspi2.0-0@2.46.0-5?arch=amd64&distro=debian-12.15",
@@ -1823,6 +2199,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "attr"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1:2.5.1-4"
     }
    ],
    "purl": "pkg:deb/debian/libattr1@1:2.5.1-4?arch=amd64&distro=debian-12.15",
@@ -1836,6 +2220,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "audit"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1:3.0.9-1"
     }
    ],
    "purl": "pkg:deb/debian/libaudit-common@1:3.0.9-1?arch=all&distro=debian-12.15",
@@ -1849,6 +2241,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "audit"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1:3.0.9-1"
     }
    ],
    "purl": "pkg:deb/debian/libaudit1@1:3.0.9-1?arch=amd64&distro=debian-12.15",
@@ -1862,6 +2262,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "avahi"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "0.8-10+deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/libavahi-client3@0.8-10+deb12u1?arch=amd64&distro=debian-12.15",
@@ -1875,6 +2283,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "avahi"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "0.8-10+deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/libavahi-common-data@0.8-10+deb12u1?arch=amd64&distro=debian-12.15",
@@ -1888,6 +2304,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "avahi"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "0.8-10+deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/libavahi-common3@0.8-10+deb12u1?arch=amd64&distro=debian-12.15",
@@ -1901,6 +2325,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "util-linux"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.38.1-5+deb12u3"
     }
    ],
    "purl": "pkg:deb/debian/libblkid1@2.38.1-5+deb12u3?arch=amd64&distro=debian-12.15",
@@ -1914,6 +2346,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "brotli"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.0.9-2+deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/libbrotli1@1.0.9-2+deb12u1?arch=amd64&distro=debian-12.15",
@@ -1927,6 +2367,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libbsd"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "0.11.7-2"
     }
    ],
    "purl": "pkg:deb/debian/libbsd0@0.11.7-2?arch=amd64&distro=debian-12.15",
@@ -1940,6 +2388,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "bzip2"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.0.8-5"
     }
    ],
    "purl": "pkg:deb/debian/libbz2-1.0@1.0.8-5+b1?arch=amd64&distro=debian-12.15",
@@ -1953,6 +2409,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "glibc"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.36-9+deb12u14"
     }
    ],
    "purl": "pkg:deb/debian/libc-bin@2.36-9+deb12u14?arch=amd64&distro=debian-12.15",
@@ -1966,6 +2430,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "glibc"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.36-9+deb12u14"
     }
    ],
    "purl": "pkg:deb/debian/libc6@2.36-9+deb12u14?arch=amd64&distro=debian-12.15",
@@ -1979,6 +2451,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "cairo"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.16.0-7"
     }
    ],
    "purl": "pkg:deb/debian/libcairo-gobject2@1.16.0-7?arch=amd64&distro=debian-12.15",
@@ -1992,6 +2472,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "cairo"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.16.0-7"
     }
    ],
    "purl": "pkg:deb/debian/libcairo2@1.16.0-7?arch=amd64&distro=debian-12.15",
@@ -2005,6 +2493,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libcap-ng"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "0.8.3-1"
     }
    ],
    "purl": "pkg:deb/debian/libcap-ng0@0.8.3-1+b3?arch=amd64&distro=debian-12.15",
@@ -2018,6 +2514,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libcap2"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1:2.66-4+deb12u3"
     }
    ],
    "purl": "pkg:deb/debian/libcap2@1:2.66-4+deb12u3+b1?arch=amd64&distro=debian-12.15",
@@ -2031,6 +2535,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "colord"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.4.6-2.2"
     }
    ],
    "purl": "pkg:deb/debian/libcolord2@1.4.6-2.2?arch=amd64&distro=debian-12.15",
@@ -2044,6 +2556,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "e2fsprogs"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.47.0-2"
     }
    ],
    "purl": "pkg:deb/debian/libcom-err2@1.47.0-2+b2?arch=amd64&distro=debian-12.15",
@@ -2057,6 +2577,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libxcrypt"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1:4.4.33-2"
     }
    ],
    "purl": "pkg:deb/debian/libcrypt1@1:4.4.33-2?arch=amd64&distro=debian-12.15",
@@ -2070,6 +2598,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "cryptsetup"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2:2.6.1-4~deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/libcryptsetup12@2:2.6.1-4~deb12u2?arch=amd64&distro=debian-12.15",
@@ -2083,6 +2619,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "cups"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.4.2-3+deb12u9"
     }
    ],
    "purl": "pkg:deb/debian/libcups2@2.4.2-3+deb12u9?arch=amd64&distro=debian-12.15",
@@ -2096,6 +2640,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "curl"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "7.88.1-10+deb12u15"
     }
    ],
    "purl": "pkg:deb/debian/libcurl4@7.88.1-10+deb12u15?arch=amd64&distro=debian-12.15",
@@ -2109,6 +2661,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libdatrie"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "0.2.13-2"
     }
    ],
    "purl": "pkg:deb/debian/libdatrie1@0.2.13-2+b1?arch=amd64&distro=debian-12.15",
@@ -2122,6 +2682,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "db5.3"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "5.3.28+dfsg2-1"
     }
    ],
    "purl": "pkg:deb/debian/libdb5.3@5.3.28+dfsg2-1?arch=amd64&distro=debian-12.15",
@@ -2135,6 +2703,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "dbus"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.14.10-1~deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/libdbus-1-3@1.14.10-1~deb12u1?arch=amd64&distro=debian-12.15",
@@ -2148,6 +2724,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "dconf"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "0.40.0-4"
     }
    ],
    "purl": "pkg:deb/debian/libdconf1@0.40.0-4?arch=amd64&distro=debian-12.15",
@@ -2161,6 +2745,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "cdebconf"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "0.270"
     }
    ],
    "purl": "pkg:deb/debian/libdebconfclient0@0.270?arch=amd64&distro=debian-12.15",
@@ -2174,6 +2766,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libdeflate"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.14-1"
     }
    ],
    "purl": "pkg:deb/debian/libdeflate0@1.14-1?arch=amd64&distro=debian-12.15",
@@ -2187,6 +2787,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "lvm2"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.03.16-2"
     }
    ],
    "purl": "pkg:deb/debian/libdevmapper1.02.1@2:1.02.185-2?arch=amd64&distro=debian-12.15",
@@ -2200,6 +2808,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libdrm"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.4.114-1"
     }
    ],
    "purl": "pkg:deb/debian/libdrm-common@2.4.114-1?arch=all&distro=debian-12.15",
@@ -2213,6 +2829,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libdrm"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.4.114-1"
     }
    ],
    "purl": "pkg:deb/debian/libdrm2@2.4.114-1+b1?arch=amd64&distro=debian-12.15",
@@ -2226,6 +2850,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libepoxy"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.5.10-1"
     }
    ],
    "purl": "pkg:deb/debian/libepoxy0@1.5.10-1?arch=amd64&distro=debian-12.15",
@@ -2239,6 +2871,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "expat"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.5.0-1+deb12u5"
     }
    ],
    "purl": "pkg:deb/debian/libexpat1@2.5.0-1+deb12u5?arch=amd64&distro=debian-12.15",
@@ -2252,6 +2892,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "e2fsprogs"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.47.0-2"
     }
    ],
    "purl": "pkg:deb/debian/libext2fs2@1.47.0-2+b2?arch=amd64&distro=debian-12.15",
@@ -2265,6 +2913,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "util-linux"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.38.1-5+deb12u3"
     }
    ],
    "purl": "pkg:deb/debian/libfdisk1@2.38.1-5+deb12u3?arch=amd64&distro=debian-12.15",
@@ -2278,6 +2934,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libffi"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "3.4.4-1"
     }
    ],
    "purl": "pkg:deb/debian/libffi8@3.4.4-1?arch=amd64&distro=debian-12.15",
@@ -2291,6 +2955,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "fontconfig"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.14.1-4"
     }
    ],
    "purl": "pkg:deb/debian/libfontconfig1@2.14.1-4?arch=amd64&distro=debian-12.15",
@@ -2304,6 +2976,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "freetype"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.12.1+dfsg-5+deb12u4"
     }
    ],
    "purl": "pkg:deb/debian/libfreetype6@2.12.1+dfsg-5+deb12u4?arch=amd64&distro=debian-12.15",
@@ -2317,6 +2997,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "fribidi"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.0.8-2.1"
     }
    ],
    "purl": "pkg:deb/debian/libfribidi0@1.0.8-2.1?arch=amd64&distro=debian-12.15",
@@ -2330,6 +3018,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "mesa"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "22.3.6-1+deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/libgbm1@22.3.6-1+deb12u2?arch=amd64&distro=debian-12.15",
@@ -2343,6 +3039,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "gcc-12"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "12.2.0-14+deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/libgcc-s1@12.2.0-14+deb12u1?arch=amd64&distro=debian-12.15",
@@ -2356,6 +3060,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libgcrypt20"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.10.1-3+deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/libgcrypt20@1.10.1-3+deb12u1?arch=amd64&distro=debian-12.15",
@@ -2369,6 +3081,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "gdbm"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.23-3"
     }
    ],
    "purl": "pkg:deb/debian/libgdbm6@1.23-3?arch=amd64&distro=debian-12.15",
@@ -2382,6 +3102,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "gdk-pixbuf"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.42.10+dfsg-1+deb12u4"
     }
    ],
    "purl": "pkg:deb/debian/libgdk-pixbuf-2.0-0@2.42.10+dfsg-1+deb12u4?arch=amd64&distro=debian-12.15",
@@ -2395,6 +3123,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "gdk-pixbuf"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.42.10+dfsg-1+deb12u4"
     }
    ],
    "purl": "pkg:deb/debian/libgdk-pixbuf2.0-common@2.42.10+dfsg-1+deb12u4?arch=all&distro=debian-12.15",
@@ -2408,6 +3144,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "glib2.0"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.74.6-2+deb12u9"
     }
    ],
    "purl": "pkg:deb/debian/libglib2.0-0@2.74.6-2+deb12u9?arch=amd64&distro=debian-12.15",
@@ -2421,6 +3165,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "gmp"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2:6.2.1+dfsg1-1.1"
     }
    ],
    "purl": "pkg:deb/debian/libgmp10@2:6.2.1+dfsg1-1.1?arch=amd64&distro=debian-12.15",
@@ -2434,6 +3186,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "gnutls28"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "3.7.9-2+deb12u7"
     }
    ],
    "purl": "pkg:deb/debian/libgnutls30@3.7.9-2+deb12u7?arch=amd64&distro=debian-12.15",
@@ -2447,6 +3207,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libgpg-error"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.46-1"
     }
    ],
    "purl": "pkg:deb/debian/libgpg-error0@1.46-1?arch=amd64&distro=debian-12.15",
@@ -2460,6 +3228,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "graphite2"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.3.14-1+deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/libgraphite2-3@1.3.14-1+deb12u1?arch=amd64&distro=debian-12.15",
@@ -2473,6 +3249,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "krb5"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.20.1-2+deb12u5"
     }
    ],
    "purl": "pkg:deb/debian/libgssapi-krb5-2@1.20.1-2+deb12u5?arch=amd64&distro=debian-12.15",
@@ -2486,6 +3270,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "gtk+3.0"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "3.24.38-2~deb12u3"
     }
    ],
    "purl": "pkg:deb/debian/libgtk-3-0@3.24.38-2~deb12u3?arch=amd64&distro=debian-12.15",
@@ -2499,6 +3291,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "gtk+3.0"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "3.24.38-2~deb12u3"
     }
    ],
    "purl": "pkg:deb/debian/libgtk-3-common@3.24.38-2~deb12u3?arch=all&distro=debian-12.15",
@@ -2512,6 +3312,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "harfbuzz"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "6.0.0+dfsg-3"
     }
    ],
    "purl": "pkg:deb/debian/libharfbuzz0b@6.0.0+dfsg-3?arch=amd64&distro=debian-12.15",
@@ -2525,6 +3333,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "nettle"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "3.8.1-2"
     }
    ],
    "purl": "pkg:deb/debian/libhogweed6@3.8.1-2?arch=amd64&distro=debian-12.15",
@@ -2538,6 +3354,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "icu"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "72.1-3+deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/libicu72@72.1-3+deb12u1?arch=amd64&distro=debian-12.15",
@@ -2551,6 +3375,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libidn2"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.3.3-1"
     }
    ],
    "purl": "pkg:deb/debian/libidn2-0@2.3.3-1+b1?arch=amd64&distro=debian-12.15",
@@ -2564,6 +3396,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "iptables"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.8.9-2"
     }
    ],
    "purl": "pkg:deb/debian/libip4tc2@1.8.9-2?arch=amd64&distro=debian-12.15",
@@ -2577,6 +3417,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "jbigkit"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.1-6.1"
     }
    ],
    "purl": "pkg:deb/debian/libjbig0@2.1-6.1?arch=amd64&distro=debian-12.15",
@@ -2590,6 +3438,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libjpeg-turbo"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1:2.1.5-2"
     }
    ],
    "purl": "pkg:deb/debian/libjpeg62-turbo@1:2.1.5-2?arch=amd64&distro=debian-12.15",
@@ -2603,6 +3459,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "json-c"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "0.16-2"
     }
    ],
    "purl": "pkg:deb/debian/libjson-c5@0.16-2?arch=amd64&distro=debian-12.15",
@@ -2616,6 +3480,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "krb5"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.20.1-2+deb12u5"
     }
    ],
    "purl": "pkg:deb/debian/libk5crypto3@1.20.1-2+deb12u5?arch=amd64&distro=debian-12.15",
@@ -2629,6 +3501,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "keyutils"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.6.3-2"
     }
    ],
    "purl": "pkg:deb/debian/libkeyutils1@1.6.3-2?arch=amd64&distro=debian-12.15",
@@ -2642,6 +3522,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "kmod"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "30+20221128-1"
     }
    ],
    "purl": "pkg:deb/debian/libkmod2@30+20221128-1?arch=amd64&distro=debian-12.15",
@@ -2655,6 +3543,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "krb5"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.20.1-2+deb12u5"
     }
    ],
    "purl": "pkg:deb/debian/libkrb5-3@1.20.1-2+deb12u5?arch=amd64&distro=debian-12.15",
@@ -2668,6 +3564,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "krb5"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.20.1-2+deb12u5"
     }
    ],
    "purl": "pkg:deb/debian/libkrb5support0@1.20.1-2+deb12u5?arch=amd64&distro=debian-12.15",
@@ -2681,6 +3585,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "lcms2"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.14-2+deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/liblcms2-2@2.14-2+deb12u1?arch=amd64&distro=debian-12.15",
@@ -2694,6 +3606,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "openldap"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.5.13+dfsg-5"
     }
    ],
    "purl": "pkg:deb/debian/libldap-2.5-0@2.5.13+dfsg-5?arch=amd64&distro=debian-12.15",
@@ -2707,6 +3627,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "lerc"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "4.0.0+ds-2"
     }
    ],
    "purl": "pkg:deb/debian/liblerc4@4.0.0+ds-2?arch=amd64&distro=debian-12.15",
@@ -2720,6 +3648,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "lz4"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.9.4-1"
     }
    ],
    "purl": "pkg:deb/debian/liblz4-1@1.9.4-1?arch=amd64&distro=debian-12.15",
@@ -2733,6 +3669,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "xz-utils"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "5.4.1-1+deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/liblzma5@5.4.1-1+deb12u2?arch=amd64&distro=debian-12.15",
@@ -2746,6 +3690,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libmd"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.0.4-2"
     }
    ],
    "purl": "pkg:deb/debian/libmd0@1.0.4-2?arch=amd64&distro=debian-12.15",
@@ -2759,6 +3711,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "util-linux"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.38.1-5+deb12u3"
     }
    ],
    "purl": "pkg:deb/debian/libmount1@2.38.1-5+deb12u3?arch=amd64&distro=debian-12.15",
@@ -2772,6 +3732,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "ncurses"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "6.4-4"
     }
    ],
    "purl": "pkg:deb/debian/libncursesw6@6.4-4?arch=amd64&distro=debian-12.15",
@@ -2785,6 +3753,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "nettle"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "3.8.1-2"
     }
    ],
    "purl": "pkg:deb/debian/libnettle8@3.8.1-2?arch=amd64&distro=debian-12.15",
@@ -2798,6 +3774,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "nghttp2"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.52.0-1+deb12u3"
     }
    ],
    "purl": "pkg:deb/debian/libnghttp2-14@1.52.0-1+deb12u3?arch=amd64&distro=debian-12.15",
@@ -2811,6 +3795,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libnsl"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.3.0-2"
     }
    ],
    "purl": "pkg:deb/debian/libnsl2@1.3.0-2?arch=amd64&distro=debian-12.15",
@@ -2824,6 +3816,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "nspr"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2:4.35-1"
     }
    ],
    "purl": "pkg:deb/debian/libnspr4@2:4.35-1?arch=amd64&distro=debian-12.15",
@@ -2837,6 +3837,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "nss"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2:3.87.1-1+deb12u4"
     }
    ],
    "purl": "pkg:deb/debian/libnss3@2:3.87.1-1+deb12u4?arch=amd64&distro=debian-12.15",
@@ -2850,6 +3858,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "p11-kit"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "0.24.1-2"
     }
    ],
    "purl": "pkg:deb/debian/libp11-kit0@0.24.1-2?arch=amd64&distro=debian-12.15",
@@ -2863,6 +3879,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "pam"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.5.2-6+deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/libpam-modules@1.5.2-6+deb12u2?arch=amd64&distro=debian-12.15",
@@ -2876,6 +3900,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "pam"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.5.2-6+deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/libpam-modules-bin@1.5.2-6+deb12u2?arch=amd64&distro=debian-12.15",
@@ -2889,6 +3921,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "pam"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.5.2-6+deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/libpam-runtime@1.5.2-6+deb12u2?arch=all&distro=debian-12.15",
@@ -2902,6 +3942,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "systemd"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "252.39-1~deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/libpam-systemd@252.39-1~deb12u2?arch=amd64&distro=debian-12.15",
@@ -2915,6 +3963,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "pam"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.5.2-6+deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/libpam0g@1.5.2-6+deb12u2?arch=amd64&distro=debian-12.15",
@@ -2928,6 +3984,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "pango1.0"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.50.12+ds-1"
     }
    ],
    "purl": "pkg:deb/debian/libpango-1.0-0@1.50.12+ds-1?arch=amd64&distro=debian-12.15",
@@ -2941,6 +4005,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "pango1.0"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.50.12+ds-1"
     }
    ],
    "purl": "pkg:deb/debian/libpangocairo-1.0-0@1.50.12+ds-1?arch=amd64&distro=debian-12.15",
@@ -2954,6 +4026,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "pango1.0"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.50.12+ds-1"
     }
    ],
    "purl": "pkg:deb/debian/libpangoft2-1.0-0@1.50.12+ds-1?arch=amd64&distro=debian-12.15",
@@ -2967,6 +4047,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "pcre2"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "10.42-1+deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/libpcre2-8-0@10.42-1+deb12u2?arch=amd64&distro=debian-12.15",
@@ -2980,6 +4068,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "pixman"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "0.42.2-1"
     }
    ],
    "purl": "pkg:deb/debian/libpixman-1-0@0.42.2-1?arch=amd64&distro=debian-12.15",
@@ -2993,6 +4089,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libpng1.6"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.6.39-2+deb12u6"
     }
    ],
    "purl": "pkg:deb/debian/libpng16-16@1.6.39-2+deb12u6?arch=amd64&distro=debian-12.15",
@@ -3006,6 +4110,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "procps"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2:4.0.2-3"
     }
    ],
    "purl": "pkg:deb/debian/libproc2-0@2:4.0.2-3?arch=amd64&distro=debian-12.15",
@@ -3019,6 +4131,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libpsl"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "0.21.2-1"
     }
    ],
    "purl": "pkg:deb/debian/libpsl5@0.21.2-1?arch=amd64&distro=debian-12.15",
@@ -3032,6 +4152,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "readline"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "8.2-1.3"
     }
    ],
    "purl": "pkg:deb/debian/libreadline8@8.2-1.3?arch=amd64&distro=debian-12.15",
@@ -3045,6 +4173,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "rtmpdump"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.4+20151223.gitfa8646d.1-2"
     }
    ],
    "purl": "pkg:deb/debian/librtmp1@2.4+20151223.gitfa8646d.1-2+b2?arch=amd64&distro=debian-12.15",
@@ -3058,6 +4194,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "cyrus-sasl2"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.1.28+dfsg-10+deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/libsasl2-2@2.1.28+dfsg-10+deb12u1?arch=amd64&distro=debian-12.15",
@@ -3071,6 +4215,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "cyrus-sasl2"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.1.28+dfsg-10+deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/libsasl2-modules-db@2.1.28+dfsg-10+deb12u1?arch=amd64&distro=debian-12.15",
@@ -3084,6 +4236,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libseccomp"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.5.4-1+deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/libseccomp2@2.5.4-1+deb12u1?arch=amd64&distro=debian-12.15",
@@ -3097,6 +4257,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libselinux"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "3.4-1"
     }
    ],
    "purl": "pkg:deb/debian/libselinux1@3.4-1+b6?arch=amd64&distro=debian-12.15",
@@ -3110,6 +4278,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libsemanage"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "3.4-1"
     }
    ],
    "purl": "pkg:deb/debian/libsemanage-common@3.4-1?arch=all&distro=debian-12.15",
@@ -3123,6 +4299,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libsemanage"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "3.4-1"
     }
    ],
    "purl": "pkg:deb/debian/libsemanage2@3.4-1+b5?arch=amd64&distro=debian-12.15",
@@ -3136,6 +4320,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libsepol"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "3.4-2.1"
     }
    ],
    "purl": "pkg:deb/debian/libsepol2@3.4-2.1?arch=amd64&distro=debian-12.15",
@@ -3149,6 +4341,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "util-linux"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.38.1-5+deb12u3"
     }
    ],
    "purl": "pkg:deb/debian/libsmartcols1@2.38.1-5+deb12u3?arch=amd64&distro=debian-12.15",
@@ -3162,6 +4362,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "sqlite3"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "3.40.1-2+deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/libsqlite3-0@3.40.1-2+deb12u2?arch=amd64&distro=debian-12.15",
@@ -3175,6 +4383,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "e2fsprogs"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.47.0-2"
     }
    ],
    "purl": "pkg:deb/debian/libss2@1.47.0-2+b2?arch=amd64&distro=debian-12.15",
@@ -3188,6 +4404,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libssh2"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.10.0-3+deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/libssh2-1@1.10.0-3+deb12u1?arch=amd64&distro=debian-12.15",
@@ -3201,6 +4425,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "openssl"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "3.0.22-1~deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/libssl3@3.0.22-1~deb12u2?arch=amd64&distro=debian-12.15",
@@ -3214,6 +4446,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "gcc-12"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "12.2.0-14+deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/libstdc++6@12.2.0-14+deb12u1?arch=amd64&distro=debian-12.15",
@@ -3227,6 +4467,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "systemd"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "252.39-1~deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/libsystemd-shared@252.39-1~deb12u2?arch=amd64&distro=debian-12.15",
@@ -3240,6 +4488,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "systemd"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "252.39-1~deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/libsystemd0@252.39-1~deb12u2?arch=amd64&distro=debian-12.15",
@@ -3253,6 +4509,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libtasn1-6"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "4.19.0-2+deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/libtasn1-6@4.19.0-2+deb12u1?arch=amd64&distro=debian-12.15",
@@ -3266,6 +4530,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libthai"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "0.1.29-1"
     }
    ],
    "purl": "pkg:deb/debian/libthai-data@0.1.29-1?arch=all&distro=debian-12.15",
@@ -3279,6 +4551,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libthai"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "0.1.29-1"
     }
    ],
    "purl": "pkg:deb/debian/libthai0@0.1.29-1?arch=amd64&distro=debian-12.15",
@@ -3292,6 +4572,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "tiff"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "4.5.0-6+deb12u4"
     }
    ],
    "purl": "pkg:deb/debian/libtiff6@4.5.0-6+deb12u4?arch=amd64&distro=debian-12.15",
@@ -3305,6 +4593,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "ncurses"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "6.4-4"
     }
    ],
    "purl": "pkg:deb/debian/libtinfo6@6.4-4?arch=amd64&distro=debian-12.15",
@@ -3318,6 +4614,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libtirpc"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.3.3+ds-1"
     }
    ],
    "purl": "pkg:deb/debian/libtirpc-common@1.3.3+ds-1?arch=all&distro=debian-12.15",
@@ -3331,6 +4635,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libtirpc"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.3.3+ds-1"
     }
    ],
    "purl": "pkg:deb/debian/libtirpc3@1.3.3+ds-1?arch=amd64&distro=debian-12.15",
@@ -3344,6 +4656,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "systemd"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "252.39-1~deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/libudev1@252.39-1~deb12u2?arch=amd64&distro=debian-12.15",
@@ -3357,6 +4677,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libunistring"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.0-2"
     }
    ],
    "purl": "pkg:deb/debian/libunistring2@1.0-2?arch=amd64&distro=debian-12.15",
@@ -3370,6 +4698,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "util-linux"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.38.1-5+deb12u3"
     }
    ],
    "purl": "pkg:deb/debian/libuuid1@2.38.1-5+deb12u3?arch=amd64&distro=debian-12.15",
@@ -3383,6 +4719,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "vulkan-loader"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.3.239.0-1"
     }
    ],
    "purl": "pkg:deb/debian/libvulkan1@1.3.239.0-1?arch=amd64&distro=debian-12.15",
@@ -3396,6 +4740,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "wayland"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.21.0-1"
     }
    ],
    "purl": "pkg:deb/debian/libwayland-client0@1.21.0-1?arch=amd64&distro=debian-12.15",
@@ -3409,6 +4761,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "wayland"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.21.0-1"
     }
    ],
    "purl": "pkg:deb/debian/libwayland-cursor0@1.21.0-1?arch=amd64&distro=debian-12.15",
@@ -3422,6 +4782,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "wayland"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.21.0-1"
     }
    ],
    "purl": "pkg:deb/debian/libwayland-egl1@1.21.0-1?arch=amd64&distro=debian-12.15",
@@ -3435,6 +4803,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "wayland"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.21.0-1"
     }
    ],
    "purl": "pkg:deb/debian/libwayland-server0@1.21.0-1?arch=amd64&distro=debian-12.15",
@@ -3448,6 +4824,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libwebp"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.2.4-0.2+deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/libwebp7@1.2.4-0.2+deb12u1?arch=amd64&distro=debian-12.15",
@@ -3461,6 +4845,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libx11"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2:1.8.4-2+deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/libx11-6@2:1.8.4-2+deb12u2?arch=amd64&distro=debian-12.15",
@@ -3474,6 +4866,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libx11"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2:1.8.4-2+deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/libx11-data@2:1.8.4-2+deb12u2?arch=all&distro=debian-12.15",
@@ -3487,6 +4887,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libxau"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1:1.0.9-1"
     }
    ],
    "purl": "pkg:deb/debian/libxau6@1:1.0.9-1?arch=amd64&distro=debian-12.15",
@@ -3500,6 +4908,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libxcb"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.15-1"
     }
    ],
    "purl": "pkg:deb/debian/libxcb-render0@1.15-1?arch=amd64&distro=debian-12.15",
@@ -3513,6 +4929,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libxcb"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.15-1"
     }
    ],
    "purl": "pkg:deb/debian/libxcb-shm0@1.15-1?arch=amd64&distro=debian-12.15",
@@ -3526,6 +4950,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libxcb"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.15-1"
     }
    ],
    "purl": "pkg:deb/debian/libxcb1@1.15-1?arch=amd64&distro=debian-12.15",
@@ -3539,6 +4971,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libxcomposite"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1:0.4.5-1"
     }
    ],
    "purl": "pkg:deb/debian/libxcomposite1@1:0.4.5-1?arch=amd64&distro=debian-12.15",
@@ -3552,6 +4992,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libxcursor"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1:1.2.1-1"
     }
    ],
    "purl": "pkg:deb/debian/libxcursor1@1:1.2.1-1?arch=amd64&distro=debian-12.15",
@@ -3565,6 +5013,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libxdamage"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1:1.1.6-1"
     }
    ],
    "purl": "pkg:deb/debian/libxdamage1@1:1.1.6-1?arch=amd64&distro=debian-12.15",
@@ -3578,6 +5034,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libxdmcp"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1:1.1.2-3"
     }
    ],
    "purl": "pkg:deb/debian/libxdmcp6@1:1.1.2-3?arch=amd64&distro=debian-12.15",
@@ -3591,6 +5055,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libxext"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2:1.3.4-1"
     }
    ],
    "purl": "pkg:deb/debian/libxext6@2:1.3.4-1+b1?arch=amd64&distro=debian-12.15",
@@ -3604,6 +5076,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libxfixes"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1:6.0.0-2"
     }
    ],
    "purl": "pkg:deb/debian/libxfixes3@1:6.0.0-2?arch=amd64&distro=debian-12.15",
@@ -3617,6 +5097,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libxi"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2:1.8-1"
     }
    ],
    "purl": "pkg:deb/debian/libxi6@2:1.8-1+b1?arch=amd64&distro=debian-12.15",
@@ -3630,6 +5118,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libxinerama"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2:1.1.4-3"
     }
    ],
    "purl": "pkg:deb/debian/libxinerama1@2:1.1.4-3?arch=amd64&distro=debian-12.15",
@@ -3643,6 +5139,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libxkbcommon"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.5.0-1"
     }
    ],
    "purl": "pkg:deb/debian/libxkbcommon0@1.5.0-1?arch=amd64&distro=debian-12.15",
@@ -3656,6 +5160,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libxml2"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.9.14+dfsg-1.3~deb12u6"
     }
    ],
    "purl": "pkg:deb/debian/libxml2@2.9.14+dfsg-1.3~deb12u6?arch=amd64&distro=debian-12.15",
@@ -3669,6 +5181,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libxrandr"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2:1.5.2-2"
     }
    ],
    "purl": "pkg:deb/debian/libxrandr2@2:1.5.2-2+b1?arch=amd64&distro=debian-12.15",
@@ -3682,6 +5202,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libxrender"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1:0.9.10-1.1"
     }
    ],
    "purl": "pkg:deb/debian/libxrender1@1:0.9.10-1.1?arch=amd64&distro=debian-12.15",
@@ -3695,6 +5223,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "xxhash"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "0.8.1-1"
     }
    ],
    "purl": "pkg:deb/debian/libxxhash0@0.8.1-1?arch=amd64&distro=debian-12.15",
@@ -3708,6 +5244,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "libzstd"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.5.4+dfsg2-5"
     }
    ],
    "purl": "pkg:deb/debian/libzstd1@1.5.4+dfsg2-5?arch=amd64&distro=debian-12.15",
@@ -3721,6 +5265,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "shadow"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1:4.13+dfsg1-1+deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/login@1:4.13+dfsg1-1+deb12u2?arch=amd64&distro=debian-12.15",
@@ -3734,6 +5286,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "e2fsprogs"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.47.0-2"
     }
    ],
    "purl": "pkg:deb/debian/logsave@1.47.0-2+b2?arch=amd64&distro=debian-12.15",
@@ -3747,6 +5307,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "mawk"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.3.4.20200120-3.1"
     }
    ],
    "purl": "pkg:deb/debian/mawk@1.3.4.20200120-3.1?arch=amd64&distro=debian-12.15",
@@ -3760,6 +5328,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "util-linux"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.38.1-5+deb12u3"
     }
    ],
    "purl": "pkg:deb/debian/mount@2.38.1-5+deb12u3?arch=amd64&distro=debian-12.15",
@@ -3773,6 +5349,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "ncurses"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "6.4-4"
     }
    ],
    "purl": "pkg:deb/debian/ncurses-base@6.4-4?arch=all&distro=debian-12.15",
@@ -3786,6 +5370,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "ncurses"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "6.4-4"
     }
    ],
    "purl": "pkg:deb/debian/ncurses-bin@6.4-4?arch=amd64&distro=debian-12.15",
@@ -3799,6 +5391,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "netbase"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "6.4"
     }
    ],
    "purl": "pkg:deb/debian/netbase@6.4?arch=all&distro=debian-12.15",
@@ -3812,6 +5412,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "openssl"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "3.0.22-1~deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/openssl@3.0.22-1~deb12u2?arch=amd64&distro=debian-12.15",
@@ -3825,6 +5433,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "shadow"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1:4.13+dfsg1-1+deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/passwd@1:4.13+dfsg1-1+deb12u2?arch=amd64&distro=debian-12.15",
@@ -3838,6 +5454,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "perl"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "5.36.0-7+deb12u4"
     }
    ],
    "purl": "pkg:deb/debian/perl-base@5.36.0-7+deb12u4?arch=amd64&distro=debian-12.15",
@@ -3851,6 +5475,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "procps"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2:4.0.2-3"
     }
    ],
    "purl": "pkg:deb/debian/procps@2:4.0.2-3?arch=amd64&distro=debian-12.15",
@@ -3864,6 +5496,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "readline"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "8.2-1.3"
     }
    ],
    "purl": "pkg:deb/debian/readline-common@8.2-1.3?arch=all&distro=debian-12.15",
@@ -3877,6 +5517,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "sed"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "4.9-1+deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/sed@4.9-1+deb12u1?arch=amd64&distro=debian-12.15",
@@ -3890,6 +5538,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "shared-mime-info"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.2-1"
     }
    ],
    "purl": "pkg:deb/debian/shared-mime-info@2.2-1?arch=amd64&distro=debian-12.15",
@@ -3903,6 +5559,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "systemd"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "252.39-1~deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/systemd@252.39-1~deb12u2?arch=amd64&distro=debian-12.15",
@@ -3916,6 +5580,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "systemd"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "252.39-1~deb12u2"
     }
    ],
    "purl": "pkg:deb/debian/systemd-sysv@252.39-1~deb12u2?arch=amd64&distro=debian-12.15",
@@ -3929,6 +5601,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "sysvinit"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "3.06-4"
     }
    ],
    "purl": "pkg:deb/debian/sysvinit-utils@3.06-4?arch=amd64&distro=debian-12.15",
@@ -3942,6 +5622,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "tar"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1.34+dfsg-1.2+deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/tar@1.34+dfsg-1.2+deb12u1?arch=amd64&distro=debian-12.15",
@@ -3955,6 +5643,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "tzdata"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2026f-0+deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/tzdata@2026f-0+deb12u1?arch=all&distro=debian-12.15",
@@ -3968,6 +5664,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "usrmerge"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "37~deb12u1"
     }
    ],
    "purl": "pkg:deb/debian/usr-is-merged@37~deb12u1?arch=all&distro=debian-12.15",
@@ -3981,6 +5685,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "util-linux"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.38.1-5+deb12u3"
     }
    ],
    "purl": "pkg:deb/debian/util-linux@2.38.1-5+deb12u3?arch=amd64&distro=debian-12.15",
@@ -3994,6 +5706,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "util-linux"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.38.1-5+deb12u3"
     }
    ],
    "purl": "pkg:deb/debian/util-linux-extra@2.38.1-5+deb12u3?arch=amd64&distro=debian-12.15",
@@ -4007,6 +5727,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "xkeyboard-config"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "2.35.1-1"
     }
    ],
    "purl": "pkg:deb/debian/xkb-data@2.35.1-1?arch=all&distro=debian-12.15",
@@ -4020,6 +5748,14 @@
     {
      "name": "sc:source",
      "value": "dpkg"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcName",
+     "value": "zlib"
+    },
+    {
+     "name": "aquasecurity:trivy:SrcVersion",
+     "value": "1:1.2.13.dfsg-1"
     }
    ],
    "purl": "pkg:deb/debian/zlib1g@1:1.2.13.dfsg-1?arch=amd64&distro=debian-12.15",
@@ -4033,7 +5769,7 @@
    "type": "container",
    "version": "sc-workbench-staging:14.0.0-fig02a-rc1-7cfbdf0c6ad0"
   },
-  "timestamp": "2026-11-10T04:38:34+00:00",
+  "timestamp": "2026-11-10T04:41:06+00:00",
   "tools": {
    "components": [
     {
@@ -4044,7 +5780,7 @@
    ]
   }
  },
- "serialNumber": "urn:uuid:552b107d-1465-4349-bcf5-fb2b3a14abc1",
+ "serialNumber": "urn:uuid:855d11cb-8d51-467c-adf6-391cc3bad158",
  "specVersion": "1.5",
  "version": 1
 }

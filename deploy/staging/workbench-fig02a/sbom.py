@@ -31,9 +31,15 @@ def _debian():
             if not line.strip():
                 if cur.get("Package") and "installed" in cur.get("Status", ""):
                     name, ver, arch = cur["Package"], cur.get("Version", ""), cur.get("Architecture", "")
+                    # Debian advisories are keyed by source package ("Source: util-linux (2.38.1-5)").
+                    src = cur.get("Source", name).split()
+                    src_name = src[0]
+                    src_ver = src[1].strip("()") if len(src) > 1 else ver
                     out.append({"type": "library", "name": name, "version": ver,
                                 "purl": f"pkg:deb/debian/{name}@{ver}?arch={arch}&distro=debian-{_debian_version()}",
-                                "properties": [{"name": "sc:source", "value": "dpkg"}]})
+                                "properties": [{"name": "sc:source", "value": "dpkg"},
+                                               {"name": "aquasecurity:trivy:SrcName", "value": src_name},
+                                               {"name": "aquasecurity:trivy:SrcVersion", "value": src_ver}]})
                 cur = {}
             elif not line.startswith(" ") and ":" in line:
                 k, v = line.split(":", 1)

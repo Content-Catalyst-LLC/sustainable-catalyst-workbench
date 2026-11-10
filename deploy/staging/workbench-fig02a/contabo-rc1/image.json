@@ -5,7 +5,7 @@
   "architecture": "amd64",
   "revision": "7cfbdf0c6ad047e33ef9046c4133a59aee3583f7",
   "buildDate": "2026-11-10T03:54:18Z",
-  "sbomSha256": "0985463a71e0a4e7ed5825f2e763aa36fe50d155e1ba57db9779be382352310c",
+  "sbomSha256": "f8effcadea3a807b3872fff4aefee01430e7e1b4df35c160314dfc6cdc5d9156",
   "rootfsLayers": [
     "sha256:1d7b9dd8778ebc4d9bf2f64436dd358640718cb349f5640b33bebaea4ffd62c2",
     "sha256:a3cfe73133965fb536427fde3fe66b2949ea6178f568733760bf45f5c8b5c405",
@@ -32,5 +32,5 @@
     "chmod/useradd",
     "Julia (COPY --from pinned julia image)"
   ],
-  "sbomNote": "v2 SBOM (adds the operating-system component and debian-12.15 distro qualifiers so scanners match Debian advisories). The v1 SBOM (37c03694...) lacked them and its scan silently skipped 217 dpkg packages."
+  "sbomNote": "v3 SBOM: operating-system component, distro=debian-12.15 qualifiers and dpkg source-package properties (aquasecurity:trivy:SrcName/SrcVersion) so Debian advisories keyed by source package match. Earlier versions (v1 37c03694..., v2 0985463a...) under-reported OS findings."
 }
