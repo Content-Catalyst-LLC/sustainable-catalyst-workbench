@@ -95,6 +95,44 @@ class _NoopMonkeypatch:
         pass
 
 
+_SEQ = iter(range(1, 100000))
+
+
+# The local helpers seed a fixed project into a fresh temporary store and read the source catalog
+# in-process. Against a persistent remote store, seed a unique project per call and read the
+# catalog over HTTP; the test bodies and assertions are unchanged.
+
+def remote_seed_jobs(client):
+    suffix = f"{os.getpid()}-{next(_SEQ)}"
+    project, envkey = f"project-fig02a-staging-{suffix}", f"env-fig02a-staging-{suffix}"
+    env = client.post("/research-environment/build", json={"environment": {
+        "environmentKey": envkey, "title": "FIG-02A", "projectEntityId": project, "components": []}}).json()
+    r = client.post("/research-environment/persistence/save",
+                    json={"researchEnvironment": env, "expectedCurrentRevision": 0, "reason": "fig02a-staging-seed"})
+    assert r.status_code == 200, r.text
+    ws = client.post("/research-projects/build", json={"project": {
+        "projectKey": project, "title": "FIG-02A", "activeEnvironmentKey": envkey, "activeEnvironmentRevision": 1}}).json()
+    r = client.post("/research-projects/save", json={"workspace": ws, "expectedProjectRevision": 0, "reason": "fig02a-staging-seed"})
+    assert r.status_code == 200, r.text
+    jobs = []
+    for k in (4, 9, 16, 25):
+        r = client.post("/execution-console/jobs/prepare", json={
+            "projectKey": project, "runtimeKind": "solver", "label": f"k={k}",
+            "request": {"problemKind": "root", "problem": {"expression": f"x**2-{k}", "variable": "x", "bracket": [0, k]},
+                        "solverKey": "root.brentq"}})
+        assert r.status_code == 200, r.text
+        jid = r.json()["jobId"]
+        r = client.post(f"/execution-console/jobs/{jid}/run", json={"expectedJobRevision": 1, "reason": "fig02a-staging-seed"})
+        assert r.status_code == 200, r.text
+        jobs.append(jid)
+    return project, jobs
+
+def remote_root_metric(client, project):
+    catalog = client.get(f"/figure-composer/source-catalog/{project}").json()
+    metrics = [m["metric"] for m in catalog["resultMetrics"] if m["presentCount"] == 4]
+    return next(m for m in metrics if m.endswith("root") or m.endswith(".x") or "root" in m)
+
+
 def main(base):
     client = HttpClient(base)
     report = {"base": base, "checks": {}, "tests": {}}
@@ -120,43 +158,8 @@ def main(base):
 
     import test_plotly_figure_adapter_fig02a as t
     t.c = client
-    # The local helpers seed a fixed project into a fresh temporary store and read the source catalog
-    # in-process. Against a persistent remote store, seed a unique project per call and read the
-    # catalog over HTTP; the test bodies and assertions are unchanged.
-    seq = iter(range(1, 1000))
-
-    def remote_seed_jobs():
-        suffix = f"{os.getpid()}-{next(seq)}"
-        project, envkey = f"project-fig02a-staging-{suffix}", f"env-fig02a-staging-{suffix}"
-        env = client.post("/research-environment/build", json={"environment": {
-            "environmentKey": envkey, "title": "FIG-02A", "projectEntityId": project, "components": []}}).json()
-        r = client.post("/research-environment/persistence/save",
-                        json={"researchEnvironment": env, "expectedCurrentRevision": 0, "reason": "fig02a-staging-seed"})
-        assert r.status_code == 200, r.text
-        ws = client.post("/research-projects/build", json={"project": {
-            "projectKey": project, "title": "FIG-02A", "activeEnvironmentKey": envkey, "activeEnvironmentRevision": 1}}).json()
-        r = client.post("/research-projects/save", json={"workspace": ws, "expectedProjectRevision": 0, "reason": "fig02a-staging-seed"})
-        assert r.status_code == 200, r.text
-        jobs = []
-        for k in (4, 9, 16, 25):
-            r = client.post("/execution-console/jobs/prepare", json={
-                "projectKey": project, "runtimeKind": "solver", "label": f"k={k}",
-                "request": {"problemKind": "root", "problem": {"expression": f"x**2-{k}", "variable": "x", "bracket": [0, k]},
-                            "solverKey": "root.brentq"}})
-            assert r.status_code == 200, r.text
-            jid = r.json()["jobId"]
-            r = client.post(f"/execution-console/jobs/{jid}/run", json={"expectedJobRevision": 1, "reason": "fig02a-staging-seed"})
-            assert r.status_code == 200, r.text
-            jobs.append(jid)
-        return project, jobs
-
-    def remote_root_metric(project):
-        catalog = client.get(f"/figure-composer/source-catalog/{project}").json()
-        metrics = [m["metric"] for m in catalog["resultMetrics"] if m["presentCount"] == 4]
-        return next(m for m in metrics if m.endswith("root") or m.endswith(".x") or "root" in m)
-
-    t._seed_jobs = remote_seed_jobs
-    t._root_metric = remote_root_metric
+    t._seed_jobs = lambda: remote_seed_jobs(client)
+    t._root_metric = lambda project: remote_root_metric(client, project)
     private = bool(os.getenv("SC_DATA_REPO_DIR"))
     for name in REMOTE_TESTS:
         if name.startswith("test_private_") and not private:
