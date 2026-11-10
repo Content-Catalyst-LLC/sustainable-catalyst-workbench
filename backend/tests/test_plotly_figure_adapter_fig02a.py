@@ -492,7 +492,8 @@ def test_compilation_is_deterministic():
 def _chrome_available():
     try:
         from choreographer.browsers.chromium import Chromium
-        return bool(os.getenv("BROWSER_PATH") or Chromium.find_browser(skip_local=True))
+        return bool(os.getenv("SCWB_PLOTLY_BROWSER_PATH") or os.getenv("BROWSER_PATH")
+                    or Chromium.find_browser(skip_local=True))
     except Exception:
         return False
 
