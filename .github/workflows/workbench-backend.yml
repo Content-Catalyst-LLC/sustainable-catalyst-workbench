@@ -1,0 +1,39 @@
+name: workbench-backend
+
+# SC-RELEASE-01: the backend had no CI. Tests run inside the image built from backend/Dockerfile
+# (Python 3.12 and Julia, as deployed). The governed Workspace adapter tests must pass. The full
+# suite may not add a failure beyond backend/tests/BASELINE_FAILURES.txt, the recorded and
+# dispositioned pre-existing failures (see docs/SC-RELEASE-01-TEST-DISPOSITION.md).
+on:
+  pull_request:
+  push:
+    branches: [main, "recovery/**", "release/**"]
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the backend image
+        run: docker build -t sc-workbench-ci backend
+      - name: Governed adapter and recovered-module tests (must pass)
+        run: >
+          docker run --rm --network none --entrypoint python sc-workbench-ci -m pytest -q -p no:cacheprovider
+          tests/test_workspace_adapter_sc_sim01.py tests/test_reproducible_computational_package_v10110.py
+      - name: Full suite against the recorded baseline (no new failures)
+        run: |
+          set +e
+          docker run --rm --network none --entrypoint python sc-workbench-ci -m pytest -q -p no:cacheprovider -rf tests > full.txt 2>&1
+          set -e
+          tail -n 3 full.txt
+          if tail -n 1 full.txt | grep -qE " errors? |Interrupted|no tests ran"; then echo "::error::collection or setup errors"; exit 1; fi
+          grep '^FAILED' full.txt | sed -E 's/^FAILED ([^ ]+).*/\1/' | LC_ALL=C sort -u > failing.txt
+          LC_ALL=C sort -u backend/tests/BASELINE_FAILURES.txt > baseline.txt
+          new=$(LC_ALL=C comm -13 baseline.txt failing.txt)
+          fixed=$(LC_ALL=C comm -23 baseline.txt failing.txt | wc -l)
+          echo "failing: $(wc -l < failing.txt)  baseline: $(wc -l < baseline.txt)  fixed since baseline: $fixed"
+          if [ -n "$new" ]; then echo "::error::new failures beyond the baseline"; echo "$new"; exit 1; fi
