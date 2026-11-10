@@ -1,0 +1,32 @@
+name: FIG-02A Plotly adapter
+
+on:
+  pull_request:
+    paths:
+      - "backend/app/plotly_*.py"
+      - "backend/app/v890.py"
+      - "backend/requirements*.txt"
+      - "backend/tests/test_plotly_figure_adapter_fig02a.py"
+      - "backend/tests/fixtures/fig02a_synthetic.json"
+      - ".github/workflows/fig-02a-plotly-adapter.yml"
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  synthetic-ci:
+    # Synthetic fixtures only. Private scientific acceptance (SC_DATA_REPO_DIR) is never run in public CI.
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt -r requirements-plotly.txt jsonschema==4.26.0
+      - run: google-chrome --version || true
+      - run: python -m pytest -q -rs tests/test_plotly_figure_adapter_fig02a.py

@@ -745,3 +745,7 @@ app.include_router(v13120_router)
 # Workbench v14.0.0 — Computational Workflow & Multi-Step Calculation Composer.
 from app.v1400 import router as v1400_router
 app.include_router(v1400_router)
+
+# SC-FIG-01 / FIG-02A default-disabled Plotly scientific figure adapter.
+from app.plotly_figure_adapter import router as plotly_figure_adapter_router
+app.include_router(plotly_figure_adapter_router)
