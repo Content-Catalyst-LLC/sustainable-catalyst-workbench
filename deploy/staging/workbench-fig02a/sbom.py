@@ -16,6 +16,14 @@ from datetime import datetime, timezone
 from importlib import metadata
 
 
+def _debian_version():
+    # Scanners match Debian advisories by release (e.g. debian-12.15), not by codename.
+    try:
+        return open("/etc/debian_version", encoding="utf-8").read().strip()
+    except OSError:
+        return "unknown"
+
+
 def _debian():
     out, cur = [], {}
     with open("/var/lib/dpkg/status", encoding="utf-8", errors="replace") as fh:
@@ -24,7 +32,7 @@ def _debian():
                 if cur.get("Package") and "installed" in cur.get("Status", ""):
                     name, ver, arch = cur["Package"], cur.get("Version", ""), cur.get("Architecture", "")
                     out.append({"type": "library", "name": name, "version": ver,
-                                "purl": f"pkg:deb/debian/{name}@{ver}?arch={arch}&distro=bookworm",
+                                "purl": f"pkg:deb/debian/{name}@{ver}?arch={arch}&distro=debian-{_debian_version()}",
                                 "properties": [{"name": "sc:source", "value": "dpkg"}]})
                 cur = {}
             elif not line.startswith(" ") and ":" in line:
@@ -66,7 +74,9 @@ def main():
          "purl": "pkg:generic/julia", "properties": [{"name": "sc:path", "value": "/usr/local/julia"}]},
         {"type": "application", "name": "cpython", "version": sys.version.split()[0], "purl": f"pkg:generic/cpython@{sys.version.split()[0]}"},
     ]
-    components = runtimes + _python() + _debian()
+    os_component = {"type": "operating-system", "name": "debian", "version": _debian_version(),
+                    "purl": f"pkg:generic/debian@{_debian_version()}"}
+    components = [os_component] + runtimes + _python() + _debian()
     for c in components:
         c["bom-ref"] = c["purl"] if "@" in c["purl"] else f"{c['purl']}@{c['version']}"
     bom = {

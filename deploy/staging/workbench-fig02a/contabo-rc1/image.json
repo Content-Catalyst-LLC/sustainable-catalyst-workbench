@@ -5,7 +5,7 @@
   "architecture": "amd64",
   "revision": "7cfbdf0c6ad047e33ef9046c4133a59aee3583f7",
   "buildDate": "2026-11-10T03:54:18Z",
-  "sbomSha256": "37c036941c4baf70820902c2ecae0de17d878366af63e5d46f5b7e8a9481e8fe",
+  "sbomSha256": "0985463a71e0a4e7ed5825f2e763aa36fe50d155e1ba57db9779be382352310c",
   "rootfsLayers": [
     "sha256:1d7b9dd8778ebc4d9bf2f64436dd358640718cb349f5640b33bebaea4ffd62c2",
     "sha256:a3cfe73133965fb536427fde3fe66b2949ea6178f568733760bf45f5c8b5c405",
@@ -19,5 +19,18 @@
     "sha256:815d221410a64479d45ff462bf94f03ce3475d9c67bdf4ed17a8331c98a529db",
     "sha256:e56776b455400f640681b564974c183efbacfb9fb63cc3b22a16de67895cdfaf"
   ],
-  "layerOrigins": ["base", "base", "base", "base", "apt + Chrome for Testing", "WORKDIR", "requirements files", "pip install", "COPY . .", "chmod/useradd", "Julia (COPY --from pinned julia image)"]
+  "layerOrigins": [
+    "base",
+    "base",
+    "base",
+    "base",
+    "apt + Chrome for Testing",
+    "WORKDIR",
+    "requirements files",
+    "pip install",
+    "COPY . .",
+    "chmod/useradd",
+    "Julia (COPY --from pinned julia image)"
+  ],
+  "sbomNote": "v2 SBOM (adds the operating-system component and debian-12.15 distro qualifiers so scanners match Debian advisories). The v1 SBOM (37c03694...) lacked them and its scan silently skipped 217 dpkg packages."
 }
