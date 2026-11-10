@@ -1,0 +1,82 @@
+{
+  "schema": "sc-workbench-fig02a-acceptance-fixture/1.0",
+  "fixtureId": "SYN-FIG02A",
+  "classification": "synthetic",
+  "evidenceStatement": "Synthetic values for CI only. Not derived from any study, project or dataset.",
+  "points": {
+    "datasetId": "synthetic-fig02a-points",
+    "figureId": "SYN-POINTS",
+    "panelId": "points",
+    "rows": [
+      {
+        "study": "Synthetic study A",
+        "endpoint": "synthetic cumulative endpoint",
+        "duration": "2 years (cumulative)",
+        "potential_value": 5.0,
+        "potential_pm": 1.5,
+        "range_lower": null,
+        "range_upper": null
+      },
+      {
+        "study": "Synthetic study B",
+        "endpoint": "synthetic gross range",
+        "duration": "6 months",
+        "potential_value": null,
+        "potential_pm": null,
+        "range_lower": 0.1,
+        "range_upper": 0.9
+      },
+      {
+        "study": "Synthetic study C",
+        "endpoint": "synthetic non-significant result",
+        "duration": "as reported",
+        "potential_value": null,
+        "potential_pm": null,
+        "range_lower": null,
+        "range_upper": null
+      }
+    ],
+    "sha256": "3275fb9acf604dfdca3b880fc4891bfa10f1a439610f1ca2233f8c91fde2e570"
+  },
+  "baselines": {
+    "datasetId": "synthetic-fig02a-baselines",
+    "figureId": "SYN-BASELINES",
+    "panelIds": [
+      "stocks",
+      "rates"
+    ],
+    "rows": [
+      {
+        "panel": "stocks",
+        "category": "Category A",
+        "basis": "synthetic basis 0-30 cm",
+        "soc_stock": 100.0
+      },
+      {
+        "panel": "stocks",
+        "category": "Category B",
+        "basis": "synthetic basis 0-30 cm",
+        "soc_stock": 110.0
+      },
+      {
+        "panel": "stocks",
+        "category": "Category C",
+        "basis": "synthetic basis 0-30 cm",
+        "soc_stock": 60.0
+      },
+      {
+        "panel": "rates",
+        "category": "Category D",
+        "basis": "synthetic basis 0-20 cm",
+        "soc_rate": 0.5
+      },
+      {
+        "panel": "rates",
+        "category": "Category E",
+        "basis": "synthetic basis 0-20 cm",
+        "soc_rate": -0.4
+      }
+    ],
+    "sha256": "d791d22ce03063b02f8ac15c8e83a8c89e12f535738a0d1eb4b306f40c1eb549"
+  }
+}

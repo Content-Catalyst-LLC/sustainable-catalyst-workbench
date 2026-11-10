@@ -1,0 +1,35 @@
+# Isolated Workbench FIG-02A staging candidate. Not production: separate project, image tag,
+# loopback port, empty data directory and no secrets, Core URL or service tokens.
+#   STAGING_IMAGE=sc-workbench-staging:<tag> STAGING_DATA_DIR=<empty dir owned by uid 10001> \
+#     docker compose -p wb-fig02a-staging -f compose.yml up -d
+name: wb-fig02a-staging
+services:
+  workbench:
+    image: ${STAGING_IMAGE:?set STAGING_IMAGE}
+    container_name: wb-fig02a-staging
+    platform: linux/amd64
+    restart: "no"
+    ports:
+      - "127.0.0.1:${STAGING_PORT:-18188}:8088"
+    environment:
+      SCWB_PLOTLY_ADAPTER_ENABLED: "1"
+      SCWB_PLOTLY_STATIC_EXPORT_ENABLED: "1"
+      SCWB_PROJECT_STORE_PATH: /data/workbench-v12.sqlite3
+    volumes:
+      - ${STAGING_DATA_DIR:?set STAGING_DATA_DIR}:/data
+    read_only: true
+    tmpfs:
+      - /tmp:size=512m,mode=1777
+      - /home/scwb:size=64m,uid=10001,gid=10001,mode=0700
+    shm_size: 512m
+    user: "10001:10001"
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    cpus: 2.0
+    mem_limit: 3g
+    memswap_limit: 3g
+    pids_limit: 512
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}

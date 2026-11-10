@@ -1,0 +1,68 @@
+# syntax=docker/dockerfile:1
+# Workbench staging candidate with the FIG-02A Plotly adapter runtime (plotly/kaleido + Chrome).
+# Same application layout as backend/Dockerfile; adds pinned bases, pinned Chrome for Testing,
+# requirements-plotly.txt, a non-root user and OCI source labels. Build for linux/amd64:
+#   docker build --platform linux/amd64 -f Dockerfile.plotly-staging \
+#     --build-arg VCS_REF=$(git rev-parse HEAD) --build-arg BUILD_DATE=... -t <tag> .
+FROM julia:1.11-bookworm@sha256:51fff9471714bf568780f944af3aebe3b6ea7283d5716b64806713c2f6557a07 AS julia_runtime
+
+FROM python:3.12-slim-bookworm@sha256:935c3c5b12357a7e10caa9c1e6ca5692344d97cf229832ef584be2cec9fc03df
+
+ARG CHROME_VERSION=157.0.8103.50
+ARG CHROME_SHA256=d17167bc092eb495a3b768c7467f27e35f625aa03834233a1663af67dcb668c9
+ARG VCS_REF=unknown
+ARG BUILD_DATE=unknown
+
+LABEL org.opencontainers.image.title="Sustainable Catalyst Workbench (FIG-02A staging candidate)" \
+      org.opencontainers.image.version="14.0.0" \
+      org.opencontainers.image.revision="${VCS_REF}" \
+      org.opencontainers.image.created="${BUILD_DATE}" \
+      org.opencontainers.image.source="https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench" \
+      org.opencontainers.image.base.name="python:3.12-slim-bookworm" \
+      com.sustainablecatalyst.environment="staging" \
+      com.sustainablecatalyst.chrome-for-testing="${CHROME_VERSION}" \
+      com.sustainablecatalyst.plotly="6.5.2" \
+      com.sustainablecatalyst.plotlyjs="3.3.1" \
+      com.sustainablecatalyst.kaleido="1.2.0"
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Chrome for Testing (pinned version, sha256-verified) and its shared-library dependencies (deb.deps).
+RUN set -eux; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends ca-certificates curl unzip \
+      fonts-liberation libasound2 libatk-bridge2.0-0 libatk1.0-0 libatspi2.0-0 libcairo2 libcups2 \
+      libcurl4 libdbus-1-3 libexpat1 libgbm1 libglib2.0-0 libgtk-3-0 libnspr4 libnss3 libpango-1.0-0 \
+      libudev1 libvulkan1 libx11-6 libxcb1 libxcomposite1 libxdamage1 libxext6 libxfixes3 \
+      libxkbcommon0 libxrandr2; \
+    curl -fsSLo /tmp/chrome.zip "https://storage.googleapis.com/chrome-for-testing-public/${CHROME_VERSION}/linux64/chrome-linux64.zip"; \
+    echo "${CHROME_SHA256}  /tmp/chrome.zip" | sha256sum -c -; \
+    unzip -q /tmp/chrome.zip -d /opt; \
+    rm /tmp/chrome.zip; \
+    apt-get purge -y curl unzip; \
+    apt-get autoremove -y; \
+    rm -rf /var/lib/apt/lists/*; \
+    /opt/chrome-linux64/chrome --version
+
+WORKDIR /app
+
+COPY requirements.txt requirements-plotly.txt ./
+RUN pip install --no-cache-dir -r requirements.txt -r requirements-plotly.txt
+
+COPY . .
+RUN chmod +x start.sh \
+ && useradd --uid 10001 --create-home --home-dir /home/scwb --shell /usr/sbin/nologin scwb \
+ && mkdir -p /data && chown scwb:scwb /data
+
+COPY --from=julia_runtime /usr/local/julia /usr/local/julia
+ENV PATH="/usr/local/julia/bin:${PATH}"
+ENV SCWB_JULIA_BIN="/usr/local/julia/bin/julia"
+ENV SCWB_PLOTLY_BROWSER_PATH="/opt/chrome-linux64/chrome"
+# Adapter flags stay off in the image; the staging compose file turns them on explicitly.
+ENV PORT=8088
+
+USER scwb
+HEALTHCHECK --interval=15s --timeout=5s --start-period=20s --retries=5 \
+  CMD ["python", "-c", "import json,urllib.request; d=json.load(urllib.request.urlopen('http://127.0.0.1:8088/health',timeout=4)); assert d.get('ok') and d.get('version')=='14.0.0'"]
+CMD ["./start.sh"]
