@@ -745,3 +745,108 @@ app.include_router(v13120_router)
 # Workbench v14.0.0 — Computational Workflow & Multi-Step Calculation Composer.
 from app.v1400 import router as v1400_router
 app.include_router(v1400_router)
+
+# ERW 0.1.0 — Enhanced Rock Weathering Research Foundation.
+from app.erw_v010 import router as erw_v010_router
+app.include_router(erw_v010_router)
+
+# ERW 0.2.0 — Geochemical Feedstock & Stoichiometry.
+from app.erw_v020 import router as erw_v020_router
+app.include_router(erw_v020_router)
+
+# ERW 0.3.0 — Baseline, Additionality & Scenario Modeling.
+from app.erw_v030 import router as erw_v030_router
+app.include_router(erw_v030_router)
+# ERW 0.4.0 lifecycle and permanence
+from app.erw_v040 import router as erw_v040_router
+app.include_router(erw_v040_router)
+
+# ERW 0.5.0 — Uncertainty, Sensitivity & MRV.
+from app.erw_v050 import router as erw_v050_router
+app.include_router(erw_v050_router)
+# ERW 0.6.0 visual research objects
+from app.erw_v060 import router as erw_v060_router
+app.include_router(erw_v060_router)
+# ERW 0.7.0 equation/map/diagram representations
+from app.erw_v070 import router as erw_v070_router
+app.include_router(erw_v070_router)
+# ERW 0.8.0 unpublished report composer
+from app.erw_v080 import router as erw_v080_router
+app.include_router(erw_v080_router)
+# ERW 0.9.0 scientific-integrity and publication audit
+from app.erw_v090 import router as erw_v090_router
+app.include_router(erw_v090_router)
+# ERW 1.0.0 end-to-end research certification manifest
+from app.erw_v100 import router as erw_v100_router
+app.include_router(erw_v100_router)
+# ERW 1.1.0 authenticated research explorer and SVG export
+from app.erw_v110 import router as erw_v110_router
+app.include_router(erw_v110_router)
+# ERW 1.2.0 research report workspace and tables
+from app.erw_v120 import router as erw_v120_router
+app.include_router(erw_v120_router)
+# ERW 1.2.1 standalone identity and onboarding
+from app.erw_v121 import router as erw_v121_router
+app.include_router(erw_v121_router)
+# ERW 1.2.2 authenticated report workspace
+from app.erw_v122 import router as erw_v122_router
+app.include_router(erw_v122_router)
+
+# ERW 1.3.0 scientific document canvas
+from app.erw_v130 import router as erw_v130_router
+app.include_router(erw_v130_router)
+# ERW 1.3.1 source-backed scientific figures and Word upload
+from app.erw_v131 import router as erw_v131_router
+from app.erw_v131_import import router as erw_v131_import_router
+app.include_router(erw_v131_router)
+app.include_router(erw_v131_import_router)
+# ERW 1.3.2 PDF Source Library and Harvard Reference Manager
+from app.erw_v132 import router as erw_v132_router
+from app.erw_v132_sources import router as erw_v132_sources_router
+app.include_router(erw_v132_router)
+app.include_router(erw_v132_sources_router)
+# ERW 1.3.3 evidence links and inspection
+from app.erw_v133 import router as erw_v133_router
+from app.erw_v133_evidence import router as erw_v133_evidence_router
+app.include_router(erw_v133_router)
+app.include_router(erw_v133_evidence_router)
+# ERW 1.3.4 native DOCX and PDF research report export
+from app.erw_v134 import router as erw_v134_router
+from app.erw_v134_export import router as erw_v134_export_router
+app.include_router(erw_v134_router)
+app.include_router(erw_v134_export_router)
+# ERW 1.3.5 publication readiness certification audit
+from app.erw_v135 import router as erw_v135_router
+from app.erw_v135_ui import router as erw_v135_ui_router
+app.include_router(erw_v135_router)
+app.include_router(erw_v135_ui_router)
+# ERW 1.3.6 manuscript structure and unified report entry
+from app.erw_v136 import router as erw_v136_router
+app.include_router(erw_v136_router)
+# Configurable academic and institutional document styling
+from app.erw_style_engine import router as erw_style_router
+from app.erw_style_ui import router as erw_style_ui_router
+app.include_router(erw_style_router)
+app.include_router(erw_style_ui_router)
+# ERW 1.3.8 browser-only scientific visual exploration
+from app.erw_v138 import router as erw_v138_router
+app.include_router(erw_v138_router)
+# ERW 1.3.8.1 hash-verified saved source visualization
+from app.erw_v1381_source import router as erw_v1381_source_router
+from app.erw_v1381_ui import router as erw_v1381_ui_router
+app.include_router(erw_v1381_source_router)
+app.include_router(erw_v1381_ui_router)
+# ERW 1.3.8.1.1 read-only research object discovery repair
+from app.erw_v13811_repair import router as erw_v13811_repair_router
+from app.erw_v13811_ui import router as erw_v13811_ui_router
+app.include_router(erw_v13811_repair_router)
+app.include_router(erw_v13811_ui_router)
+
+
+# ERW v1.3.8.1.6 — bibliography and evidence registry
+from app.erw_v13816_registry import router as erw_v13816_registry_router
+app.include_router(erw_v13816_registry_router)
+
+# SC-SIM-01 G7: governed Workspace execution adapter (Workspace issues the receipt).
+from app.workspace_adapter import router as workspace_adapter_router  # noqa: E402
+app.include_router(workspace_adapter_router)
