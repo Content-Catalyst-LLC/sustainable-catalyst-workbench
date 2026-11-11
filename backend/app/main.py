@@ -749,3 +749,7 @@ app.include_router(v1400_router)
 # SC-FIG-01 / FIG-02A default-disabled Plotly scientific figure adapter.
 from app.plotly_figure_adapter import router as plotly_figure_adapter_router
 app.include_router(plotly_figure_adapter_router)
+
+# SC-FIG-04 default-disabled MapLibre geospatial figure adapter (Site Intelligence evidence objects).
+from app.maplibre_figure_adapter import router as maplibre_figure_adapter_router
+app.include_router(maplibre_figure_adapter_router)

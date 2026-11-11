@@ -1,0 +1,4288 @@
+{
+ "schema": "sc-fig04-si-derived-dataset/1",
+ "siPackage": {
+  "schema": "sc-site-intelligence-reproducible-spatial-intelligence-package/1.0",
+  "version": "4.56.1",
+  "title": "SYNTHETIC Wexford agricultural and environmental evidence (SC-FIG-04 fixture)",
+  "description": "Invented field parcels and hypothetical monitoring sites for the SC-FIG-04 geospatial workflow. Not Wexford data.",
+  "profile": "reference-first",
+  "research_object": null,
+  "components": {
+   "evidence_objects": [
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-47b00095a40215bcca91602f",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.62,
+         52.3
+        ],
+        [
+         -6.548,
+         52.3
+        ],
+        [
+         -6.548,
+         52.352
+        ],
+        [
+         -6.62,
+         52.352
+        ],
+        [
+         -6.62,
+         52.3
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.62,
+      52.3,
+      -6.548,
+      52.352
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-02-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F1 (synthetic)",
+      "field_id": "WX-F1",
+      "evidence_class": "modelled",
+      "soc": 28.55,
+      "soc_se": 0.8,
+      "ph": 6.1
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:31462a2d18bf7ae2261ce2554e8e35f48edd5e0fc335ed34d67154b8718c08ac"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-62d06831f162c666ef9794d1",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.54,
+         52.3
+        ],
+        [
+         -6.468,
+         52.3
+        ],
+        [
+         -6.468,
+         52.352
+        ],
+        [
+         -6.54,
+         52.352
+        ],
+        [
+         -6.54,
+         52.3
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.54,
+      52.3,
+      -6.468,
+      52.352
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-02-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F2 (synthetic)",
+      "field_id": "WX-F2",
+      "evidence_class": "modelled",
+      "soc": 31.1,
+      "soc_se": 0.9,
+      "ph": 6.25
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:019dd65c3fdeba2d7f1c6921e6342df4bdea3065ee260642f4681b279c52a03a"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-53a0dabad8de874cb1191f3e",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.46,
+         52.3
+        ],
+        [
+         -6.388,
+         52.3
+        ],
+        [
+         -6.388,
+         52.352
+        ],
+        [
+         -6.46,
+         52.352
+        ],
+        [
+         -6.46,
+         52.3
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.46,
+      52.3,
+      -6.388,
+      52.352
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-02-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F3 (synthetic)",
+      "field_id": "WX-F3",
+      "evidence_class": "modelled",
+      "soc": 25.8,
+      "soc_se": 1.0,
+      "ph": 6.4
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:dc7c047039e2b2378816d696906094efb44b2041d1ea5b71864e70316738373c"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-2457d25aa8bdbc3130fbd4b3",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.62,
+         52.36
+        ],
+        [
+         -6.548,
+         52.36
+        ],
+        [
+         -6.548,
+         52.412
+        ],
+        [
+         -6.62,
+         52.412
+        ],
+        [
+         -6.62,
+         52.36
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.62,
+      52.36,
+      -6.548,
+      52.412
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-02-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F4 (synthetic)",
+      "field_id": "WX-F4",
+      "evidence_class": "modelled",
+      "soc": 34.25,
+      "soc_se": 1.1,
+      "ph": 6.55
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:87178b4e9ece684b58c9b9ba0c1632975913c55eec1301e6ac6b83a0a668f499"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-0724c153554b79e54eae1433",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.54,
+         52.36
+        ],
+        [
+         -6.468,
+         52.36
+        ],
+        [
+         -6.468,
+         52.412
+        ],
+        [
+         -6.54,
+         52.412
+        ],
+        [
+         -6.54,
+         52.36
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.54,
+      52.36,
+      -6.468,
+      52.412
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-02-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F5 (synthetic)",
+      "field_id": "WX-F5",
+      "evidence_class": "modelled",
+      "soc": 29.6,
+      "soc_se": 1.2,
+      "ph": 6.1
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:46d14969f4ab8b65ac383ec1b8fa3b243ee9dfe898b5987aafdf35008062a44f"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-8144170e9690241d95ae5cd2",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.46,
+         52.36
+        ],
+        [
+         -6.388,
+         52.36
+        ],
+        [
+         -6.388,
+         52.412
+        ],
+        [
+         -6.46,
+         52.412
+        ],
+        [
+         -6.46,
+         52.36
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.46,
+      52.36,
+      -6.388,
+      52.412
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-02-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F6 (synthetic)",
+      "field_id": "WX-F6",
+      "evidence_class": "modelled",
+      "soc": 27.2,
+      "soc_se": 0.8,
+      "ph": 6.25
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:b631fe0fb2b8cadf82769c8464640b552be6261be118a170bfb044f2879f78a3"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-627f8caba422149591802f6e",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.605,
+       52.315
+      ]
+     },
+     "bbox": [
+      -6.605,
+      52.315,
+      -6.605,
+      52.315
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-02-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M1 (hypothetical)",
+      "site_id": "WX-M1",
+      "evidence_class": "modelled",
+      "nitrate_n": 3.9
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:a7ad3007277df45a05e61520fdb140ff25d1a41230a564f563353b7787cdbb4b"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-736f1003975d4935a3055416",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.55,
+       52.335
+      ]
+     },
+     "bbox": [
+      -6.55,
+      52.335,
+      -6.55,
+      52.335
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-02-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M2 (hypothetical)",
+      "site_id": "WX-M2",
+      "evidence_class": "modelled",
+      "nitrate_n": 7.9
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:4a5e858e6f62f54f7627c011f39cee25091102132e4591a52a35cb16cdf7add3"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-10eee8c01e403e675e33c86f",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.49,
+       52.31
+      ]
+     },
+     "bbox": [
+      -6.49,
+      52.31,
+      -6.49,
+      52.31
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-02-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M3 (hypothetical)",
+      "site_id": "WX-M3",
+      "evidence_class": "modelled",
+      "nitrate_n": 11.6
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:1f66f76f4d8fe1878c023a36bbcc99e01432938136ae4531b1bb34c07d82868a"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-aa248d5d9ae8c7d2f274d980",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.415,
+       52.33
+      ]
+     },
+     "bbox": [
+      -6.415,
+      52.33,
+      -6.415,
+      52.33
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-02-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M4 (hypothetical)",
+      "site_id": "WX-M4",
+      "evidence_class": "modelled",
+      "nitrate_n": 5.3
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:7e214ad9d7bf286c10af03f7df98bd3a92eba60447dcdd83cda944ebfe9946e1"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-db0defa4194039ee0e01a7e8",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.59,
+       52.395
+      ]
+     },
+     "bbox": [
+      -6.59,
+      52.395,
+      -6.59,
+      52.395
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-02-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M5 (hypothetical)",
+      "site_id": "WX-M5",
+      "evidence_class": "modelled",
+      "nitrate_n": 3.1
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:08b7b21bdbe5a28e56ae99700edea231c535960fbbe2c29bbb3cf52237cd3b8d"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-8b181641a18d7749b6d590fd",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.52,
+       52.405
+      ]
+     },
+     "bbox": [
+      -6.52,
+      52.405,
+      -6.52,
+      52.405
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-02-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M6 (hypothetical)",
+      "site_id": "WX-M6",
+      "evidence_class": "modelled",
+      "nitrate_n": 9.1
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:b00e5fe87012689bc6007ad6cf4aeb4a22324dbe3e0d99ddf910621634db8b90"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-5277d4a948e4e58184eea2c8",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.455,
+       52.38
+      ]
+     },
+     "bbox": [
+      -6.455,
+      52.38,
+      -6.455,
+      52.38
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-02-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M7 (hypothetical)",
+      "site_id": "WX-M7",
+      "evidence_class": "modelled",
+      "nitrate_n": 12.3
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:ff12a50034f9d6afc48d07bb123f0d3965c763538160631b992db29f849c5d33"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-386a40dfff4c1fa27b10cb43",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.395,
+       52.41
+      ]
+     },
+     "bbox": [
+      -6.395,
+      52.41,
+      -6.395,
+      52.41
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-02-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M8 (hypothetical)",
+      "site_id": "WX-M8",
+      "evidence_class": "modelled",
+      "nitrate_n": 6.4
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:ed68cae81884a9cb43b1c7ef6faf767a3363a8021f4b03ccf93056c4ba840989"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-1eb0bc0fb729013e2eefa94c",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.62,
+         52.3
+        ],
+        [
+         -6.548,
+         52.3
+        ],
+        [
+         -6.548,
+         52.352
+        ],
+        [
+         -6.62,
+         52.352
+        ],
+        [
+         -6.62,
+         52.3
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.62,
+      52.3,
+      -6.548,
+      52.352
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-05-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F1 (synthetic)",
+      "field_id": "WX-F1",
+      "evidence_class": "modelled",
+      "soc": 28.6,
+      "soc_se": 1.0,
+      "ph": 6.25
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:fe969e60cb3de2857e91933ea45b16f7636aa2cbc663066394964740d4f7425c"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-f0f9a118c6704fba902eb994",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.54,
+         52.3
+        ],
+        [
+         -6.468,
+         52.3
+        ],
+        [
+         -6.468,
+         52.352
+        ],
+        [
+         -6.54,
+         52.352
+        ],
+        [
+         -6.54,
+         52.3
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.54,
+      52.3,
+      -6.468,
+      52.352
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-05-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F2 (synthetic)",
+      "field_id": "WX-F2",
+      "evidence_class": "modelled",
+      "soc": 31.0,
+      "soc_se": 1.1,
+      "ph": 6.4
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:013d5110aea575fd924be7197a3c3f64ebe873c0bb02a1e2507346f7d7216c6f"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-2ca4c52b06b5cafc6f8d6aa8",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.46,
+         52.3
+        ],
+        [
+         -6.388,
+         52.3
+        ],
+        [
+         -6.388,
+         52.352
+        ],
+        [
+         -6.46,
+         52.352
+        ],
+        [
+         -6.46,
+         52.3
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.46,
+      52.3,
+      -6.388,
+      52.352
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-05-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F3 (synthetic)",
+      "field_id": "WX-F3",
+      "evidence_class": "modelled",
+      "soc": 26.5,
+      "soc_se": 1.2,
+      "ph": 6.55
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:ff6edf2f8678598cf61c217a6a8b5fea93d9e8e535d19baeee4fc0b24bae636a"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-8b91c6f80ada02393ea89d9b",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.62,
+         52.36
+        ],
+        [
+         -6.548,
+         52.36
+        ],
+        [
+         -6.548,
+         52.412
+        ],
+        [
+         -6.62,
+         52.412
+        ],
+        [
+         -6.62,
+         52.36
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.62,
+      52.36,
+      -6.548,
+      52.412
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-05-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F4 (synthetic)",
+      "field_id": "WX-F4",
+      "evidence_class": "modelled",
+      "soc": 34.05,
+      "soc_se": 0.8,
+      "ph": 6.1
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:96fc33ec4fa85b154ee9e35550706bbeb958697f2291fce991f06a749b6402c1"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-d66b066423285f6e7864f4ff",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.54,
+         52.36
+        ],
+        [
+         -6.468,
+         52.36
+        ],
+        [
+         -6.468,
+         52.412
+        ],
+        [
+         -6.54,
+         52.412
+        ],
+        [
+         -6.54,
+         52.36
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.54,
+      52.36,
+      -6.468,
+      52.412
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-05-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F5 (synthetic)",
+      "field_id": "WX-F5",
+      "evidence_class": "modelled",
+      "soc": 29.8,
+      "soc_se": 0.9,
+      "ph": 6.25
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:51e8ac3dc719e618511b4176daed43330e6614b8de12fc659621ee347a15d43c"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-13a98dab2fa78084f8e40994",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.46,
+         52.36
+        ],
+        [
+         -6.388,
+         52.36
+        ],
+        [
+         -6.388,
+         52.412
+        ],
+        [
+         -6.46,
+         52.412
+        ],
+        [
+         -6.46,
+         52.36
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.46,
+      52.36,
+      -6.388,
+      52.412
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-05-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F6 (synthetic)",
+      "field_id": "WX-F6",
+      "evidence_class": "modelled",
+      "soc": 27.8,
+      "soc_se": 1.0,
+      "ph": 6.4
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:51e330a1386d3ebeddfde9ce6f1837680b1ab0443de487aee11f6c7bf986d670"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-028f5951ed5f476365646ea5",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.605,
+       52.315
+      ]
+     },
+     "bbox": [
+      -6.605,
+      52.315,
+      -6.605,
+      52.315
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-05-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M1 (hypothetical)",
+      "site_id": "WX-M1",
+      "evidence_class": "modelled",
+      "nitrate_n": 2.8
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:68cc4dafbea5ca84d3ad0421e8c26fb4d91a86f161244ae5ad5a47793db24377"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-3c0a12e5c2a8eeb46653114b",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.55,
+       52.335
+      ]
+     },
+     "bbox": [
+      -6.55,
+      52.335,
+      -6.55,
+      52.335
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-05-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M2 (hypothetical)",
+      "site_id": "WX-M2",
+      "evidence_class": "modelled",
+      "nitrate_n": 6.8
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:1660943bc514af68d02414e798ff252ee2add120fc70d780f3ad9578557eefd9"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-a2447f3dfb97691fe1abda70",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.49,
+       52.31
+      ]
+     },
+     "bbox": [
+      -6.49,
+      52.31,
+      -6.49,
+      52.31
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-05-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M3 (hypothetical)",
+      "site_id": "WX-M3",
+      "evidence_class": "modelled",
+      "nitrate_n": 9.6
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:55ff052936e46ac23dfbd8b90224531288593cd4ae401f89b3f40e234fd69968"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-4243000760ea7f7c5d2a1803",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.415,
+       52.33
+      ]
+     },
+     "bbox": [
+      -6.415,
+      52.33,
+      -6.415,
+      52.33
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-05-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M4 (hypothetical)",
+      "site_id": "WX-M4",
+      "evidence_class": "modelled",
+      "nitrate_n": 4.2
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:d3d889a94649a0a626954dc40bfd16ea24b4e06fb9d5e0d24be2883a061a8737"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-d16b3a676dc2301d897794fd",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.59,
+       52.395
+      ]
+     },
+     "bbox": [
+      -6.59,
+      52.395,
+      -6.59,
+      52.395
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-05-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M5 (hypothetical)",
+      "site_id": "WX-M5",
+      "evidence_class": "modelled",
+      "nitrate_n": 2.0
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:f3c2f605877db78c747e6927e2f8afefadec8ec25726a3bd33c1e4af5f5bdba6"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-c5299c4981d26fb2d5519296",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.52,
+       52.405
+      ]
+     },
+     "bbox": [
+      -6.52,
+      52.405,
+      -6.52,
+      52.405
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-05-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M6 (hypothetical)",
+      "site_id": "WX-M6",
+      "evidence_class": "modelled",
+      "nitrate_n": 7.1
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:3621dee0dbdc9bfdacf23431d11a4e8f31c1de10a988ea8836f152419a95c97d"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-52a2b30bd121660602bdf0a7",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.455,
+       52.38
+      ]
+     },
+     "bbox": [
+      -6.455,
+      52.38,
+      -6.455,
+      52.38
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-05-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M7 (hypothetical)",
+      "site_id": "WX-M7",
+      "evidence_class": "modelled",
+      "nitrate_n": 11.2
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:520dea784291a99496aa628ec36d2ad2d08321b6cf5a55713e399d1b41896c16"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-47de944e4123f38fa47ce3c0",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.395,
+       52.41
+      ]
+     },
+     "bbox": [
+      -6.395,
+      52.41,
+      -6.395,
+      52.41
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-05-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M8 (hypothetical)",
+      "site_id": "WX-M8",
+      "evidence_class": "modelled",
+      "nitrate_n": 5.3
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:ca52d38e280f5198d8be5a7f606f5d975947d7c30d19ae421cbbdf5e1a57d7a5"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-e763a57ccd1e6e80f3db1f39",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.62,
+         52.3
+        ],
+        [
+         -6.548,
+         52.3
+        ],
+        [
+         -6.548,
+         52.352
+        ],
+        [
+         -6.62,
+         52.352
+        ],
+        [
+         -6.62,
+         52.3
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.62,
+      52.3,
+      -6.548,
+      52.352
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-08-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F1 (synthetic)",
+      "field_id": "WX-F1",
+      "evidence_class": "modelled",
+      "soc": 28.9,
+      "soc_se": 1.2,
+      "ph": 6.4
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:36176d7cc4285fb8cf728909255ca356db13b1ca5ed7fe3f33d703c8c94c1cbe"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-ae1780f9916c8cc30c0c14df",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.54,
+         52.3
+        ],
+        [
+         -6.468,
+         52.3
+        ],
+        [
+         -6.468,
+         52.352
+        ],
+        [
+         -6.54,
+         52.352
+        ],
+        [
+         -6.54,
+         52.3
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.54,
+      52.3,
+      -6.468,
+      52.352
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-08-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F2 (synthetic)",
+      "field_id": "WX-F2",
+      "evidence_class": "modelled",
+      "soc": 31.15,
+      "soc_se": 0.8,
+      "ph": 6.55
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:9621e69a94fa83721e3005d3c223bb1cfd230b2c1ed0b0d783911da1763b8171"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-49043dd29488cde9a783e1aa",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.46,
+         52.3
+        ],
+        [
+         -6.388,
+         52.3
+        ],
+        [
+         -6.388,
+         52.352
+        ],
+        [
+         -6.46,
+         52.352
+        ],
+        [
+         -6.46,
+         52.3
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.46,
+      52.3,
+      -6.388,
+      52.352
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-08-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F3 (synthetic)",
+      "field_id": "WX-F3",
+      "evidence_class": "modelled",
+      "soc": 26.7,
+      "soc_se": 0.9,
+      "ph": 6.1
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:a47b3f758613148c4c3001b504009023fafb6f2a548d1f772ab5df5072aa9a13"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-249fa7f4e4fb8b62a1feb28e",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.62,
+         52.36
+        ],
+        [
+         -6.548,
+         52.36
+        ],
+        [
+         -6.548,
+         52.412
+        ],
+        [
+         -6.62,
+         52.412
+        ],
+        [
+         -6.62,
+         52.36
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.62,
+      52.36,
+      -6.548,
+      52.412
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-08-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F4 (synthetic)",
+      "field_id": "WX-F4",
+      "evidence_class": "modelled",
+      "soc": 34.1,
+      "soc_se": 1.0,
+      "ph": 6.25
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:7a43c902ec097befa5061c25bd3b327976d0dc031b1fd067cb8a5d9a57be6fc9"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-1d8a9c0a8845db74db5b46cf",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.54,
+         52.36
+        ],
+        [
+         -6.468,
+         52.36
+        ],
+        [
+         -6.468,
+         52.412
+        ],
+        [
+         -6.54,
+         52.412
+        ],
+        [
+         -6.54,
+         52.36
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.54,
+      52.36,
+      -6.468,
+      52.412
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-08-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F5 (synthetic)",
+      "field_id": "WX-F5",
+      "evidence_class": "modelled",
+      "soc": 30.25,
+      "soc_se": 1.1,
+      "ph": null
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:4bff0f7e30421695eb6d015c907aee3244ee81c95b0d7db8af8a2d5b228b6df9"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-90525d0ce89a4174d187d371",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.46,
+         52.36
+        ],
+        [
+         -6.388,
+         52.36
+        ],
+        [
+         -6.388,
+         52.412
+        ],
+        [
+         -6.46,
+         52.412
+        ],
+        [
+         -6.46,
+         52.36
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.46,
+      52.36,
+      -6.388,
+      52.412
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-08-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F6 (synthetic)",
+      "field_id": "WX-F6",
+      "evidence_class": "modelled",
+      "soc": 27.9,
+      "soc_se": 1.2,
+      "ph": 6.55
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:1ac36c8c4105ba89328d2f48d40c5c59f3762625a99c7fc30a7fbdb703957e05"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-c27cf318d5198b005b83752d",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.605,
+       52.315
+      ]
+     },
+     "bbox": [
+      -6.605,
+      52.315,
+      -6.605,
+      52.315
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-08-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M1 (hypothetical)",
+      "site_id": "WX-M1",
+      "evidence_class": "modelled",
+      "nitrate_n": 1.9
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:72be35797da28f37936729e2fa600e04526c1cbb5e7504ac956aeddcd8a1d401"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-b7fddcd69d451e02b0208ef2",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.55,
+       52.335
+      ]
+     },
+     "bbox": [
+      -6.55,
+      52.335,
+      -6.55,
+      52.335
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-08-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M2 (hypothetical)",
+      "site_id": "WX-M2",
+      "evidence_class": "modelled",
+      "nitrate_n": 5.0
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:43a411557ed11358cd2c74640e56d71a3bc6ab74064ed0f4324447896be50e3a"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-0e82a933b6bbb2bfd91993ea",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.49,
+       52.31
+      ]
+     },
+     "bbox": [
+      -6.49,
+      52.31,
+      -6.49,
+      52.31
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-08-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M3 (hypothetical)",
+      "site_id": "WX-M3",
+      "evidence_class": "modelled",
+      "nitrate_n": 8.7
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:b933f40187c6941143496715b082af0004898f77a726f15dbaae33e7330300c1"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-58169bde25a4763b6785a769",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.415,
+       52.33
+      ]
+     },
+     "bbox": [
+      -6.415,
+      52.33,
+      -6.415,
+      52.33
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-08-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M4 (hypothetical)",
+      "site_id": "WX-M4",
+      "evidence_class": "modelled",
+      "nitrate_n": 3.3
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:877fe87c78d7a251c50343a626ca86f26f159bdc32045e661b9f08533f0ea369"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-bcf8b216fdc11a86961bc6db",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.59,
+       52.395
+      ]
+     },
+     "bbox": [
+      -6.59,
+      52.395,
+      -6.59,
+      52.395
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-08-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M5 (hypothetical)",
+      "site_id": "WX-M5",
+      "evidence_class": "modelled",
+      "nitrate_n": 0.5
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:a85969388a7e2f3deda47e52b2eb40effde7a9010c0f1336486fa28ebc5928ff"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-370e80f9b9678be197160d4a",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.52,
+       52.405
+      ]
+     },
+     "bbox": [
+      -6.52,
+      52.405,
+      -6.52,
+      52.405
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-08-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M6 (hypothetical)",
+      "site_id": "WX-M6",
+      "evidence_class": "modelled",
+      "nitrate_n": 6.2
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:378183ae315966a9320cb375efdbe7c6d476796037b0c1a03f96365acfedf3d2"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-bfcacd91da7c2f2aa8a0d7c9",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.455,
+       52.38
+      ]
+     },
+     "bbox": [
+      -6.455,
+      52.38,
+      -6.455,
+      52.38
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-08-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M7 (hypothetical)",
+      "site_id": "WX-M7",
+      "evidence_class": "modelled",
+      "nitrate_n": 10.3
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:37f6f293243cb0d3ec5769306239a24772432df188ec5408474e560b9452416d"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-266857062003f3611ad0a028",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.395,
+       52.41
+      ]
+     },
+     "bbox": [
+      -6.395,
+      52.41,
+      -6.395,
+      52.41
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-08-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M8 (hypothetical)",
+      "site_id": "WX-M8",
+      "evidence_class": "modelled",
+      "nitrate_n": 3.5
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:dc7361aed051477170c2fc0784cfe13ed14744136bd346b5aff3043de135486f"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-9797ee25b7e1c6ce07e9d0ca",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.62,
+         52.3
+        ],
+        [
+         -6.548,
+         52.3
+        ],
+        [
+         -6.548,
+         52.352
+        ],
+        [
+         -6.62,
+         52.352
+        ],
+        [
+         -6.62,
+         52.3
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.62,
+      52.3,
+      -6.548,
+      52.352
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-11-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F1 (synthetic)",
+      "field_id": "WX-F1",
+      "evidence_class": "modelled",
+      "soc": 29.45,
+      "soc_se": 0.9,
+      "ph": 6.55
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:4002211de997ec98c2eca2504e5898d49c656d15c6718183f3d181d855a60e07"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-901e922e1d0dd66c4444d78b",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.54,
+         52.3
+        ],
+        [
+         -6.468,
+         52.3
+        ],
+        [
+         -6.468,
+         52.352
+        ],
+        [
+         -6.54,
+         52.352
+        ],
+        [
+         -6.54,
+         52.3
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.54,
+      52.3,
+      -6.468,
+      52.352
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-11-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F2 (synthetic)",
+      "field_id": "WX-F2",
+      "evidence_class": "modelled",
+      "soc": 30.8,
+      "soc_se": 1.0,
+      "ph": 6.1
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:eebd967a11bb3472bde0cb521283e7d934d482437fdbccaacbe12d531634e9cf"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-86c33584b5af3b776435ef56",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.46,
+         52.3
+        ],
+        [
+         -6.388,
+         52.3
+        ],
+        [
+         -6.388,
+         52.352
+        ],
+        [
+         -6.46,
+         52.352
+        ],
+        [
+         -6.46,
+         52.3
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.46,
+      52.3,
+      -6.388,
+      52.352
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-11-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F3 (synthetic)",
+      "field_id": "WX-F3",
+      "evidence_class": "modelled",
+      "soc": 27.15,
+      "soc_se": 1.1,
+      "ph": 6.25
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:d251c451c037d26255b2bfea8b41a49e5500751f89866959a35cba1b11efaa5e"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-338caecb92b8a70d75e90c7f",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.62,
+         52.36
+        ],
+        [
+         -6.548,
+         52.36
+        ],
+        [
+         -6.548,
+         52.412
+        ],
+        [
+         -6.62,
+         52.412
+        ],
+        [
+         -6.62,
+         52.36
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.62,
+      52.36,
+      -6.548,
+      52.412
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-11-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F4 (synthetic)",
+      "field_id": "WX-F4",
+      "evidence_class": "modelled",
+      "soc": 34.4,
+      "soc_se": 1.2,
+      "ph": 6.4
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:e5b07dac7b061a9babd6f7c67f9df7a28e8ed4707b04f08e113cda2629bd962d"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-d5acbdbf28f71d265db58a69",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.54,
+         52.36
+        ],
+        [
+         -6.468,
+         52.36
+        ],
+        [
+         -6.468,
+         52.412
+        ],
+        [
+         -6.54,
+         52.412
+        ],
+        [
+         -6.54,
+         52.36
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.54,
+      52.36,
+      -6.468,
+      52.412
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-11-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F5 (synthetic)",
+      "field_id": "WX-F5",
+      "evidence_class": "modelled",
+      "soc": 30.2,
+      "soc_se": 0.8,
+      "ph": 6.55
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:5a740147522ffc6ff935f30c92558fd1a86b0c67fbb1404513f641ccb722bbbc"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-df82669a29ce88e812c93c81",
+     "layer_id": "agriculture-food-systems",
+     "domain": "agriculture",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+       [
+        [
+         -6.46,
+         52.36
+        ],
+        [
+         -6.388,
+         52.36
+        ],
+        [
+         -6.388,
+         52.412
+        ],
+        [
+         -6.46,
+         52.412
+        ],
+        [
+         -6.46,
+         52.36
+        ]
+       ]
+      ]
+     },
+     "bbox": [
+      -6.46,
+      52.36,
+      -6.388,
+      52.412
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-11-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Field WX-F6 (synthetic)",
+      "field_id": "WX-F6",
+      "evidence_class": "modelled",
+      "soc": 28.25,
+      "soc_se": 0.9,
+      "ph": 6.1
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-soil-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-field-soil-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:8748d54460b5f93b09b42e2f8d437803a6c23c3bc70d3e663067d738dc02cddc"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-d7f8d811312a31cfb7e8eab5",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.605,
+       52.315
+      ]
+     },
+     "bbox": [
+      -6.605,
+      52.315,
+      -6.605,
+      52.315
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-11-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M1 (hypothetical)",
+      "site_id": "WX-M1",
+      "evidence_class": "modelled",
+      "nitrate_n": 5.8
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:54255b496130e50fe50da93707b80af0439f26d0ebd526340eae88d2b7d85864"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-b3d41f3673d1051bbe8cbb82",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.55,
+       52.335
+      ]
+     },
+     "bbox": [
+      -6.55,
+      52.335,
+      -6.55,
+      52.335
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-11-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M2 (hypothetical)",
+      "site_id": "WX-M2",
+      "evidence_class": "modelled",
+      "nitrate_n": 9.8
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:44f249f9a746ab4f2253b6686c8326a79c542144533a92e532b97c2c7c324601"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-116d7aa0ebf8c7fa9966edaf",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.49,
+       52.31
+      ]
+     },
+     "bbox": [
+      -6.49,
+      52.31,
+      -6.49,
+      52.31
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-11-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M3 (hypothetical)",
+      "site_id": "WX-M3",
+      "evidence_class": "modelled",
+      "nitrate_n": 13.5
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:e2fc3d77c18560187f1252452071b3348ca80b2e313f57f4e0f2ae934d6e04f6"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-59bb7467dd3ade344d74822b",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.415,
+       52.33
+      ]
+     },
+     "bbox": [
+      -6.415,
+      52.33,
+      -6.415,
+      52.33
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-11-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M4 (hypothetical)",
+      "site_id": "WX-M4",
+      "evidence_class": "modelled",
+      "nitrate_n": 7.2
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:c26ca4fa4cf2520427d07a144fefd5d426db9d2c5546566e417b27b4fc903fc8"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-e564668c9449dc7d739ab522",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.59,
+       52.395
+      ]
+     },
+     "bbox": [
+      -6.59,
+      52.395,
+      -6.59,
+      52.395
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-11-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M5 (hypothetical)",
+      "site_id": "WX-M5",
+      "evidence_class": "modelled",
+      "nitrate_n": 5.0
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:c69de1e8d1e3db09040bd516f1e00488840c1c36e5737bb63ad301e1ca01178d"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-da5f0b8599bc81f6f09f874c",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.52,
+       52.405
+      ]
+     },
+     "bbox": [
+      -6.52,
+      52.405,
+      -6.52,
+      52.405
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-11-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M6 (hypothetical)",
+      "site_id": "WX-M6",
+      "evidence_class": "modelled",
+      "nitrate_n": 11.0
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:1ff8ad4b6823d88477187f3c8f3b349073eaa27ab120b21b15475ee99c319fd3"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-ee8df0ec4e3422b1ede90fa9",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.455,
+       52.38
+      ]
+     },
+     "bbox": [
+      -6.455,
+      52.38,
+      -6.455,
+      52.38
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-11-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M7 (hypothetical)",
+      "site_id": "WX-M7",
+      "evidence_class": "modelled",
+      "nitrate_n": 14.2
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:6f73a0bb109c65fe6faf6109601bb2b8ec9b489214d697c7f03cd8995f14ed5c"
+    },
+    {
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "version": "4.56.1",
+     "object_id": "se-28576f97a87bb3990b9faef6",
+     "layer_id": "hydrology-rivers-flood-drought",
+     "domain": "hydrology",
+     "capability_id": "earth-environment",
+     "geometry": {
+      "type": "Point",
+      "coordinates": [
+       -6.395,
+       52.41
+      ]
+     },
+     "bbox": [
+      -6.395,
+      52.41,
+      -6.395,
+      52.41
+     ],
+     "crs": "EPSG:4326",
+     "observed_at": "2026-11-01T00:00:00+00:00",
+     "valid_time": {
+      "start": null,
+      "end": null
+     },
+     "properties": {
+      "title": "Monitoring site WX-M8 (hypothetical)",
+      "site_id": "WX-M8",
+      "evidence_class": "modelled",
+      "nitrate_n": 8.3
+     },
+     "source": {
+      "source_id": "synthetic:fig04-wexford-nitrate-model",
+      "authority": "sc-test-fixture",
+      "record_id": null,
+      "url": null,
+      "license": "CC0-1.0",
+      "retrieved_at": null
+     },
+     "provenance": {
+      "transformations": [
+       {
+        "step": "synthetic-nitrate-model",
+        "note": "fixture only; invented values"
+       }
+      ],
+      "source_crs": "EPSG:4326",
+      "normalization_contract": "1.0.0"
+     },
+     "quality": {},
+     "visibility": "public",
+     "content_digest": "sha256:7012fea2791b528cfc4e8a4f73fb130aa5f540073710f2568000e4384dfe719e"
+    }
+   ],
+   "query_results": [],
+   "graphs": [],
+   "live_events": [],
+   "federation_context": [],
+   "predictions": [],
+   "scenarios": [],
+   "changes": [],
+   "exposures": [],
+   "thresholds": [],
+   "advanced_domain_context": [],
+   "lineage_chains": []
+  },
+  "manifest": {
+   "schema": "sc-site-intelligence-reproducible-spatial-package-manifest/1.0",
+   "version": "4.56.1",
+   "profile": "reference-first",
+   "entry_count": 56,
+   "entries": [
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-028f5951ed5f476365646ea5",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:68cc4dafbea5ca84d3ad0421e8c26fb4d91a86f161244ae5ad5a47793db24377",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-0724c153554b79e54eae1433",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:46d14969f4ab8b65ac383ec1b8fa3b243ee9dfe898b5987aafdf35008062a44f",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-0e82a933b6bbb2bfd91993ea",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:b933f40187c6941143496715b082af0004898f77a726f15dbaae33e7330300c1",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-10eee8c01e403e675e33c86f",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:1f66f76f4d8fe1878c023a36bbcc99e01432938136ae4531b1bb34c07d82868a",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-116d7aa0ebf8c7fa9966edaf",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:e2fc3d77c18560187f1252452071b3348ca80b2e313f57f4e0f2ae934d6e04f6",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-13a98dab2fa78084f8e40994",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:51e330a1386d3ebeddfde9ce6f1837680b1ab0443de487aee11f6c7bf986d670",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-1d8a9c0a8845db74db5b46cf",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:4bff0f7e30421695eb6d015c907aee3244ee81c95b0d7db8af8a2d5b228b6df9",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-1eb0bc0fb729013e2eefa94c",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:fe969e60cb3de2857e91933ea45b16f7636aa2cbc663066394964740d4f7425c",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-2457d25aa8bdbc3130fbd4b3",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:87178b4e9ece684b58c9b9ba0c1632975913c55eec1301e6ac6b83a0a668f499",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-249fa7f4e4fb8b62a1feb28e",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:7a43c902ec097befa5061c25bd3b327976d0dc031b1fd067cb8a5d9a57be6fc9",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-266857062003f3611ad0a028",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:dc7361aed051477170c2fc0784cfe13ed14744136bd346b5aff3043de135486f",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-28576f97a87bb3990b9faef6",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:7012fea2791b528cfc4e8a4f73fb130aa5f540073710f2568000e4384dfe719e",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-2ca4c52b06b5cafc6f8d6aa8",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:ff6edf2f8678598cf61c217a6a8b5fea93d9e8e535d19baeee4fc0b24bae636a",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-338caecb92b8a70d75e90c7f",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:e5b07dac7b061a9babd6f7c67f9df7a28e8ed4707b04f08e113cda2629bd962d",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-370e80f9b9678be197160d4a",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:378183ae315966a9320cb375efdbe7c6d476796037b0c1a03f96365acfedf3d2",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-386a40dfff4c1fa27b10cb43",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:ed68cae81884a9cb43b1c7ef6faf767a3363a8021f4b03ccf93056c4ba840989",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-3c0a12e5c2a8eeb46653114b",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:1660943bc514af68d02414e798ff252ee2add120fc70d780f3ad9578557eefd9",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-4243000760ea7f7c5d2a1803",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:d3d889a94649a0a626954dc40bfd16ea24b4e06fb9d5e0d24be2883a061a8737",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-47b00095a40215bcca91602f",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:31462a2d18bf7ae2261ce2554e8e35f48edd5e0fc335ed34d67154b8718c08ac",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-47de944e4123f38fa47ce3c0",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:ca52d38e280f5198d8be5a7f606f5d975947d7c30d19ae421cbbdf5e1a57d7a5",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-49043dd29488cde9a783e1aa",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:a47b3f758613148c4c3001b504009023fafb6f2a548d1f772ab5df5072aa9a13",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-5277d4a948e4e58184eea2c8",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:ff12a50034f9d6afc48d07bb123f0d3965c763538160631b992db29f849c5d33",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-52a2b30bd121660602bdf0a7",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:520dea784291a99496aa628ec36d2ad2d08321b6cf5a55713e399d1b41896c16",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-53a0dabad8de874cb1191f3e",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:dc7c047039e2b2378816d696906094efb44b2041d1ea5b71864e70316738373c",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-58169bde25a4763b6785a769",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:877fe87c78d7a251c50343a626ca86f26f159bdc32045e661b9f08533f0ea369",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-59bb7467dd3ade344d74822b",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:c26ca4fa4cf2520427d07a144fefd5d426db9d2c5546566e417b27b4fc903fc8",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-627f8caba422149591802f6e",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:a7ad3007277df45a05e61520fdb140ff25d1a41230a564f563353b7787cdbb4b",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-62d06831f162c666ef9794d1",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:019dd65c3fdeba2d7f1c6921e6342df4bdea3065ee260642f4681b279c52a03a",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-736f1003975d4935a3055416",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:4a5e858e6f62f54f7627c011f39cee25091102132e4591a52a35cb16cdf7add3",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-8144170e9690241d95ae5cd2",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:b631fe0fb2b8cadf82769c8464640b552be6261be118a170bfb044f2879f78a3",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-86c33584b5af3b776435ef56",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:d251c451c037d26255b2bfea8b41a49e5500751f89866959a35cba1b11efaa5e",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-8b181641a18d7749b6d590fd",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:b00e5fe87012689bc6007ad6cf4aeb4a22324dbe3e0d99ddf910621634db8b90",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-8b91c6f80ada02393ea89d9b",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:96fc33ec4fa85b154ee9e35550706bbeb958697f2291fce991f06a749b6402c1",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-901e922e1d0dd66c4444d78b",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:eebd967a11bb3472bde0cb521283e7d934d482437fdbccaacbe12d531634e9cf",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-90525d0ce89a4174d187d371",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:1ac36c8c4105ba89328d2f48d40c5c59f3762625a99c7fc30a7fbdb703957e05",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-9797ee25b7e1c6ce07e9d0ca",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:4002211de997ec98c2eca2504e5898d49c656d15c6718183f3d181d855a60e07",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-a2447f3dfb97691fe1abda70",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:55ff052936e46ac23dfbd8b90224531288593cd4ae401f89b3f40e234fd69968",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-aa248d5d9ae8c7d2f274d980",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:7e214ad9d7bf286c10af03f7df98bd3a92eba60447dcdd83cda944ebfe9946e1",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-ae1780f9916c8cc30c0c14df",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:9621e69a94fa83721e3005d3c223bb1cfd230b2c1ed0b0d783911da1763b8171",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-b3d41f3673d1051bbe8cbb82",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:44f249f9a746ab4f2253b6686c8326a79c542144533a92e532b97c2c7c324601",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-b7fddcd69d451e02b0208ef2",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:43a411557ed11358cd2c74640e56d71a3bc6ab74064ed0f4324447896be50e3a",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-bcf8b216fdc11a86961bc6db",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:a85969388a7e2f3deda47e52b2eb40effde7a9010c0f1336486fa28ebc5928ff",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-bfcacd91da7c2f2aa8a0d7c9",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:37f6f293243cb0d3ec5769306239a24772432df188ec5408474e560b9452416d",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-c27cf318d5198b005b83752d",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:72be35797da28f37936729e2fa600e04526c1cbb5e7504ac956aeddcd8a1d401",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-c5299c4981d26fb2d5519296",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:3621dee0dbdc9bfdacf23431d11a4e8f31c1de10a988ea8836f152419a95c97d",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-d16b3a676dc2301d897794fd",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:f3c2f605877db78c747e6927e2f8afefadec8ec25726a3bd33c1e4af5f5bdba6",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-d5acbdbf28f71d265db58a69",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:5a740147522ffc6ff935f30c92558fd1a86b0c67fbb1404513f641ccb722bbbc",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-d66b066423285f6e7864f4ff",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:51e8ac3dc719e618511b4176daed43330e6614b8de12fc659621ee347a15d43c",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-d7f8d811312a31cfb7e8eab5",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:54255b496130e50fe50da93707b80af0439f26d0ebd526340eae88d2b7d85864",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-da5f0b8599bc81f6f09f874c",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:1ff8ad4b6823d88477187f3c8f3b349073eaa27ab120b21b15475ee99c319fd3",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-db0defa4194039ee0e01a7e8",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:08b7b21bdbe5a28e56ae99700edea231c535960fbbe2c29bbb3cf52237cd3b8d",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-df82669a29ce88e812c93c81",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:8748d54460b5f93b09b42e2f8d437803a6c23c3bc70d3e663067d738dc02cddc",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-e564668c9449dc7d739ab522",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:c69de1e8d1e3db09040bd516f1e00488840c1c36e5737bb63ad301e1ca01178d",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-e763a57ccd1e6e80f3db1f39",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:36176d7cc4285fb8cf728909255ca356db13b1ca5ed7fe3f33d703c8c94c1cbe",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-ee8df0ec4e3422b1ede90fa9",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:6f73a0bb109c65fe6faf6109601bb2b8ec9b489214d697c7f03cd8995f14ed5c",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    },
+    {
+     "group": "evidence_objects",
+     "entry_id": "se-f0f9a118c6704fba902eb994",
+     "schema": "sc-site-intelligence-spatial-evidence-object/2.0",
+     "digest": "sha256:013d5110aea575fd924be7197a3c3f64ebe873c0bb02a1e2507346f7d7216c6f",
+     "inclusion_mode": "reference-with-optional-snapshot"
+    }
+   ],
+   "source_digests": [
+    "sha256:013d5110aea575fd924be7197a3c3f64ebe873c0bb02a1e2507346f7d7216c6f",
+    "sha256:019dd65c3fdeba2d7f1c6921e6342df4bdea3065ee260642f4681b279c52a03a",
+    "sha256:08b7b21bdbe5a28e56ae99700edea231c535960fbbe2c29bbb3cf52237cd3b8d",
+    "sha256:1660943bc514af68d02414e798ff252ee2add120fc70d780f3ad9578557eefd9",
+    "sha256:1ac36c8c4105ba89328d2f48d40c5c59f3762625a99c7fc30a7fbdb703957e05",
+    "sha256:1f66f76f4d8fe1878c023a36bbcc99e01432938136ae4531b1bb34c07d82868a",
+    "sha256:1ff8ad4b6823d88477187f3c8f3b349073eaa27ab120b21b15475ee99c319fd3",
+    "sha256:31462a2d18bf7ae2261ce2554e8e35f48edd5e0fc335ed34d67154b8718c08ac",
+    "sha256:36176d7cc4285fb8cf728909255ca356db13b1ca5ed7fe3f33d703c8c94c1cbe",
+    "sha256:3621dee0dbdc9bfdacf23431d11a4e8f31c1de10a988ea8836f152419a95c97d",
+    "sha256:378183ae315966a9320cb375efdbe7c6d476796037b0c1a03f96365acfedf3d2",
+    "sha256:37f6f293243cb0d3ec5769306239a24772432df188ec5408474e560b9452416d",
+    "sha256:4002211de997ec98c2eca2504e5898d49c656d15c6718183f3d181d855a60e07",
+    "sha256:43a411557ed11358cd2c74640e56d71a3bc6ab74064ed0f4324447896be50e3a",
+    "sha256:44f249f9a746ab4f2253b6686c8326a79c542144533a92e532b97c2c7c324601",
+    "sha256:46d14969f4ab8b65ac383ec1b8fa3b243ee9dfe898b5987aafdf35008062a44f",
+    "sha256:4a5e858e6f62f54f7627c011f39cee25091102132e4591a52a35cb16cdf7add3",
+    "sha256:4bff0f7e30421695eb6d015c907aee3244ee81c95b0d7db8af8a2d5b228b6df9",
+    "sha256:51e330a1386d3ebeddfde9ce6f1837680b1ab0443de487aee11f6c7bf986d670",
+    "sha256:51e8ac3dc719e618511b4176daed43330e6614b8de12fc659621ee347a15d43c",
+    "sha256:520dea784291a99496aa628ec36d2ad2d08321b6cf5a55713e399d1b41896c16",
+    "sha256:54255b496130e50fe50da93707b80af0439f26d0ebd526340eae88d2b7d85864",
+    "sha256:55ff052936e46ac23dfbd8b90224531288593cd4ae401f89b3f40e234fd69968",
+    "sha256:5a740147522ffc6ff935f30c92558fd1a86b0c67fbb1404513f641ccb722bbbc",
+    "sha256:68cc4dafbea5ca84d3ad0421e8c26fb4d91a86f161244ae5ad5a47793db24377",
+    "sha256:6f73a0bb109c65fe6faf6109601bb2b8ec9b489214d697c7f03cd8995f14ed5c",
+    "sha256:7012fea2791b528cfc4e8a4f73fb130aa5f540073710f2568000e4384dfe719e",
+    "sha256:72be35797da28f37936729e2fa600e04526c1cbb5e7504ac956aeddcd8a1d401",
+    "sha256:7a43c902ec097befa5061c25bd3b327976d0dc031b1fd067cb8a5d9a57be6fc9",
+    "sha256:7e214ad9d7bf286c10af03f7df98bd3a92eba60447dcdd83cda944ebfe9946e1",
+    "sha256:87178b4e9ece684b58c9b9ba0c1632975913c55eec1301e6ac6b83a0a668f499",
+    "sha256:8748d54460b5f93b09b42e2f8d437803a6c23c3bc70d3e663067d738dc02cddc",
+    "sha256:877fe87c78d7a251c50343a626ca86f26f159bdc32045e661b9f08533f0ea369",
+    "sha256:9621e69a94fa83721e3005d3c223bb1cfd230b2c1ed0b0d783911da1763b8171",
+    "sha256:96fc33ec4fa85b154ee9e35550706bbeb958697f2291fce991f06a749b6402c1",
+    "sha256:a47b3f758613148c4c3001b504009023fafb6f2a548d1f772ab5df5072aa9a13",
+    "sha256:a7ad3007277df45a05e61520fdb140ff25d1a41230a564f563353b7787cdbb4b",
+    "sha256:a85969388a7e2f3deda47e52b2eb40effde7a9010c0f1336486fa28ebc5928ff",
+    "sha256:b00e5fe87012689bc6007ad6cf4aeb4a22324dbe3e0d99ddf910621634db8b90",
+    "sha256:b631fe0fb2b8cadf82769c8464640b552be6261be118a170bfb044f2879f78a3",
+    "sha256:b933f40187c6941143496715b082af0004898f77a726f15dbaae33e7330300c1",
+    "sha256:c26ca4fa4cf2520427d07a144fefd5d426db9d2c5546566e417b27b4fc903fc8",
+    "sha256:c69de1e8d1e3db09040bd516f1e00488840c1c36e5737bb63ad301e1ca01178d",
+    "sha256:ca52d38e280f5198d8be5a7f606f5d975947d7c30d19ae421cbbdf5e1a57d7a5",
+    "sha256:d251c451c037d26255b2bfea8b41a49e5500751f89866959a35cba1b11efaa5e",
+    "sha256:d3d889a94649a0a626954dc40bfd16ea24b4e06fb9d5e0d24be2883a061a8737",
+    "sha256:dc7361aed051477170c2fc0784cfe13ed14744136bd346b5aff3043de135486f",
+    "sha256:dc7c047039e2b2378816d696906094efb44b2041d1ea5b71864e70316738373c",
+    "sha256:e2fc3d77c18560187f1252452071b3348ca80b2e313f57f4e0f2ae934d6e04f6",
+    "sha256:e5b07dac7b061a9babd6f7c67f9df7a28e8ed4707b04f08e113cda2629bd962d",
+    "sha256:ed68cae81884a9cb43b1c7ef6faf767a3363a8021f4b03ccf93056c4ba840989",
+    "sha256:eebd967a11bb3472bde0cb521283e7d934d482437fdbccaacbe12d531634e9cf",
+    "sha256:f3c2f605877db78c747e6927e2f8afefadec8ec25726a3bd33c1e4af5f5bdba6",
+    "sha256:fe969e60cb3de2857e91933ea45b16f7636aa2cbc663066394964740d4f7425c",
+    "sha256:ff12a50034f9d6afc48d07bb123f0d3965c763538160631b992db29f849c5d33",
+    "sha256:ff6edf2f8678598cf61c217a6a8b5fea93d9e8e535d19baeee4fc0b24bae636a"
+   ],
+   "reproducibility": {
+    "content_addressed": true,
+    "deterministic_manifest": true,
+    "automatic_execution": false,
+    "automatic_remote_fetch": false,
+    "automatic_remote_write": false
+   },
+   "manifest_digest": "sha256:fce58681d67fcc0073503d5145bef202567d565124c72a8f8a7aa88c5f59c05e"
+  },
+  "assumptions": [
+   "All values are invented for software acceptance"
+  ],
+  "uncertainties": [],
+  "evidence_gaps": [
+   "No measured soil carbon, nitrate or pH data"
+  ],
+  "notes": [],
+  "boundaries": [
+   "package-is-a-reproducibility-and-preservation-container-not-a-truth-claim",
+   "source-evidence-is-referenced-by-content-digest-and-not-mutated",
+   "derived-analysis-remains-distinct-from-observation",
+   "predictions-scenarios-exposure-and-thresholds-retain-model-conditional-semantics",
+   "package-verification-does-not-reexecute-analysis",
+   "reproduction-plans-never-auto-execute-compute",
+   "export-plans-never-perform-implicit-delivery-or-remote-write",
+   "credentials-secrets-private-keys-and-session-material-are-rejected",
+   "downstream-products-must-validate-before-import",
+   "human-authorization-is-required-before-any-rerun-or-publication"
+  ],
+  "package_id": "spatial-package:5d8bde40366e0edee1f77633",
+  "package_digest": "sha256:5d8bde40366e0edee1f7763396f5f2852e5d01a5fd1a45e1b3e61d9ce61cad24",
+  "sealed": true,
+  "delivery_attempted": false,
+  "execution_attempted": false
+ },
+ "derivation": "one row per agriculture-food-systems object: soc and soc_se copied from properties; t_years = quarter index x 0.25",
+ "rows": [
+  {
+   "object_id": "se-47b00095a40215bcca91602f",
+   "content_digest": "sha256:31462a2d18bf7ae2261ce2554e8e35f48edd5e0fc335ed34d67154b8718c08ac",
+   "field_id": "WX-F1",
+   "observed_at": "2026-02-01T00:00:00+00:00",
+   "t_years": 0.0,
+   "soc": 28.55,
+   "soc_se": 0.8
+  },
+  {
+   "object_id": "se-62d06831f162c666ef9794d1",
+   "content_digest": "sha256:019dd65c3fdeba2d7f1c6921e6342df4bdea3065ee260642f4681b279c52a03a",
+   "field_id": "WX-F2",
+   "observed_at": "2026-02-01T00:00:00+00:00",
+   "t_years": 0.0,
+   "soc": 31.1,
+   "soc_se": 0.9
+  },
+  {
+   "object_id": "se-53a0dabad8de874cb1191f3e",
+   "content_digest": "sha256:dc7c047039e2b2378816d696906094efb44b2041d1ea5b71864e70316738373c",
+   "field_id": "WX-F3",
+   "observed_at": "2026-02-01T00:00:00+00:00",
+   "t_years": 0.0,
+   "soc": 25.8,
+   "soc_se": 1.0
+  },
+  {
+   "object_id": "se-2457d25aa8bdbc3130fbd4b3",
+   "content_digest": "sha256:87178b4e9ece684b58c9b9ba0c1632975913c55eec1301e6ac6b83a0a668f499",
+   "field_id": "WX-F4",
+   "observed_at": "2026-02-01T00:00:00+00:00",
+   "t_years": 0.0,
+   "soc": 34.25,
+   "soc_se": 1.1
+  },
+  {
+   "object_id": "se-0724c153554b79e54eae1433",
+   "content_digest": "sha256:46d14969f4ab8b65ac383ec1b8fa3b243ee9dfe898b5987aafdf35008062a44f",
+   "field_id": "WX-F5",
+   "observed_at": "2026-02-01T00:00:00+00:00",
+   "t_years": 0.0,
+   "soc": 29.6,
+   "soc_se": 1.2
+  },
+  {
+   "object_id": "se-8144170e9690241d95ae5cd2",
+   "content_digest": "sha256:b631fe0fb2b8cadf82769c8464640b552be6261be118a170bfb044f2879f78a3",
+   "field_id": "WX-F6",
+   "observed_at": "2026-02-01T00:00:00+00:00",
+   "t_years": 0.0,
+   "soc": 27.2,
+   "soc_se": 0.8
+  },
+  {
+   "object_id": "se-1eb0bc0fb729013e2eefa94c",
+   "content_digest": "sha256:fe969e60cb3de2857e91933ea45b16f7636aa2cbc663066394964740d4f7425c",
+   "field_id": "WX-F1",
+   "observed_at": "2026-05-01T00:00:00+00:00",
+   "t_years": 0.25,
+   "soc": 28.6,
+   "soc_se": 1.0
+  },
+  {
+   "object_id": "se-f0f9a118c6704fba902eb994",
+   "content_digest": "sha256:013d5110aea575fd924be7197a3c3f64ebe873c0bb02a1e2507346f7d7216c6f",
+   "field_id": "WX-F2",
+   "observed_at": "2026-05-01T00:00:00+00:00",
+   "t_years": 0.25,
+   "soc": 31.0,
+   "soc_se": 1.1
+  },
+  {
+   "object_id": "se-2ca4c52b06b5cafc6f8d6aa8",
+   "content_digest": "sha256:ff6edf2f8678598cf61c217a6a8b5fea93d9e8e535d19baeee4fc0b24bae636a",
+   "field_id": "WX-F3",
+   "observed_at": "2026-05-01T00:00:00+00:00",
+   "t_years": 0.25,
+   "soc": 26.5,
+   "soc_se": 1.2
+  },
+  {
+   "object_id": "se-8b91c6f80ada02393ea89d9b",
+   "content_digest": "sha256:96fc33ec4fa85b154ee9e35550706bbeb958697f2291fce991f06a749b6402c1",
+   "field_id": "WX-F4",
+   "observed_at": "2026-05-01T00:00:00+00:00",
+   "t_years": 0.25,
+   "soc": 34.05,
+   "soc_se": 0.8
+  },
+  {
+   "object_id": "se-d66b066423285f6e7864f4ff",
+   "content_digest": "sha256:51e8ac3dc719e618511b4176daed43330e6614b8de12fc659621ee347a15d43c",
+   "field_id": "WX-F5",
+   "observed_at": "2026-05-01T00:00:00+00:00",
+   "t_years": 0.25,
+   "soc": 29.8,
+   "soc_se": 0.9
+  },
+  {
+   "object_id": "se-13a98dab2fa78084f8e40994",
+   "content_digest": "sha256:51e330a1386d3ebeddfde9ce6f1837680b1ab0443de487aee11f6c7bf986d670",
+   "field_id": "WX-F6",
+   "observed_at": "2026-05-01T00:00:00+00:00",
+   "t_years": 0.25,
+   "soc": 27.8,
+   "soc_se": 1.0
+  },
+  {
+   "object_id": "se-e763a57ccd1e6e80f3db1f39",
+   "content_digest": "sha256:36176d7cc4285fb8cf728909255ca356db13b1ca5ed7fe3f33d703c8c94c1cbe",
+   "field_id": "WX-F1",
+   "observed_at": "2026-08-01T00:00:00+00:00",
+   "t_years": 0.5,
+   "soc": 28.9,
+   "soc_se": 1.2
+  },
+  {
+   "object_id": "se-ae1780f9916c8cc30c0c14df",
+   "content_digest": "sha256:9621e69a94fa83721e3005d3c223bb1cfd230b2c1ed0b0d783911da1763b8171",
+   "field_id": "WX-F2",
+   "observed_at": "2026-08-01T00:00:00+00:00",
+   "t_years": 0.5,
+   "soc": 31.15,
+   "soc_se": 0.8
+  },
+  {
+   "object_id": "se-49043dd29488cde9a783e1aa",
+   "content_digest": "sha256:a47b3f758613148c4c3001b504009023fafb6f2a548d1f772ab5df5072aa9a13",
+   "field_id": "WX-F3",
+   "observed_at": "2026-08-01T00:00:00+00:00",
+   "t_years": 0.5,
+   "soc": 26.7,
+   "soc_se": 0.9
+  },
+  {
+   "object_id": "se-249fa7f4e4fb8b62a1feb28e",
+   "content_digest": "sha256:7a43c902ec097befa5061c25bd3b327976d0dc031b1fd067cb8a5d9a57be6fc9",
+   "field_id": "WX-F4",
+   "observed_at": "2026-08-01T00:00:00+00:00",
+   "t_years": 0.5,
+   "soc": 34.1,
+   "soc_se": 1.0
+  },
+  {
+   "object_id": "se-1d8a9c0a8845db74db5b46cf",
+   "content_digest": "sha256:4bff0f7e30421695eb6d015c907aee3244ee81c95b0d7db8af8a2d5b228b6df9",
+   "field_id": "WX-F5",
+   "observed_at": "2026-08-01T00:00:00+00:00",
+   "t_years": 0.5,
+   "soc": 30.25,
+   "soc_se": 1.1
+  },
+  {
+   "object_id": "se-90525d0ce89a4174d187d371",
+   "content_digest": "sha256:1ac36c8c4105ba89328d2f48d40c5c59f3762625a99c7fc30a7fbdb703957e05",
+   "field_id": "WX-F6",
+   "observed_at": "2026-08-01T00:00:00+00:00",
+   "t_years": 0.5,
+   "soc": 27.9,
+   "soc_se": 1.2
+  },
+  {
+   "object_id": "se-9797ee25b7e1c6ce07e9d0ca",
+   "content_digest": "sha256:4002211de997ec98c2eca2504e5898d49c656d15c6718183f3d181d855a60e07",
+   "field_id": "WX-F1",
+   "observed_at": "2026-11-01T00:00:00+00:00",
+   "t_years": 0.75,
+   "soc": 29.45,
+   "soc_se": 0.9
+  },
+  {
+   "object_id": "se-901e922e1d0dd66c4444d78b",
+   "content_digest": "sha256:eebd967a11bb3472bde0cb521283e7d934d482437fdbccaacbe12d531634e9cf",
+   "field_id": "WX-F2",
+   "observed_at": "2026-11-01T00:00:00+00:00",
+   "t_years": 0.75,
+   "soc": 30.8,
+   "soc_se": 1.0
+  },
+  {
+   "object_id": "se-86c33584b5af3b776435ef56",
+   "content_digest": "sha256:d251c451c037d26255b2bfea8b41a49e5500751f89866959a35cba1b11efaa5e",
+   "field_id": "WX-F3",
+   "observed_at": "2026-11-01T00:00:00+00:00",
+   "t_years": 0.75,
+   "soc": 27.15,
+   "soc_se": 1.1
+  },
+  {
+   "object_id": "se-338caecb92b8a70d75e90c7f",
+   "content_digest": "sha256:e5b07dac7b061a9babd6f7c67f9df7a28e8ed4707b04f08e113cda2629bd962d",
+   "field_id": "WX-F4",
+   "observed_at": "2026-11-01T00:00:00+00:00",
+   "t_years": 0.75,
+   "soc": 34.4,
+   "soc_se": 1.2
+  },
+  {
+   "object_id": "se-d5acbdbf28f71d265db58a69",
+   "content_digest": "sha256:5a740147522ffc6ff935f30c92558fd1a86b0c67fbb1404513f641ccb722bbbc",
+   "field_id": "WX-F5",
+   "observed_at": "2026-11-01T00:00:00+00:00",
+   "t_years": 0.75,
+   "soc": 30.2,
+   "soc_se": 0.8
+  },
+  {
+   "object_id": "se-df82669a29ce88e812c93c81",
+   "content_digest": "sha256:8748d54460b5f93b09b42e2f8d437803a6c23c3bc70d3e663067d738dc02cddc",
+   "field_id": "WX-F6",
+   "observed_at": "2026-11-01T00:00:00+00:00",
+   "t_years": 0.75,
+   "soc": 28.25,
+   "soc_se": 0.9
+  }
+ ]
+}
