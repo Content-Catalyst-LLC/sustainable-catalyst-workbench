@@ -76,6 +76,7 @@ EXPECTED_MEASUREMENT = {
     "status-only": "not-applicable",
 }
 UncertaintyKind = Literal["standard-error", "standard-deviation", "ci95-half-width"]
+INTERVAL_KEYS = {"semantics", "level", "method", "distribution", "degreesOfFreedom", "computedBy", "values"}
 GEOMETRY = {"point": ("Point", "MultiPoint"), "line": ("LineString", "MultiLineString"),
             "polygon": ("Polygon", "MultiPolygon"), "heatmap": ("Point", "MultiPoint")}
 RAMPS = ("viridis", "cividis", "magma")
@@ -216,11 +217,17 @@ class CalculationInput(BaseModel):
     valueKey: str = Field(min_length=1, max_length=120)
     uncertaintyKey: str = Field(default="", max_length=120)
     uncertaintyKind: Optional[UncertaintyKind] = None
+    # SC-FIG-04.1: the Workspace export's own records, passed through unchanged (never computed here).
+    uncertainty: Optional[Dict[str, Any]] = None
+    intervals: Optional[Dict[str, Any]] = None
+    assumptions: Optional[Dict[str, Any]] = None
 
     @model_validator(mode="after")
     def validate_keys(self):
         if bool(self.uncertaintyKey) != (self.uncertaintyKind is not None):
             raise ValueError("calculation uncertainty needs both uncertaintyKey and uncertaintyKind")
+        if self.uncertaintyKey and self.uncertainty is not None:
+            raise ValueError("give either uncertaintyKey or the export's uncertainty record, not both")
         return self
 
 
@@ -485,10 +492,66 @@ def compile_view(req: MapLibreCompileRequest, objects: List[Dict[str, Any]], bbo
             if isinstance(u, bool) or not isinstance(u, (int, float)) or not math.isfinite(u) or u < 0:
                 raise ValueError(f"calculation {i}: {c.uncertaintyKey!r} is not a non-negative number in the run's result values")
             entry.update(uncertainty=u, uncertaintyKind=c.uncertaintyKind)
+        entry.update(_export_uncertainty(c, i, value))
         calcs.append(entry)
     if calcs:
         view["calculations"] = calcs
     return view
+
+
+def _finite(v: Any) -> bool:
+    return not isinstance(v, bool) and isinstance(v, (int, float)) and math.isfinite(v)
+
+
+def _export_uncertainty(c: CalculationInput, i: int, value: float) -> Dict[str, Any]:
+    """SC-FIG-04.1: the run's standard error, confidence interval and declared assumptions for one value.
+
+    Every number comes from the Workspace export as the runtime reported it. Nothing is derived from the
+    point estimate. When both a standard error and a Student-t interval are reported, Workbench checks that
+    the interval equals estimate +/- t((1 + level) / 2, df) * standard error (a consistency check of the
+    runtime's own record, not an independent reproduction). Anything inconsistent is refused.
+    """
+    at, out = f"calculation {i}", {}
+    if c.uncertainty is not None:
+        u = c.uncertainty
+        if u.get("semantics") != "standard-error" or not isinstance(u.get("values"), dict):
+            raise ValueError(f"{at}: only a runtime standard-error record is accepted as calculation uncertainty")
+        se = u["values"].get(c.valueKey)
+        if se is not None:
+            if not _finite(se) or se < 0:
+                raise ValueError(f"{at}: the standard error of {c.valueKey!r} is not a non-negative number")
+            out.update(uncertainty=se, uncertaintyKind="standard-error")
+    if c.intervals is not None:
+        iv = c.intervals
+        if set(iv) != INTERVAL_KEYS or iv.get("semantics") != "confidence-interval" or iv.get("computedBy") != "runtime":
+            raise ValueError(f"{at}: intervals must be the runtime's confidence-interval record")
+        level, df, method, dist = iv["level"], iv["degreesOfFreedom"], iv["method"], iv["distribution"]
+        if not (_finite(level) and 0.5 <= level < 1 and _finite(df) and df >= 1 and isinstance(method, str) and method.strip()
+                and isinstance(dist, str) and isinstance(iv["values"], dict)):
+            raise ValueError(f"{at}: the interval record needs a level in [0.5, 1), degrees of freedom >= 1 and a method")
+        pair = iv["values"].get(c.valueKey)
+        if not (isinstance(pair, list) and len(pair) == 2 and all(_finite(x) for x in pair) and pair[0] <= value <= pair[1]):
+            raise ValueError(f"{at}: the runtime reported no interval for {c.valueKey!r} that contains the estimate")
+        interval = {"semantics": "confidence-interval", "level": level, "lower": pair[0], "upper": pair[1],
+                    "method": _plain(method, f"{at} interval method"), "distribution": _plain(dist, f"{at} interval distribution", 64),
+                    "degreesOfFreedom": df, "computedBy": "runtime", "consistency": "not-checked"}
+        if dist == "Student t" and out.get("uncertaintyKind") == "standard-error":
+            from scipy.stats import t as student_t
+            half = float(student_t.ppf((1 + level) / 2, df)) * out["uncertainty"]
+            tol = 1e-8 * max(1.0, abs(value), half)
+            if abs(pair[0] - (value - half)) > tol or abs(pair[1] - (value + half)) > tol:
+                raise ValueError(f"{at}: the interval does not equal estimate +/- t * standard error for the stated level and df")
+            interval["consistency"] = "estimate-plus-minus-t-standard-error"
+        out["interval"] = interval
+    if c.assumptions is not None:
+        a = c.assumptions
+        st = a.get("statements")
+        if set(a) != {"declaredBy", "checked", "statements"} or a.get("declaredBy") != "model-revision" or a.get("checked") is not False \
+                or not isinstance(st, list) or not 0 < len(st) <= 12:
+            raise ValueError(f"{at}: assumptions must be the model revision's declared, unchecked statements")
+        out["assumptions"] = {"declaredBy": "model-revision", "checked": False,
+                              "statements": [_plain(x, f"{at} assumption", 240) for x in st]}
+    return out
 
 
 def _bbox(objects: List[Dict[str, Any]]) -> List[float]:
@@ -550,7 +613,10 @@ def build_bundle(req: MapLibreCompileRequest, view_sha: str, pkg_ref: Dict[str, 
         "evidenceClass": b.evidenceClass, "figureType": "spatial-map",
         "sourceRefs": sources,
         "calculationRefs": [{"system": "workspace", "runRef": c.runRef, "method": c.method,
-                             "outputSha256": content_hash(c.values), "assumptionRefs": []} for c in req.calculations],
+                             "outputSha256": content_hash(c.values),
+                             "assumptionRefs": [f"sha256:{content_hash(c.assumptions)}"] if c.assumptions else [],
+                             **({"intervalsSha256": content_hash(c.intervals)} if c.intervals else {})}
+                            for c in req.calculations],
         "scientificContext": context,
         "spatial": {"geometryStatus": b.geometryStatus, "crs": CRS, "extentStatus": b.extentStatus, "bbox": bbox,
                     "siPackage": pkg_ref, "objectCount": len(view["objects"])},
