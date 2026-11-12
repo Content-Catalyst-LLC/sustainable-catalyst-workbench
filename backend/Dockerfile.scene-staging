@@ -1,0 +1,56 @@
+# syntax=docker/dockerfile:1
+# Workbench staging candidate with the SC-FIG-05.1 off-screen PyVista/VTK scene renderer (OSMesa, no display).
+# Same application layout as backend/Dockerfile; pinned bases, hash-locked renderer wheels, a non-root user and
+# OCI source labels. The renderer never uses the network; run the container with --network none for renders.
+#   docker build --platform linux/amd64 -f Dockerfile.scene-staging \
+#     --build-arg VCS_REF=$(git rev-parse HEAD) --build-arg BUILD_DATE=... -t <tag> .
+FROM julia:1.11-bookworm@sha256:51fff9471714bf568780f944af3aebe3b6ea7283d5716b64806713c2f6557a07 AS julia_runtime
+
+FROM python:3.12-slim-bookworm@sha256:935c3c5b12357a7e10caa9c1e6ca5692344d97cf229832ef584be2cec9fc03df
+
+ARG VCS_REF=unknown
+ARG BUILD_DATE=unknown
+
+LABEL org.opencontainers.image.title="Sustainable Catalyst Workbench (FIG-05.1 scene staging candidate)" \
+      org.opencontainers.image.version="14.0.0" \
+      org.opencontainers.image.revision="${VCS_REF}" \
+      org.opencontainers.image.created="${BUILD_DATE}" \
+      org.opencontainers.image.source="https://github.com/Content-Catalyst-LLC/sustainable-catalyst-workbench" \
+      org.opencontainers.image.base.name="python:3.12-slim-bookworm" \
+      com.sustainablecatalyst.environment="staging" \
+      com.sustainablecatalyst.pyvista="0.45.2" \
+      com.sustainablecatalyst.vtk="9.4.2"
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Software OpenGL (Mesa OSMesa/llvmpipe) and the X client libraries the VTK wheel links against.
+RUN set -eux; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends libosmesa6 libgl1 libx11-6 libxrender1 libxext6 libxcursor1 libxft2 libxinerama1; \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY requirements.txt requirements-scene.txt ./
+RUN pip install --no-cache-dir -r requirements.txt \
+ && pip install --no-cache-dir --require-hashes --no-deps -r requirements-scene.txt \
+ && pip check
+
+COPY . .
+RUN chmod +x start.sh \
+ && useradd --uid 10001 --create-home --home-dir /home/scwb --shell /usr/sbin/nologin scwb \
+ && mkdir -p /data && chown scwb:scwb /data
+
+COPY --from=julia_runtime /usr/local/julia /usr/local/julia
+ENV PATH="/usr/local/julia/bin:${PATH}"
+ENV SCWB_JULIA_BIN="/usr/local/julia/bin/julia"
+# The scene adapter flag stays off in the image; the staging run turns it on explicitly.
+ENV PORT=8088
+
+USER scwb
+# Fail the build early if VTK cannot open an off-screen OSMesa window.
+RUN VTK_DEFAULT_OPENGL_WINDOW=vtkOSOpenGLRenderWindow python -c "import vtk; w = vtk.vtkRenderWindow(); w.SetOffScreenRendering(1); w.Render(); print(w.GetClassName())"
+HEALTHCHECK --interval=15s --timeout=5s --start-period=20s --retries=5 \
+  CMD ["python", "-c", "import json,urllib.request; d=json.load(urllib.request.urlopen('http://127.0.0.1:8088/health',timeout=4)); assert d.get('ok') and d.get('version')=='14.0.0'"]
+CMD ["./start.sh"]
