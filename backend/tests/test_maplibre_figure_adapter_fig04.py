@@ -255,3 +255,97 @@ def test_view_policy_refusals():
     req = request()
     req["calculations"][0]["valueKey"] = "missing"
     refused(req, 422, "not a finite number")
+
+
+# --- SC-FIG-04.1: the runtime's standard error, confidence interval and declared assumptions ------------
+
+def _runtime_records(se=1.8857, level=0.95, df=22.0):
+    """As the Workspace export carries them for an R lm() run (synthetic numbers; t quantile from scipy)."""
+    from scipy.stats import t as student_t
+    half = float(student_t.ppf((1 + level) / 2, df)) * se
+    return ({"semantics": "standard-error", "values": {"intercept": 0.9, "slope": se}},
+            {"semantics": "confidence-interval", "level": level, "computedBy": "runtime", "degreesOfFreedom": df,
+             "method": "stats::confint.lm: estimate +/- qt((1 + level) / 2, df.residual) * standard error",
+             "distribution": "Student t", "values": {"intercept": [27.2, 31.0], "slope": [0.8333 - half, 0.8333 + half]}},
+            {"declaredBy": "model-revision", "checked": False, "statements": ["Independent, identically distributed errors"]})
+
+
+def interval_request(**over):
+    se, iv, ass = _runtime_records(**over)
+    req = request()
+    calc = req["calculations"][0]
+    del calc["uncertaintyKey"], calc["uncertaintyKind"]
+    calc.update(values={"intercept": 29.1, "slope": 0.8333}, uncertainty=se, intervals=iv, assumptions=ass)
+    return req
+
+
+def test_runtime_interval_and_assumptions_are_carried_and_checked_against_the_standard_error():
+    req = interval_request()
+    out = compile_ok(req)
+    calc, ref = out["maplibre"]["view"]["calculations"][0], out["figureBundle"]["calculationRefs"][0]
+    iv = req["calculations"][0]["intervals"]
+    assert calc["uncertainty"] == 1.8857 and calc["uncertaintyKind"] == "standard-error"
+    assert calc["interval"] == {"semantics": "confidence-interval", "level": 0.95, "lower": iv["values"]["slope"][0],
+                                "upper": iv["values"]["slope"][1], "method": iv["method"], "distribution": "Student t",
+                                "degreesOfFreedom": 22.0, "computedBy": "runtime",
+                                "consistency": "estimate-plus-minus-t-standard-error"}
+    assert calc["assumptions"] == {"declaredBy": "model-revision", "checked": False,
+                                   "statements": ["Independent, identically distributed errors"]}
+    assert ref["outputSha256"] == content_hash({"intercept": 29.1, "slope": 0.8333})
+    assert ref["intervalsSha256"] == content_hash(iv)
+    assert ref["assumptionRefs"] == [f"sha256:{content_hash(req['calculations'][0]['assumptions'])}"]
+
+
+def test_interval_without_standard_error_is_carried_but_marked_not_checked():
+    req = interval_request()
+    del req["calculations"][0]["uncertainty"]
+    calc = compile_ok(req)["maplibre"]["view"]["calculations"][0]
+    assert calc["interval"]["consistency"] == "not-checked" and "uncertainty" not in calc
+
+
+def test_no_reported_uncertainty_adds_nothing():
+    req = interval_request()
+    for k in ("uncertainty", "intervals", "assumptions"):
+        del req["calculations"][0][k]
+    out = compile_ok(req)
+    calc = out["maplibre"]["view"]["calculations"][0]
+    assert not {"uncertainty", "interval", "assumptions"} & set(calc)
+    assert "intervalsSha256" not in out["figureBundle"]["calculationRefs"][0]
+    assert out["figureBundle"]["calculationRefs"][0]["assumptionRefs"] == []
+
+
+@pytest.mark.parametrize("change, needle", [
+    (lambda iv: iv.update(computedBy="workbench"), "runtime's confidence-interval"),
+    (lambda iv: iv.update(semantics="credible-interval"), "runtime's confidence-interval"),
+    (lambda iv: iv.update(level=1.0), "level in [0.5, 1)"),
+    (lambda iv: iv.update(degreesOfFreedom=0), "degrees of freedom"),
+    (lambda iv: iv["values"].update(slope=[0.9, 1.2]), "contains the estimate"),
+    (lambda iv: iv["values"].pop("slope"), "contains the estimate"),
+    (lambda iv: iv["values"].update(slope=[-1.0, 2.0]), "estimate +/- t * standard error"),
+    (lambda iv: iv.update(level=0.9), "estimate +/- t * standard error"),
+    (lambda iv: iv.update(extra=1), "runtime's confidence-interval"),
+])
+def test_inconsistent_or_non_runtime_intervals_are_refused(change, needle):
+    req = interval_request()
+    change(req["calculations"][0]["intervals"])
+    refused(req, 422, needle)
+
+
+def test_per_field_errors_or_a_mixed_record_never_become_the_trend_error():
+    req = interval_request()
+    req["calculations"][0]["uncertainty"]["semantics"] = "monte-carlo-standard-error"
+    refused(req, 422, "runtime standard-error record")
+    req = interval_request()
+    req["calculations"][0].update(uncertaintyKey="slope", uncertaintyKind="standard-error")
+    refused(req, 422, "not both")
+    req = interval_request()
+    req["calculations"][0]["uncertainty"]["values"]["slope"] = -0.1
+    refused(req, 422, "non-negative")
+
+
+def test_assumptions_must_be_declared_and_unchecked():
+    for change in ({"checked": True}, {"declaredBy": "workbench"}, {"statements": []}, {"statements": ["see https://x.test/a"]}):
+        req = interval_request()
+        req["calculations"][0]["assumptions"].update(change)
+        r = c.post("/figure-adapters/maplibre/compile", json=req)
+        assert r.status_code == 422, (change, r.text)
