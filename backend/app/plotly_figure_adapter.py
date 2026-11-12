@@ -993,7 +993,9 @@ def _record(req: PlotlyCompileRequest, table: Dict[str, Any]) -> Any:
 
 
 def _runtime_source(req: PlotlyCompileRequest) -> Dict[str, Any]:
-    ids = [f"workspace-run:{c.runRef}:{content_hash(c.values)}" for c in req.calculations]
+    # "runtime-record:", not "workspace-run:": the runRef is a public reference, and Research's release policy
+    # refuses any "workspace-run:" identifier in a public bundle.
+    ids = [f"runtime-record:{c.runRef}:{content_hash(c.values)}" for c in req.calculations]
     manifest = content_hash([c.model_dump() for c in req.calculations])
     return {"kind": "workspace-runtime-records", "calculationRefs": [], "snapshotIds": ids, "inputManifestSha256": manifest}
 

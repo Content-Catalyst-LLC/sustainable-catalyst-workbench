@@ -7,6 +7,7 @@ recompute the bands and quantiles independently with NumPy/SciPy. Synthetic only
 import copy
 import hashlib
 import json
+import re
 from pathlib import Path
 
 import numpy as np
@@ -153,7 +154,9 @@ def test_table_bundle_and_provenance_carry_runtime_records():
     assert refs[1]["quantileBandsSha256"] == content_hash(req["calculations"][1]["quantileBands"])
     assert refs[0]["outputSha256"] == content_hash(req["calculations"][0]["values"])
     assert refs[0]["assumptionRefs"] == [f"sha256:{content_hash(req['calculations'][0]['assumptions'])}"]
-    assert b["provenance"]["sourceSnapshotIds"][0].startswith("workspace-run:sc://workspace/runs/synthetic-fig05-band:")
+    assert b["provenance"]["sourceSnapshotIds"][0].startswith("runtime-record:sc://workspace/runs/synthetic-fig05-band:")
+    # Research refuses public bundles that carry Workspace identifiers (public_figures.py disclosure policy).
+    assert not re.search(r"(?i)\bworkspace-(?:project|user|dataset|run|artifact|notebook):", json.dumps(b))
     assert out["source"]["kind"] == "workspace-runtime-records"
 
 
