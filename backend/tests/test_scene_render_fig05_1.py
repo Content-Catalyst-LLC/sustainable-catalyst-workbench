@@ -155,7 +155,7 @@ def test_declared_mesh_hash_mismatch_refuses_the_job():
 
 
 def test_vertex_limit_is_the_measured_one_and_oversize_bodies_are_refused(monkeypatch):
-    assert scene.MAX_VERTICES == 500_000 and scene.MAX_FACES == 1_000_000
+    assert scene.MAX_VERTICES == 350_000 and scene.MAX_FACES == 700_000
     a, b = synthetic_surface(mesh_id="a"), synthetic_surface(mesh_id="b")
     monkeypatch.setattr(scene, "MAX_VERTICES", 200)
     refused(job(meshes=[a, b]), "at most 200 vertices")

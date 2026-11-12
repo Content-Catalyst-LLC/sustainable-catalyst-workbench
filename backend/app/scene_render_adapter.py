@@ -48,12 +48,13 @@ PINNED_PACKAGES = {"pyvista": "0.45.2", "vtk": "9.4.2"}
 WORKER_PATH = Path(__file__).with_name("mesh_render_worker.py")
 # Provisional ceilings accepted for isolated staging (owner direction 2026-11-12); jobs may ask for less.
 CEILINGS = {"cpuSeconds": 90, "memoryMiB": 1536, "wallSeconds": 120, "concurrency": 1}
-# Measured 2026-11-12 under the ceilings: a 500k-vertex job peaks at about 1240 MiB for the whole container
-# (request parsing plus worker); 1M vertices is killed for memory. The proposed contract allows 2M per mesh;
-# this job limit is narrower until arrays are transported in binary rather than JSON.
-MAX_VERTICES = 500_000
-MAX_FACES = 1_000_000
-MAX_BODY_BYTES = 64 * 1024 * 1024
+# Measured 2026-11-12 under the ceilings (1 CPU, 1536 MiB, no network), container memory peak for the whole
+# job (request parsing plus worker): 250k vertices 791 MiB, 360k 977 MiB, 500k reached the 1536 MiB limit, and
+# 1M was killed. The proposed contract allows 2M per mesh; this job limit keeps about a third of the memory
+# free and stays narrower until arrays are transported in binary rather than JSON.
+MAX_VERTICES = 350_000
+MAX_FACES = 700_000
+MAX_BODY_BYTES = 48 * 1024 * 1024
 MAX_OUTPUT_BYTES = 50_000_000
 PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
 GLB_MAGIC = b"glTF"
