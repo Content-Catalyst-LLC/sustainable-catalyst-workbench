@@ -36,6 +36,7 @@ from typing import Any, Dict, List, Literal, Optional, Tuple
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from . import uncertainty_encodings as ue
 from .release import APP_VERSION
 from .v510 import content_hash
 from .v890 import FigureComposeRequest, _load_completed_jobs, _source_record, compose_figure
@@ -64,7 +65,9 @@ STATIC_MEDIA = {"png": "image/png", "svg": "image/svg+xml", "pdf": "application/
 PALETTE = ["#0072B2", "#D55E00", "#009E73", "#CC79A7", "#E69F00", "#56B4E9", "#F0E442", "#000000"]
 router = APIRouter(tags=["workbench-fig-02a-plotly-figure-adapter"])
 
-ChartKind = Literal["line", "scatter", "bar", "time-series", "distribution", "heatmap"]
+ChartKind = Literal["line", "scatter", "bar", "time-series", "distribution", "heatmap", "band", "fan"]
+# SC-FIG-05.3: panels drawn from a runtime band or ensemble-fan record (optionally over dataset observations).
+UNCERTAINTY_CHARTS = {"band", "fan"}
 UncertaintySemantics = Literal[
     "reported-plus-minus", "standard-deviation", "standard-error", "confidence-interval-95", "range-min-max"
 ]
@@ -159,13 +162,19 @@ class PlotlyPanel(BaseModel):
     model_config = ConfigDict(extra="forbid")
     panelId: str = Field(min_length=1, max_length=80)
     chart: ChartKind
-    series: List[SeriesBinding] = Field(min_length=1, max_length=8)
+    series: List[SeriesBinding] = Field(default_factory=list, max_length=8)
     xUnit: str = Field(default="", max_length=80)
     distributionKind: Literal["box", "histogram"] = "box"
     heatmapRowField: str = Field(default="", max_length=240)
+    calculation: Optional[int] = Field(default=None, ge=0, le=7)
 
     @model_validator(mode="after")
     def validate_panel(self):
+        if self.chart in UNCERTAINTY_CHARTS:
+            if self.calculation is None:
+                raise ValueError(f"{self.chart} panel {self.panelId} needs a calculation index")
+        elif not self.series or self.calculation is not None:
+            raise ValueError(f"panel {self.panelId} needs series and no calculation (calculations are for band and fan panels)")
         fields = [s.field for s in self.series]
         if len(fields) != len(set(fields)):
             raise ValueError(f"panel {self.panelId} series fields must be unique")
@@ -186,6 +195,36 @@ class AuthorizedDataset(BaseModel):
     basisField: str = Field(default="", max_length=240)
     durationField: str = Field(default="", max_length=240)
     panelField: str = Field(default="", max_length=240)
+
+
+class LinearFit(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    interceptKey: str = Field(min_length=1, max_length=120)
+    slopeKey: str = Field(min_length=1, max_length=120)
+
+
+class RuntimeUncertaintyInput(BaseModel):
+    """SC-FIG-05.3: one verified Workspace run's exported values with its band or ensemble-fan record, passed through
+    unchanged. Research binds the run itself; Workbench only checks and draws what the runtime computed."""
+    model_config = ConfigDict(extra="forbid")
+    label: str = Field(min_length=3, max_length=200)
+    unit: str = Field(min_length=1, max_length=80)
+    xLabel: str = Field(min_length=1, max_length=200)
+    method: str = Field(min_length=3, max_length=300)
+    runRef: str = Field(min_length=3, max_length=200)
+    values: Dict[str, Any] = Field(min_length=1, max_length=256)
+    bands: Optional[List[Dict[str, Any]]] = None
+    quantileBands: Optional[Dict[str, Any]] = None
+    linearFit: Optional[LinearFit] = None
+    assumptions: Optional[Dict[str, Any]] = None
+
+    @model_validator(mode="after")
+    def validate_record(self):
+        if self.bands is not None and self.quantileBands is not None:
+            raise ValueError("a calculation carries either bands or quantileBands, not both")
+        if self.linearFit is not None and self.bands is None:
+            raise ValueError("linearFit checks a band fit; this calculation has no bands")
+        return self
 
 
 class BundleSource(BaseModel):
@@ -246,11 +285,26 @@ class PlotlyCompileRequest(BaseModel):
     width: int = Field(default=1000, ge=320, le=4000)
     height: int = Field(default=640, ge=240, le=4000)
     staticFormats: List[Literal["png", "svg", "pdf"]] = Field(default_factory=list, max_length=3)
+    calculations: List[RuntimeUncertaintyInput] = Field(default_factory=list, max_length=8)
 
     @model_validator(mode="after")
     def validate_source_choice(self):
-        if (self.workbenchFigure is None) == (self.dataset is None):
+        unc = [p for p in self.panels if p.chart in UNCERTAINTY_CHARTS]
+        if self.workbenchFigure is not None and self.dataset is not None:
             raise ValueError("provide exactly one of workbenchFigure or dataset")
+        if self.workbenchFigure is None and self.dataset is None:
+            if not unc or len(unc) != len(self.panels) or any(p.series for p in unc):
+                raise ValueError("provide exactly one of workbenchFigure or dataset (or only band/fan panels without series)")
+        if unc and self.workbenchFigure is not None:
+            raise ValueError("band and fan panels draw Workspace runtime records; they cannot be composed with workbenchFigure")
+        for p in unc:
+            if p.calculation >= len(self.calculations):
+                raise ValueError(f"panel {p.panelId} calculation {p.calculation} is not in calculations")
+            c = self.calculations[p.calculation]
+            if (p.chart == "band" and c.quantileBands is not None) or (p.chart == "fan" and c.bands is not None):
+                raise ValueError(f"panel {p.panelId} is a {p.chart} panel but its calculation carries the other record")
+        if self.calculations and not unc:
+            raise ValueError("calculations are drawn only by band or fan panels")
         if len(self.staticFormats) != len(set(self.staticFormats)):
             raise ValueError("staticFormats must be unique")
         ids = [p.panelId for p in self.panels]
@@ -269,6 +323,8 @@ def _evidence_gate(req: PlotlyCompileRequest) -> None:
         raise ValueError(
             f"evidenceClass {b.evidenceClass} requires measurementStatus {EXPECTED_MEASUREMENT[b.evidenceClass]}"
         )
+    if req.calculations and b.evidenceClass != "modelled":
+        raise ValueError("runtime bands and ensemble fans are model outputs and cannot be labelled " + b.evidenceClass)
     if req.workbenchFigure is not None and b.evidenceClass != "modelled":
         raise ValueError("completed Workbench computations are modelled results and cannot be labelled " + b.evidenceClass)
     if req.dataset is not None:
@@ -388,6 +444,9 @@ def _panels_from_dataset(req: PlotlyCompileRequest) -> Tuple[List[Dict[str, Any]
                 _finite(value, f"dataset field {key}")
     tables = []
     for panel in req.panels:
+        if not panel.series:
+            tables.append(_runtime_only_table(panel))
+            continue
         rows_in = [r for r in ds.rows if not ds.panelField or r.get(ds.panelField) == panel.panelId]
         if not rows_in:
             raise ValueError(f"panel {panel.panelId} has no dataset rows")
@@ -439,6 +498,36 @@ def _panels_from_dataset(req: PlotlyCompileRequest) -> Tuple[List[Dict[str, Any]
     return tables, source
 
 
+def _runtime_only_table(panel: PlotlyPanel) -> Dict[str, Any]:
+    return {"panel": panel, "title": panel.panelId, "xLabel": "", "xExplicit": True, "rows": []}
+
+
+def _attach_uncertainty(tables: List[Dict[str, Any]], req: PlotlyCompileRequest) -> List[Dict[str, Any]]:
+    """SC-FIG-05.3: check each band/fan panel's runtime record; a missing record is drawn as unavailable."""
+    for table in tables:
+        panel: PlotlyPanel = table["panel"]
+        if panel.chart not in UNCERTAINTY_CHARTS:
+            continue
+        c = req.calculations[panel.calculation]
+        at = f"panel {panel.panelId} calculation {panel.calculation}"
+        record = c.bands if panel.chart == "band" else c.quantileBands
+        if record is None:
+            table["uncertainty"] = None
+            table["unavailable"] = ("the Workspace run reported no " + ("confidence or prediction band" if panel.chart == "band"
+                                    else "ensemble quantile fan") + " for this value; none is drawn or derived")
+        elif panel.chart == "band":
+            table["uncertainty"] = ue.check_bands(record, at, c.values, c.linearFit.model_dump() if c.linearFit else None)
+        else:
+            table["uncertainty"] = ue.check_fan(record, at)
+        if c.assumptions is not None:
+            a = c.assumptions
+            if set(a) != {"declaredBy", "checked", "statements"} or a.get("declaredBy") != "model-revision" or a.get("checked") is not False \
+                    or not isinstance(a.get("statements"), list) or not 0 < len(a["statements"]) <= 12:
+                raise ValueError(f"{at}: assumptions must be the model revision's declared, unchecked statements")
+        table.update(calc=c, unit=c.unit, xLabel=c.xLabel, title=c.label, recordSha256=content_hash(record) if record is not None else "")
+    return tables
+
+
 def _dataset_field(row: Dict[str, Any], field: str, panel_id: str) -> Any:
     if field not in row:
         raise ValueError(f"panel {panel_id} uncertainty field not in dataset row: {field}")
@@ -450,7 +539,7 @@ def _dataset_field(row: Dict[str, Any], field: str, panel_id: str) -> Any:
 # ---------------------------------------------------------------------------
 
 def _unit_check(table: Dict[str, Any]) -> str:
-    units = {s.unit for s in table["panel"].series}
+    units = {s.unit for s in table["panel"].series} | ({table["unit"]} if table.get("calc") else set())
     if len(units) != 1:
         raise ValueError(f"panel {table['panel'].panelId} mixes units {sorted(units)}; plot them in separate panels")
     return next(iter(units))
@@ -520,6 +609,11 @@ def _traces(table: Dict[str, Any], axis_suffix: str, colours: List[str], offset:
             "hovertemplate": "%{y} · %{x}: %{z} " + _text(unit) + "<extra></extra>",
         })
         return traces
+    if panel.chart in UNCERTAINTY_CHARTS and table.get("uncertainty"):
+        rec, label = table["uncertainty"], table["calc"].label
+        sha = table["recordSha256"]
+        traces.extend(ue.band_traces(rec, axes, unit, panel.panelId, label, sha) if rec["kind"] == "band"
+                      else ue.fan_traces(rec, axes, unit, panel.panelId, label, sha))
     for i, s in enumerate(panel.series):
         colour = colours[(offset + i) % len(colours)]
         ys = [r["values"][s.field] for r in rows]
@@ -545,7 +639,8 @@ def _traces(table: Dict[str, Any], axis_suffix: str, colours: List[str], offset:
             trace["error_y"] = {**err, "color": colour, "thickness": 1.5, "width": 6}
         if panel.chart == "bar":
             trace.update({"type": "bar", "marker": {"color": colour}})
-        elif panel.chart == "scatter":
+        elif panel.chart in {"scatter", "band", "fan"}:
+            # band/fan panels draw their dataset series as observation markers over the runtime record.
             trace.update({"type": "scatter", "mode": "markers", "marker": {"color": colour, "size": 10}})
         else:
             # line and time-series: gaps stay gaps; values are never interpolated.
@@ -600,6 +695,12 @@ def compile_plotly(tables: List[Dict[str, Any]], req: PlotlyCompileRequest) -> D
             "x": 0, "y": domain[1], "xanchor": "left", "yanchor": "bottom", "font": {"size": 13},
         })
         data.extend(_traces(table, suffix, colours, offset=sum(len(t["panel"].series) for t in tables[:idx])))
+        if panel.chart in UNCERTAINTY_CHARTS and table.get("uncertainty") is None:
+            layout["annotations"].append({
+                "text": "Uncertainty unavailable: " + _text(table["unavailable"]), "showarrow": False,
+                "xref": "x" + suffix + " domain", "yref": "y" + suffix + " domain", "x": 0.5, "y": 0.5,
+                "font": {"size": 12, "color": "#1a1a1a"}, "bgcolor": "#f2f2f2", "bordercolor": "#555555", "borderwidth": 1,
+            })
         if panel.chart in {"scatter", "bar"}:
             for row in table["rows"]:
                 if isinstance(row["x"], str) and all(row["values"][s.field] is None for s in panel.series):
@@ -670,6 +771,18 @@ def accessible_table(tables: List[Dict[str, Any]], caption: str) -> Dict[str, An
                                + (f"; {missing} not reported" if missing else ""))
             else:
                 summary.append(f"{s.label or s.field}: no reported values")
+        if panel.chart in UNCERTAINTY_CHARTS:
+            rec = table.get("uncertainty")
+            if panel.series:
+                out_panels.append({"panelId": panel.panelId + ".observations", "title": table["title"] + " — observations",
+                                   "chart": "scatter", "columns": columns, "rows": rows, "descriptiveSummary": summary})
+            ucols = [{"key": "x", "label": table["xLabel"], "unit": panel.xUnit}] + ue.table_columns(rec, unit)
+            urows = [{c["key"]: r.get(c["key"]) for c in ucols} for r in ue.table_rows(rec)]
+            out_panels.append({"panelId": panel.panelId, "title": table["title"], "chart": panel.chart,
+                               "uncertaintyStatus": "runtime-computed" if rec else "unavailable",
+                               "columns": ucols, "rows": urows,
+                               "descriptiveSummary": ue.summary(rec, table.get("unavailable", ""))})
+            continue
         out_panels.append({"panelId": panel.panelId, "title": table["title"], "chart": panel.chart,
                            "columns": columns, "rows": rows, "descriptiveSummary": summary})
     return {"caption": caption, "panels": out_panels, "html": _table_html(out_panels, caption)}
@@ -695,8 +808,9 @@ def _table_html(panels: List[Dict[str, Any]], caption: str) -> str:
             ) + "</tr>"
             for row in p["rows"]
         )
+        note = "".join(f"<p>{html.escape(x)}</p>" for x in p["descriptiveSummary"]) if p.get("uncertaintyStatus") else ""
         parts.append(f'<table data-panel-id="{html.escape(p["panelId"])}"><caption>{html.escape(caption)} — '
-                     f'{html.escape(p["title"])}</caption><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table>')
+                     f'{html.escape(p["title"])}</caption><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table>{note}')
     return "".join(parts)
 
 
@@ -800,17 +914,32 @@ def _artifact(fmt: str, sha: str, media: str, width: int, height: int, revision:
 
 
 def build_bundle(req: PlotlyCompileRequest, source: Dict[str, Any], figure_sha: str,
-                 artifacts: List[Dict[str, Any]], generated_at: str) -> Dict[str, Any]:
+                 artifacts: List[Dict[str, Any]], generated_at: str, tables: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
+    tables = tables or []
     b = req.bundle
     sources = [{k: v for k, v in s.model_dump().items() if v not in ("", None)} for s in b.sourceRefs]
     context: Dict[str, Any] = {"interpretation": b.interpretation, "limitations": b.limitations,
                                "measurementStatus": b.measurementStatus,
-                               "units": "; ".join(sorted({s.unit for p in req.panels for s in p.series})),
+                               "units": "; ".join(sorted({s.unit for p in req.panels for s in p.series} | {c.unit for c in req.calculations})),
                                "claimIds": b.claimIds,
                                "doNotInfer": b.doNotInfer}
     semantics = sorted({s.uncertainty.semantics for p in req.panels for s in p.series if s.uncertainty})
     if semantics:
         context["uncertaintyNotation"] = ", ".join(semantics)
+    unc = [t for t in tables if t["panel"].chart in UNCERTAINTY_CHARTS]
+    if unc:  # SC-FIG-05.3 (proposed v1.1 fields; absent from every other figure)
+        drawn = [t["uncertainty"] for t in unc if t.get("uncertainty")]
+        notation = sorted({b["semantics"] for r in drawn if r["kind"] == "band" for b in r["bands"]}
+                          | {"ensemble-quantile-fan" for r in drawn if r["kind"] == "fan"})
+        context["uncertaintyNotation"] = ", ".join(semantics + notation) or "unavailable"
+        context["uncertaintyStatus"] = "runtime-computed" if drawn else "unavailable"
+        enc = {"table-columns"}
+        enc |= {"interval-ribbon" for r in drawn if r["kind"] == "band" and any(b["semantics"] == "confidence-band" for b in r["bands"])}
+        enc |= {"prediction-ribbon" for r in drawn if r["kind"] == "band" and any(b["semantics"] == "prediction-band" for b in r["bands"])}
+        enc |= {"ensemble-quantile-fan" for r in drawn if r["kind"] == "fan"}
+        if len(drawn) < len(unc):
+            enc.add("unavailable-notice")
+        context["uncertaintyEncodings"] = sorted(enc)
     if b.temporalScope:
         context["temporalScope"] = b.temporalScope
     bundle = {
@@ -824,7 +953,7 @@ def build_bundle(req: PlotlyCompileRequest, source: Dict[str, Any], figure_sha: 
         "evidenceClass": b.evidenceClass,
         "figureType": b.figureType,
         "sourceRefs": sources,
-        "calculationRefs": source["calculationRefs"],
+        "calculationRefs": source["calculationRefs"] + _runtime_calc_refs(req),
         "scientificContext": context,
         "rendering": {"profileId": RENDERING_PROFILE, "renderer": "plotly",
                       "rendererVersion": f"plotly.py {_installed('plotly')}; plotly.js {_plotly_js_version()}",
@@ -845,16 +974,54 @@ def build_bundle(req: PlotlyCompileRequest, source: Dict[str, Any], figure_sha: 
     return bundle
 
 
+def _runtime_calc_refs(req: PlotlyCompileRequest) -> List[Dict[str, Any]]:
+    refs = []
+    for c in req.calculations:
+        ref: Dict[str, Any] = {"system": "workspace", "runRef": c.runRef, "method": c.method, "outputSha256": content_hash(c.values),
+                               "assumptionRefs": [f"sha256:{content_hash(c.assumptions)}"] if c.assumptions else []}
+        if c.bands is not None:
+            ref["bandsSha256"] = content_hash(c.bands)
+        if c.quantileBands is not None:
+            ref["quantileBandsSha256"] = content_hash(c.quantileBands)
+        refs.append(ref)
+    return refs
+
+
+def _record(req: PlotlyCompileRequest, table: Dict[str, Any]) -> Any:
+    c = req.calculations[table["panel"].calculation]
+    return c.bands if table["panel"].chart == "band" else c.quantileBands
+
+
+def _runtime_source(req: PlotlyCompileRequest) -> Dict[str, Any]:
+    # "runtime-record:", not "workspace-run:": the runRef is a public reference, and Research's release policy
+    # refuses any "workspace-run:" identifier in a public bundle.
+    ids = [f"runtime-record:{c.runRef}:{content_hash(c.values)}" for c in req.calculations]
+    manifest = content_hash([c.model_dump() for c in req.calculations])
+    return {"kind": "workspace-runtime-records", "calculationRefs": [], "snapshotIds": ids, "inputManifestSha256": manifest}
+
+
 def _module_sha256() -> str:
     digest = hashlib.sha256()
-    for path in (Path(__file__), WORKER_PATH):
+    for path in (Path(__file__), WORKER_PATH, Path(ue.__file__)):
         digest.update(path.read_bytes())
     return digest.hexdigest()
 
 
 def compile_request(req: PlotlyCompileRequest) -> Dict[str, Any]:
     _evidence_gate(req)
-    tables, source = _panels_from_workbench(req) if req.workbenchFigure is not None else _panels_from_dataset(req)
+    if req.workbenchFigure is not None:
+        tables, source = _panels_from_workbench(req)
+    elif req.dataset is not None:
+        tables, source = _panels_from_dataset(req)
+    else:
+        tables, source = [_runtime_only_table(p) for p in req.panels], _runtime_source(req)
+    if req.calculations:
+        try:
+            _attach_uncertainty(tables, req)
+        except ue.UncertaintyRecordError as exc:
+            raise ValueError(str(exc)) from exc
+        if req.dataset is not None:
+            source = {**source, "snapshotIds": source["snapshotIds"] + _runtime_source(req)["snapshotIds"]}
     figure = compile_plotly(tables, req)
     figure_sha = content_hash(figure)
     generated_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
@@ -876,7 +1043,7 @@ def compile_request(req: PlotlyCompileRequest) -> Dict[str, Any]:
                 artifacts.append(_artifact(fmt, sha, STATIC_MEDIA[fmt], req.width, req.height, req.bundle.version))
                 static["files"][fmt] = {"sha256": sha, "bytes": len(raw), "mediaType": STATIC_MEDIA[fmt],
                                         "contentBase64": base64.b64encode(raw).decode("ascii")}
-    bundle = build_bundle(req, source, figure_sha, artifacts, generated_at)
+    bundle = build_bundle(req, source, figure_sha, artifacts, generated_at, tables)
     out = {
         "ok": True,
         "schema": SCHEMA,
@@ -899,6 +1066,14 @@ def compile_request(req: PlotlyCompileRequest) -> Dict[str, Any]:
             "publicationPerformed": False,
         },
     }
+    if req.calculations:
+        out["boundaries"]["uncertaintyComputedByAdapter"] = False
+        out["uncertainty"] = [{
+            "panelId": t["panel"].panelId, "chart": t["panel"].chart, "calculation": t["panel"].calculation,
+            "status": "runtime-computed" if t.get("uncertainty") else "unavailable",
+            **({"consistency": t["uncertainty"]["consistency"], "record": _record(req, t), "recordSha256": content_hash(_record(req, t))}
+               if t.get("uncertainty") else {"reason": t["unavailable"]}),
+        } for t in tables if t["panel"].chart in UNCERTAINTY_CHARTS]
     out["resultHash"] = content_hash({k: v for k, v in out.items() if k != "staticExport"})
     return out
 
