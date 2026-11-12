@@ -54,6 +54,36 @@ def png_bytes(rgb, width, height):
             + chunk(b"IDAT", zlib.compress(raw, 9)) + chunk(b"IEND", b""))
 
 
+def gltf_to_glb(doc):
+    """Pack a glTF 2.0 document with inline base64 buffers into one deterministic binary GLB.
+
+    Every buffer is moved into the single BIN chunk (each 4-byte aligned) and buffer views are re-pointed.
+    Embedded data URIs for images stay; any external URI is refused so the GLB stays self-contained.
+    """
+    blob, offsets = b"", []
+    for buf in doc.get("buffers", []):
+        uri = buf.get("uri", "")
+        if not uri.startswith("data:") or ";base64," not in uri:
+            raise ValueError("glTF buffer is not inline")
+        data = base64.b64decode(uri.split(";base64,", 1)[1])
+        offsets.append(len(blob))
+        blob += data + b"\x00" * (-len(data) % 4)
+    for img in doc.get("images", []):
+        if "uri" in img and not img["uri"].startswith("data:"):
+            raise ValueError("glTF image is not inline")
+    for view in doc.get("bufferViews", []):
+        view["byteOffset"] = offsets[view.get("buffer", 0)] + view.get("byteOffset", 0)
+        view["buffer"] = 0
+    if offsets:
+        doc["buffers"] = [{"byteLength": len(blob)}]
+    text = json.dumps(doc, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    text += b" " * (-len(text) % 4)
+    body = struct.pack("<I4s", len(text), b"JSON") + text
+    if blob:
+        body += struct.pack("<I4s", len(blob), b"BIN\x00") + blob
+    return struct.pack("<4sII", b"glTF", 2, 12 + len(body)) + body
+
+
 def _usage(started):
     ru = resource.getrusage(resource.RUSAGE_SELF)
     # Linux reports ru_maxrss in KiB.
@@ -105,10 +135,10 @@ def render(job, np, pv):
     outputs = {"png": base64.b64encode(png_bytes(rgb.tobytes(), rgb.shape[1], rgb.shape[0])).decode("ascii")}
     if "glb" in job["formats"]:
         with tempfile.TemporaryDirectory(prefix="scene-glb-") as tmp:
-            path = os.path.join(tmp, "scene.glb")
+            path = os.path.join(tmp, "scene.gltf")
             plotter.export_gltf(path, inline_data=True, save_normals=True)
             with open(path, "rb") as fh:
-                outputs["glb"] = base64.b64encode(fh.read()).decode("ascii")
+                outputs["glb"] = base64.b64encode(gltf_to_glb(json.load(fh))).decode("ascii")
     window = plotter.ren_win.GetClassName()
     plotter.close()
     return outputs, {"width": int(rgb.shape[1]), "height": int(rgb.shape[0]), "renderWindow": window}

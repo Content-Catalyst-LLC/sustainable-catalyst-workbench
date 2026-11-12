@@ -285,9 +285,13 @@ def run_worker(payload: Dict[str, Any], budgets: Budgets) -> Dict[str, Any]:
     started = time.monotonic()
     try:
         with tempfile.TemporaryDirectory(prefix="scwb-scene-") as home:
-            proc = subprocess.Popen([sys.executable, "-I", str(WORKER_PATH)], stdin=subprocess.PIPE,
-                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=_worker_env(home), cwd=home,
-                                    preexec_fn=_limits(budgets), start_new_session=True)
+            try:
+                proc = subprocess.Popen([sys.executable, "-I", str(WORKER_PATH)], stdin=subprocess.PIPE,
+                                        stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=_worker_env(home), cwd=home,
+                                        preexec_fn=_limits(budgets), start_new_session=True)
+            except (subprocess.SubprocessError, OSError):
+                # A host that cannot apply the CPU and memory limits never renders without them.
+                return {"ok": False, "error": "render-limits-unavailable"}
             try:
                 out, _err = proc.communicate(json.dumps(payload).encode("utf-8"), timeout=budgets.wallSeconds)
             except subprocess.TimeoutExpired:

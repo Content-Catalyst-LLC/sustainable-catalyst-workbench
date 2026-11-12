@@ -237,6 +237,25 @@ def _client():
     return TestClient(app)
 
 
+def test_gltf_is_packed_into_a_self_contained_glb():
+    payload = base64.b64encode(bytes(range(10))).decode("ascii")
+    doc = {"asset": {"version": "2.0"}, "buffers": [{"byteLength": 10, "uri": "data:application/octet-stream;base64," + payload},
+                                                     {"byteLength": 3, "uri": "data:application/octet-stream;base64," + base64.b64encode(b"abc").decode()}],
+           "bufferViews": [{"buffer": 0, "byteLength": 10}, {"buffer": 1, "byteOffset": 1, "byteLength": 2}]}
+    glb = worker.gltf_to_glb(copy.deepcopy(doc))
+    assert glb == worker.gltf_to_glb(copy.deepcopy(doc))
+    magic, version, length = struct.unpack("<4sII", glb[:12])
+    assert (magic, version, length) == (b"glTF", 2, len(glb))
+    jlen = struct.unpack("<I", glb[12:16])[0]
+    packed = __import__("json").loads(glb[20:20 + jlen])
+    assert packed["buffers"] == [{"byteLength": 16}] and packed["bufferViews"][1] == {"buffer": 0, "byteOffset": 13, "byteLength": 2}
+    blob = glb[20 + jlen + 8:]
+    assert blob[:10] == bytes(range(10)) and blob[13:15] == b"bc"
+    doc["buffers"][1]["uri"] = "https://example.invalid/b.bin"
+    with pytest.raises(ValueError, match="not inline"):
+        worker.gltf_to_glb(doc)
+
+
 def test_route_is_disabled_by_default(monkeypatch):
     monkeypatch.delenv(scene.ENABLE_ENV, raising=False)
     c = _client()
@@ -291,6 +310,9 @@ def test_flat_faces_and_glb_export():
     out = scene.render_mesh(model(meshes=[synthetic_surface(location="face")], formats=["png", "glb"],
                                   interpolation={"surface": "none-flat-faces", "declaredBy": "workbench-job"}))
     assert base64.b64decode(out["files"]["glb"]["contentBase64"]).startswith(b"glTF")
+    again = scene.render_mesh(model(meshes=[synthetic_surface(location="face")], formats=["png", "glb"],
+                                    interpolation={"surface": "none-flat-faces", "declaredBy": "workbench-job"}))
+    assert again["files"]["glb"]["sha256"] == out["files"]["glb"]["sha256"]
     assert [a["format"] for a in out["figureBundle"]["artifacts"]] == ["png", "glb"]
 
 
