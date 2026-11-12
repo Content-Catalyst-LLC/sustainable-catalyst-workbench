@@ -313,6 +313,8 @@ def test_render_is_reproducible_within_the_declared_pixel_tolerance(monkeypatch)
     b = first["figureBundle"]
     assert b["figureType"] == "scene-3d" and b["scene"] == first["scene"] and b["artifacts"][0]["format"] == "png"
     assert b["publication"]["kind"] == "none" and all(v == "pending" for v in b["review"].values())
+    # A render does not grant rights or certify replay; both stay at their most conservative values.
+    assert b["sourceRefs"][0]["licenceStatus"] == "pending" and b["provenance"]["reproducibility"] == "not-tested"
 
 
 @needs_renderer

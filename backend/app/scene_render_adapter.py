@@ -350,7 +350,7 @@ def build_bundle(job: MeshRenderJob, scene: Dict[str, Any], artifacts: List[Dict
         "scientificContext": {"interpretation": f.interpretation, "limitations": f.limitations,
                               "measurementStatus": measurement, "units": f"{job.scalar.unit}; {job.coordinateSystem['units']}"},
         "sourceRefs": [{"sourceId": f.sourceId, "provider": f.sourceProvider, "identityStatus": "source-identified",
-                        "qualityStatus": "not-applicable", "licenceStatus": "pending-review"}],
+                        "qualityStatus": "not-applicable", "licenceStatus": "pending"}],
         "calculationRefs": [{"system": "workbench", "runRef": f.calculationRef, "method": f.calculationMethod,
                              "outputSha256": content_hash([{k: m.get(k) for k in ("meshId", "verticesSha256", "facesSha256", "scalarsSha256")}
                                                             for m in scene["meshes"]])}],
@@ -359,7 +359,7 @@ def build_bundle(job: MeshRenderJob, scene: Dict[str, Any], artifacts: List[Dict
         "artifacts": artifacts,
         "provenance": {"authorityOwner": "workbench", "sourceSnapshotIds": [f"scene:{scene['sceneSha256']}"],
                        "generationRunId": f"scene-render:{scene['sceneSha256'][:16]}", "generatedAt": generated_at,
-                       "reproducibility": "pinned-renderer-declared-camera"},
+                       "reproducibility": "not-tested"},
         "review": {k: "pending" for k in ("scientific", "visual", "rights", "sourceIntegrity", "publication")},
         "labels": ["scene-3d-proposed"],
         "scene": scene,
