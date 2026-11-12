@@ -31,8 +31,9 @@ from importlib import metadata
 from pathlib import Path
 from typing import Any, Dict, List, Literal, Optional
 
-from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from fastapi import APIRouter, HTTPException, Request
+from fastapi.concurrency import run_in_threadpool
+from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
 
 from .release import APP_VERSION
 from .v510 import content_hash
@@ -47,8 +48,12 @@ PINNED_PACKAGES = {"pyvista": "0.45.2", "vtk": "9.4.2"}
 WORKER_PATH = Path(__file__).with_name("mesh_render_worker.py")
 # Provisional ceilings accepted for isolated staging (owner direction 2026-11-12); jobs may ask for less.
 CEILINGS = {"cpuSeconds": 90, "memoryMiB": 1536, "wallSeconds": 120, "concurrency": 1}
-MAX_VERTICES = 2_000_000
-MAX_FACES = 4_000_000
+# Measured 2026-11-12 under the ceilings: a 500k-vertex job peaks at about 1240 MiB for the whole container
+# (request parsing plus worker); 1M vertices is killed for memory. The proposed contract allows 2M per mesh;
+# this job limit is narrower until arrays are transported in binary rather than JSON.
+MAX_VERTICES = 500_000
+MAX_FACES = 1_000_000
+MAX_BODY_BYTES = 64 * 1024 * 1024
 MAX_OUTPUT_BYTES = 50_000_000
 PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
 GLB_MAGIC = b"glTF"
@@ -419,12 +424,30 @@ def status_route():
     return runtime_status()
 
 
+async def _bounded_body(request: Request) -> bytes:
+    declared = request.headers.get("content-length")
+    if declared and declared.isdigit() and int(declared) > MAX_BODY_BYTES:
+        raise HTTPException(status_code=413, detail=f"scene job exceeds {MAX_BODY_BYTES} bytes")
+    body = bytearray()
+    async for chunk in request.stream():
+        body += chunk
+        if len(body) > MAX_BODY_BYTES:
+            raise HTTPException(status_code=413, detail=f"scene job exceeds {MAX_BODY_BYTES} bytes")
+    return bytes(body)
+
+
 @router.post("/figure-adapters/scene/render")
-def render_route(job: MeshRenderJob):
+async def render_route(request: Request):
     if not _flag(ENABLE_ENV):
         raise HTTPException(status_code=503, detail=f"FIG-05.1 scene renderer is disabled ({ENABLE_ENV}).")
+    # Bounded before parsing, then parsed by pydantic directly, so an oversize job cannot exhaust memory.
+    body = await _bounded_body(request)
     try:
-        return render_mesh(job)
+        job = MeshRenderJob.model_validate_json(body)
+    except ValidationError as exc:
+        raise HTTPException(status_code=422, detail=exc.errors(include_url=False, include_context=False)) from exc
+    try:
+        return await run_in_threadpool(render_mesh, job)
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     except RuntimeError as exc:

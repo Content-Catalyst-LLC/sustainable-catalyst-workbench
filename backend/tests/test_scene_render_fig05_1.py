@@ -154,6 +154,16 @@ def test_declared_mesh_hash_mismatch_refuses_the_job():
         scene.render_mesh(scene.MeshRenderJob.model_validate(j))
 
 
+def test_vertex_limit_is_the_measured_one_and_oversize_bodies_are_refused(monkeypatch):
+    assert scene.MAX_VERTICES == 500_000 and scene.MAX_FACES == 1_000_000
+    a, b = synthetic_surface(mesh_id="a"), synthetic_surface(mesh_id="b")
+    monkeypatch.setattr(scene, "MAX_VERTICES", 200)
+    refused(job(meshes=[a, b]), "at most 200 vertices")
+    monkeypatch.setenv(scene.ENABLE_ENV, "true")
+    monkeypatch.setattr(scene, "MAX_BODY_BYTES", 1000)
+    assert _client().post("/figure-adapters/scene/render", json=job()).status_code == 413
+
+
 # --- hashing and the scene record ----------------------------------------------------------------
 
 def test_mesh_hashes_are_canonical_and_type_normalised():

@@ -19,6 +19,8 @@ import time
 import zlib
 from pathlib import Path
 
+from pydantic import ValidationError
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from app import scene_render_adapter as scene  # noqa: E402
 
@@ -76,7 +78,7 @@ def main():
         "camera": {"position": [n * 1.6, -n * 1.2, n * 1.1], "focalPoint": [n / 2, n / 2, 0.0], "viewUp": [0.0, 0.0, 1.0],
                    "projection": "perspective", "viewAngleDegrees": 30},
         "interpolation": {"surface": "vertex-colour-gouraud", "declaredBy": "workbench-job"},
-        "verticalExaggeration": max(1.0, n / 10),
+        "verticalExaggeration": 4.0,
         "budgets": {"cpuSeconds": a.cpu, "memoryMiB": a.memory, "wallSeconds": a.wall, "concurrency": 1},
         "formats": ["png", "glb"] if a.glb else ["png"], "width": 1024, "height": 768,
         "figure": {"figureId": f"synthetic.fig05-1.bench-{n}", "title": "Synthetic benchmark surface",
@@ -85,8 +87,19 @@ def main():
                    "projectRef": "synthetic-fig05-1", "calculationRef": f"sc://workbench/jobs/synthetic-bench-{n}@1",
                    "calculationMethod": "analytic synthetic surface", "sourceId": "synthetic", "sourceProvider": "SC-FIG-05.1 benchmark"},
     }
-    payload_bytes = len(json.dumps(job))
-    model = scene.MeshRenderJob.model_validate(job)
+    # Same path as the HTTP route: bytes parsed and validated by pydantic directly.
+    body = json.dumps(job).encode("utf-8")
+    del job, verts, faces, scalars
+    payload_bytes = len(body)
+    try:
+        model = scene.MeshRenderJob.model_validate_json(body)
+    except ValidationError as exc:
+        print(json.dumps({"grid": n, "vertices": n * n, "payloadBytes": payload_bytes, "refused": True,
+                          "reason": exc.errors(include_url=False, include_context=False, include_input=False)[0]["msg"],
+                          "parentPeakRssMiB": round(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024, 1),
+                          "containerPeakMiB": cgroup_peak_mib()}))
+        return
+    del body
     validate_s = round(time.monotonic() - t0, 3)
     runs, first = [], None
     for _ in range(a.runs):
@@ -111,7 +124,7 @@ def main():
     ok = [r for r in runs if r["ok"]]
     print(json.dumps({
         "grid": n, "vertices": n * n, "faces": 2 * (n - 1) ** 2, "payloadBytes": payload_bytes, "validateSeconds": validate_s,
-        "budgets": job["budgets"], "runs": runs,
+        "budgets": model.budgets.model_dump(), "maxVertices": scene.MAX_VERTICES, "runs": runs,
         "reproducible": bool(ok) and len({r["sceneSha256"] for r in ok}) == 1 and all(r.get("meanAbsRgbVsRun1", 0) <= 1.0 for r in ok),
         "identicalPng": bool(ok) and len({r["pngSha256"] for r in ok}) == 1,
         "parentPeakRssMiB": round(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024, 1),
