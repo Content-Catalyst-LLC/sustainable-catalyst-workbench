@@ -753,3 +753,7 @@ app.include_router(plotly_figure_adapter_router)
 # SC-FIG-04 default-disabled MapLibre geospatial figure adapter (Site Intelligence evidence objects).
 from app.maplibre_figure_adapter import router as maplibre_figure_adapter_router
 app.include_router(maplibre_figure_adapter_router)
+
+# SC-FIG-05.1: default-disabled bounded static 3D scene renderer (proposed scene-3d contract).
+from app.scene_render_adapter import router as scene_render_adapter_router
+app.include_router(scene_render_adapter_router)

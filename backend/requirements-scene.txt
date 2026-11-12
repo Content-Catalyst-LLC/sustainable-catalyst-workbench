@@ -1,0 +1,9 @@
+# SC-FIG-05.1 optional off-screen 3D scene renderer (default disabled; see docs/FIG-05-1_SCENE_RENDERER.md).
+# Installed with --require-hashes --no-deps after requirements.txt, which already provides numpy, matplotlib,
+# pillow, requests, packaging and typing-extensions; `pip check` then verifies the combined set.
+# Off-screen rendering also needs the system OSMesa library (libosmesa6); there is no X display.
+pyvista==0.45.2 --hash=sha256:123fd795883b804734b49dd1f5b85a1d38c67bfba514719a5d689d17ff4901f3
+vtk==9.4.2 --hash=sha256:ef81842d151312b52455b2b613871c57ca7323c2f901914e13fc750b74ce3fd2
+scooby==0.12.1 --hash=sha256:4e3e474a3542fd1d19d775cea70d19ce58a005102c0206955dddbbd33f07eb4e
+pooch==1.9.0 --hash=sha256:f265597baa9f760d25ceb29d0beb8186c243d6607b0f60b83ecf14078dbc703b
+platformdirs==4.14.5 --hash=sha256:8e778c6fa421516f4d3369449f8df3b0e1b72c0e0005fe88e3ec772d0a14e750
