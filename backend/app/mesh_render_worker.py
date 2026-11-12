@@ -118,7 +118,10 @@ def render(job, np, pv):
                           clim=list(scalar["range"]), preference="cell" if m["scalarLocation"] == "face" else "point",
                           interpolate_before_map=not flat, show_scalar_bar=(i == 0),
                           scalar_bar_args={"title": f"{scalar['field']} ({scalar['unit']})", "color": "black",
-                                           "vertical": True, "fmt": "%.3g"})
+                                           "vertical": True, "fmt": "%.3g", "n_labels": 5,
+                                           # Inset from the right edge so tick labels are never clipped.
+                                           "position_x": 0.80, "position_y": 0.15, "width": 0.05, "height": 0.7,
+                                           "title_font_size": 16, "label_font_size": 14})
         else:
             kwargs.update(color="#bdbdbd")
         plotter.add_mesh(poly, **kwargs)
