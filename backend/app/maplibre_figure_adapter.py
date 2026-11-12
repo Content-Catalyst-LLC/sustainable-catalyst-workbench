@@ -80,6 +80,12 @@ INTERVAL_KEYS = {"semantics", "level", "method", "distribution", "degreesOfFreed
 GEOMETRY = {"point": ("Point", "MultiPoint"), "line": ("LineString", "MultiLineString"),
             "polygon": ("Polygon", "MultiPolygon"), "heatmap": ("Point", "MultiPoint")}
 RAMPS = ("viridis", "cividis", "magma")
+# SC-FIG-05.3: the same colour-vision-safe sequential ramps Lab uses; an uncertainty layer's classes must be an
+# ordered run of one of them (light = more uncertain is never mixed with a diverging or categorical scheme).
+RAMP_COLORS = {"viridis": ["#440154", "#3b528b", "#21918c", "#5ec962", "#fde725"],
+               "cividis": ["#00224e", "#414d6b", "#7c7b78", "#bcaf6f", "#fee838"],
+               "magma": ["#000004", "#51127c", "#b73779", "#fc8961", "#fcfdbf"]}
+MAP_UNCERTAINTY_SEMANTICS = {"standard-error": "standard-error", "standard-deviation": "standard-deviation"}
 _CONTROL = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
 _URLISH = re.compile(r"(?:^|[^a-z])(?:https?|ftp|file|data|blob|javascript|mapbox|pmtiles):|\{[xyz]\}|//", re.I)
 _FIELD = re.compile(r"^[A-Za-z_][A-Za-z0-9_]{0,63}$")
@@ -162,9 +168,18 @@ class LayerSpec(BaseModel):
     classify: Optional[Classify] = None
     weight: Optional[Weight] = None
     ramp: Optional[Literal["viridis", "cividis", "magma"]] = None
+    # SC-FIG-05.3: classify on the field's declared uncertainty instead of its value, bound to a Workspace run.
+    encode: Optional[Literal["uncertainty"]] = None
+    uncertaintyRef: Optional[int] = Field(default=None, ge=0, le=7)
 
     @model_validator(mode="after")
     def validate_layer(self):
+        if self.encode is not None or self.uncertaintyRef is not None:
+            if self.encode != "uncertainty" or self.uncertaintyRef is None or self.classify is None:
+                raise ValueError(f"layer {self.id}: an uncertainty layer needs encode, uncertaintyRef and classify")
+            c = [x.lower() for x in self.classify.colors]
+            if not any(any(r[i:i + len(c)] == c for i in range(len(r) - len(c) + 1)) for r in RAMP_COLORS.values()):
+                raise ValueError(f"layer {self.id}: uncertainty classes must be an ordered run of the viridis, cividis or magma ramp")
         if self.geometry == "heatmap":
             if self.weight is None or self.ramp is None or self.classify is not None:
                 raise ValueError(f"heatmap layer {self.id} needs weight and ramp (and no classify)")
@@ -214,16 +229,26 @@ class CalculationInput(BaseModel):
     method: str = Field(min_length=3, max_length=300)
     runRef: str = Field(min_length=3, max_length=200)
     values: Dict[str, Any] = Field(min_length=1, max_length=200)
-    valueKey: str = Field(min_length=1, max_length=120)
+    valueKey: str = Field(default="", max_length=120)
     uncertaintyKey: str = Field(default="", max_length=120)
     uncertaintyKind: Optional[UncertaintyKind] = None
     # SC-FIG-04.1: the Workspace export's own records, passed through unchanged (never computed here).
     uncertainty: Optional[Dict[str, Any]] = None
     intervals: Optional[Dict[str, Any]] = None
     assumptions: Optional[Dict[str, Any]] = None
+    # SC-FIG-05.3: "map-uncertainty" supplies per-object uncertainty for an uncertainty layer (matched on the
+    # objects' ``match`` property) and is not listed as a shown value.
+    role: Literal["value", "map-uncertainty"] = "value"
+    match: str = Field(default="", max_length=64)
 
     @model_validator(mode="after")
     def validate_keys(self):
+        if self.role == "map-uncertainty":
+            if self.uncertainty is None or not _FIELD.fullmatch(self.match) or self.uncertaintyKey or self.intervals is not None:
+                raise ValueError("a map-uncertainty calculation needs the export's uncertainty record and a match property")
+            return self
+        if not self.valueKey:
+            raise ValueError("a value calculation needs valueKey")
         if bool(self.uncertaintyKey) != (self.uncertaintyKind is not None):
             raise ValueError("calculation uncertainty needs both uncertaintyKey and uncertaintyKind")
         if self.uncertaintyKey and self.uncertainty is not None:
@@ -443,6 +468,9 @@ def compile_view(req: MapLibreCompileRequest, objects: List[Dict[str, Any]], bbo
         if l.classify:
             declared_numeric(l.classify.field, f"layer {l.id} classify")
             out["classify"] = l.classify.model_dump()
+        if l.encode:
+            _check_map_uncertainty(req, objects, l, fields)
+            out.update(encode=l.encode, uncertaintyRef=l.uncertaintyRef)
         if l.geometry == "heatmap":
             declared_numeric(l.weight.field, f"layer {l.id} weight")
             out["weight"] = l.weight.model_dump()
@@ -482,6 +510,10 @@ def compile_view(req: MapLibreCompileRequest, objects: List[Dict[str, Any]], bbo
         view["comparison"] = {"field": c.field, "from": frm, "to": to, "match": c.match, "label": _plain(c.label, "comparison label")}
     calcs = []
     for i, c in enumerate(req.calculations):
+        if c.role == "map-uncertainty":
+            if not any(l.uncertaintyRef == i for l in v.layers):
+                raise ValueError(f"calculation {i} is a map-uncertainty record that no layer draws")
+            continue
         value = c.values.get(c.valueKey)
         if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
             raise ValueError(f"calculation {i}: {c.valueKey!r} is not a finite number in the run's result values")
@@ -497,6 +529,41 @@ def compile_view(req: MapLibreCompileRequest, objects: List[Dict[str, Any]], bbo
     if calcs:
         view["calculations"] = calcs
     return view
+
+
+def _check_map_uncertainty(req: MapLibreCompileRequest, objects: List[Dict[str, Any]], l: "LayerSpec",
+                           fields: Dict[str, Any]) -> None:
+    """SC-FIG-05.3: an uncertainty layer draws an object's uncertainty property only if it equals the value the
+    bound Workspace run's uncertainty record reports for that object. Objects the run reports nothing for must
+    carry no uncertainty, and are drawn as "not reported"; nothing is imputed."""
+    at = f"layer {l.id}"
+    d = fields.get(l.classify.field) or {}
+    prop, kind = d.get("uncertainty"), d.get("uncertaintyKind")
+    if not prop:
+        raise ValueError(f"{at}: field {l.classify.field!r} declares no uncertainty property to map")
+    if l.uncertaintyRef >= len(req.calculations) or req.calculations[l.uncertaintyRef].role != "map-uncertainty":
+        raise ValueError(f"{at}: uncertaintyRef must point at a map-uncertainty calculation")
+    c = req.calculations[l.uncertaintyRef]
+    u = c.uncertainty
+    if not isinstance(u, dict) or set(u) != {"semantics", "values"} or MAP_UNCERTAINTY_SEMANTICS.get(u.get("semantics")) != kind \
+            or not isinstance(u.get("values"), dict) or not u["values"]:
+        raise ValueError(f"{at}: the run's uncertainty record must be {kind!r} values (the field's declared kind)")
+    if any(not _finite(x) or x < 0 for x in u["values"].values()):
+        raise ValueError(f"{at}: the run's uncertainty values must be non-negative numbers")
+    seen = set()
+    for o in objects:
+        p = o.get("properties") or {}
+        key, val = p.get(c.match), p.get(prop)
+        reported = u["values"].get(str(key)) if isinstance(key, (str, int)) and not isinstance(key, bool) else None
+        if reported is None:
+            if val is not None:
+                raise ValueError(f"{at}: object {o['object_id']} has uncertainty {val} that the run did not report")
+            continue
+        if val is None or not _finite(val) or val != reported:
+            raise ValueError(f"{at}: object {o['object_id']} uncertainty {val} is not the run's value {reported}")
+        seen.add(str(key))
+    if not seen:
+        raise ValueError(f"{at}: no object matches the run's uncertainty record on {c.match!r}")
 
 
 def _finite(v: Any) -> bool:
@@ -603,6 +670,9 @@ def build_bundle(req: MapLibreCompileRequest, view_sha: str, pkg_ref: Dict[str, 
     kinds = sorted({d["uncertaintyKind"] for d in view["fields"].values() if d.get("uncertaintyKind")})
     if kinds:
         context["uncertaintyNotation"] = ", ".join(kinds)
+    if any(l.get("encode") == "uncertainty" for l in view["layers"]):  # SC-FIG-05.3 (proposed v1.1 fields)
+        context["uncertaintyStatus"] = "runtime-computed"
+        context["uncertaintyEncodings"] = ["map-uncertainty-layer", "table-columns"]
     if view.get("time"):
         context["temporalScope"] = f"{view['time']['steps'][0]} to {view['time']['steps'][-1]} ({len(view['time']['steps'])} steps)"
     bundle = {
@@ -615,7 +685,8 @@ def build_bundle(req: MapLibreCompileRequest, view_sha: str, pkg_ref: Dict[str, 
         "calculationRefs": [{"system": "workspace", "runRef": c.runRef, "method": c.method,
                              "outputSha256": content_hash(c.values),
                              "assumptionRefs": [f"sha256:{content_hash(c.assumptions)}"] if c.assumptions else [],
-                             **({"intervalsSha256": content_hash(c.intervals)} if c.intervals else {})}
+                             **({"intervalsSha256": content_hash(c.intervals)} if c.intervals else {}),
+                             **({"uncertaintySha256": content_hash(c.uncertainty)} if c.role == "map-uncertainty" else {})}
                             for c in req.calculations],
         "scientificContext": context,
         "spatial": {"geometryStatus": b.geometryStatus, "crs": CRS, "extentStatus": b.extentStatus, "bbox": bbox,
