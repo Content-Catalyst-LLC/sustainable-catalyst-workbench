@@ -6,8 +6,8 @@ authenticated endpoint, so their results get a Workspace runtime receipt and can
 
 - ``workspace.workbench.uncertainty-propagation`` -> v11150.execute_uncertainty (first-order propagation,
   seeded Monte Carlo, convergence study)
-- ``workspace.workbench.uncertainty-propagation-rows`` -> the same, once per row of a Workspace-bound dataset revision
-  (SC-OUTPUT-02: a figure and table of one propagated quantity across the rows)
+  or, when Workspace binds a dataset revision (``rows``), the same calculation once per row (SC-OUTPUT-02: a figure
+  and table of one propagated quantity across the rows)
 - ``workspace.workbench.dynamical-simulation`` -> v750.run_simulation (scalar dynamics, linear state space,
   ODE IVP)
 
@@ -46,6 +46,8 @@ router = APIRouter(tags=["workbench-workspace-execution-adapter"])
 
 
 def _uncertainty(payload: Dict[str, Any]) -> Dict[str, Any]:
+    if "rows" in payload:
+        return _uncertainty_rows(payload)
     expression = str(payload.get("expression") or "")
     if len(expression) > MAX_EXPRESSION_CHARS or "__" in expression or not EXPRESSION_RE.fullmatch(expression):
         raise HTTPException(status_code=422, detail="expression is outside the governed symbolic grammar")
@@ -118,7 +120,7 @@ def _uncertainty_rows(payload: Dict[str, Any]) -> Dict[str, Any]:
             call.update(means=[r["mean"] for r in resolved], standardDeviations=[r["standardDeviation"] for r in resolved])
         else:
             call.update(inputs=resolved, samples=int(payload.get("samples") or 10000), seed=payload.get("seed"))
-        body = _uncertainty(call)
+        body = _uncertainty(call)  # the scalar path: grammar check, then execute_uncertainty
         res = body["result"]
         if operation == "first-order-independent":
             value, sd = res["nominalValue"], res["outputStandardDeviation"]
@@ -147,7 +149,6 @@ def _dynamics(payload: Dict[str, Any]) -> Dict[str, Any]:
 
 OPERATIONS: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
     "workspace.workbench.uncertainty-propagation": _uncertainty,
-    "workspace.workbench.uncertainty-propagation-rows": _uncertainty_rows,
     "workspace.workbench.dynamical-simulation": _dynamics,
 }
 

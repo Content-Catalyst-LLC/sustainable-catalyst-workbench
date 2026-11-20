@@ -82,7 +82,7 @@ def test_digital_twin_and_invalid_requests_are_refused():
                        json=envelope("workspace.workbench.uncertainty-propagation", {**MC, "samples": 5})).status_code == 422
 
 
-# SC-OUTPUT-02: one propagated quantity across the rows of a Workspace-bound dataset revision.
+# SC-OUTPUT-02: with Workspace-bound dataset rows, the same operation propagates once per row.
 ROWS = [{"rate": 0, "f": 0.0, "f_sd": 0.0}, {"rate": 10, "f": 0.11, "f_sd": 0.02}, {"rate": 20, "f": 0.10, "f_sd": 0.025}]
 FO = {"operation": "first-order-independent", "expression": "rate*f*k", "xField": "rate", "rows": ROWS,
       "inputs": [{"name": "rate", "field": "rate"}, {"name": "f", "field": "f", "sdField": "f_sd"},
@@ -90,7 +90,7 @@ FO = {"operation": "first-order-independent", "expression": "rate*f*k", "xField"
 
 
 def test_rows_are_the_existing_propagation_once_per_row():
-    r = client.post("/v1/workspace/execute", headers=AUTH, json=envelope("workspace.workbench.uncertainty-propagation-rows", FO))
+    r = client.post("/v1/workspace/execute", headers=AUTH, json=envelope("workspace.workbench.uncertainty-propagation", FO))
     assert r.status_code == 200, r.text
     res = r.json()["result"]
     assert res["schema"] == wa.ROWS_SCHEMA and len(res["rows"]) == 3 and len(res["rowResultHashes"]) == 3
@@ -106,7 +106,7 @@ def test_rows_are_the_existing_propagation_once_per_row():
 def test_seeded_monte_carlo_rows_are_reproducible():
     mc = {**FO, "operation": "monte-carlo", "samples": 2000, "seed": 11}
     a, b = (client.post("/v1/workspace/execute", headers=AUTH,
-                        json=envelope("workspace.workbench.uncertainty-propagation-rows", mc)).json()["result"] for _ in range(2))
+                        json=envelope("workspace.workbench.uncertainty-propagation", mc)).json()["result"] for _ in range(2))
     assert a["rows"] == b["rows"] and a["seed"] == 11 and a["rows"][1]["lower"] < a["rows"][1]["value"] < a["rows"][1]["upper"]
 
 
@@ -117,5 +117,5 @@ def test_seeded_monte_carlo_rows_are_reproducible():
     {"expression": "rate*f*k*z"}, {"expression": "rate.__class__"}, {"rows": [{"rate": 1, "f": 0.1, "f_sd": 0.0}] * 201},
 ])
 def test_rows_refusals(over):
-    r = client.post("/v1/workspace/execute", headers=AUTH, json=envelope("workspace.workbench.uncertainty-propagation-rows", {**FO, **over}))
+    r = client.post("/v1/workspace/execute", headers=AUTH, json=envelope("workspace.workbench.uncertainty-propagation", {**FO, **over}))
     assert r.status_code == 422, r.text
