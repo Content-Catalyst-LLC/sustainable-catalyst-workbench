@@ -24,8 +24,8 @@ Do not erase or stash unrelated untracked files. If Git reports checkout conflic
 
 Only after tests pass:
 ```bash
-scp backend/app/erw_v13811_repair.py backend/app/erw_v13811_ui.py backend/tests/test_erw_v13811.py catalystadmin@94.72.113.77:/tmp/
-ssh catalystadmin@94.72.113.77
+scp backend/app/erw_v13811_repair.py backend/app/erw_v13811_ui.py backend/tests/test_erw_v13811.py <operator>@<workbench-host>:/tmp/
+ssh <operator>@<workbench-host>
 ```
 
 ## Contabo — backup and backend-first build
@@ -76,7 +76,7 @@ curl -sS -o /dev/null -w 'UI HTTP %{http_code}\n' http://127.0.0.1:8088/erw/v1.3
 ```
 
 ## Wexford end-to-end acceptance
-From Mac, start/maintain tunnel `ssh -N -L 18088:127.0.0.1:8088 catalystadmin@94.72.113.77`.
+From Mac, start/maintain tunnel `ssh -N -L 18088:127.0.0.1:8088 <operator>@<workbench-host>`.
 Open `http://127.0.0.1:18088/erw/v1.3.8.1.1/report`, log in, choose project `baf85d6f-8821-451f-87f6-5a90ccfd5f56`, then click **Discover saved project objects**. Confirm inventory number, inspect status reasons, and if an object is chart-ready select it and click **Plot eligible saved source**. Inspect SVG/CSV and source hash. If no object is chart-ready, report the counts/reasons; this is evidence a genuine saved compatible series is needed. This release cannot certify an actual Wexford chart without such a series.
 
 ## Rollback

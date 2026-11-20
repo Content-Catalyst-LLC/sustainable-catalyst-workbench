@@ -18,8 +18,8 @@ source .venv/bin/activate
 python -m py_compile backend/app/erw_v135.py backend/app/erw_v135_ui.py backend/tests/test_erw_v135.py
 PYTHONPATH=backend python -m pytest -o addopts="" -q backend/tests/test_erw_v*.py
 # Transfer only if full test suite passes
-scp backend/app/erw_v135.py backend/app/erw_v135_ui.py backend/tests/test_erw_v135.py catalystadmin@94.72.113.77:/tmp/
-ssh catalystadmin@94.72.113.77
+scp backend/app/erw_v135.py backend/app/erw_v135_ui.py backend/tests/test_erw_v135.py <operator>@<workbench-host>:/tmp/
+ssh <operator>@<workbench-host>
 ```
 
 ## Contabo — backend-first and safe rollback

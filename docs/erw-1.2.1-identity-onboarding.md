@@ -15,8 +15,8 @@ git switch feature/erw-1.2.1-sustainable-catalyst-identity-onboarding
 source .venv/bin/activate
 PYTHONPATH=backend python -m pytest -o addopts="" -q backend/tests/test_erw_v*.py
 # Only continue after PASS:
-scp backend/app/erw_v121.py backend/tests/test_erw_v121.py catalystadmin@94.72.113.77:/tmp/
-ssh catalystadmin@94.72.113.77
+scp backend/app/erw_v121.py backend/tests/test_erw_v121.py <operator>@<workbench-host>:/tmp/
+ssh <operator>@<workbench-host>
 ```
 
 ## Contabo production staging

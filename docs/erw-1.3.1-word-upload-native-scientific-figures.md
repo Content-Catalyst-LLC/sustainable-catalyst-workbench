@@ -16,8 +16,8 @@ source .venv/bin/activate
 python -m py_compile backend/app/erw_v131.py backend/app/erw_v131_import.py backend/tests/test_erw_v131.py
 PYTHONPATH=backend python -m pytest -o addopts="" -q backend/tests/test_erw_v*.py
 # Continue only after complete test pass:
-scp backend/app/erw_v131.py backend/app/erw_v131_import.py backend/tests/test_erw_v131.py catalystadmin@94.72.113.77:/tmp/
-ssh catalystadmin@94.72.113.77
+scp backend/app/erw_v131.py backend/app/erw_v131_import.py backend/tests/test_erw_v131.py <operator>@<workbench-host>:/tmp/
+ssh <operator>@<workbench-host>
 ```
 
 ## Contabo backend deployment

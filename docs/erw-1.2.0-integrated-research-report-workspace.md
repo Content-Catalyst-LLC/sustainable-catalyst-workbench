@@ -23,8 +23,8 @@ git switch feature/erw-1.2.0-integrated-research-report-workspace
 source .venv/bin/activate
 PYTHONPATH=backend python -m pytest -o addopts="" -q backend/tests/test_erw_v010.py backend/tests/test_erw_v020.py backend/tests/test_erw_v030.py backend/tests/test_erw_v040.py backend/tests/test_erw_v050.py backend/tests/test_erw_v060.py backend/tests/test_erw_v070.py backend/tests/test_erw_v080.py backend/tests/test_erw_v090.py backend/tests/test_erw_v100.py backend/tests/test_erw_v110.py backend/tests/test_erw_v120.py
 # Do not deploy until tests pass.
-scp backend/app/erw_v120.py backend/tests/test_erw_v120.py catalystadmin@94.72.113.77:/tmp/
-ssh catalystadmin@94.72.113.77
+scp backend/app/erw_v120.py backend/tests/test_erw_v120.py <operator>@<workbench-host>:/tmp/
+ssh <operator>@<workbench-host>
 ```
 
 ## Contabo backend deployment (run on VPS, not Mac)
@@ -68,7 +68,7 @@ curl -fsS -o /dev/null -w 'Explorer HTTP %{http_code}\n' http://127.0.0.1:8088/e
 On **Mac** (new terminal, do not run inside SSH):
 
 ```bash
-ssh -N -L 18088:127.0.0.1:8088 catalystadmin@94.72.113.77
+ssh -N -L 18088:127.0.0.1:8088 <operator>@<workbench-host>
 ```
 
 Open `http://127.0.0.1:18088/erw/v1.2.0/report`. Provide a valid Workbench signed-session token, select a project, and create a table.

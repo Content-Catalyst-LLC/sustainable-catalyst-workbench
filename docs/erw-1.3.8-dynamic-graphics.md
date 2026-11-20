@@ -19,8 +19,8 @@ source .venv/bin/activate
 python -m py_compile backend/app/erw_v138.py backend/tests/test_erw_v138.py
 PYTHONPATH=backend python -m pytest -o addopts="" -q backend/tests/test_erw_v*.py backend/tests/test_erw_style_engine.py
 # Only when tests pass:
-scp backend/app/erw_v138.py backend/tests/test_erw_v138.py catalystadmin@94.72.113.77:/tmp/
-ssh catalystadmin@94.72.113.77
+scp backend/app/erw_v138.py backend/tests/test_erw_v138.py <operator>@<workbench-host>:/tmp/
+ssh <operator>@<workbench-host>
 ```
 
 ## Contabo — backup, build and certify
@@ -71,7 +71,7 @@ curl -sS -o /dev/null -w 'Graphic workspace HTTP %{http_code}\n' http://127.0.0.
 ```
 
 ## Browser acceptance
-Maintain SSH tunnel `ssh -N -L 18088:127.0.0.1:8088 catalystadmin@94.72.113.77`. Open `http://127.0.0.1:18088/erw/v1.3.8/report`, authenticate, select Wexford project and inspect graphics. Change dose, year and attenuation; confirm chart updates; download and inspect SVG and CSV; verify warnings and no saved data mutation. Preserve all previous reports. The general /erw/report URL intentionally remains on the stable 1.3.6 editor.
+Maintain SSH tunnel `ssh -N -L 18088:127.0.0.1:8088 <operator>@<workbench-host>`. Open `http://127.0.0.1:18088/erw/v1.3.8/report`, authenticate, select Wexford project and inspect graphics. Change dose, year and attenuation; confirm chart updates; download and inspect SVG and CSV; verify warnings and no saved data mutation. Preserve all previous reports. The general /erw/report URL intentionally remains on the stable 1.3.6 editor.
 
 ## Rollback
 ```bash

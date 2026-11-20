@@ -37,7 +37,7 @@ PYTHONPATH=backend uvicorn app.main:app --host 127.0.0.1 --port 8098
 ## Contabo deployment procedure (stage, then promote)
 
 ```bash
-ssh catalystadmin@YOUR_CONTABO_HOST
+ssh <operator>@YOUR_CONTABO_HOST
 cd /path/to/your/workbench/repository
 git fetch origin feature/erw-0.1.0-research-foundation
 git switch feature/erw-0.1.0-research-foundation

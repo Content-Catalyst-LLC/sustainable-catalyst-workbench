@@ -21,8 +21,8 @@ source .venv/bin/activate
 python -m py_compile backend/app/erw_style_engine.py backend/app/erw_style_ui.py backend/tests/test_erw_style_engine.py
 PYTHONPATH=backend python -m pytest -o addopts="" -q backend/tests/test_erw_v*.py backend/tests/test_erw_style_engine.py
 # After all tests pass:
-scp backend/app/erw_style_engine.py backend/app/erw_style_ui.py backend/tests/test_erw_style_engine.py catalystadmin@94.72.113.77:/tmp/
-ssh catalystadmin@94.72.113.77
+scp backend/app/erw_style_engine.py backend/app/erw_style_ui.py backend/tests/test_erw_style_engine.py <operator>@<workbench-host>:/tmp/
+ssh <operator>@<workbench-host>
 ```
 
 ## Contabo terminal (preserve 1.3.6 bibliography-fix baseline)

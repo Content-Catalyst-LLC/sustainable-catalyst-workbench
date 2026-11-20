@@ -26,7 +26,7 @@ PYTHONPATH=backend python -m pytest -o addopts="" -q backend/tests/test_erw_v010
 
 ## Contabo preparation (only after Mac tests pass)
 The production backend is a source directory, **not** a Git clone: /opt/sustainable-catalyst/workbench. Running v14.0.0-erw020 image must be retained for rollback.
-Mac scp `backend/app/erw_v030.py` and `backend/tests/test_erw_v030.py` to `catalystadmin@94.72.113.77:/tmp/`.
+Mac scp `backend/app/erw_v030.py` and `backend/tests/test_erw_v030.py` to `<operator>@<workbench-host>:/tmp/`.
 Contabo: back up backend/compose; copy the new files into backend/app and backend/tests and append one new import/router registration to the end of backend/app/main.py. Build image `sustainable-catalyst-workbench:14.0.0-erw030` using `docker build -t sustainable-catalyst-workbench:14.0.0-erw030 -f backend/Dockerfile backend`. Keep existing compose.erw020.yml. New override compose.erw030.yml specifies the new image only; combine with compose.yml and deploy with `--no-build`. Wait for healthy before checking routes. Verify project save/package with a new ephemeral test session. Do not print auth tokens or .env. Roll back using compose.yml + compose.erw020.yml; preserve /data.
 
 ## Test fixture

@@ -17,8 +17,8 @@ python -m pip install 'python-docx>=1.1,<2' 'reportlab>=4.2,<5'
 python -m py_compile backend/app/erw_v134.py backend/app/erw_v134_export.py backend/tests/test_erw_v134.py
 PYTHONPATH=backend python -m pytest -o addopts="" -q backend/tests/test_erw_v*.py
 # Transfer only after suite passes:
-scp backend/app/erw_v134.py backend/app/erw_v134_export.py backend/tests/test_erw_v134.py backend/requirements.txt catalystadmin@94.72.113.77:/tmp/
-ssh catalystadmin@94.72.113.77
+scp backend/app/erw_v134.py backend/app/erw_v134_export.py backend/tests/test_erw_v134.py backend/requirements.txt <operator>@<workbench-host>:/tmp/
+ssh <operator>@<workbench-host>
 ```
 
 ## Contabo backend first — safe staged deployment

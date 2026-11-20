@@ -18,8 +18,8 @@ git switch feature/erw-1.0.0-end-to-end-research-certification
 source .venv/bin/activate
 PYTHONPATH=backend python -m pytest -o addopts="" -q backend/tests/test_erw_v010.py backend/tests/test_erw_v020.py backend/tests/test_erw_v030.py backend/tests/test_erw_v040.py backend/tests/test_erw_v050.py backend/tests/test_erw_v060.py backend/tests/test_erw_v070.py backend/tests/test_erw_v080.py backend/tests/test_erw_v090.py backend/tests/test_erw_v100.py
 # Only after tests pass:
-scp backend/app/erw_v100.py backend/tests/test_erw_v100.py catalystadmin@94.72.113.77:/tmp/
-ssh catalystadmin@94.72.113.77
+scp backend/app/erw_v100.py backend/tests/test_erw_v100.py <operator>@<workbench-host>:/tmp/
+ssh <operator>@<workbench-host>
 ```
 
 ## Contabo deployment (after successful tests)

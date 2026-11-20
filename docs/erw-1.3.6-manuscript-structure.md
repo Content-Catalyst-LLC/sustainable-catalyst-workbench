@@ -20,8 +20,8 @@ source .venv/bin/activate
 python -m py_compile backend/app/erw_v136.py backend/tests/test_erw_v136.py
 PYTHONPATH=backend python -m pytest -o addopts="" -q backend/tests/test_erw_v*.py
 # Only after every test passes:
-scp backend/app/erw_v136.py backend/tests/test_erw_v136.py catalystadmin@94.72.113.77:/tmp/
-ssh catalystadmin@94.72.113.77
+scp backend/app/erw_v136.py backend/tests/test_erw_v136.py <operator>@<workbench-host>:/tmp/
+ssh <operator>@<workbench-host>
 ```
 
 ## Contabo — backend first, preserve /data
@@ -74,7 +74,7 @@ curl -sSI http://127.0.0.1:8088/erw/report | head -n 8
 ```
 
 ## Browser acceptance
-Mac tunnel: `ssh -N -L 18088:127.0.0.1:8088 catalystadmin@94.72.113.77`. Use an alternate local port 18089 if 18088 is occupied.
+Mac tunnel: `ssh -N -L 18088:127.0.0.1:8088 <operator>@<workbench-host>`. Use an alternate local port 18089 if 18088 is occupied.
 
 Open `http://127.0.0.1:18088/erw/report`. Authenticate and select original Wexford project. Restore an existing saved manuscript, preview which sections are empty; only apply the cleanup after review. Confirm populated sections remain; correct Authors and Bibliography; explicitly Save draft snapshot and inspect the new version. Run Publication Readiness Audit again; exported Word/PDF should be independently checked. For a new DOCX upload, choose replace-empty only on an empty starter template; choose append if the current manuscript has content.
 

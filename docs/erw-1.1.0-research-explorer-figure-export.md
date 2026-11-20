@@ -16,8 +16,8 @@ git switch feature/erw-1.1.0-research-explorer-figure-export
 source .venv/bin/activate
 PYTHONPATH=backend python -m pytest -o addopts="" -q backend/tests/test_erw_v0*.py backend/tests/test_erw_v100.py backend/tests/test_erw_v110.py
 # Only if tests pass:
-scp backend/app/erw_v110.py backend/tests/test_erw_v110.py catalystadmin@94.72.113.77:/tmp/
-ssh catalystadmin@94.72.113.77
+scp backend/app/erw_v110.py backend/tests/test_erw_v110.py <operator>@<workbench-host>:/tmp/
+ssh <operator>@<workbench-host>
 ```
 
 ## Contabo backend deployment
@@ -63,7 +63,7 @@ curl -fsSI http://127.0.0.1:8088/erw/v1.1.0/explorer
 For local-only browser inspection (avoid exposing signed tokens to third-party sites), from your Mac create a tunnel:
 
 ```bash
-ssh -L 18088:127.0.0.1:8088 catalystadmin@94.72.113.77
+ssh -L 18088:127.0.0.1:8088 <operator>@<workbench-host>
 # Keep tunnel open, visit http://127.0.0.1:18088/erw/v1.1.0/explorer
 ```
 

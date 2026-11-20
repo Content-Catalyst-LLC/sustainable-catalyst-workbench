@@ -21,8 +21,8 @@ git switch feature/erw-1.2.2-authenticated-report-integration
 source .venv/bin/activate
 PYTHONPATH=backend python -m pytest -o addopts="" -q backend/tests/test_erw_v*.py
 # After PASS:
-scp backend/app/erw_v122.py backend/tests/test_erw_v122.py catalystadmin@94.72.113.77:/tmp/
-ssh catalystadmin@94.72.113.77
+scp backend/app/erw_v122.py backend/tests/test_erw_v122.py <operator>@<workbench-host>:/tmp/
+ssh <operator>@<workbench-host>
 ```
 
 ## Contabo deployment (requires 1.2.1 healthy)

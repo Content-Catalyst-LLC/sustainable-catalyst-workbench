@@ -21,8 +21,8 @@ source .venv/bin/activate
 python -m py_compile backend/app/erw_v1381_source.py backend/app/erw_v1381_ui.py backend/tests/test_erw_v1381.py
 PYTHONPATH=backend python -m pytest -o addopts="" -q backend/tests/test_erw_v*.py backend/tests/test_erw_style_engine.py
 # Only after tests pass
-scp backend/app/erw_v1381_source.py backend/app/erw_v1381_ui.py backend/tests/test_erw_v1381.py catalystadmin@94.72.113.77:/tmp/
-ssh catalystadmin@94.72.113.77
+scp backend/app/erw_v1381_source.py backend/app/erw_v1381_ui.py backend/tests/test_erw_v1381.py <operator>@<workbench-host>:/tmp/
+ssh <operator>@<workbench-host>
 ```
 
 ### Contabo backup, backend-first build and smoke test
@@ -73,7 +73,7 @@ curl -sS -o /dev/null -w 'Page HTTP %{http_code}\n' http://127.0.0.1:8088/erw/v1
 ```
 
 ### Browser acceptance
-Tunnel from Mac `ssh -N -L 18088:127.0.0.1:8088 catalystadmin@94.72.113.77`; open `http://127.0.0.1:18088/erw/v1.3.8.1/report`. Sign in, select Wexford project, and click **Load verified research objects**. Choose a saved ERW 0.6 visual research package, plot it, and download SVG/CSV. Confirm the chart is identical to its saved series, includes correct SHA-256, and warns the potential proxy is hypothetical and not verified atmospheric removal. If there are no qualifying saved objects, the empty catalog is a valid result; do not generate mock data or claim deployment failure.
+Tunnel from Mac `ssh -N -L 18088:127.0.0.1:8088 <operator>@<workbench-host>`; open `http://127.0.0.1:18088/erw/v1.3.8.1/report`. Sign in, select Wexford project, and click **Load verified research objects**. Choose a saved ERW 0.6 visual research package, plot it, and download SVG/CSV. Confirm the chart is identical to its saved series, includes correct SHA-256, and warns the potential proxy is hypothetical and not verified atmospheric removal. If there are no qualifying saved objects, the empty catalog is a valid result; do not generate mock data or claim deployment failure.
 
 ### Rollback
 If current production is `erw138-png`, preserve its Compose override and image:

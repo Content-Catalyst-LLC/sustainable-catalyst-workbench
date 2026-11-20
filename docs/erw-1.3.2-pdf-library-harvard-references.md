@@ -27,8 +27,8 @@ source .venv/bin/activate
 python -m py_compile backend/app/erw_v132.py backend/app/erw_v132_sources.py backend/tests/test_erw_v132.py
 PYTHONPATH=backend python -m pytest -o addopts="" -q backend/tests/test_erw_v*.py
 # Only after the complete suite passes:
-scp backend/app/erw_v132.py backend/app/erw_v132_sources.py backend/tests/test_erw_v132.py catalystadmin@94.72.113.77:/tmp/
-ssh catalystadmin@94.72.113.77
+scp backend/app/erw_v132.py backend/app/erw_v132_sources.py backend/tests/test_erw_v132.py <operator>@<workbench-host>:/tmp/
+ssh <operator>@<workbench-host>
 ```
 
 ## Contabo — backend first (after 1.3.1 is healthy)

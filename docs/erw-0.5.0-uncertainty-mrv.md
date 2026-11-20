@@ -19,8 +19,8 @@ git fetch origin feature/erw-0.5.0-uncertainty-mrv
 git switch feature/erw-0.5.0-uncertainty-mrv
 source .venv/bin/activate
 PYTHONPATH=backend python -m pytest -o addopts="" -q backend/tests/test_erw_v010.py backend/tests/test_erw_v020.py backend/tests/test_erw_v030.py backend/tests/test_erw_v040.py backend/tests/test_erw_v050.py
-scp backend/app/erw_v050.py backend/tests/test_erw_v050.py catalystadmin@94.72.113.77:/tmp/
-ssh catalystadmin@94.72.113.77
+scp backend/app/erw_v050.py backend/tests/test_erw_v050.py <operator>@<workbench-host>:/tmp/
+ssh <operator>@<workbench-host>
 ```
 
 ## Contabo (ONLY after 52 tests pass)
