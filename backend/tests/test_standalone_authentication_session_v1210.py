@@ -70,7 +70,12 @@ def test_tampered_token_rejected():
         "ttlSeconds":600
     }).json()
     token=created["token"]
-    tampered=token[:-1] + ("A" if token[-1]!="A" else "B")
+    # Alter a character in the middle of the signature. The final base64url character of a
+    # 32-byte HMAC carries two unused bits, so swapping only that character (e.g. A->B) can
+    # decode to the same signature and make this test pass or fail at random.
+    prefix,body,sig=token.split(".",2)
+    k=len(sig)//2
+    tampered=f"{prefix}.{body}.{sig[:k]}{'A' if sig[k]!='A' else 'B'}{sig[k+1:]}"
     response=client.post("/standalone/v1/auth/session/verify",json={"token":tampered})
     assert response.status_code==401
 

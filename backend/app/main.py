@@ -846,3 +846,7 @@ app.include_router(erw_v13811_ui_router)
 # ERW v1.3.8.1.6 — bibliography and evidence registry
 from app.erw_v13816_registry import router as erw_v13816_registry_router
 app.include_router(erw_v13816_registry_router)
+
+# SC-SIM-01 G7: governed Workspace execution adapter (Workspace issues the receipt).
+from app.workspace_adapter import router as workspace_adapter_router  # noqa: E402
+app.include_router(workspace_adapter_router)

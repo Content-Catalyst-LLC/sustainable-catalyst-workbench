@@ -1,9 +1,9 @@
 name: workbench-backend
 
-# The recovered production backend (sc-workbench:uvr-01-3-7) built reproducibly, with the base
-# images pinned by digest and the Python packages pinned to production. The full suite may not add a
-# failure beyond deploy/reproducible/uvr-01-3-7/BASELINE_FAILURES.txt, the failures of the production
-# image's own suite (see docs/SC-RELEASE-01-TEST-DISPOSITION.md on the release candidate).
+# Built reproducibly (base images pinned by digest, Python packages pinned to production). The
+# governed Workspace adapter tests must pass. The full suite may not add a failure beyond
+# backend/tests/BASELINE_FAILURES.txt, the recorded and dispositioned pre-existing failures
+# (see docs/SC-RELEASE-01-TEST-DISPOSITION.md).
 on:
   pull_request:
   push:
@@ -20,7 +20,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build the backend image reproducibly (packages must match the pins)
         run: deploy/reproducible/uvr-01-3-7/build.sh sc-workbench-ci
-      - name: Full suite against the production baseline (no new failures)
+      - name: Governed adapter and recovered-module tests (must pass)
+        run: >
+          docker run --rm --network none --entrypoint python sc-workbench-ci -m pytest -q -p no:cacheprovider
+          tests/test_workspace_adapter_sc_sim01.py tests/test_reproducible_computational_package_v10110.py
+      - name: Full suite against the recorded baseline (no new failures)
         run: |
           set +e
           docker run --rm --network none --entrypoint python sc-workbench-ci -m pytest -q -p no:cacheprovider -rf tests > full.txt 2>&1
@@ -28,7 +32,7 @@ jobs:
           tail -n 3 full.txt
           if tail -n 1 full.txt | grep -qE " errors? |Interrupted|no tests ran"; then echo "::error::collection or setup errors"; exit 1; fi
           grep '^FAILED' full.txt | sed -E 's/^FAILED ([^ ]+).*/\1/' | LC_ALL=C sort -u > failing.txt
-          LC_ALL=C sort -u deploy/reproducible/uvr-01-3-7/BASELINE_FAILURES.txt > baseline.txt
+          LC_ALL=C sort -u backend/tests/BASELINE_FAILURES.txt > baseline.txt
           new=$(LC_ALL=C comm -13 baseline.txt failing.txt)
           fixed=$(LC_ALL=C comm -23 baseline.txt failing.txt | wc -l)
           echo "failing: $(wc -l < failing.txt)  baseline: $(wc -l < baseline.txt)  fixed since baseline: $fixed"
