@@ -6,6 +6,8 @@ authenticated endpoint, so their results get a Workspace runtime receipt and can
 
 - ``workspace.workbench.uncertainty-propagation`` -> v11150.execute_uncertainty (first-order propagation,
   seeded Monte Carlo, convergence study)
+  or, when Workspace binds a dataset revision (``rows``), the same calculation once per row (SC-OUTPUT-02: a figure
+  and table of one propagated quantity across the rows)
 - ``workspace.workbench.dynamical-simulation`` -> v750.run_simulation (scalar dynamics, linear state space,
   ODE IVP)
 
@@ -44,6 +46,8 @@ router = APIRouter(tags=["workbench-workspace-execution-adapter"])
 
 
 def _uncertainty(payload: Dict[str, Any]) -> Dict[str, Any]:
+    if "rows" in payload:
+        return _uncertainty_rows(payload)
     expression = str(payload.get("expression") or "")
     if len(expression) > MAX_EXPRESSION_CHARS or "__" in expression or not EXPRESSION_RE.fullmatch(expression):
         raise HTTPException(status_code=422, detail="expression is outside the governed symbolic grammar")
@@ -57,6 +61,83 @@ def _uncertainty(payload: Dict[str, Any]) -> Dict[str, Any]:
         # Seeded draws: echo the seed where Workspace looks for it, so a same-seed replay is never a reproduction.
         body = {**body, "seed": body["result"].get("seed")}
     return body
+
+
+ROWS_SCHEMA = "sc-workbench-uncertainty-rows-result/1.0"
+MAX_ROWS = 200
+ROW_OPERATIONS = {"first-order-independent", "monte-carlo"}
+
+
+def _row_number(row: Dict[str, Any], field: str, index: int) -> float:
+    value = row.get(field)
+    if isinstance(value, bool) or not isinstance(value, (int, float)) or not np.isfinite(value):
+        raise HTTPException(status_code=422, detail=f"row {index}: field '{field}' must be a finite number")
+    return float(value)
+
+
+def _uncertainty_rows(payload: Dict[str, Any]) -> Dict[str, Any]:
+    """SC-OUTPUT-02: the existing propagation, once per row of a dataset revision Workspace has re-hashed and bound.
+
+    Each input is either a dataset field (``field``, with an optional ``sdField``) or a declared constant (``mean``,
+    ``standardDeviation``). Every row is one ``execute_uncertainty`` call; nothing is computed here except reading the
+    rows and reporting each call's own nominal value, standard deviation and interval.
+    """
+    rows = payload.get("rows")
+    if not isinstance(rows, list) or not 1 <= len(rows) <= MAX_ROWS or not all(isinstance(r, dict) for r in rows):
+        raise HTTPException(status_code=422, detail=f"rows must be 1..{MAX_ROWS} records (bind a dataset revision)")
+    operation = str(payload.get("operation") or "first-order-independent")
+    if operation not in ROW_OPERATIONS:
+        raise HTTPException(status_code=422, detail=f"operation must be one of {sorted(ROW_OPERATIONS)}")
+    x_field = str(payload.get("xField") or "")
+    inputs = payload.get("inputs")
+    if not IDENTIFIER_RE.fullmatch(x_field) or not isinstance(inputs, list) or not 1 <= len(inputs) <= 20:
+        raise HTTPException(status_code=422, detail="xField and 1..20 inputs are required")
+    names = []
+    for spec in inputs:
+        if not isinstance(spec, dict) or not IDENTIFIER_RE.fullmatch(str(spec.get("name") or "")):
+            raise HTTPException(status_code=422, detail="each input needs an identifier name")
+        if ("field" in spec) == ("mean" in spec):
+            raise HTTPException(status_code=422, detail=f"input {spec['name']}: give either a dataset field or a constant mean")
+        names.append(spec["name"])
+    if len(set(names)) != len(names):
+        raise HTTPException(status_code=422, detail="input names must be unique")
+    level = float(payload.get("confidenceLevel") or 0.95)
+    if operation == "monte-carlo" and level != 0.95:
+        raise HTTPException(status_code=422, detail="row intervals are the 2.5%-97.5% quantiles; confidenceLevel must be 0.95")
+    out, hashes = [], []
+    for i, row in enumerate(rows):
+        resolved = []
+        for spec in inputs:
+            if "field" in spec:
+                mean = _row_number(row, str(spec["field"]), i)
+                sd = _row_number(row, str(spec["sdField"]), i) if spec.get("sdField") else 0.0
+            else:
+                mean, sd = float(spec["mean"]), float(spec.get("standardDeviation") or 0.0)
+            resolved.append({"name": spec["name"], "mean": mean, "standardDeviation": sd})
+        call = {"operation": operation, "expression": payload.get("expression"), "variables": names,
+                "confidenceLevel": level}
+        if operation == "first-order-independent":
+            call.update(means=[r["mean"] for r in resolved], standardDeviations=[r["standardDeviation"] for r in resolved])
+        else:
+            call.update(inputs=resolved, samples=int(payload.get("samples") or 10000), seed=payload.get("seed"))
+        body = _uncertainty(call)  # the scalar path: grammar check, then execute_uncertainty
+        res = body["result"]
+        if operation == "first-order-independent":
+            value, sd = res["nominalValue"], res["outputStandardDeviation"]
+            lower, upper = value - sd, value + sd
+        else:
+            summary = res["output"]
+            value, sd = summary["mean"], summary["standardDeviation"]
+            lower, upper = summary["quantiles"]["0.025"], summary["quantiles"]["0.975"]
+        out.append({x_field: _row_number(row, x_field, i), "value": value, "standardUncertainty": sd,
+                    "lower": lower, "upper": upper})
+        hashes.append(body["resultHash"])
+    interval = ("± one standard uncertainty (first-order Taylor propagation, independent inputs)"
+                if operation == "first-order-independent" else "2.5%–97.5% quantiles of the seeded Monte Carlo draws")
+    return {"schema": ROWS_SCHEMA, "operation": operation, "method": body["method"], "engine": body["engine"],
+            "expression": payload.get("expression"), "inputs": inputs, "xField": x_field, "interval": interval,
+            "rows": out, "rowResultHashes": hashes,
+            **({"seed": payload.get("seed")} if operation == "monte-carlo" else {})}
 
 
 def _dynamics(payload: Dict[str, Any]) -> Dict[str, Any]:
